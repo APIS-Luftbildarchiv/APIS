@@ -24,8 +24,9 @@ from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 # Initialize Qt resources from file resources.py
 import resources_rc
-# Import the code for the dialog
-from apis_dialog import ApisDialog
+# Import the code for the dialogs
+# from apis_dialog import ApisDialog
+from apis_dialog import *
 import os.path
 
 
@@ -59,7 +60,8 @@ class Apis:
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = ApisDialog()
+        self.filmDlg = ApisFilmDialog(self.iface)
+        self.settingsDlg = ApisSettingsDialog(self.iface)
 
         # Declare instance attributes
         self.actions = []
@@ -67,6 +69,8 @@ class Apis:
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'Apis')
         self.toolbar.setObjectName(u'Apis')
+
+        self.configStatus = self.checkSettingsOnStartUp()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -157,22 +161,34 @@ class Apis:
 
         return action
 
+    def checkSettingsOnStartUp(self):
+        return False
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/Apis/icons/icon.png'
-        self.add_action(
+        # Settings Dialog
+        if self.configStatus:
+            icon_path = ':/plugins/Apis/icons/settings.png'
+        else:
+            icon_path = ':/plugins/Apis/icons/settings_alert.png'
+        #icon_path = ':/plugins/Apis/icons/settings.png'
+        self.openSettingsButton = self.add_action(
             icon_path,
             text=self.tr(u'Einstellungen'),
-            callback=self.run,
-            parent=self.iface.mainWindow())
+            callback=self.openSettingsDialog,
+            parent=self.iface.mainWindow()
+        )
 
-        icon_path = ':/plugins/Apis/icon.png'
+        #self.openSettingsButton.setIcon(QIcon(':/plugins/Apis/icons/settings.png'))
+
+        #Film Dialog
+        icon_path = ':/plugins/Apis/icons/film.png'
         self.add_action(
             icon_path,
-            text=self.tr(u'Filmeingabe'),
-            callback=self.run,
-            enabled_flag=False,
+            text=self.tr(u'Film'),
+            callback=self.openFilmDialog,
+            enabled_flag=self.configStatus,
             parent=self.iface.mainWindow())
 
 
@@ -188,12 +204,24 @@ class Apis:
         del self.toolbar
 
 
-    def run(self):
+    def openSettingsDialog(self):
         """Run method that performs all the real work"""
         # show the dialog
-        self.dlg.show()
+        self.settingsDlg.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.settingsDlg.exec_()
+        # See if OK was pressed
+        if result:
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
+
+    def openFilmDialog(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.filmDlg.show()
+        # Run the dialog event loop
+        result = self.filmDlg.exec_()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_settings_form.ui'
 #
-# Created: Sat Apr 18 11:39:04 2015
+# Created: Sat Apr 18 15:30:54 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -92,6 +92,8 @@ class Ui_apisSettingsDialog(object):
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
 
         self.retranslateUi(apisSettingsDialog)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), apisSettingsDialog.accept)
+        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), apisSettingsDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(apisSettingsDialog)
 
     def retranslateUi(self, apisSettingsDialog):
