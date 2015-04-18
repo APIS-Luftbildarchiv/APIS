@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>apisSettingsDialog</class>
+ <widget class="QDialog" name="apisSettingsDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>APIS Einstellungen</string>
+  </property>
+  <property name="locale">
+   <locale language="German" country="Austria"/>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>281</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="title">
+    <string>APIS Spatialite Datenbank</string>
+   </property>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>261</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QComboBox" name="comboBox_2"/>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>281</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Pfade</string>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>261</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="1">
+      <widget class="QToolButton" name="toolButton_2">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="lineEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>261</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="1" column="1">
+      <widget class="QToolButton" name="toolButton_3">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="lineEdit_2"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>470</y>
+     <width>156</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
