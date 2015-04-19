@@ -1,7 +1,7 @@
 Plugin Builder Results
 
 Your plugin Apis was created in:
-    C:\apis\APIS\Apis
+    C:\apis\APIS\APIS
 
 Your QGIS plugin directory is located at:
     C:/Users/Johannes/.qgis2/python/plugins
