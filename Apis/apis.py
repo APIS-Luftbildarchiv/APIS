@@ -26,11 +26,11 @@ from PyQt4.QtGui import QAction, QIcon
 import resources_rc
 # Import the code for the dialogs
 # from apis_dialog import ApisDialog
-from apis_dialog import *
+from apis_dialogs import *
 import os.path
 
 
-class Apis:
+class APIS:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -67,8 +67,8 @@ class Apis:
         self.actions = []
         self.menu = self.tr(u'&APIS')
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'Apis')
-        self.toolbar.setObjectName(u'Apis')
+        self.toolbar = self.iface.addToolBar(u'APIS')
+        self.toolbar.setObjectName(u'APIS')
 
         self.configStatus = self.checkSettingsOnStartUp()
 
@@ -169,9 +169,9 @@ class Apis:
 
         # Settings Dialog
         if self.configStatus:
-            icon_path = ':/plugins/Apis/icons/settings.png'
+            icon_path = ':/plugins/APIS/icons/settings.png'
         else:
-            icon_path = ':/plugins/Apis/icons/settings_alert.png'
+            icon_path = ':/plugins/APIS/icons/settings_alert.png'
         #icon_path = ':/plugins/Apis/icons/settings.png'
         self.openSettingsButton = self.add_action(
             icon_path,
@@ -183,7 +183,7 @@ class Apis:
         #self.openSettingsButton.setIcon(QIcon(':/plugins/Apis/icons/settings.png'))
 
         #Film Dialog
-        icon_path = ':/plugins/Apis/icons/film.png'
+        icon_path = ':/plugins/APIS/icons/film.png'
         self.add_action(
             icon_path,
             text=self.tr(u'Film'),

@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="/plugins/Apis">
+  <qresource prefix="/plugins/APIS">
         <file>icons/icon.png</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@ import unittest
 
 from PyQt4.QtGui import QDialogButtonBox, QDialog
 
-from apis_dialog import ApisDialog
+from apis_dialogs import ApisDialog
 
 from utilities import get_qgis_app
 QGIS_APP = get_qgis_app()

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/Apis" >
+    <qresource prefix="/plugins/APIS" >
         <file>icon.png</file>
         <file>icons/icon.png</file>
         <file>icons/film.png</file>
