@@ -27,6 +27,8 @@ import resources_rc
 # Import the code for the dialogs
 # from apis_dialog import ApisDialog
 from apis_dialogs import *
+from apis_utils import *
+
 import os.path
 
 
@@ -50,7 +52,7 @@ class APIS:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'Apis_{}.qm'.format(locale))
+            'APIS_{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -70,7 +72,9 @@ class APIS:
         self.toolbar = self.iface.addToolBar(u'APIS')
         self.toolbar.setObjectName(u'APIS')
 
-        self.configStatus = self.checkSettingsOnStartUp()
+        self.au = ApisUtils(self)
+
+        self.configStatus = self.au.checkConfigStatus()
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -85,7 +89,7 @@ class APIS:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('Apis', message)
+        return QCoreApplication.translate('APIS', message)
 
 
     def add_action(
@@ -161,9 +165,6 @@ class APIS:
 
         return action
 
-    def checkSettingsOnStartUp(self):
-        return False
-
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
@@ -190,8 +191,6 @@ class APIS:
             callback=self.openFilmDialog,
             enabled_flag=self.configStatus,
             parent=self.iface.mainWindow())
-
-
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""

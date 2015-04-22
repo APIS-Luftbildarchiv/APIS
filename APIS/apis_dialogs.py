@@ -23,22 +23,78 @@
 
 import os
 
+from PyQt4.QtCore import QSettings, QTranslator
 from PyQt4.QtGui import *
 # from PyQt4 import uic
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
+from apis_utils import ApisUtils
+
 # --------------------------------------------------------
 # Settings - Basis Einstellungen für Plugin
 # --------------------------------------------------------
 from apis_settings_form import *
+from functools import partial
 
 class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
     def __init__(self, iface):
         QDialog.__init__(self)
         self.iface = iface
         self.setupUi(self)
+
+        # APIS Utils methods
+        self.au = ApisUtils(self)
+
+        # Signals/Slot Connections
+        self.rejected.connect(self.onReject)
+        self.buttonBox.rejected.connect(self.onReject)
+        self.buttonBox.accepted.connect(self.onAccept)
+
+        # Selectors for getFileOpenDialogs
+        # paths chosen by user
+        self.fileSelectors = {
+            "dbPath" : {
+                "button" : self.btDbPath,
+                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus"),
+                "input" : self.inDbPath
+            }
+        }
+        for key, item in self.fileSelectors.items():
+            control = item['button']
+            slot = partial(self.au.callOpenFileDialog, key)
+            control.clicked.connect(slot)
+
+        # Selectors for ExistPathDialogs
+        # paths chosen by user
+        self.pathSelectors = {
+            "dbPath" : {
+                "button" : self.btDbPath,
+                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus"),
+                "input" : self.inDbPath
+            }
+        }
+
+    def onAccept(self):
+        '''
+        Check DB
+        Save options when pressing OK button
+        Update Plugin Status
+        '''
+
+        # Save Majic file names
+        # s = QSettings()
+
+        self.accept()
+
+    def onReject(self):
+        '''
+        Run some actions when
+        the user closes the dialog
+        '''
+        self.close()
+
 
 # --------------------------------------------------------
 # Film - Eingabe, Pflege
