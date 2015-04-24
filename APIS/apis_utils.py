@@ -31,18 +31,31 @@ class ApisUtils:
 
     def checkConfigStatus(self):
         s = QSettings()
-        return s.value("APIS/plugin_config_status", False)
+        return s.value("APIS/plugin_config_status", True)
 
     def callOpenFileDialog(self, key):
-        '''
-        Ask the user to select a folder
+        """
+        Ask the user to select a file
         and write down the path to appropriate field
-        '''
+        """
         inPath = QFileDialog.getOpenFileName(
             None,
-            self.tr(u"Datei Auswählen"),
+            self.dialog.fileSelectors[key]['infotext'],
             str(self.dialog.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t')
         )
         if os.path.exists(unicode(inPath)):
             self.dialog.fileSelectors[key]['input'].setText(unicode(inPath))
+
+    def callOpenDirectoryDialog(self, key):
+        """
+        Ask the user to select a folder
+        and write down the path to appropriate field
+        """
+        inPath = QFileDialog.getExistingDirectory(
+            None,
+            self.dialog.directorySelectors[key]['infotext'],
+            str(self.dialog.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+        )
+        if os.path.exists(unicode(inPath)):
+            self.dialog.directorySelectors[key]['input'].setText(unicode(inPath))
 

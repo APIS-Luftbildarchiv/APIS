@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- Apis
-                                 A QGIS plugin
- QGIS Plugin for APIS
+ APIS
+ A QGIS plugin for APIS - Luftbildarchiv
                               -------------------
         begin                : 2015-04-10
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by Johannes Liem/Luftbildarchiv Uni Wien
+        copyright            : (C) 2015 by Johannes Liem (digitalcartography.org) und Luftbildarchiv Uni Wien
         email                : johannes.liem@digitalcartography.org
  ***************************************************************************/
 
@@ -20,6 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 # Initialize Qt resources from file resources.py
@@ -76,7 +76,133 @@ class APIS:
 
         self.configStatus = self.au.checkConfigStatus()
 
-    # noinspection PyMethodMayBeStatic
+    def addApisAction(
+        self,
+        iconPath,
+        text,
+        callback,
+        enabledFlag=True,
+        addToMenu=True,
+        addToToolbar=True,
+        statusTip=None,
+        whatsThis=None,
+        parent=None):
+        """
+        Add a toolbar icon to the toolbar.
+
+        :param iconPath: Path to the icon for this action. Can be a resource
+            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+        :type iconPath: str
+
+        :param text: Text that should be shown in menu items for this action.
+        :type text: str
+
+        :param callback: Function to be called when the action is triggered.
+        :type callback: function
+
+        :param enabledFlag: A flag indicating if the action should be enabled
+            by default. Defaults to True.
+        :type enabledFlag: bool
+
+        :param addToMenu: Flag indicating whether the action should also
+            be added to the menu. Defaults to True.
+        :type addToMenu: bool
+
+        :param addToToolbar: Flag indicating whether the action should also
+            be added to the toolbar. Defaults to True.
+        :type addToToolbar: bool
+
+        :param statusTip: Optional text to show in a popup when mouse pointer
+            hovers over the action.
+        :type statusTip: str
+
+        :param parent: Parent widget for the new action. Defaults None.
+        :type parent: QWidget
+
+        :param whatsThis: Optional text to show in the status bar when the
+            mouse pointer hovers over the action.
+        :type whatsThis: str
+
+        :returns: The action that was created. Note that the action is also
+            added to self.actions list.
+        :rtype: QAction
+        """
+
+        icon = QIcon(iconPath)
+        action = QAction(icon, text, parent)
+        action.triggered.connect(callback)
+        action.setEnabled(enabledFlag)
+
+        if statusTip is not None:
+            action.setStatusTip(statusTip)
+
+        if whatsThis is not None:
+            action.setWhatsThis(whatsThis)
+
+        if addToToolbar:
+            self.toolbar.addAction(action)
+
+        if addToMenu:
+            self.iface.addPluginToDatabaseMenu(
+                self.menu,
+                action)
+
+        self.actions.append(action)
+
+        return action
+
+    def initGui(self):
+        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+
+        # Settings Dialog
+        if self.configStatus:
+            iconPath = ':/plugins/APIS/icons/settings.png'
+        else:
+            iconPath = ':/plugins/APIS/icons/settings_alert.png'
+
+        self.openSettingsButton = self.addApisAction(
+            iconPath,
+            text=self.tr(u'Einstellungen'),
+            callback=self.openSettingsDialog,
+            parent=self.iface.mainWindow()
+        )
+
+        #self.openSettingsButton.setIcon(QIcon(':/plugins/Apis/icons/settings.png'))
+
+        #Film Dialog
+        iconPath = ':/plugins/APIS/icons/film.png'
+        self.addApisAction(
+            iconPath,
+            text=self.tr(u'Film'),
+            callback=self.openFilmDialog,
+            enabledFlag=self.configStatus,
+            parent=self.iface.mainWindow())
+
+    def openFilmDialog(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.filmDlg.show()
+        # Run the dialog event loop
+        result = self.filmDlg.exec_()
+        # See if OK was pressed
+        if result:
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
+
+    def openSettingsDialog(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.settingsDlg.show()
+        # Run the dialog event loop
+        result = self.settingsDlg.exec_()
+        # See if OK was pressed
+        if result:
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
+
+     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
 
@@ -91,107 +217,6 @@ class APIS:
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('APIS', message)
 
-
-    def add_action(
-        self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
-        """Add a toolbar icon to the toolbar.
-
-        :param icon_path: Path to the icon for this action. Can be a resource
-            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
-        :type icon_path: str
-
-        :param text: Text that should be shown in menu items for this action.
-        :type text: str
-
-        :param callback: Function to be called when the action is triggered.
-        :type callback: function
-
-        :param enabled_flag: A flag indicating if the action should be enabled
-            by default. Defaults to True.
-        :type enabled_flag: bool
-
-        :param add_to_menu: Flag indicating whether the action should also
-            be added to the menu. Defaults to True.
-        :type add_to_menu: bool
-
-        :param add_to_toolbar: Flag indicating whether the action should also
-            be added to the toolbar. Defaults to True.
-        :type add_to_toolbar: bool
-
-        :param status_tip: Optional text to show in a popup when mouse pointer
-            hovers over the action.
-        :type status_tip: str
-
-        :param parent: Parent widget for the new action. Defaults None.
-        :type parent: QWidget
-
-        :param whats_this: Optional text to show in the status bar when the
-            mouse pointer hovers over the action.
-
-        :returns: The action that was created. Note that the action is also
-            added to self.actions list.
-        :rtype: QAction
-        """
-
-        icon = QIcon(icon_path)
-        action = QAction(icon, text, parent)
-        action.triggered.connect(callback)
-        action.setEnabled(enabled_flag)
-
-        if status_tip is not None:
-            action.setStatusTip(status_tip)
-
-        if whats_this is not None:
-            action.setWhatsThis(whats_this)
-
-        if add_to_toolbar:
-            self.toolbar.addAction(action)
-
-        if add_to_menu:
-            self.iface.addPluginToDatabaseMenu(
-                self.menu,
-                action)
-
-        self.actions.append(action)
-
-        return action
-
-    def initGui(self):
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
-
-        # Settings Dialog
-        if self.configStatus:
-            icon_path = ':/plugins/APIS/icons/settings.png'
-        else:
-            icon_path = ':/plugins/APIS/icons/settings_alert.png'
-        #icon_path = ':/plugins/Apis/icons/settings.png'
-        self.openSettingsButton = self.add_action(
-            icon_path,
-            text=self.tr(u'Einstellungen'),
-            callback=self.openSettingsDialog,
-            parent=self.iface.mainWindow()
-        )
-
-        #self.openSettingsButton.setIcon(QIcon(':/plugins/Apis/icons/settings.png'))
-
-        #Film Dialog
-        icon_path = ':/plugins/APIS/icons/film.png'
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Film'),
-            callback=self.openFilmDialog,
-            enabled_flag=self.configStatus,
-            parent=self.iface.mainWindow())
-
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
@@ -201,28 +226,3 @@ class APIS:
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
-
-
-    def openSettingsDialog(self):
-        """Run method that performs all the real work"""
-        # show the dialog
-        self.settingsDlg.show()
-        # Run the dialog event loop
-        result = self.settingsDlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
-
-    def openFilmDialog(self):
-        """Run method that performs all the real work"""
-        # show the dialog
-        self.filmDlg.show()
-        # Run the dialog event loop
-        result = self.filmDlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass

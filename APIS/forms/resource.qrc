@@ -1,5 +1,17 @@
 <RCC>
   <qresource prefix="/plugins/APIS">
-        <file>icons/icon.png</file>
-    </qresource>
+      <file>icons/icon.png</file>
+      <file>icons/first.png</file>
+      <file>icons/last.png</file>
+      <file>icons/previous.png</file>
+      <file>icons/next.png</file>
+      <file>icons/newfilm.png</file>
+      <file>icons/flightpath.png</file>
+      <file>icons/extractgps.png</file>
+      <file>icons/images.png</file>
+      <file>icons/print.png</file>
+      <file>icons/sites.png</file>
+      <file>icons/search.png</file>
+      <file>icons/filmselection.png</file>
+  </qresource>
 </RCC>

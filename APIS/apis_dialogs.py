@@ -55,10 +55,10 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         # Selectors for getFileOpenDialogs
         # paths chosen by user
         self.fileSelectors = {
-            "dbPath" : {
-                "button" : self.btDbPath,
-                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus"),
-                "input" : self.inDbPath
+            "uiDatabaseFile" : {
+                "button" : self.uiDatabaseFileTBtn,
+                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus ..."),
+                "input" : self.uiDatabaseFileEdit
             }
         }
         for key, item in self.fileSelectors.items():
@@ -68,13 +68,22 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
 
         # Selectors for ExistPathDialogs
         # paths chosen by user
-        self.pathSelectors = {
-            "dbPath" : {
-                "button" : self.btDbPath,
-                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus"),
-                "input" : self.inDbPath
+        self.directorySelectors = {
+            "aerialImageDir" : {
+                "button" : self.uiAerialImageDirTBtn,
+                "infotext": self.tr(u"Wählen Sie den Pfad zu den Luftbildern aus ..."),
+                "input" : self.uiAerialImageDirEdit
+            },
+            "orthoPhotoDir" : {
+                "button" : self.uiOrthoPhotoDirTBtn,
+                "infotext": self.tr(u"Wählen Sie den Pfad zu den Orthofotos aus .."),
+                "input" : self.uiOrthoPhotoDirEdit
             }
         }
+        for key, item in self.directorySelectors.items():
+            control = item['button']
+            slot = partial(self.au.callOpenDirectoryDialog, key)
+            control.clicked.connect(slot)
 
     def onAccept(self):
         '''
@@ -83,8 +92,10 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         Update Plugin Status
         '''
 
-        # Save Majic file names
-        # s = QSettings()
+        # Save Settings
+        s = QSettings()
+
+
 
         self.accept()
 

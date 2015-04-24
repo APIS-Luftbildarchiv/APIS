@@ -69,10 +69,17 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLineEdit" name="inDbPath"/>
+      <widget class="QLineEdit" name="uiDatabaseFileEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="placeholderText">
+        <string>Wählen Sie die APIS Datenbank aus ...</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="btDbPath">
+      <widget class="QToolButton" name="uiDatabaseFileTBtn">
        <property name="text">
         <string>...</string>
        </property>
@@ -110,7 +117,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="1" column="1">
-      <widget class="QToolButton" name="toolButton_2">
+      <widget class="QToolButton" name="uiAerialImageDirTBtn">
        <property name="text">
         <string>...</string>
        </property>
@@ -124,7 +131,11 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="uiAerialImageDirEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -139,7 +150,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="1" column="1">
-      <widget class="QToolButton" name="toolButton_3">
+      <widget class="QToolButton" name="uiOrthoPhotoDirTBtn">
        <property name="text">
         <string>...</string>
        </property>
@@ -153,7 +164,11 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="QLineEdit" name="uiOrthoPhotoDirEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -182,7 +197,11 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEdit_3"/>
+      <widget class="QLineEdit" name="lineEdit_3">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -211,7 +230,11 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLineEdit" name="lineEdit_5"/>
+      <widget class="QLineEdit" name="lineEdit_5">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
