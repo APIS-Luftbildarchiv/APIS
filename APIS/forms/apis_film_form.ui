@@ -5,13 +5,28 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
-    <height>569</height>
+    <width>870</width>
+    <height>800</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>870</width>
+    <height>490</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>870</width>
+    <height>800</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>APIS Film</string>
@@ -22,37 +37,61 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>410</y>
-     <width>237</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Apply|QDialogButtonBox::Ok|QDialogButtonBox::Save</set>
-   </property>
-   <property name="centerButtons">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>801</width>
+     <width>851</width>
      <height>41</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="uiTopHorizontalLayout">
     <item>
-     <widget class="QToolButton" name="uiFirstTBtn">
+     <widget class="QPushButton" name="uiFilmSelectionBtn">
+      <property name="text">
+       <string>Filmnummer</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/filmselection.png</normaloff>:/plugins/APIS/icons/filmselection.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="uiCurrentFilmNumberEdit">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 218, 218);</string>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QToolButton" name="uiFirstFilmTBtn">
       <property name="text">
        <string>first</string>
       </property>
@@ -69,7 +108,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QToolButton" name="uiPreviousTBtn">
+     <widget class="QToolButton" name="uiPreviousFilmTBtn">
       <property name="text">
        <string>previous</string>
       </property>
@@ -80,14 +119,7 @@
      </widget>
     </item>
     <item>
-     <widget class="Line" name="line_6">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="uiCurrentFilmCountEdit">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -102,19 +134,19 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>of 9999</string>
+       <string>of</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="Line" name="line">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+     <widget class="QLabel" name="uiTotalFilmCountLbl">
+      <property name="text">
+       <string>9999</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QToolButton" name="uiNextTBtn">
+     <widget class="QToolButton" name="uiNextFilmTBtn">
       <property name="text">
        <string>next</string>
       </property>
@@ -125,7 +157,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QToolButton" name="uiLastTBtn">
+     <widget class="QToolButton" name="uiLastFilmTBtn">
       <property name="text">
        <string>last</string>
       </property>
@@ -155,7 +187,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/newfilm.png</normaloff>:/plugins/APIS/icons/newfilm.png</iconset>
+        <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -172,7 +204,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/icon.png</normaloff>:/plugins/APIS/icons/icon.png</iconset>
+        <normaloff>:/plugins/APIS/icons/search.png</normaloff>:/plugins/APIS/icons/search.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -184,29 +216,16 @@
     </item>
    </layout>
   </widget>
-  <widget class="Line" name="line_5">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>510</y>
-     <width>801</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>520</y>
-     <width>801</width>
-     <height>40</height>
+     <y>440</y>
+     <width>851</width>
+     <height>41</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QHBoxLayout" name="uiBottomHorizontalLayout">
     <item>
      <widget class="QPushButton" name="uiShowFlightPathBtn">
       <property name="toolTip">
@@ -317,176 +336,27 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>801</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_4">
-    <item>
-     <widget class="QToolButton" name="toolButton">
-      <property name="text">
-       <string>Filmnummer</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="Line" name="line_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit_3"/>
-    </item>
-    <item>
-     <widget class="Line" name="line_9">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>Flugdatum</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QDateEdit" name="dateEdit">
-      <property name="buttonSymbols">
-       <enum>QAbstractSpinBox::NoButtons</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="Line" name="line_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>Archiv</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="comboBox_2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>Ersteintrag:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QDateEdit" name="uiInitalEntryDate">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-      <property name="buttonSymbols">
-       <enum>QAbstractSpinBox::NoButtons</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_23">
-      <property name="text">
-       <string>Letzte Bearbeitung:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QDateEdit" name="uiLastChangesDate">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-      <property name="buttonSymbols">
-       <enum>QAbstractSpinBox::NoButtons</enum>
-      </property>
-      <property name="displayFormat">
-       <string>MM/dd/yyyy</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="Line" name="line_8">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>801</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>120</y>
-     <width>248</width>
-     <height>261</height>
+     <x>620</x>
+     <y>60</y>
+     <width>241</width>
+     <height>371</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="3" column="1">
+   <layout class="QGridLayout" name="uiRightGridLayout">
+    <item row="4" column="1">
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_29">
+       <widget class="QLabel" name="uiDepartureTimeLbl">
         <property name="text">
          <string>Zeit:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QTimeEdit" name="timeEdit">
+       <widget class="QTimeEdit" name="uiDepartureTime">
         <property name="displayFormat">
          <string>h:mm</string>
         </property>
@@ -496,110 +366,120 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_30">
+       <widget class="QLabel" name="uiDepartureAirportLbl">
         <property name="text">
          <string>Flugplatz:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_16"/>
+       <widget class="QLineEdit" name="uiDepartureAirportEdit"/>
       </item>
      </layout>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_31">
+    <item row="5" column="0">
+     <widget class="QLabel" name="uiArrivalLbl">
       <property name="text">
        <string>Ankunft:</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_14"/>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="uiPilotEdit"/>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_13"/>
+     <widget class="QLineEdit" name="uiPhotographerEdit"/>
     </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_32">
+    <item row="6" column="0">
+     <widget class="QLabel" name="uiFlightDurationLbl">
       <property name="text">
        <string>Flugdauer:</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_27">
+    <item row="3" column="0">
+     <widget class="QLabel" name="uiAirplaneLbl">
       <property name="text">
        <string>Flugzeug:</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEdit_17"/>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_15"/>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_25">
-      <property name="text">
-       <string>Pilot:</string>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="uiFlightDurationEdit">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 218, 218);</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_26">
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="uiAirplaneEdit"/>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="uiPhotographerLbl">
       <property name="text">
        <string>Fotograf:</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_28">
+    <item row="2" column="0">
+     <widget class="QLabel" name="uiPilotLbl">
+      <property name="text">
+       <string>Pilot:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="uiDepartureLbl">
       <property name="text">
        <string>Abflug:</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="5" column="1">
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_33">
+       <widget class="QLabel" name="uiArrivalTimeLbl">
         <property name="text">
          <string>Zeit:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_34">
+       <widget class="QLabel" name="uiArrivalAirportLbl">
         <property name="text">
          <string>Flugplatz:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QTimeEdit" name="timeEdit_2">
+       <widget class="QTimeEdit" name="uiArrivalTime">
         <property name="displayFormat">
          <string>h:mm</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_18"/>
+       <widget class="QLineEdit" name="uiArrivalAirportEdit"/>
       </item>
      </layout>
     </item>
-    <item row="6" column="0">
+    <item row="8" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>6</number>
+      </property>
       <item>
-       <widget class="QLabel" name="label_35">
+       <widget class="QLabel" name="uiWeatherLbl">
         <property name="text">
          <string>Wetter:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="toolButton_4">
+       <widget class="QToolButton" name="uiEditWeatherTBtn">
         <property name="text">
          <string>...</string>
         </property>
@@ -607,145 +487,177 @@
       </item>
      </layout>
     </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEdit_19"/>
+    <item row="8" column="1">
+     <widget class="QPlainTextEdit" name="uiWeatherPTxt">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 218, 218);</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QComboBox" name="uiTargetCombo"/>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="uiTargetLbl">
+      <property name="text">
+       <string>Target:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="2">
+     <widget class="Line" name="line_9">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="Line" name="line_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0" colspan="2">
+     <widget class="Line" name="line_13">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0" colspan="2">
+     <widget class="QDialogButtonBox" name="uiButtonBox">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+      <property name="centerButtons">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>410</y>
-     <width>431</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_24">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>390</y>
-     <width>58</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Kommentar:</string>
-   </property>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>120</y>
-     <width>231</width>
-     <height>191</height>
+     <x>330</x>
+     <y>60</y>
+     <width>271</width>
+     <height>371</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2">
+   <layout class="QGridLayout" name="uiMiddleGridLayout">
     <item row="7" column="0">
-     <widget class="QLabel" name="label_21">
+     <widget class="QLabel" name="uiFilmModeLbl_2">
       <property name="text">
-       <string>Art</string>
+       <string>Art:</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_9"/>
+     <widget class="QLineEdit" name="uiCameraNumberEdit"/>
     </item>
     <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_12"/>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_10"/>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_19">
-      <property name="text">
-       <string>Kasette</string>
+     <widget class="QLineEdit" name="uiFilmModeEdit">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 218, 218);</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="6" column="2">
-     <widget class="QLabel" name="label_22">
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="uiCalibratedFocalLengthEdit"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="uiCassetteLbl">
       <property name="text">
-       <string>*</string>
+       <string>Kasette:</string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QComboBox" name="comboBox_3"/>
+     <widget class="QComboBox" name="uiCameraCombo"/>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="label_14">
+     <widget class="QLabel" name="uiFormatLbl">
       <property name="text">
-       <string>Format</string>
+       <string>Format:</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QLabel" name="label_13">
+     <widget class="QLabel" name="uiCameraLbl">
       <property name="text">
-       <string>Kamera</string>
+       <string>Kamera:</string>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="label_17">
+     <widget class="QLabel" name="uiCameraNumberLbl">
       <property name="text">
-       <string>Kamera-Nr.</string>
+       <string>Kamera-Nr.:</string>
       </property>
      </widget>
     </item>
     <item row="3" column="0">
-     <widget class="QLabel" name="label_18">
+     <widget class="QLabel" name="uiCalibratedFocalLengthLbl">
       <property name="text">
-       <string>Kammerkonstante</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_16">
-      <property name="text">
-       <string>*</string>
+       <string>Kammerkonstante:</string>
       </property>
      </widget>
     </item>
     <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEdit_11"/>
+     <widget class="QLineEdit" name="uiCassetteEdit"/>
     </item>
     <item row="6" column="0">
-     <widget class="QLabel" name="label_20">
+     <widget class="QLabel" name="uiFilmMakeLbl">
       <property name="text">
-       <string>Film</string>
+       <string>Film:</string>
       </property>
      </widget>
     </item>
     <item row="6" column="1">
-     <widget class="QComboBox" name="comboBox_4"/>
+     <widget class="QComboBox" name="uiFilmMakeCombo"/>
     </item>
     <item row="1" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
       <item>
-       <widget class="QLineEdit" name="lineEdit_7"/>
+       <widget class="QLineEdit" name="uiFormat1Edit">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(218, 218, 218);</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_15">
+       <widget class="QLabel" name="uiFormatXLbl">
         <property name="text">
          <string>x</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_8"/>
+       <widget class="QLineEdit" name="uiFormat2Edit">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(218, 218, 218);</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -756,65 +668,60 @@
       </property>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>120</y>
-     <width>226</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="0" colspan="2">
-     <widget class="QLineEdit" name="lineEdit_4"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Bildanzahl</string>
+    <item row="8" column="0" colspan="2">
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="7" column="1">
-     <widget class="QToolButton" name="toolButton_3">
+    <item row="9" column="0" colspan="2">
+     <widget class="QLabel" name="uiCommentsLbl">
       <property name="text">
-       <string>...</string>
+       <string>Kommentar:</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>Projekt(e):</string>
+    <item row="6" column="2">
+     <widget class="QLabel" name="label_38">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 55, 55);</string>
       </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_5">
       <property name="text">
        <string>*</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_6">
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_37">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 55, 55);</string>
+      </property>
       <property name="text">
-       <string>Copyright:</string>
+       <string>*</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>Weise</string>
-      </property>
-     </widget>
+    <item row="10" column="0" colspan="2">
+     <widget class="QPlainTextEdit" name="uiCommentsPTxt"/>
     </item>
-    <item row="2" column="1">
-     <widget class="QComboBox" name="comboBox">
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>301</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="uiLeftGridLayout">
+    <item row="4" column="1">
+     <widget class="QComboBox" name="uiFilmModeCombo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -833,48 +740,133 @@
       </item>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_5"/>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="uiOldMilitaryNumberEdit"/>
     </item>
-    <item row="0" column="0" colspan="3">
-     <widget class="Line" name="line_10">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+    <item row="3" column="0">
+     <widget class="QLabel" name="uiImageCountLbl">
+      <property name="text">
+       <string>Bildanzahl:</string>
       </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="uiOldMilitaryNumberLbl">
+      <property name="text">
+       <string>Alte Mil. Nr.:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="uiArchiveLbl">
+      <property name="text">
+       <string>Archiv d. Negative:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="uiFilmModeLbl">
+      <property name="text">
+       <string>Weise:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <widget class="Line" name="line_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="uiFlightDateLbl">
       <property name="text">
-       <string>*</string>
+       <string>Flugdatum:</string>
       </property>
      </widget>
     </item>
-    <item row="5" column="1">
-     <widget class="QToolButton" name="toolButton_2">
-      <property name="text">
-       <string>...</string>
+    <item row="5" column="0" colspan="2">
+     <widget class="Line" name="line_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEdit_6"/>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_12">
-      <property name="text">
-       <string>Alte Mil. Nr.</string>
+    <item row="8" column="0" colspan="2">
+     <widget class="Line" name="line_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_2">
+    <item row="10" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="uiProjectLbl">
+        <property name="text">
+         <string>Projekt(e):</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="uiAddProjectToDbTBtn">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="10" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QComboBox" name="uiProjectSelectionCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="9" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="uiCopyrightLbl">
+        <property name="text">
+         <string>Copyright:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="uiAddCopyrightToDbTBtn">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="9" column="1">
+     <widget class="QComboBox" name="uiCopyrightCombo"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QDateEdit" name="uiFlightDate">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(218, 218, 218);</string>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="buttonSymbols">
+       <enum>QAbstractSpinBox::NoButtons</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="uiImageCountEdit">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -883,45 +875,221 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_11">
+    <item row="3" column="2">
+     <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 55, 55);</string>
+      </property>
       <property name="text">
-       <string>Militär Nr.</string>
+       <string>*</string>
       </property>
      </widget>
     </item>
-    <item row="8" column="0" colspan="2">
-     <widget class="QListWidget" name="listWidget"/>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="uiArchiveCombo">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 55, 55);</string>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="uiMilitaryNumberEdit"/>
+    </item>
+    <item row="14" column="0" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="uiInitalEntryLbl">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Ersteintrag:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="uiInitalEntryDate">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(218, 218, 218);</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="uiLastChangesLbl">
+        <property name="text">
+         <string>Letzte Bearbeit.:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="uiLastChangesDate">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(218, 218, 218);</string>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="displayFormat">
+         <string>MM/dd/yyyy</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="13" column="0" colspan="3">
+     <widget class="Line" name="line_12">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="2">
+     <widget class="QToolButton" name="uiAddProject">
+      <property name="text">
+       <string>add</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="2">
+     <widget class="QToolButton" name="uiRemoveProject">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>remove</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/remove.png</normaloff>:/plugins/APIS/icons/remove.png</iconset>
+      </property>
+      <property name="arrowType">
+       <enum>Qt::NoArrow</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="uiMilitaryNumberLbl">
+      <property name="text">
+       <string>Militär Nr.:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0" rowspan="2" colspan="2">
+     <widget class="QListWidget" name="uiProjectList"/>
     </item>
    </layout>
   </widget>
+  <widget class="Line" name="line_10">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>60</y>
+     <width>20</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_11">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>60</y>
+     <width>20</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QTableView" name="uiDbTestTableView">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>620</y>
+     <width>851</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
+   <property name="gridStyle">
+    <enum>Qt::NoPen</enum>
+   </property>
+  </widget>
  </widget>
  <tabstops>
-  <tabstop>comboBox_4</tabstop>
-  <tabstop>lineEdit_12</tabstop>
-  <tabstop>lineEdit_11</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>comboBox_3</tabstop>
-  <tabstop>lineEdit_9</tabstop>
-  <tabstop>lineEdit_10</tabstop>
-  <tabstop>buttonBox</tabstop>
-  <tabstop>lineEdit_7</tabstop>
-  <tabstop>lineEdit_8</tabstop>
+  <tabstop>uiFilmMakeCombo</tabstop>
+  <tabstop>uiFilmModeEdit</tabstop>
+  <tabstop>uiCassetteEdit</tabstop>
+  <tabstop>uiCameraCombo</tabstop>
+  <tabstop>uiCameraNumberEdit</tabstop>
+  <tabstop>uiCalibratedFocalLengthEdit</tabstop>
+  <tabstop>uiButtonBox</tabstop>
+  <tabstop>uiFormat1Edit</tabstop>
+  <tabstop>uiFormat2Edit</tabstop>
  </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>uiButtonBox</sender>
    <signal>accepted()</signal>
    <receiver>apisFilmDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>668</x>
-     <y>484</y>
+     <x>729</x>
+     <y>421</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -930,14 +1098,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>uiButtonBox</sender>
    <signal>rejected()</signal>
    <receiver>apisFilmDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>736</x>
-     <y>490</y>
+     <x>797</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

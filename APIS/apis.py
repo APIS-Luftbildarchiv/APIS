@@ -22,12 +22,17 @@
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtSql import *
+
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialogs
 # from apis_dialog import ApisDialog
-from apis_dialogs import *
+from apis_settings_dialog import *
+from apis_film_dialog import *
+
 from apis_utils import *
+from apis_db_manager import *
 
 import os.path
 
@@ -61,20 +66,22 @@ class APIS:
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        # Create the dialog (after translation) and keep reference
-        self.filmDlg = ApisFilmDialog(self.iface)
-        self.settingsDlg = ApisSettingsDialog(self.iface)
-
         # Declare instance attributes
         self.actions = []
         self.menu = self.tr(u'&APIS')
-        # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(u'APIS')
         self.toolbar.setObjectName(u'APIS')
 
         self.au = ApisUtils(self)
 
         self.configStatus = self.au.checkConfigStatus()
+
+        # Create the dialog (after translation) and keep reference
+        self.settingsDlg = ApisSettingsDialog(self.iface)
+        if(self.configStatus):
+            # FIXME get path from Settings
+            self.dbm = ApisDbManager("C:/apis/APIS/gdb2spatialite/geodbs/APIS.sqlite")
+            self.initDialogs()
 
     def addApisAction(
         self,
@@ -149,7 +156,10 @@ class APIS:
 
         self.actions.append(action)
 
-        return action
+        return
+
+    def initDialogs(self):
+        self.filmDlg = ApisFilmDialog(self.iface, self.dbm)
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
@@ -169,14 +179,17 @@ class APIS:
 
         #self.openSettingsButton.setIcon(QIcon(':/plugins/Apis/icons/settings.png'))
 
+        self.openDialogButtons = []
+
         #Film Dialog
         iconPath = ':/plugins/APIS/icons/film.png'
-        self.addApisAction(
+        self.openDialogButtons.append(self.addApisAction(
             iconPath,
             text=self.tr(u'Film'),
             callback=self.openFilmDialog,
             enabledFlag=self.configStatus,
             parent=self.iface.mainWindow())
+        )
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""
@@ -200,7 +213,7 @@ class APIS:
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            pass
+            self.initDialogs()
 
      # noinspection PyMethodMayBeStatic
     def tr(self, message):

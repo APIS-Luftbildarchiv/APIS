@@ -23,8 +23,9 @@
 
 import os
 
-from PyQt4.QtCore import QSettings, QTranslator
+from PyQt4.QtCore import * #QSettings, QTranslator, QString
 from PyQt4.QtGui import *
+from PyQt4.QtSql import *
 # from PyQt4 import uic
 
 import sys
@@ -44,8 +45,10 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         self.iface = iface
         self.setupUi(self)
 
+        s = QSettings()
+
         # APIS Utils methods
-        self.au = ApisUtils(self)
+        # self.au = ApisUtils(self)
 
         # Signals/Slot Connections
         self.rejected.connect(self.onReject)
@@ -57,13 +60,16 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         self.fileSelectors = {
             "uiDatabaseFile" : {
                 "button" : self.uiDatabaseFileTBtn,
-                "infotext": self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus ..."),
-                "input" : self.uiDatabaseFileEdit
+                "infotext" : self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus ..."),
+                "input" : self.uiDatabaseFileEdit,
+                "path" : s.value("APIS/database_file", "")
             }
         }
         for key, item in self.fileSelectors.items():
+            input = item['input']
+            input.setText(unicode(item['path']))
             control = item['button']
-            slot = partial(self.au.callOpenFileDialog, key)
+            slot = partial(self.callOpenFileDialog, key)
             control.clicked.connect(slot)
 
         # Selectors for ExistPathDialogs
@@ -71,19 +77,47 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         self.directorySelectors = {
             "aerialImageDir" : {
                 "button" : self.uiAerialImageDirTBtn,
-                "infotext": self.tr(u"Wählen Sie den Pfad zu den Luftbildern aus ..."),
+                "infotext" : self.tr(u"Wählen Sie den Pfad zu den Luftbildern aus ..."),
                 "input" : self.uiAerialImageDirEdit
             },
             "orthoPhotoDir" : {
                 "button" : self.uiOrthoPhotoDirTBtn,
-                "infotext": self.tr(u"Wählen Sie den Pfad zu den Orthofotos aus .."),
+                "infotext" : self.tr(u"Wählen Sie den Pfad zu den Orthofotos aus .."),
                 "input" : self.uiOrthoPhotoDirEdit
             }
         }
         for key, item in self.directorySelectors.items():
             control = item['button']
-            slot = partial(self.au.callOpenDirectoryDialog, key)
+            slot = partial(self.callOpenDirectoryDialog, key)
             control.clicked.connect(slot)
+
+        #Load Settings from QSettings
+
+    def callOpenFileDialog(self, key):
+        """
+        Ask the user to select a file
+        and write down the path to appropriate field
+        """
+        inPath = QFileDialog.getOpenFileName(
+            None,
+            self.dialog.fileSelectors[key]['infotext'],
+            str(self.dialog.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+        )
+        if os.path.exists(unicode(inPath)):
+            self.dialog.fileSelectors[key]['input'].setText(unicode(inPath))
+
+    def callOpenDirectoryDialog(self, key):
+        """
+        Ask the user to select a folder
+        and write down the path to appropriate field
+        """
+        inPath = QFileDialog.getExistingDirectory(
+            None,
+            self.dialog.directorySelectors[key]['infotext'],
+            str(self.dialog.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+        )
+        if os.path.exists(unicode(inPath)):
+            self.dialog.directorySelectors[key]['input'].setText(unicode(inPath))
 
     def onAccept(self):
         '''
@@ -94,8 +128,7 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
 
         # Save Settings
         s = QSettings()
-
-
+        s.setValue("APIS/database_file", self.uiDatabaseFileEdit.text())
 
         self.accept()
 
@@ -104,16 +137,8 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         Run some actions when
         the user closes the dialog
         '''
+        s = QSettings
+        self.uiDatabaseFileEdit.setText(s.value("APIS/database_file", ""))
+
         self.close()
 
-
-# --------------------------------------------------------
-# Film - Eingabe, Pflege
-# --------------------------------------------------------
-from apis_film_form import *
-
-class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
-    def __init__(self, iface):
-        QDialog.__init__(self)
-        self.iface = iface
-        self.setupUi(self)

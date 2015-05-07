@@ -21,17 +21,17 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import QSettings, QTranslator
-from PyQt4.QtGui import *
-import os.path
+class ApisDbManager:
+    def __init__(self, path):
+        self.connectToDb("QSPATIALITE", path)
 
-class ApisUtils:
-    def __init__(self, dialog):
-        self.dialog = dialog
+    def connectToDb(self, type, path):
+        self.__db = QSqlDatabase.addDatabase(type)
+        self.__db.setDatabaseName(path)
+        if not self.__db.open():
+            QMessageBox.warning(None, "Combo Box Example", QString("Database Error: %1").arg(self.__db.lastError().text()))
+            sys.exit(1)
 
-    def checkConfigStatus(self):
-        s = QSettings()
-        return s.value("APIS/plugin_config_status", True)
-
-
-
+    @property
+    def db(self):
+        return self.__db
