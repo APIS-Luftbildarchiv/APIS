@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_settings_form.ui'
 #
-# Created: Wed Apr 22 22:12:09 2015
+# Created: Sat May 09 19:24:06 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!

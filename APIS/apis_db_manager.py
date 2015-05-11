@@ -21,6 +21,8 @@
  ***************************************************************************/
 """
 
+from PyQt4.QtSql import *
+
 class ApisDbManager:
     def __init__(self, path):
         self.connectToDb("QSPATIALITE", path)

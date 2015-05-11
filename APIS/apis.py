@@ -22,7 +22,6 @@
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-from PyQt4.QtSql import *
 
 # Initialize Qt resources from file resources.py
 import resources_rc
