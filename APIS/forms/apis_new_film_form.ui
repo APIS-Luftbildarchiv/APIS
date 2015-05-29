@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>Neuer Film</string>
   </property>
+  <property name="locale">
+   <locale language="German" country="Austria"/>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>

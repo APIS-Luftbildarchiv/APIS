@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Sun May 10 12:57:32 2015
+# Created: Mon May 11 10:17:23 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -403,6 +403,7 @@ class Ui_apisFilmDialog(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.uiArchiveCombo.sizePolicy().hasHeightForWidth())
         self.uiArchiveCombo.setSizePolicy(sizePolicy)
+        self.uiArchiveCombo.setStyleSheet(_fromUtf8(""))
         self.uiArchiveCombo.setEditable(True)
         self.uiArchiveCombo.setModelColumn(0)
         self.uiArchiveCombo.setObjectName(_fromUtf8("uiArchiveCombo"))
@@ -415,12 +416,14 @@ class Ui_apisFilmDialog(object):
         self.uiMilitaryNumberEdit.setObjectName(_fromUtf8("uiMilitaryNumberEdit"))
         self.uiLeftGridLayout.addWidget(self.uiMilitaryNumberEdit, 6, 1, 1, 1)
         self.uiFilmModeCombo = QtGui.QComboBox(self.gridLayoutWidget_2)
-        self.uiFilmModeCombo.setEnabled(True)
+        self.uiFilmModeCombo.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.uiFilmModeCombo.sizePolicy().hasHeightForWidth())
         self.uiFilmModeCombo.setSizePolicy(sizePolicy)
+        self.uiFilmModeCombo.setEditable(True)
+        self.uiFilmModeCombo.setInsertPolicy(QtGui.QComboBox.NoInsert)
         self.uiFilmModeCombo.setObjectName(_fromUtf8("uiFilmModeCombo"))
         self.uiFilmModeCombo.addItem(_fromUtf8(""))
         self.uiFilmModeCombo.addItem(_fromUtf8(""))
@@ -614,6 +617,8 @@ class Ui_apisFilmDialog(object):
         self.uiFormatLbl.setText(_translate("apisFilmDialog", "Format:", None))
         self.uiCameraLbl.setText(_translate("apisFilmDialog", "Kamera:", None))
         self.uiCameraNumberLbl.setText(_translate("apisFilmDialog", "Kamera-Nr.:", None))
+        self.uiCalibratedFocalLengthLbl.setToolTip(_translate("apisFilmDialog", "Kammerkonstante \'5.7 mm\'", None))
+        self.uiCalibratedFocalLengthLbl.setWhatsThis(_translate("apisFilmDialog", "<html><head/><body><p>Beschrreibung zu Kammerkonsante + Beispiele</p></body></html>", None))
         self.uiCalibratedFocalLengthLbl.setText(_translate("apisFilmDialog", "Kammerkonstante:", None))
         self.uiFilmMakeLbl.setText(_translate("apisFilmDialog", "Film:", None))
         self.uiFormatXLbl.setText(_translate("apisFilmDialog", "x", None))
@@ -624,7 +629,7 @@ class Ui_apisFilmDialog(object):
         self.label_3.setText(_translate("apisFilmDialog", "*", None))
         self.label_5.setText(_translate("apisFilmDialog", "*", None))
         self.uiFilmModeCombo.setItemText(0, _translate("apisFilmDialog", "schräg", None))
-        self.uiFilmModeCombo.setItemText(1, _translate("apisFilmDialog", "senkrecht", None))
+        self.uiFilmModeCombo.setItemText(1, _translate("apisFilmDialog", "senk.", None))
         self.uiImageCountLbl.setText(_translate("apisFilmDialog", "Bildanzahl:", None))
         self.uiOldMilitaryNumberLbl.setText(_translate("apisFilmDialog", "Alte Mil. Nr.:", None))
         self.uiArchiveLbl.setText(_translate("apisFilmDialog", "Archiv d. Negative:", None))

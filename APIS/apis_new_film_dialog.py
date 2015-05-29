@@ -26,7 +26,7 @@ class ApisNewFilmDialog(QDialog, Ui_apisNewFilmDialog):
         return self.uiFlightDate.date()
 
     def useLastEntry(self):
-        return True
+        return self.uiUseLastEntryChk.isChecked()
 
     def showEvent(self, evnt):
         self.uiFlightDate.setDate(QDate.currentDate())

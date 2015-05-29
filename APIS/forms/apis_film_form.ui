@@ -656,6 +656,12 @@
     </item>
     <item row="3" column="0">
      <widget class="QLabel" name="uiCalibratedFocalLengthLbl">
+      <property name="toolTip">
+       <string>Kammerkonstante '5.7 mm'</string>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beschrreibung zu Kammerkonsante + Beispiele&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
       <property name="text">
        <string>Kammerkonstante:</string>
       </property>
@@ -812,6 +818,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="editable">
        <bool>true</bool>
       </property>
@@ -836,13 +845,19 @@
     <item row="4" column="1">
      <widget class="QComboBox" name="uiFilmModeCombo">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+      <property name="insertPolicy">
+       <enum>QComboBox::NoInsert</enum>
       </property>
       <item>
        <property name="text">
@@ -851,7 +866,7 @@
       </item>
       <item>
        <property name="text">
-        <string>senkrecht</string>
+        <string>senk.</string>
        </property>
       </item>
      </widget>

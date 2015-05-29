@@ -31,6 +31,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.setupUi(self)
 
         self.editMode = False
+        self.addMode = False
         self.initalLoad = True
         # Signals/Slot Connections
         self.rejected.connect(self.onReject)
@@ -54,7 +55,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
         self.model.setTable("film")
         self.model.select()
-
         while (self.model.canFetchMore()):
             self.model.fetchMore()
 
@@ -80,7 +80,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.mapper.setModel(self.model)
 
-        # LineEdits
+        # LineEdits & PlainTextEdits
         self.lineEditMaps = {
             "filmnummer": {
                 "editor": self.uiCurrentFilmNumberEdit
@@ -132,6 +132,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             },
             "wetter":{
                 "editor": self.uiWeatherCodeEdit
+            },
+            "kommentar": {
+                "editor": self.uiCommentsPTxt
             }
         }
         for key, item in self.lineEditMaps.items():
@@ -139,7 +142,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             item["editor"].textChanged.connect(partial(self.onLineEditChanged, item["editor"]))
 
         #Text
-        self.mapper.addMapping(self.uiCommentsPTxt, self.model.fieldIndex("kommentar"))
+        #self.mapper.addMapping(self.uiCommentsPTxt, self.model.fieldIndex("kommentar"))
 
         # Date and Times
         self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
@@ -148,30 +151,43 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.mapper.addMapping(self.uiDepartureTime, self.model.fieldIndex("abflug_zeit"))
         self.mapper.addMapping(self.uiArrivalTime, self.model.fieldIndex("ankunft_zeit"))
 
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiFilmModeCombo, self.model.fieldIndex("weise"))
 
-        # ComboBox
+        # ComboBox with Model
         self.comboBoxMaps = {
             "aufbewahrungsort": {
                 "editor": self.uiArchiveCombo,
                 "table": "aufbewahrungsort",
-                "modelcolumn": 1
+                "modelcolumn": 1,
+                "depend": None
             },
             "kamera": {
                 "editor": self.uiCameraCombo,
                 "table": "kamera",
-                "modelcolumn": 0
+                "modelcolumn": 0,
+                "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}]
             },
             "filmfabrikat": {
                 "editor": self.uiFilmMakeCombo,
                 "table": "film_fabrikat",
-                "modelcolumn": 0
+                "modelcolumn": 0,
+                "depend": [{"art": self.uiFilmMakeEdit}]
+            },
+            "target": {
+                "editor": self.uiTargetCombo,
+                "table": "target",
+                "modelcolumn": 0,
+                "depend": None
             }
         }
         for key, item in self.comboBoxMaps.items():
             self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
-            self.setupComboBox(item["editor"], item["table"], item["modelcolumn"])
+            self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["depend"])
+            item["editor"].editTextChanged.connect(partial(self.onLineEditChanged, item["editor"]))
 
-    def setupComboBox(self, editor, table, modelColumn):
+
+    def setupComboBox(self, editor, table, modelColumn, depend):
         model = QSqlRelationalTableModel(self, self.dbm.db)
         model.setTable(table)
         model.select()
@@ -198,6 +214,28 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         editor.setAutoCompletion(True)
         #editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), self))
         #elf.uiArchiveCombo.lineEdit().editingFinished.connect(self.cbValidate)
+
+        if depend:
+            editor.currentIndexChanged.connect(partial(self.updateDepends, editor, depend))
+            #mapper = QDataWidgetMapper(self)
+
+            #mapper.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
+            #mapper.setItemDelegate(DependDelegate())# Delegate with setData Pass!
+
+            #mapper.setModel(model)
+            #for dep in depend:
+                #for key, value in dep.iteritems():
+                    #QMessageBox.warning(None, "Test", str(key) + str(value))
+                    #mapper.addMapping(value, model.fieldIndex(key))
+                    #editor.currentIndexChanged.connect(lambda: mapper.setCurrentIndex(editor.currentIndex()))
+
+    def updateDepends(self, editor, depend):
+         for dep in depend:
+                for key, value in dep.iteritems():
+                    idx = editor.model().createIndex(editor.currentIndex(), editor.model().fieldIndex(key))
+                    value.setText(unicode(editor.model().data(idx)))
+                    #QMessageBox.warning(None, "Test", str(editor.model().data(idx)))
+
 
     def setupNavigation(self):
         self.uiFirstFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.FIRST))
@@ -257,8 +295,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         if not self.editMode and not self.initalLoad:
             self.startEditMode()
         if not self.initalLoad:
-            editor.setStyleSheet("QLineEdit {background-color: rgb(153, 204, 255);}")
+            editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
             self.editorsEdited.append(editor)
+
+    def onComboBoxChanged(self, editor):
+        pass
 
     def onAccept(self):
         '''
@@ -302,15 +343,16 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         if result:
 
             # TODO AddNewFilm .-..
-
+            self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry())
             # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
             # self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber())
             # Do something useful here - delete the line containing pass and
             #
             pass
 
-    def addNewFilm(self):
+    def addNewFilm(self, flightDate, useLastEntry):
         self.initalLoad = True
+        self.addMode = True
         row = self.model.rowCount()
         self.mapper.submit()
         while (self.model.canFetchMore()):
@@ -319,7 +361,57 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.model.insertRow(row)
         self.mapper.setCurrentIndex(row)
 
-        self.initLoad = False
+        self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
+        self.uiFlightDate.setDate(flightDate)
+
+        now = QDate.currentDate()
+        self.uiInitalEntryDate.setDate(now)
+        self.uiLastChangesDate.setDate(now)
+        self.uiFilmModeCombo.setEnabled(True)
+
+        if flightDate.year() >= 2000:
+            hh = "02"
+        else:
+            hh = "01"
+
+        yy = flightDate.toString("yy")
+        mm = flightDate.toString("MM")
+
+        query = QSqlQuery(self.dbm.db)
+
+        qryStr = "select max(filmnummer_nn) from film where filmnummer_hh_jj_mm = '{0}{1}{2}' limit 1".format(hh, yy, mm)
+        query.exec_(qryStr)
+        #
+        # self.query.value(0)
+
+        #QMessageBox.warning(None, "Test", str(self.query.size()) + ',' + str(self.query.numRowsAffected()))
+
+        query.first()
+        fn = query.value(0)
+
+        #QMessageBox.warning(None, "Test", str(type(fn)))
+
+        if isinstance(fn, long):
+            nn = str(fn + 1).zfill(2)
+        else:
+            nn = "01"
+
+        self.uiCurrentFilmNumberEdit.setText("{0}{1}{2}{3}".format(hh, yy, mm, nn))
+
+        self.startEditMode()
+
+        self.initalLoad = False
+
+    def removeNewFilm(self):
+        self.initalLoad = True
+        row = self.mapper.currentIndex()
+        self.model.removeRow(row)
+        self.model.submitAll()
+        while (self.model.canFetchMore()):
+            self.model.fetchMore()
+        self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
+        self.mapper.toLast()
+        self.initalLoad = False
 
     def saveEdits(self):
         #saveToModel
@@ -346,6 +438,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             if result == QMessageBox.Yes:
                 self.saveEdits()
             elif result == QMessageBox.No:
+                if self.addMode:
+                    self.removeNewFilm()
+
                 self.mapper.setCurrentIndex(self.mapper.currentIndex())
                 self.endEditMode()
 
@@ -360,17 +455,26 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
     def endEditMode(self):
         self.editMode = False
+        self.addMode = False
         self.enableItemsInLayout(self.uiTopHorizontalLayout, True)
         self.enableItemsInLayout(self.uiBottomHorizontalLayout, True)
         self.uiOkBtn.setEnabled(True)
         self.uiSaveBtn.setEnabled(False)
         self.uiCancelBtn.setEnabled(False)
         for editor in self.editorsEdited:
-            editor.setStyleSheet("")
+            if editor.metaObject().className() == "QLineEdit" and editor.isReadOnly():
+                editor.setStyleSheet("QLineEdit {background-color: rgb(218, 218, 218);}")
+            else:
+                editor.setStyleSheet("")
         self.editorsEdited = []
+
+        self.uiFilmModeCombo.setEnabled(False)
 
     def showEvent(self, evnt):
         pass
+        #self.model.select()
+        #while (self.model.canFetchMore()):
+        #    self.model.fetchMore()
 
 class FilmDelegate(QSqlRelationalDelegate):
     def __init__(self):
@@ -396,7 +500,27 @@ class FilmDelegate(QSqlRelationalDelegate):
             #if unicode(index.data(Qt.DisplayRole)) != unicode(editor.text()):
             #    QMessageBox.warning(None, "Test", unicode(index.data(Qt.DisplayRole)) + ',' + unicode(editor.text()))
             #    model.setData(index, editor.text())
+
+        if index.column() == 2:
+            #QMessageBox.warning(None, "Test", unicode(index.column()) + editor.text())
+            model.setData(model.createIndex(index.row(), 0), str(editor.text())[:6])
+            model.setData(model.createIndex(index.row(), 1), int(str(editor.text())[-2:]))
+
         QSqlRelationalDelegate.setModelData(self, editor, model, index)
+
+class DependDelegate(QSqlRelationalDelegate):
+    def __init__(self):
+       QSqlRelationalDelegate.__init__(self)
+
+    def createEditor(self, parent, option, index):
+        pass
+
+    def setEditorData(self, editor, index):
+        editor.setText(unicode(index.model().data(index, Qt.DisplayRole)))
+
+    def setModelData(self, editor, model, index):
+        pass
+
 
 class DropBoxDelegate(QStyledItemDelegate):
     def __init__(self):

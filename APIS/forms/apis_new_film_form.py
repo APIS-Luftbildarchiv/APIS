@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_new_film_form.ui'
 #
-# Created: Sun May 10 23:09:32 2015
+# Created: Mon May 11 08:04:50 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,6 +29,7 @@ class Ui_apisNewFilmDialog(object):
         apisNewFilmDialog.resize(320, 70)
         apisNewFilmDialog.setMinimumSize(QtCore.QSize(320, 70))
         apisNewFilmDialog.setMaximumSize(QtCore.QSize(320, 70))
+        apisNewFilmDialog.setLocale(QtCore.QLocale(QtCore.QLocale.German, QtCore.QLocale.Austria))
         apisNewFilmDialog.setModal(True)
         self.uiButtonBox = QtGui.QDialogButtonBox(apisNewFilmDialog)
         self.uiButtonBox.setGeometry(QtCore.QRect(240, 10, 75, 52))
