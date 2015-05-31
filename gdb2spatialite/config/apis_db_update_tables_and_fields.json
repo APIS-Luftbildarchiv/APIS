@@ -27,7 +27,7 @@
             },
             {
                 "name": "NEG_AUF",
-                "rename": "aufbewahrungsort"
+                "rename": "hersteller"
             },
             {
                 "name": "FORM1",
@@ -139,20 +139,6 @@
             }
         ],
         "name": "film"
-    },
-    {
-        "fields": [
-            {
-                "name": "AUF_NEG",
-                "rename": "ort"
-            },
-            {
-                "name": "KURZ",
-                "rename": "kurz"
-            }
-        ],
-        "name": "neg_inst",
-        "rename": "aufbewahrungsort"
     },
     {
         "fields": [

@@ -811,7 +811,7 @@
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QComboBox" name="uiArchiveCombo">
+     <widget class="QComboBox" name="uiProducerCombo">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -889,9 +889,9 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="uiArchiveLbl">
+     <widget class="QLabel" name="uiProducerLbl">
       <property name="text">
-       <string>Archiv d. Negative:</string>
+       <string>Hersteller:</string>
       </property>
      </widget>
     </item>
@@ -930,59 +930,6 @@
       </property>
      </widget>
     </item>
-    <item row="10" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <widget class="QLabel" name="uiProjectLbl">
-        <property name="text">
-         <string>Projekt(e):</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="uiAddProjectToDbTBtn">
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="10" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_8">
-      <item>
-       <widget class="QComboBox" name="uiProjectSelectionCombo">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="9" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_6">
-      <item>
-       <widget class="QLabel" name="uiCopyrightLbl">
-        <property name="text">
-         <string>Copyright:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="uiAddCopyrightToDbTBtn">
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="9" column="1">
      <widget class="QComboBox" name="uiCopyrightCombo">
       <property name="editable">
@@ -991,7 +938,7 @@
      </widget>
     </item>
     <item row="10" column="2">
-     <widget class="QToolButton" name="uiAddProject">
+     <widget class="QToolButton" name="uiAddProjectBtn">
       <property name="text">
        <string>add</string>
       </property>
@@ -1008,7 +955,7 @@
      </widget>
     </item>
     <item row="11" column="2">
-     <widget class="QToolButton" name="uiRemoveProject">
+     <widget class="QToolButton" name="uiRemoveProjectBtn">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -1033,6 +980,33 @@
     </item>
     <item row="11" column="0" rowspan="2" colspan="2">
      <widget class="QListWidget" name="uiProjectList"/>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="uiCopyrightLbl">
+      <property name="text">
+       <string>Copyright:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="uiProjectLbl">
+      <property name="text">
+       <string>Projekt(e):</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QComboBox" name="uiProjectSelectionCombo">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

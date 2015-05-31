@@ -4,6 +4,7 @@ import os, sys
 from osgeo import ogr
 from pyspatialite import dbapi2 as db
 import json
+from datetime import datetime
 from pprint import pprint
 
 class Apis:
@@ -110,6 +111,39 @@ class Apis:
 
         return newFieldName
 
+    def GetNewFieldType(self, tableName, currentName, currentType):
+        newFieldType = currentType
+
+        for table in self.updateTablesFields:
+            if table['name'] == tableName and 'fields' in table:
+                for field in table['fields']:
+                    if field['name'] == currentName and 'type' in field and 'typecast' in field:
+                        newFieldType = field['typecast']
+
+        return newFieldType
+
+    def DoTypeCast(self, value, fromType, toType):
+        if fromType == 'String' and toType == 'DateTime':
+            v = value.strip()
+
+            if any(d in v for d in ('.',':')):
+                r = v.split('.')
+                if len(r) < 2:
+                    r = v.split(':')
+                r = "{0}:{1}:00".format(r[0].zfill(2), r[1].zfill(2))
+            else:
+                if len(v) == 4:
+                    r = "{0}:{ 1}:00".format(v[0:2], v[2:4])
+                elif len(v) == 3:
+                    r = "{0}:{1}:00".format(v[0].zfill(2), v[1:3])
+                elif len(v) == 2:
+                    r = "{0}:00:00".format(v[0:2])
+                elif len(v) == 1:
+                    r = "{0}:00:00".format(v[0].zfill(2))
+                else:
+                    r = ''
+            return r
+
     def LoadFileGdb(self):
         '''
         reads ESRI GDB and extracts Structure (Tables, Fields, Types, ...) of DB to List/Dict
@@ -172,7 +206,7 @@ class Apis:
             fieldCount = 0
             for field in table['fields']:
                 fieldCount += 1
-                sql += "{0} {1}".format(self.GetNewFieldName(table['name'], field['name']), self.convertionDict[field['type']])
+                sql += "{0} {1}".format(self.GetNewFieldName(table['name'], field['name']), self.convertionDict[self.GetNewFieldType(table['name'], field['name'], field['type'])])
                 if fieldCount < len(table['fields']):
                     sql += ", "
             sql += ")"
@@ -210,19 +244,26 @@ class Apis:
                     #ff = unicode(feature.GetField(field['name']))
                     #if type(ff) is unicode:
                     #    ff.encode("utf-8")
+
                     if feature.GetFieldType(field['name']) == ogr.OFTInteger:
-                        r.append(feature.GetFieldAsInteger(field['name']))
+                        v = feature.GetFieldAsInteger(field['name'])
 
                     elif feature.GetFieldType(field['name']) == ogr.OFTReal:    
-                        r.append(feature.GetFieldAsDouble(field['name']))
+                        v = feature.GetFieldAsDouble(field['name'])
 
                     elif feature.GetFieldType(field['name']) == ogr.OFTString:
                         ffs = feature.GetFieldAsString(field['name'])
-                        r.append(ffs.decode('utf-8'))
+                        v = ffs.decode('utf-8')
 
                     elif feature.GetFieldType(field['name']) == ogr.OFTDateTime:
-                        dt = feature.GetFieldAsString(field['name'])
-                        r.append(dt)
+                        v = feature.GetFieldAsString(field['name'])
+
+
+                    newType = self.GetNewFieldType(table['name'], field['name'], field['type'])
+                    if field['type'] != newType:
+                        v = self.DoTypeCast(v, field['type'], newType)
+
+                    r.append(v)
 
                 #add geometry
                 if table['type'] != 100:
@@ -356,9 +397,11 @@ class Apis:
         self.CleanUp()
 
 if __name__ == '__main__':
+    d = datetime.today()
+
     apis = Apis(
         "geodbs/APIS.gdb", # Path to current APIS ESRI GDB
-        "geodbs/APIS.sqlite", # PAth to new (not yet existing) APIS Spatialite DB
+        "geodbs/APIS_{0}.sqlite".format(d.strftime("%Y%m%d_%H%M%S")), # PAth to new (not yet existing) APIS Spatialite DB
         "config/apis_db_obsolet_tables.json",
         "config/apis_db_obsolet_fields_now.json",
         "config/apis_db_update_tables_and_fields.json",
