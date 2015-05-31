@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>320</width>
-    <height>70</height>
+    <height>90</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>320</width>
-    <height>70</height>
+    <height>90</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>320</width>
-    <height>70</height>
+    <height>90</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -53,7 +53,7 @@
      <x>10</x>
      <y>10</y>
      <width>221</width>
-     <height>51</height>
+     <height>71</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -80,7 +80,33 @@
        <string>Daten von letztem Eintrag übernehmen</string>
       </property>
       <property name="checked">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="uiProducerCombo">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="editable">
        <bool>true</bool>
+      </property>
+      <property name="modelColumn">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="uiProducerLbl">
+      <property name="text">
+       <string>Hersteller:</string>
       </property>
      </widget>
     </item>

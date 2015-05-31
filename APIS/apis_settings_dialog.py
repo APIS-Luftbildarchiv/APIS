@@ -100,11 +100,11 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         """
         inPath = QFileDialog.getOpenFileName(
             None,
-            self.dialog.fileSelectors[key]['infotext'],
-            str(self.dialog.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+            self.fileSelectors[key]['infotext'],
+            str(self.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t')
         )
         if os.path.exists(unicode(inPath)):
-            self.dialog.fileSelectors[key]['input'].setText(unicode(inPath))
+            self.fileSelectors[key]['input'].setText(unicode(inPath))
 
     def callOpenDirectoryDialog(self, key):
         """
@@ -113,11 +113,11 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         """
         inPath = QFileDialog.getExistingDirectory(
             None,
-            self.dialog.directorySelectors[key]['infotext'],
-            str(self.dialog.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+            self.directorySelectors[key]['infotext'],
+            str(self.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
         )
         if os.path.exists(unicode(inPath)):
-            self.dialog.directorySelectors[key]['input'].setText(unicode(inPath))
+            self.directorySelectors[key]['input'].setText(unicode(inPath))
 
     def onAccept(self):
         '''

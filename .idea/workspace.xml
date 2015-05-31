@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" afterPath="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="APIS.iws" />
@@ -33,8 +33,8 @@
       <file leaf-file-name="apis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="84" column="22" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="22" />
+            <state vertical-scroll-proportion="-7.862069">
+              <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
               <folding>
                 <element signature="e#1166#1241#0" expanded="true" />
               </folding>
@@ -45,11 +45,11 @@
       <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="390" column="0" selection-start-line="390" selection-start-column="0" selection-end-line="390" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.40248963">
+              <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
-                <marker date="1431340260362" expanded="true" signature="13736:13819" placeholder="select max(f..film..." />
+                <marker date="1433097002969" expanded="true" signature="13727:13810" placeholder="select max(f..film..." />
               </folding>
             </state>
           </provider>
@@ -93,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="62" column="36" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="36" />
+              <caret line="64" column="58" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="58" />
               <folding>
                 <element signature="e#1170#1179#0" expanded="true" />
               </folding>
@@ -125,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="56" selection-start-line="33" selection-start-column="56" selection-end-line="33" selection-end-column="56" />
+              <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="23" />
               <folding>
                 <element signature="e#1164#1211#0" expanded="true" />
               </folding>
@@ -167,12 +167,12 @@
         <option value="$PROJECT_DIR$/APIS/apis_dialogs.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/film.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/__init__.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
         <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
         <option value="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
       </list>
@@ -244,7 +244,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gdb2spatialite" />
+              <option name="myItemId" value="APIS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,7 +530,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432896550905</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update">
+      <created>1433087812024</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1433087812024</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -557,12 +563,13 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2503477" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33013844" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18839541" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18839541" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -573,7 +580,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -947,16 +953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="56" selection-start-line="33" selection-start-column="56" selection-end-line="33" selection-end-column="56" />
-          <folding>
-            <element signature="e#1164#1211#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -977,16 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="36" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="36" />
-          <folding>
-            <element signature="e#1170#1179#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1018,10 +1004,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="22" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="22" />
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="23" />
+          <folding>
+            <element signature="e#1164#1211#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="64" column="58" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="58" />
+          <folding>
+            <element signature="e#1170#1179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.862069">
+          <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
           <folding>
             <element signature="e#1166#1241#0" expanded="true" />
           </folding>
@@ -1030,11 +1036,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="390" column="0" selection-start-line="390" selection-start-column="0" selection-end-line="390" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.40248963">
+          <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
-            <marker date="1431340260362" expanded="true" signature="13736:13819" placeholder="select max(f..film..." />
+            <marker date="1433097002969" expanded="true" signature="13727:13810" placeholder="select max(f..film..." />
           </folding>
         </state>
       </provider>

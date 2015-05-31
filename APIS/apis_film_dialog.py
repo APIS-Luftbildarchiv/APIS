@@ -156,10 +156,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         # ComboBox with Model
         self.comboBoxMaps = {
-            "aufbewahrungsort": {
-                "editor": self.uiArchiveCombo,
-                "table": "aufbewahrungsort",
-                "modelcolumn": 1,
+            "hersteller": {
+                "editor": self.uiProducerCombo,
+                "table": "hersteller",
+                "modelcolumn": 2,
                 "depend": None
             },
             "kamera": {
@@ -213,7 +213,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         editor.setAutoCompletion(True)
         #editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), self))
-        #elf.uiArchiveCombo.lineEdit().editingFinished.connect(self.cbValidate)
+        #self.uiProducerCombo.lineEdit().editingFinished.connect(self.cbValidate)
 
         if depend:
             editor.currentIndexChanged.connect(partial(self.updateDepends, editor, depend))

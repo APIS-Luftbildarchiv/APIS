@@ -74,12 +74,14 @@ class APIS:
         self.au = ApisUtils(self)
 
         self.configStatus = self.au.checkConfigStatus()
+        s = QSettings()
 
         # Create the dialog (after translation) and keep reference
         self.settingsDlg = ApisSettingsDialog(self.iface)
         if(self.configStatus):
             # FIXME get path from Settings
-            self.dbm = ApisDbManager("C:/apis/APIS/gdb2spatialite/geodbs/APIS.sqlite")
+            #self.dbm = ApisDbManager("C:/apis/APIS/gdb2spatialite/geodbs/APIS.sqlite")
+            self.dbm = ApisDbManager(s.value("APIS/database_file", ""))
             self.initDialogs()
 
     def addApisAction(
