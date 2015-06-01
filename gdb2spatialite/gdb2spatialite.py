@@ -133,7 +133,7 @@ class Apis:
                 r = "{0}:{1}:00".format(r[0].zfill(2), r[1].zfill(2))
             else:
                 if len(v) == 4:
-                    r = "{0}:{ 1}:00".format(v[0:2], v[2:4])
+                    r = "{0}:{1}:00".format(v[0:2], v[2:4])
                 elif len(v) == 3:
                     r = "{0}:{1}:00".format(v[0].zfill(2), v[1:3])
                 elif len(v) == 2:
@@ -143,6 +143,20 @@ class Apis:
                 else:
                     r = ''
             return r
+
+    def GetContentConversion(self, tableName, fieldName, currentValue):
+        newValue = currentValue
+
+        for table in self.updateTablesFields:
+            if table['name'] == tableName and 'fields' in table:
+                for field in table['fields']:
+                    if field['name'] == fieldName and 'contentconversion' in field and 'contentdefault' in field:
+                        newValue = field['contentdefault']
+                        for conversion in field['contentconversion']:
+                            if conversion['old'] == currentValue:
+                                newValue = conversion['new']
+        return newValue
+
 
     def LoadFileGdb(self):
         '''
@@ -262,6 +276,8 @@ class Apis:
                     newType = self.GetNewFieldType(table['name'], field['name'], field['type'])
                     if field['type'] != newType:
                         v = self.DoTypeCast(v, field['type'], newType)
+
+                    v = self.GetContentConversion(table['name'], field['name'], v)
 
                     r.append(v)
 

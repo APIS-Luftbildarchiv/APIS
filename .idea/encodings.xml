@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" charset="UTF-8" />
+  </component>
 </project>

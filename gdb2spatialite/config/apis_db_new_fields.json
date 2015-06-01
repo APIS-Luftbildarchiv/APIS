@@ -2,6 +2,10 @@
     {
         "fields": [
             {
+                "name": "filmid",
+                "type": "String"
+            },
+            {
                 "name": "target",
                 "type": "String"
             }

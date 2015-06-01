@@ -131,7 +131,28 @@
             },
             {
                 "name": "WETTER",
-                "rename": "wetter"
+                "rename": "wetter",
+                "contentconversion": [
+                    {
+                        "old": "leicht bewölkt",
+                        "new": "2991X"
+                    },
+                    {
+                        "old": "stark bewölkt",
+                        "new": "8991X"
+                    },
+                    {
+                        "old": "Nebel",
+                        "new": "9994X"
+                    },
+                    {
+                        "old": "sonnig",
+                        "new": "0991X"
+                    }
+
+                ],
+                "contentdefault": "9990X"
+
             },
             {
                 "name": "COPYRIGHT",

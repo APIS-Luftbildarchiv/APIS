@@ -42,6 +42,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
+
+        # init Project Btn
+        #self.uiAddProjectBtn.clicked.connect(self.addProject)
+        #self.uiRemoveProjectBtn.clicked.connect(self.removeProject)
         #self.uiButtonBox.button(QDialogButtonBox.Ok).setDefault(False)
         #self.uiButtonBox.button(QDialogButtonBox.Ok).setAutoDefault(False)
         #self.uiButtonBox.button(QDialogButtonBox.Cancel).setDefault(False)
@@ -179,6 +183,18 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "table": "target",
                 "modelcolumn": 0,
                 "depend": None
+            },
+            "copyright": {
+                "editor": self.uiCopyrightCombo,
+                "table": "copyright",
+                "modelcolumn": 0,
+                "depend": None
+            },
+            "projekt": {
+                "editor": self.uiProjectSelectionCombo,
+                "table": "projekt",
+                "modelcolumn": 0,
+                "depend": None
             }
         }
         for key, item in self.comboBoxMaps.items():
@@ -277,16 +293,46 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.initalLoad = False
 
     def loadRecordByKeyAttribute(self, attribute, value):
-        self.model.setFilter(attribute + " = " + value)
-        self.model.select()
-        self.mapper.toFirst()
+        #self.model.setFilter(attribute + " = '" + value + "'")
+        #self.model.select()
+        # self.mapper.toFirst()
 
-        #QMessageBox.warning(None, "FilnNumber", unicode(res))
+        query = QSqlQuery(self.dbm.db)
+        #qryStr = "select {0} from film where {0} = '{1}' limit 1".format(attribute, value)
+        #qryStr = "SELECT rowid FROM film WHERE {0} = '{1}' limit 1".format(attribute, value)
+        qryStr = "SELECT" \
+                 "  (SELECT COUNT(*)" \
+                 "       FROM film AS t2" \
+                 "       WHERE t2.rowid < t1.rowid" \
+                 "      ) + (" \
+                 "         SELECT COUNT(*)" \
+                 "         FROM film AS t3" \
+                 "        WHERE t3.rowid = t1.rowid AND t3.rowid < t1.rowid" \
+                 "      ) AS rowNum" \
+                 "   FROM film AS t1" \
+                 "   WHERE {0} = '{1}'" \
+                 "   ORDER BY t1.rowid ASC".format(attribute, value)
 
+        query.exec_(qryStr)
+
+        #QMessageBox.warning(None, "Test", str(query.size()) + ',' + str(query.numRowsAffected()))
+
+        query.first()
+        fn = query.value(0)
+
+        if fn != None:
+            self.loadRecordById(fn)
+        else:
+            # Film does not exist
+            QMessageBox.warning(None, "Film Nummer", unicode("Der Film mit der Nummer {0} existiert nicht!".format(value)))
+
+        #self.model.setFilter('')
+        #self.model.select()
+        #while (self.model.canFetchMore()):
+            #self.model.fetchMore()
 
     def submitChanges(self):
         self.mapper.submit()
-
 
     def onCurrentIndexChanged(self):
         self.uiCurrentFilmCountEdit.setText(str(self.mapper.currentIndex() + 1))
@@ -330,10 +376,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # See if OK was pressed
         if result:
             # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
-            # self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber())
+            self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber())
             # Do something useful here - delete the line containing pass and
             #
-            pass
+            #pass
 
     def openNewFilmDialog(self):
         self.newFilmDlg.show()
@@ -345,8 +391,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             # TODO AddNewFilm .-..
             self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry())
             # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
-            # self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber())
-            # Do something useful here - delete the line containing pass and
             #
             pass
 

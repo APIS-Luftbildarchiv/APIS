@@ -451,6 +451,9 @@
       <property name="styleSheet">
        <string notr="true">background-color: rgb(218, 218, 218);</string>
       </property>
+      <property name="inputMask">
+       <string/>
+      </property>
       <property name="readOnly">
        <bool>true</bool>
       </property>
@@ -774,6 +777,19 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="uiLeftGridLayout">
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="uiMilitaryNumberEdit"/>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="label_5">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 55, 55);</string>
+      </property>
+      <property name="text">
+       <string>*</string>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="1">
      <widget class="QLineEdit" name="uiImageCountEdit">
       <property name="sizePolicy">
@@ -812,6 +828,9 @@
     </item>
     <item row="1" column="1">
      <widget class="QComboBox" name="uiProducerCombo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -828,19 +847,6 @@
        <number>0</number>
       </property>
      </widget>
-    </item>
-    <item row="4" column="2">
-     <widget class="QLabel" name="label_5">
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 55, 55);</string>
-      </property>
-      <property name="text">
-       <string>*</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="uiMilitaryNumberEdit"/>
     </item>
     <item row="4" column="1">
      <widget class="QComboBox" name="uiFilmModeCombo">
@@ -937,40 +943,6 @@
       </property>
      </widget>
     </item>
-    <item row="10" column="2">
-     <widget class="QToolButton" name="uiAddProjectBtn">
-      <property name="text">
-       <string>add</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="11" column="2">
-     <widget class="QToolButton" name="uiRemoveProjectBtn">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string>remove</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/remove.png</normaloff>:/plugins/APIS/icons/remove.png</iconset>
-      </property>
-      <property name="arrowType">
-       <enum>Qt::NoArrow</enum>
-      </property>
-     </widget>
-    </item>
     <item row="6" column="0">
      <widget class="QLabel" name="uiMilitaryNumberLbl">
       <property name="text">
@@ -978,7 +950,7 @@
       </property>
      </widget>
     </item>
-    <item row="11" column="0" rowspan="2" colspan="2">
+    <item row="12" column="0" rowspan="2" colspan="2">
      <widget class="QListWidget" name="uiProjectList"/>
     </item>
     <item row="9" column="0">
@@ -1005,6 +977,31 @@
       </property>
       <property name="editable">
        <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="2">
+     <widget class="QPushButton" name="uiAddProjectBtn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item row="12" column="2">
+     <widget class="QPushButton" name="uiRemoveProjectBtn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/remove.png</normaloff>:/plugins/APIS/icons/remove.png</iconset>
       </property>
      </widget>
     </item>
