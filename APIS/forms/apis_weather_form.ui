@@ -3,7 +3,7 @@
  <class>apisWeatherDialog</class>
  <widget class="QDialog" name="apisWeatherDialog">
   <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
+   <enum>Qt::ApplicationModal</enum>
   </property>
   <property name="geometry">
    <rect>

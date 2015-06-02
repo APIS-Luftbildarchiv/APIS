@@ -9,6 +9,7 @@ from PyQt4.QtSql import *
 from apis_db_manager import *
 from apis_film_selection_dialog import *
 from apis_new_film_dialog import *
+from apis_edit_weather_dialog import *
 
 from functools import partial
 
@@ -42,6 +43,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
+        self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
 
         # init Project Btn
         #self.uiAddProjectBtn.clicked.connect(self.addProject)
@@ -54,6 +56,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # Setup Sub-Dialogs
         self.filmSelectionDlg = ApisFilmSelectionDialog(self.iface, self.dbm)
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
+        self.editWeatherDlg = ApisEditWeatherDialog(self.iface)
 
         # Setup film model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -392,6 +395,13 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry())
             # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
             #
+            pass
+
+    def openEditWeatherDialog(self):
+        self.editWeatherDlg.show()
+        result = self.editWeatherDlg.exec_()
+
+        if result:
             pass
 
     def addNewFilm(self, flightDate, useLastEntry):

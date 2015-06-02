@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Mon Jun 01 15:45:52 2015
+# Created: Mon Jun 01 20:35:30 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -213,6 +213,7 @@ class Ui_apisFilmDialog(object):
         self.uiRightGridLayout.addWidget(self.uiAirplaneLbl, 3, 0, 1, 1)
         self.uiFlightDurationEdit = QtGui.QLineEdit(self.gridLayoutWidget)
         self.uiFlightDurationEdit.setStyleSheet(_fromUtf8("background-color: rgb(218, 218, 218);"))
+        self.uiFlightDurationEdit.setInputMask(_fromUtf8(""))
         self.uiFlightDurationEdit.setReadOnly(True)
         self.uiFlightDurationEdit.setObjectName(_fromUtf8("uiFlightDurationEdit"))
         self.uiRightGridLayout.addWidget(self.uiFlightDurationEdit, 6, 1, 1, 1)
