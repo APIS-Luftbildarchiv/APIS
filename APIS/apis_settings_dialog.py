@@ -141,7 +141,7 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         Run some actions when
         the user closes the dialog
         '''
-        s = QSettings
+        s = QSettings()
         self.uiDatabaseFileEdit.setText(s.value("APIS/database_file"))
         #s.setValue("APIS/plugin_config_status", True)
         self.close()
@@ -150,9 +150,8 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         '''
         Delte Settings
         '''
-        s = QSettings
-        if s.value("APIS/database_file") is not None:
-            s.remove("APIS/database_file")
+        s = QSettings()
+        s.remove("APIS/database_file")
         self.uiDatabaseFileEdit.clear()
         # s.setValue("APIS/plugin_config_status", False)
 
