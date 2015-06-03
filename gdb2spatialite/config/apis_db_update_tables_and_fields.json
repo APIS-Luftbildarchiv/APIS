@@ -27,7 +27,18 @@
             },
             {
                 "name": "NEG_AUF",
-                "rename": "hersteller"
+                "rename": "hersteller",
+                "contentconversion": [
+                    {
+                        "old": "IfUFG",
+                        "new": "IUHA"
+                    },
+                    {
+                        "old": "IfUFGW",
+                        "new": "IUHA"
+                    }
+                ],
+                "contentdefault": "current"
             },
             {
                 "name": "FORM1",

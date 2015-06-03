@@ -151,7 +151,8 @@ class Apis:
             if table['name'] == tableName and 'fields' in table:
                 for field in table['fields']:
                     if field['name'] == fieldName and 'contentconversion' in field and 'contentdefault' in field:
-                        newValue = field['contentdefault']
+                        if not field['contentdefault'] == "current":
+                            newValue = field['contentdefault']
                         for conversion in field['contentconversion']:
                             if conversion['old'] == currentValue:
                                 newValue = conversion['new']
