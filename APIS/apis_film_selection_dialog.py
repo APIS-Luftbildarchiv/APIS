@@ -32,5 +32,4 @@ class ApisFilmSelectionDialog(QDialog, Ui_apisFilmNumberSelectionDialog):
         return self.uiFilmNumberEdit.text()
 
     def onAccepted(self):
-
         self.accept()

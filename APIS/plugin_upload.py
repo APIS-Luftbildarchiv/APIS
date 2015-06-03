@@ -11,10 +11,10 @@ import xmlrpclib
 from optparse import OptionParser
 
 # Configuration
-PROTOCOL = 'http'
-SERVER = 'plugins.qgis.org'
-PORT = '80'
-ENDPOINT = '/plugins/RPC2/'
+PROTOCOL = 'ftp'
+SERVER = 'digitalcartography.org'
+PORT = '25'
+ENDPOINT = '/htdocs/qgisplugins/'
 VERBOSE = False
 
 
@@ -79,10 +79,10 @@ if __name__ == "__main__":
         help="Username of plugin site", metavar="user")
     parser.add_option(
         "-p", "--port", dest="port",
-        help="Server port to connect to", metavar="80")
+        help="Server port to connect to", metavar="25")
     parser.add_option(
         "-s", "--server", dest="server",
-        help="Specify server name", metavar="plugins.qgis.org")
+        help="Specify server name", metavar="digitalcartography.org")
     options, args = parser.parse_args()
     if len(args) != 1:
         print "Please specify zip file.\n"

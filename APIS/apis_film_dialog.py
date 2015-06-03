@@ -56,7 +56,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # Setup Sub-Dialogs
         self.filmSelectionDlg = ApisFilmSelectionDialog(self.iface, self.dbm)
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
-        self.editWeatherDlg = ApisEditWeatherDialog(self.iface)
+        self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
 
         # Setup film model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -93,7 +93,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "editor": self.uiCurrentFilmNumberEdit
             },
             "anzahl_bilder":{
-                "editor": self.uiImageCountEdit
+                "editor": self.uiImageCountEdit,
+                "mandatory": True
             },
             "militaernummer":{
                 "editor": self.uiMilitaryNumberEdit
@@ -173,13 +174,15 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "editor": self.uiCameraCombo,
                 "table": "kamera",
                 "modelcolumn": 0,
-                "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}]
+                "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}],
+                "mandatory": True
             },
             "filmfabrikat": {
                 "editor": self.uiFilmMakeCombo,
                 "table": "film_fabrikat",
                 "modelcolumn": 0,
-                "depend": [{"art": self.uiFilmMakeEdit}]
+                "depend": [{"art": self.uiFilmMakeEdit}],
+                "mandatory": True
             },
             "target": {
                 "editor": self.uiTargetCombo,
@@ -325,9 +328,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         if fn != None:
             self.loadRecordById(fn)
+            return True
         else:
             # Film does not exist
             QMessageBox.warning(None, "Film Nummer", unicode("Der Film mit der Nummer {0} existiert nicht!".format(value)))
+            return False
 
         #self.model.setFilter('')
         #self.model.select()
@@ -374,15 +379,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         """Run method that performs all the real work"""
         # show the dialog
         self.filmSelectionDlg.show()
-        # Run the dialog event loop
-        result = self.filmSelectionDlg.exec_()
-        # See if OK was pressed
-        if result:
-            # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
-            self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber())
-            # Do something useful here - delete the line containing pass and
-            #
-            #pass
+        self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
+        # Run the dialog event loop and See if OK was pressed
+        if self.filmSelectionDlg.exec_():
+            if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
+                self.openFilmSelectionDialog()
+
 
     def openNewFilmDialog(self):
         self.newFilmDlg.show()
@@ -398,11 +400,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             pass
 
     def openEditWeatherDialog(self):
+        self.editWeatherDlg.setWeatherCode(self.uiWeatherCodeEdit.text())
         self.editWeatherDlg.show()
-        result = self.editWeatherDlg.exec_()
 
-        if result:
-            pass
+        if self.editWeatherDlg.exec_():
+            self.uiWeatherCodeEdit.setText(self.editWeatherDlg.weatherCode())
+            self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
 
     def addNewFilm(self, flightDate, useLastEntry):
         self.initalLoad = True
@@ -468,6 +471,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.initalLoad = False
 
     def saveEdits(self):
+        #ToDo Check Mandatory fields
+
         #saveToModel
         currIdx = self.mapper.currentIndex()
         now = QDate.currentDate()

@@ -2,6 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/plugin_upload.py" afterPath="$PROJECT_DIR$/APIS/plugin_upload.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="APIS.iws" />
@@ -36,28 +43,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.275862">
-              <caret line="401" column="36" selection-start-line="401" selection-start-column="36" selection-end-line="401" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.56363636">
+              <caret line="407" column="0" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
-                <marker date="1433183508219" expanded="true" signature="11466:11512" placeholder="select {0} f..." />
-                <marker date="1433183508219" expanded="true" signature="11558:11565" placeholder="SELECT value..." />
-                <marker date="1433183508219" expanded="true" signature="11558:11576" placeholder="SELECT value..mypoints..." />
-                <marker date="1433183508219" expanded="true" signature="11558:11606" placeholder="SELECT rowid..film..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11741" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11790" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11828" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11874" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11920" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:11994" placeholder="SELECT (SELE..." />
-                <marker date="1433183508219" expanded="true" signature="11651:12120" placeholder="SELECT (SELE..film..." />
-                <marker date="1433183508219" expanded="true" signature="11651:12166" placeholder="SELECT (SELE..film..." />
-                <marker date="1433183508219" expanded="true" signature="11682:11741" placeholder="SELECT COUNT..Names..." />
-                <marker date="1433183508219" expanded="true" signature="11859:11874" placeholder="SELECT COUNT..." />
-                <marker date="1433183508219" expanded="true" signature="15725:15808" placeholder="select max(f..film..." />
+                <marker date="1433254095219" expanded="true" signature="11581:11627" placeholder="select {0} f..." />
+                <marker date="1433254095219" expanded="true" signature="11673:11680" placeholder="SELECT value..." />
+                <marker date="1433254095219" expanded="true" signature="11673:11691" placeholder="SELECT value..mypoints..." />
+                <marker date="1433254095219" expanded="true" signature="11673:11721" placeholder="SELECT rowid..film..." />
+                <marker date="1433254095219" expanded="true" signature="11766:11856" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:11905" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:11943" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:11989" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:12035" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:12109" placeholder="SELECT (SELE..." />
+                <marker date="1433254095219" expanded="true" signature="11766:12235" placeholder="SELECT (SELE..film..." />
+                <marker date="1433254095219" expanded="true" signature="11766:12281" placeholder="SELECT (SELE..film..." />
+                <marker date="1433254095219" expanded="true" signature="11797:11856" placeholder="SELECT COUNT..Names..." />
+                <marker date="1433254095219" expanded="true" signature="11974:11989" placeholder="SELECT COUNT..." />
+                <marker date="1433254095219" expanded="true" signature="15971:16054" placeholder="select max(f..film..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_edit_weather_dialog.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#33#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -67,7 +86,7 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+              <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="22" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -75,11 +94,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pb_tool.cfg" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pb_tool.cfg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.90029323">
+            <state vertical-scroll-proportion="0.0">
               <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plugin_upload.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/plugin_upload.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.827586">
+              <caret line="81" column="53" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="metadata.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,18 +151,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="34" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="21" />
-              <folding>
-                <element signature="e#24#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_edit_weather_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
               </folding>
@@ -164,7 +191,6 @@
         <option value="$PROJECT_DIR$/APIS/apisdialogs/__init__.py" />
         <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
         <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
@@ -176,8 +202,11 @@
         <option value="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
         <option value="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/plugin_upload.py" />
+        <option value="$PROJECT_DIR$/APIS/metadata.txt" />
+        <option value="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
       </list>
     </option>
   </component>
@@ -218,6 +247,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,7 +282,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -559,7 +588,13 @@
       <option name="project" value="LOCAL" />
       <updated>1433229540246</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Update">
+      <created>1433229546881</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1433229546881</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -586,13 +621,13 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4867872" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23333333" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33013844" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19126074" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19412607" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -600,13 +635,13 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -627,9 +662,9 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17803837" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -802,13 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/plugin_upload.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4269176">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm40/system/python_stubs/1492868609/PyQt4/QtCore/QObject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33222592">
@@ -842,13 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33774835">
@@ -874,7 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -882,7 +902,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -917,7 +936,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -925,7 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -941,7 +958,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -949,7 +965,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -957,7 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.153846">
           <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -965,7 +979,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.423077">
           <caret line="474" column="13" selection-start-line="474" selection-start-column="13" selection-end-line="474" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,7 +986,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -981,7 +993,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -989,7 +1000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -997,7 +1007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.402439">
           <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1005,24 +1014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.70738256">
           <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
-          <folding>
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="ALTER TABLE ..." />
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="DROP TABLE I..." />
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1433182077727" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1030,41 +1021,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="21" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.275862">
-          <caret line="401" column="36" selection-start-line="401" selection-start-column="36" selection-end-line="401" selection-end-column="36" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-            <marker date="1433183508219" expanded="true" signature="11466:11512" placeholder="select {0} f..." />
-            <marker date="1433183508219" expanded="true" signature="11558:11565" placeholder="SELECT value..." />
-            <marker date="1433183508219" expanded="true" signature="11558:11576" placeholder="SELECT value..mypoints..." />
-            <marker date="1433183508219" expanded="true" signature="11558:11606" placeholder="SELECT rowid..film..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11741" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11790" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11828" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11874" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11920" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:11994" placeholder="SELECT (SELE..." />
-            <marker date="1433183508219" expanded="true" signature="11651:12120" placeholder="SELECT (SELE..film..." />
-            <marker date="1433183508219" expanded="true" signature="11651:12166" placeholder="SELECT (SELE..film..." />
-            <marker date="1433183508219" expanded="true" signature="11682:11741" placeholder="SELECT COUNT..Names..." />
-            <marker date="1433183508219" expanded="true" signature="11859:11874" placeholder="SELECT COUNT..." />
-            <marker date="1433183508219" expanded="true" signature="15725:15808" placeholder="select max(f..film..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
           </folding>
@@ -1083,9 +1039,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.90029323">
+        <state vertical-scroll-proportion="0.0">
           <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/plugin_upload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.827586">
+          <caret line="81" column="53" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="22" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56363636">
+          <caret line="407" column="0" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+            <marker date="1433254095219" expanded="true" signature="11581:11627" placeholder="select {0} f..." />
+            <marker date="1433254095219" expanded="true" signature="11673:11680" placeholder="SELECT value..." />
+            <marker date="1433254095219" expanded="true" signature="11673:11691" placeholder="SELECT value..mypoints..." />
+            <marker date="1433254095219" expanded="true" signature="11673:11721" placeholder="SELECT rowid..film..." />
+            <marker date="1433254095219" expanded="true" signature="11766:11856" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:11905" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:11943" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:11989" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:12035" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:12109" placeholder="SELECT (SELE..." />
+            <marker date="1433254095219" expanded="true" signature="11766:12235" placeholder="SELECT (SELE..film..." />
+            <marker date="1433254095219" expanded="true" signature="11766:12281" placeholder="SELECT (SELE..film..." />
+            <marker date="1433254095219" expanded="true" signature="11797:11856" placeholder="SELECT COUNT..Names..." />
+            <marker date="1433254095219" expanded="true" signature="11974:11989" placeholder="SELECT COUNT..." />
+            <marker date="1433254095219" expanded="true" signature="15971:16054" placeholder="select max(f..film..." />
+          </folding>
         </state>
       </provider>
     </entry>
