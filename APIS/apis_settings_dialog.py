@@ -55,6 +55,8 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         self.buttonBox.rejected.connect(self.onReject)
         self.buttonBox.accepted.connect(self.onAccept)
 
+        self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.onReset)
+
         # Selectors for getFileOpenDialogs
         # paths chosen by user
         self.fileSelectors = {
@@ -74,22 +76,22 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
 
         # Selectors for ExistPathDialogs
         # paths chosen by user
-        self.directorySelectors = {
-            "aerialImageDir" : {
-                "button" : self.uiAerialImageDirTBtn,
-                "infotext" : self.tr(u"Wählen Sie den Pfad zu den Luftbildern aus ..."),
-                "input" : self.uiAerialImageDirEdit
-            },
-            "orthoPhotoDir" : {
-                "button" : self.uiOrthoPhotoDirTBtn,
-                "infotext" : self.tr(u"Wählen Sie den Pfad zu den Orthofotos aus .."),
-                "input" : self.uiOrthoPhotoDirEdit
-            }
-        }
-        for key, item in self.directorySelectors.items():
-            control = item['button']
-            slot = partial(self.callOpenDirectoryDialog, key)
-            control.clicked.connect(slot)
+        # self.directorySelectors = {
+        #     "aerialImageDir" : {
+        #         "button" : self.uiAerialImageDirTBtn,
+        #         "infotext" : self.tr(u"Wählen Sie den Pfad zu den Luftbildern aus ..."),
+        #         "input" : self.uiAerialImageDirEdit
+        #     },
+        #     "orthoPhotoDir" : {
+        #         "button" : self.uiOrthoPhotoDirTBtn,
+        #         "infotext" : self.tr(u"Wählen Sie den Pfad zu den Orthofotos aus .."),
+        #         "input" : self.uiOrthoPhotoDirEdit
+        #     }
+        # }
+        # for key, item in self.directorySelectors.items():
+        #     control = item['button']
+        #     slot = partial(self.callOpenDirectoryDialog, key)
+        #     control.clicked.connect(slot)
 
         #Load Settings from QSettings
 
@@ -106,18 +108,18 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         if os.path.exists(unicode(inPath)):
             self.fileSelectors[key]['input'].setText(unicode(inPath))
 
-    def callOpenDirectoryDialog(self, key):
-        """
-        Ask the user to select a folder
-        and write down the path to appropriate field
-        """
-        inPath = QFileDialog.getExistingDirectory(
-            None,
-            self.directorySelectors[key]['infotext'],
-            str(self.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
-        )
-        if os.path.exists(unicode(inPath)):
-            self.directorySelectors[key]['input'].setText(unicode(inPath))
+    # def callOpenDirectoryDialog(self, key):
+    #     """
+    #     Ask the user to select a folder
+    #     and write down the path to appropriate field
+    #     """
+    #     inPath = QFileDialog.getExistingDirectory(
+    #         None,
+    #         self.directorySelectors[key]['infotext'],
+    #         str(self.directorySelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+    #     )
+    #     if os.path.exists(unicode(inPath)):
+    #         self.directorySelectors[key]['input'].setText(unicode(inPath))
 
     def onAccept(self):
         '''
@@ -130,6 +132,8 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         s = QSettings()
         s.setValue("APIS/database_file", self.uiDatabaseFileEdit.text())
 
+        s.setValue("APIS/plugin_config_status", True)
+
         self.accept()
 
     def onReject(self):
@@ -138,7 +142,17 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         the user closes the dialog
         '''
         s = QSettings
-        self.uiDatabaseFileEdit.setText(s.value("APIS/database_file", ""))
-
+        self.uiDatabaseFileEdit.setText(s.value("APIS/database_file"))
+        #s.setValue("APIS/plugin_config_status", True)
         self.close()
+
+    def onReset(self):
+        '''
+        Delte Settings
+        '''
+        s = QSettings
+        if s.value("APIS/database_file") is not None:
+            s.remove("APIS/database_file")
+        self.uiDatabaseFileEdit.clear()
+        # s.setValue("APIS/plugin_config_status", False)
 

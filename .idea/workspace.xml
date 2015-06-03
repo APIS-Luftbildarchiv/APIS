@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/plugin_upload.py" afterPath="$PROJECT_DIR$/APIS/plugin_upload.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_utils.py" afterPath="$PROJECT_DIR$/APIS/apis_utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="APIS.iws" />
@@ -34,8 +32,8 @@
       <file leaf-file-name="apis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
+            <state vertical-scroll-proportion="-89.10345">
+              <caret line="218" column="31" selection-start-line="218" selection-start-column="31" selection-end-line="218" selection-end-column="31" />
               <folding>
                 <element signature="e#1166#1241#0" expanded="true" />
               </folding>
@@ -43,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.56363636">
-              <caret line="407" column="0" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.6551723">
+              <caret line="77" column="48" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
                 <marker date="1433254095219" expanded="true" signature="11581:11627" placeholder="select {0} f..." />
@@ -114,16 +112,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="metadata.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="apis_db_manager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -134,25 +122,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_settings_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
+      <file leaf-file-name="apis_utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
+              <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
               <folding>
-                <element signature="e#1170#1179#0" expanded="true" />
+                <element signature="e#1164#1211#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_new_film_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_new_film_dialog.py">
+      <file leaf-file-name="apis_settings_dialog.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="34" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.707457">
+              <caret line="153" column="8" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
               <folding>
-                <element signature="e#24#33#0" expanded="true" />
+                <element signature="e#1170#1179#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -189,10 +177,7 @@
         <option value="$PROJECT_DIR$/APIS/apis_dialogs.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/film.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/__init__.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
         <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" />
@@ -207,6 +192,9 @@
         <option value="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
       </list>
     </option>
   </component>
@@ -594,7 +582,13 @@
       <option name="project" value="LOCAL" />
       <updated>1433229546881</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Update">
+      <created>1433312329525</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1433312329525</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -621,7 +615,8 @@
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23333333" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23365785" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33013844" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -637,7 +632,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -685,7 +679,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -912,26 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70193547">
-          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="23" />
-          <folding>
-            <element signature="e#1164#1211#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
-          <folding>
-            <element signature="e#1166#1241#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/composer/templates/FilmList.qpt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -943,14 +917,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="123" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="123" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,16 +993,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="9" selection-start-line="117" selection-start-column="9" selection-end-line="117" selection-end-column="9" />
-          <folding>
-            <element signature="e#1170#1179#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1045,18 +1001,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/plugin_upload.py">
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.827586">
-          <caret line="81" column="53" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.7151052">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+    <entry file="file://$PROJECT_DIR$/APIS/plugin_upload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state vertical-scroll-proportion="-7.827586">
+          <caret line="81" column="53" selection-start-line="81" selection-start-column="53" selection-end-line="81" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -1071,20 +1027,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56363636">
-          <caret line="407" column="0" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
+        <state vertical-scroll-proportion="-5.6551723">
+          <caret line="77" column="48" selection-start-line="77" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
             <marker date="1433254095219" expanded="true" signature="11581:11627" placeholder="select {0} f..." />
@@ -1102,6 +1048,54 @@
             <marker date="1433254095219" expanded="true" signature="11797:11856" placeholder="SELECT COUNT..Names..." />
             <marker date="1433254095219" expanded="true" signature="11974:11989" placeholder="SELECT COUNT..." />
             <marker date="1433254095219" expanded="true" signature="15971:16054" placeholder="select max(f..film..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-89.10345">
+          <caret line="218" column="31" selection-start-line="218" selection-start-column="31" selection-end-line="218" selection-end-column="31" />
+          <folding>
+            <element signature="e#1166#1241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="123" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+          <folding>
+            <element signature="e#1164#1211#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.707457">
+          <caret line="153" column="8" selection-start-line="153" selection-start-column="8" selection-end-line="153" selection-end-column="8" />
+          <folding>
+            <element signature="e#1170#1179#0" expanded="true" />
           </folding>
         </state>
       </provider>

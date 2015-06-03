@@ -74,6 +74,7 @@ class APIS:
         self.au = ApisUtils(self)
 
         self.configStatus = self.au.checkConfigStatus()
+
         s = QSettings()
 
         # Create the dialog (after translation) and keep reference
@@ -209,12 +210,15 @@ class APIS:
         # show the dialog
         self.settingsDlg.show()
         # Run the dialog event loop
-        result = self.settingsDlg.exec_()
         # See if OK was pressed
-        if result:
+        if self.settingsDlg.exec_():
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            self.initDialogs()
+            self.configStatus = self.au.checkConfigStatus()
+            if(self.configStatus):
+                s = QSettings()
+                self.dbm = ApisDbManager(s.value("APIS/database_file", ""))
+                self.initDialogs()
 
      # noinspection PyMethodMayBeStatic
     def tr(self, message):
