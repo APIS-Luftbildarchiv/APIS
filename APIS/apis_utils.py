@@ -32,7 +32,9 @@ class ApisUtils:
     def checkConfigStatus(self):
         s = QSettings()
         value = s.value("APIS/plugin_config_status", False)
-        return value.lower() in ("yes", "true", "t", "1")
-
+        if isinstance(value, (bool)):
+            return value
+        else:
+            return value.lower() in ("yes", "true", "t", "1")
 
 

@@ -20,7 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-
+from PyQt4.QtCore import *
+from PyQt4.QtGui import QMessageBox
 from PyQt4.QtSql import *
 
 class ApisDbManager:
@@ -31,8 +32,9 @@ class ApisDbManager:
         self.__db = QSqlDatabase.addDatabase(type)
         self.__db.setDatabaseName(path)
         if not self.__db.open():
-            QMessageBox.warning(None, "Combo Box Example", QString("Database Error: %1").arg(self.__db.lastError().text()))
-            sys.exit(1)
+            #QMessageBox.warning(None, "Combo Box Example", "Database Error: {0}".format(self.__db.lastError().text())
+            #sys.exit(1)
+            pass
 
     @property
     def db(self):
