@@ -36,7 +36,16 @@
                     {
                         "old": "IfUFGW",
                         "new": "IUHA"
+                    },
+                    {
+                        "old": "StAKA",
+                        "new": "unbek."
+                    },
+                    {
+                        "old": " ",
+                        "new": "unbek."
                     }
+
                 ],
                 "contentdefault": "current"
             },
