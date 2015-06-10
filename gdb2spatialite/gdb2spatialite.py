@@ -259,26 +259,38 @@ class Apis:
                     #ff = unicode(feature.GetField(field['name']))
                     #if type(ff) is unicode:
                     #    ff.encode("utf-8")
+                    #fieldSet = True
+                    #if not feature.IsFieldSet(field['name']):
+                        #print feature.GetFID(), field['name']
+                        #continue
+                        #fieldSet = False
+                        #sys.exit()
+                    if not feature.IsFieldSet(field['name']):
+                        v = None
+                    else:
+                        if feature.GetFieldType(field['name']) == ogr.OFTInteger:
+                            v = feature.GetFieldAsInteger(field['name'])
 
-                    if feature.GetFieldType(field['name']) == ogr.OFTInteger:
-                        v = feature.GetFieldAsInteger(field['name'])
+                        elif feature.GetFieldType(field['name']) == ogr.OFTReal:
+                            v = feature.GetFieldAsDouble(field['name'])
 
-                    elif feature.GetFieldType(field['name']) == ogr.OFTReal:    
-                        v = feature.GetFieldAsDouble(field['name'])
+                        elif feature.GetFieldType(field['name']) == ogr.OFTString:
+                            ffs = feature.GetFieldAsString(field['name'])
+                            v = ffs.decode('utf-8')
 
-                    elif feature.GetFieldType(field['name']) == ogr.OFTString:
-                        ffs = feature.GetFieldAsString(field['name'])
-                        v = ffs.decode('utf-8')
+                        elif feature.GetFieldType(field['name']) == ogr.OFTDateTime:
+                            v = feature.GetFieldAsDateTime(feature.GetFieldIndex(field['name']))
+                            v = "{0}-{1}-{2}".format(v[0],str(v[1]).zfill(2),str(v[2]).zfill(2))
+                            #if not feature.IsFieldSet(field['name']):
+                                #v = None
+                              # print feature.GetFID(), v
 
-                    elif feature.GetFieldType(field['name']) == ogr.OFTDateTime:
-                        v = feature.GetFieldAsString(field['name'])
 
+                        newType = self.GetNewFieldType(table['name'], field['name'], field['type'])
+                        if field['type'] != newType:
+                            v = self.DoTypeCast(v, field['type'], newType)
 
-                    newType = self.GetNewFieldType(table['name'], field['name'], field['type'])
-                    if field['type'] != newType:
-                        v = self.DoTypeCast(v, field['type'], newType)
-
-                    v = self.GetContentConversion(table['name'], field['name'], v)
+                        v = self.GetContentConversion(table['name'], field['name'], v)
 
                     r.append(v)
 

@@ -10,6 +10,7 @@ from apis_db_manager import *
 from apis_film_selection_dialog import *
 from apis_new_film_dialog import *
 from apis_edit_weather_dialog import *
+from apis_search_film_dialog import *
 
 from functools import partial
 
@@ -43,6 +44,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
+        self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
 
         # init Project Btn
@@ -56,6 +58,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # Setup Sub-Dialogs
         self.filmSelectionDlg = ApisFilmSelectionDialog(self.iface, self.dbm)
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
+        self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
 
         # Setup film model
@@ -91,6 +94,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.lineEditMaps = {
             "filmnummer": {
                 "editor": self.uiCurrentFilmNumberEdit
+            },
+            "hersteller": {
+                "editor": self.uiProducerEdit
             },
             "anzahl_bilder":{
                 "editor": self.uiImageCountEdit,
@@ -156,20 +162,25 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
         self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
         self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
+
         self.mapper.addMapping(self.uiDepartureTime, self.model.fieldIndex("abflug_zeit"))
         self.mapper.addMapping(self.uiArrivalTime, self.model.fieldIndex("ankunft_zeit"))
+
+        self.uiDepartureTime.timeChanged.connect(self.onFlightTimeChanged)
+        self.uiArrivalTime.timeChanged.connect(self.onFlightTimeChanged)
+
 
         # ComboBox without Model
         self.mapper.addMapping(self.uiFilmModeCombo, self.model.fieldIndex("weise"))
 
         # ComboBox with Model
         self.comboBoxMaps = {
-            "hersteller": {
-                "editor": self.uiProducerCombo,
-                "table": "hersteller",
-                "modelcolumn": 2,
-                "depend": None
-            },
+            # "hersteller": {
+            #     "editor": self.uiProducerCombo,
+            #     "table": "hersteller",
+            #     "modelcolumn": 2,
+            #     "depend": None
+            # },
             "kamera": {
                 "editor": self.uiCameraCombo,
                 "table": "kamera",
@@ -345,6 +356,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
     def onCurrentIndexChanged(self):
         self.uiCurrentFilmCountEdit.setText(str(self.mapper.currentIndex() + 1))
 
+    def onFlightTimeChanged(self):
+        dTime = self.uiDepartureTime.time()
+        aTime = self.uiArrivalTime.time()
+        flightDuration = dTime.secsTo(aTime)
+        self.uiFlightDurationEdit.setText(unicode(flightDuration/60))
+
     def onLineEditChanged(self, editor):
         if not self.editMode and not self.initalLoad:
             self.startEditMode()
@@ -374,6 +391,18 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         if self.editMode:
             self.cancelEdit()
         self.close()
+
+    def openSearchFilmDialog(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.searchFilmDlg.show()
+        #self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
+        # Run the dialog event loop and See if OK was pressed
+        if self.searchFilmDlg.exec_():
+            pass
+            # Get Search String/Query
+            #if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
+                #self.openFilmSelectionDialog()
 
     def openFilmSelectionDialog(self):
         """Run method that performs all the real work"""
@@ -426,6 +455,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiLastChangesDate.setDate(now)
         self.uiFilmModeCombo.setEnabled(True)
 
+        #FIXME: Introduce New FilmID
         if flightDate.year() >= 2000:
             hh = "02"
         else:
@@ -488,8 +518,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
     def cancelEdit(self):
         if self.editMode:
             result = QMessageBox.question(None,
-                                          self.tr("Änderungen wurden vorgenommen!"),
-                                          self.tr("Möchten Sie die Änerungen speichern?"),
+                                          self.tr(u"Änderungen wurden vorgenommen!"),
+                                          self.tr(u"Möchten Sie die Änerungen speichern?"),
                                           QMessageBox.Yes | QMessageBox.No ,
                                           QMessageBox.Yes)
 

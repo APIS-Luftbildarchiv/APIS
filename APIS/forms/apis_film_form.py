@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Mon Jun 01 20:35:30 2015
+# Created: Wed Jun 10 11:40:51 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -405,18 +405,6 @@ class Ui_apisFilmDialog(object):
         self.label_3.setStyleSheet(_fromUtf8("color: rgb(255, 55, 55);"))
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.uiLeftGridLayout.addWidget(self.label_3, 3, 2, 1, 1)
-        self.uiProducerCombo = QtGui.QComboBox(self.gridLayoutWidget_2)
-        self.uiProducerCombo.setEnabled(True)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.uiProducerCombo.sizePolicy().hasHeightForWidth())
-        self.uiProducerCombo.setSizePolicy(sizePolicy)
-        self.uiProducerCombo.setStyleSheet(_fromUtf8(""))
-        self.uiProducerCombo.setEditable(True)
-        self.uiProducerCombo.setModelColumn(0)
-        self.uiProducerCombo.setObjectName(_fromUtf8("uiProducerCombo"))
-        self.uiLeftGridLayout.addWidget(self.uiProducerCombo, 1, 1, 1, 1)
         self.uiFilmModeCombo = QtGui.QComboBox(self.gridLayoutWidget_2)
         self.uiFilmModeCombo.setEnabled(False)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
@@ -501,6 +489,11 @@ class Ui_apisFilmDialog(object):
         self.uiRemoveProjectBtn.setIcon(icon12)
         self.uiRemoveProjectBtn.setObjectName(_fromUtf8("uiRemoveProjectBtn"))
         self.uiLeftGridLayout.addWidget(self.uiRemoveProjectBtn, 12, 2, 1, 1)
+        self.uiProducerEdit = QtGui.QLineEdit(self.gridLayoutWidget_2)
+        self.uiProducerEdit.setStyleSheet(_fromUtf8("background-color: rgb(218, 218, 218);"))
+        self.uiProducerEdit.setReadOnly(True)
+        self.uiProducerEdit.setObjectName(_fromUtf8("uiProducerEdit"))
+        self.uiLeftGridLayout.addWidget(self.uiProducerEdit, 1, 1, 1, 1)
         self.line_10 = QtGui.QFrame(apisFilmDialog)
         self.line_10.setGeometry(QtCore.QRect(310, 60, 20, 371))
         self.line_10.setFrameShape(QtGui.QFrame.VLine)

@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>apisSearchFilmDialog</class>
  <widget class="QDialog" name="apisSearchFilmDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,6 +28,9 @@
   <property name="windowTitle">
    <string>Film Suche</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
@@ -41,7 +47,10 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QToolBox" name="toolBox">
+  <widget class="QToolBox" name="uiSearchModeTBox">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -59,13 +68,16 @@
    <property name="currentIndex">
     <number>0</number>
    </property>
+   <property name="tabSpacing">
+    <number>0</number>
+   </property>
    <widget class="QWidget" name="uiSearchByDate">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>359</width>
-      <height>58</height>
+      <height>76</height>
      </rect>
     </property>
     <attribute name="label">
@@ -77,12 +89,19 @@
        <x>10</x>
        <y>10</y>
        <width>341</width>
-       <height>44</height>
+       <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QDateEdit" name="dateEdit_6">
+       <widget class="QDateEdit" name="uiSearchDate">
+        <property name="minimumDate">
+         <date>
+          <year>1900</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
+        </property>
         <property name="calendarPopup">
          <bool>true</bool>
         </property>
@@ -91,28 +110,28 @@
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="uiYearOnlyRBtn">
           <property name="text">
            <string>nur Jahr</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="uiMonthOnlyRBtn">
           <property name="text">
            <string>nur Monat</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QRadioButton" name="radioButton_3">
+         <widget class="QRadioButton" name="uiYearMonthRBtn">
           <property name="text">
            <string>Jahr und Monat</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QRadioButton" name="radioButton_4">
+         <widget class="QRadioButton" name="uiDateRBtn">
           <property name="text">
            <string>Datum</string>
           </property>
@@ -132,7 +151,7 @@
       <x>0</x>
       <y>0</y>
       <width>359</width>
-      <height>58</height>
+      <height>76</height>
      </rect>
     </property>
     <attribute name="label">
@@ -144,19 +163,19 @@
        <x>9</x>
        <y>10</y>
        <width>341</width>
-       <height>41</height>
+       <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="uiMilitaryNumberLbl">
         <property name="text">
          <string>Neue oder Alte Militär Nr.:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="uiMilitaryNumberEdit"/>
       </item>
      </layout>
     </widget>
@@ -167,7 +186,7 @@
       <x>0</x>
       <y>0</y>
       <width>359</width>
-      <height>58</height>
+      <height>76</height>
      </rect>
     </property>
     <attribute name="label">
@@ -179,19 +198,29 @@
        <x>9</x>
        <y>10</y>
        <width>341</width>
-       <height>31</height>
+       <height>51</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="uiFromLbl">
         <property name="text">
-         <string>Datum von:</string>
+         <string>von:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="dateEdit">
+       <widget class="QCheckBox" name="uiFromChk">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="uiFromDate">
         <property name="date">
          <date>
           <year>1900</year>
@@ -228,14 +257,24 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="uiToLbl">
         <property name="text">
-         <string>Datum bis:</string>
+         <string>bis:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateEdit" name="dateEdit_2">
+       <widget class="QCheckBox" name="uiToChk">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDateEdit" name="uiToDate">
         <property name="date">
          <date>
           <year>2000</year>
@@ -255,7 +294,10 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QCheckBox" name="checkBox">
+  <widget class="QCheckBox" name="uiVerticalChk">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>390</x>
@@ -270,8 +312,11 @@
    <property name="checked">
     <bool>false</bool>
    </property>
+   <property name="tristate">
+    <bool>true</bool>
+   </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_2">
+  <widget class="QCheckBox" name="uiObliqueChk">
    <property name="geometry">
     <rect>
      <x>390</x>
@@ -286,8 +331,11 @@
    <property name="checked">
     <bool>false</bool>
    </property>
+   <property name="tristate">
+    <bool>true</bool>
+   </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="uiFilmModeLbl">
    <property name="geometry">
     <rect>
      <x>380</x>
@@ -315,7 +363,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>274</y>
+     <y>159</y>
     </hint>
    </hints>
   </connection>
@@ -331,7 +379,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
-     <y>274</y>
+     <y>159</y>
     </hint>
    </hints>
   </connection>
