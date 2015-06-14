@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Film Auswahl</string>
   </property>
-  <widget class="QTableView" name="tableView">
+  <widget class="QTableView" name="uiFilmListTableV">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -34,7 +34,10 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="uiDisplayFlightPathBtn">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Flugwege anzeigen</string>
       </property>
@@ -51,7 +54,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="uiExportListAsPdfBtn">
       <property name="text">
        <string>Liste als PDF exportieren</string>
       </property>

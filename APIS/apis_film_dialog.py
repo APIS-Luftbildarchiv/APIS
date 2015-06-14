@@ -7,10 +7,11 @@ from PyQt4.QtGui import *
 from PyQt4.QtSql import *
 
 from apis_db_manager import *
-from apis_film_selection_dialog import *
+from apis_film_number_selection_dialog import *
 from apis_new_film_dialog import *
 from apis_edit_weather_dialog import *
 from apis_search_film_dialog import *
+from apis_film_selection_list_dialog import *
 
 from functools import partial
 
@@ -56,7 +57,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         #self.uiButtonBox.button(QDialogButtonBox.Cancel).setAutoDefault(False)
 
         # Setup Sub-Dialogs
-        self.filmSelectionDlg = ApisFilmSelectionDialog(self.iface, self.dbm)
+        self.filmSelectionDlg = ApisFilmNumberSelectionDialog(self.iface, self.dbm)
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
         self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
@@ -399,7 +400,27 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         #self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
         # Run the dialog event loop and See if OK was pressed
         if self.searchFilmDlg.exec_():
-            pass
+            # QMessageBox.warning(None, "FilmNumber", self.searchFilmDlg.generateSearchQuery())
+            model = QSqlRelationalTableModel(self, self.dbm.db)
+            model.setTable("film")
+            model.setFilter(self.searchFilmDlg.generateSearchQuery())
+            model.select()
+            while (model.canFetchMore()):
+                model.fetchMore()
+
+            if model.rowCount():
+                # open film selection list dialog
+                searchListDlg = ApisFilmSelectionListDialog(self.iface, model)
+                if searchListDlg.exec_():
+                    #QMessageBox.warning(None, "FilmNumber", unicode(searchListDlg.filmNumberToLoad))
+                    self.loadRecordByKeyAttribute("filmnummer", searchListDlg.filmNumberToLoad)
+            else:
+                QMessageBox.warning(None, u"Film Suche", u"Keine Ergebnisse mit den angegebenen Suchkriterien.")
+                self.openSearchFilmDialog()
+            # QMessageBox.warning(None, "FilmNumber", u"{0}, rows: {1}".format(self.searchFilmDlg.generateSearchQuery(), model.rowCount()))
+
+
+
             # Get Search String/Query
             #if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
                 #self.openFilmSelectionDialog()

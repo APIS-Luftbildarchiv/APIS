@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*
 
-import os
+import os, re
 
 from PyQt4.QtCore import QDate, Qt
 from PyQt4.QtGui import *
@@ -41,11 +41,82 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
         self.uiVerticalChk.stateChanged.connect(self.onFilmModeChange)
         self.uiObliqueChk.stateChanged.connect(self.onFilmModeChange)
 
-        self.uiSearchDate.dateChanged.connect()
+        #self.uiSearchDate.dateChanged.connect()
 
-        self.uiFromDate.dateChanged.connect()
-        self.uiToDate.dateChanged.connect()
+        #self.uiMilitaryNumberEdit.textChanged()
 
+        #self.uiFromDate.dateChanged.connect()
+        #self.uiToDate.dateChanged.connect()
+        #self.uiFromChk.stateChanged.connect()
+        #self.uiToChk.stateChanged.connect()
+
+    def generateSearchQuery(self):
+        # Search Mode ? byFilmModeOnly, byDate,b yMilitaryNumber, byTimeSpan
+        if self.uiVerticalChk.checkState() == Qt.Checked or self.uiObliqueChk.checkState() == Qt.Checked:
+            filmModePart = ()
+            if self.uiVerticalChk.checkState() == Qt.Checked:
+                vertical = u"'senk.'"
+            else:
+                vertical = u""
+            if self.uiObliqueChk.checkState() == Qt.Checked:
+                oblique = u"'schräg'"
+            else:
+                oblique = u""
+
+            if vertical != "" and oblique != "":
+                separator = u","
+            else:
+                separator = u""
+
+            #searchQuery = u"select * from film where weise in ({0}{1}{2})".format(vertical, separator, oblique)
+            searchQuery = u"weise in ({0}{1}{2})".format(vertical, separator, oblique)
+
+        else:
+            # get search mode
+            if self.uiSearchModeTBox.currentIndex() == 0:
+                # byDate
+                date = self.uiSearchDate.date()
+                if self.uiDateRBtn.isChecked():
+                    pattern = "%Y-%m-%d"
+                    searchString = date.toString("yyyy-MM-dd")
+                elif self.uiYearOnlyRBtn.isChecked():
+                    pattern = "%Y"
+                    searchString = date.toString("yyyy")
+                elif self.uiYearMonthRBtn.isChecked():
+                    pattern = "%Y-%m"
+                    searchString = date.toString("yyyy-MM")
+                elif self.uiMonthOnlyRBtn.isChecked():
+                    pattern = "%m"
+                    searchString = date.toString("MM")
+                searchModePart = u"(strftime('{0}', flugdatum) = '{1}')".format(pattern, searchString)
+            elif self.uiSearchModeTBox.currentIndex() == 1:
+                # byMilitaryNumber
+                milNum = self.uiMilitaryNumberEdit.text()
+                milNum = ''.join(i for i in milNum if i not in '/() ')
+                searchString = '%' + '%'.join(milNum[i:i+1] for i in range(0, len(milNum), 1)) + '%'
+                searchModePart = u"(militaernummer like '{0}' or militaernummer_alt like '{0}')".format(searchString)
+            elif self.uiSearchModeTBox.currentIndex() == 2:
+                # byTimeSpan
+                fromDate = self.uiFromDate.date()
+                toDate = self.uiToDate.date()
+                fromDate = fromDate.toString("yyyy-MM-dd")
+                toDate = toDate.toString("yyyy-MM-dd")
+                searchModePart = u"(strftime('%Y-%m-%d', flugdatum) between '{0}' and '{1}')".format(fromDate, toDate)
+
+            #get film mode
+            if self.uiVerticalChk.checkState() == Qt.PartiallyChecked and self.uiObliqueChk.checkState() == Qt.PartiallyChecked:
+                filmModePart = u" and (weise in ('senk.', 'schräg'))"
+            elif self.uiVerticalChk.checkState() == Qt.PartiallyChecked:
+                filmModePart = u" and (weise = 'senk.')"
+            elif self.uiObliqueChk.checkState() == Qt.PartiallyChecked:
+                filmModePart = u" and (weise = 'schräg')"
+            else:
+                filmModePart = u""
+
+            # searchQuery = u"select * from film where {0}{1}".format(searchModePart, filmModePart)
+            searchQuery = u"{0}{1}".format(searchModePart, filmModePart)
+
+        return searchQuery
 
     def onFilmModeChange(self):
         verticalState = self.uiVerticalChk.checkState()
@@ -53,8 +124,16 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
 
         if verticalState == Qt.Checked or obliqueState == Qt.Checked:
             self.uiSearchModeTBox.setEnabled(False)
+            self.uiVerticalChk.setTristate(False)
+            self.uiObliqueChk.setTristate(False)
+            if verticalState == Qt.PartiallyChecked:
+                self.uiVerticalChk.setCheckState(Qt.Checked)
+            if obliqueState == Qt.PartiallyChecked:
+                self.uiObliqueChk.setCheckState(Qt.Checked)
         else:
-           self.uiSearchModeTBox.setEnabled(True)
+            self.uiSearchModeTBox.setEnabled(True)
+            self.uiVerticalChk.setTristate(True)
+            self.uiObliqueChk.setTristate(True)
 
     def onAccepted(self):
         self.accept()

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>190</width>
-    <height>80</height>
+    <width>188</width>
+    <height>78</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>80</width>
+     <width>84</width>
      <height>65</height>
     </rect>
    </property>
@@ -42,7 +42,7 @@
     <item>
      <widget class="QCheckBox" name="checkBox">
       <property name="text">
-       <string>Punkt</string>
+       <string>Punkte</string>
       </property>
      </widget>
     </item>

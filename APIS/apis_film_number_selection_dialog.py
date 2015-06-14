@@ -18,7 +18,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 # --------------------------------------------------------
 from apis_film_number_selection_form import *
 
-class ApisFilmSelectionDialog(QDialog, Ui_apisFilmNumberSelectionDialog):
+class ApisFilmNumberSelectionDialog(QDialog, Ui_apisFilmNumberSelectionDialog):
 
     def __init__(self, iface, dbm):
         QDialog.__init__(self)
