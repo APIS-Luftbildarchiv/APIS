@@ -49,9 +49,12 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
         for i in range(len(vCIdx)):
             hH.moveSection(hH.visualIndex(vCIdx[i]), i)
 
+        self.uiFilmListTableV.resizeColumnsToContents()
+        self.uiFilmListTableV.resizeRowsToContents()
+
         # signals
         self.uiFilmListTableV.doubleClicked.connect(self.viewFilm)
-        self.uiFilmListTableV.selectionModel().selectionChanged.connect(self.onSelectionChanged)
+        #self.uiFilmListTableV.selectionModel().selectionChanged.connect(self.onSelectionChanged)
 
     def viewFilm(self):
         # QMessageBox.warning(None, "FilmNumber", "Double")

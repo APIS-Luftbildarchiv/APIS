@@ -45,10 +45,29 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
 
         #self.uiMilitaryNumberEdit.textChanged()
 
-        #self.uiFromDate.dateChanged.connect()
-        #self.uiToDate.dateChanged.connect()
-        #self.uiFromChk.stateChanged.connect()
-        #self.uiToChk.stateChanged.connect()
+        self.uiFromDate.dateChanged.connect(self.timeSpanChanged)
+        self.uiToDate.dateChanged.connect(self.timeSpanChanged)
+        self.uiFromChk.stateChanged.connect(self.timeSpanConstraints)
+        self.uiToChk.stateChanged.connect(self.timeSpanConstraints)
+
+    def timeSpanConstraints(self):
+        # From Date isChecked => FromDate = 01.01.1900, disable FromDate; else enable FromDate
+        if self.uiFromChk.isChecked():
+            self.uiFromDate.setEnabled(True)
+        else:
+            self.uiFromDate.setDate(self.uiFromDate.minimumDate())
+            self.uiFromDate.setDisabled(True)
+
+        # ToDate isChecked => ToDate = Today, disable ToDate; else enable ToDate
+        if self.uiToChk.isChecked():
+            self.uiToDate.setEnabled(True)
+        else:
+            self.uiToDate.setDate(self.uiToDate.maximumDate())
+            self.uiToDate.setDisabled(True)
+
+    def timeSpanChanged(self):
+        self.uiFromDate.setMaximumDate(self.uiToDate.date())
+        self.uiToDate.setMinimumDate(self.uiFromDate.date())
 
     def generateSearchQuery(self):
         # Search Mode ? byFilmModeOnly, byDate,b yMilitaryNumber, byTimeSpan
