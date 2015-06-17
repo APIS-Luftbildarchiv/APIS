@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_weather_form.ui'
 #
-# Created: Mon Jun 15 22:13:43 2015
+# Created: Tue Jun 16 12:51:30 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,6 +38,9 @@ class Ui_apisWeatherDialog(object):
         self.gridLayout.setSizeConstraint(QtGui.QLayout.SetMaximumSize)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.uiWeatherValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiWeatherValueLbl.setObjectName(_fromUtf8("uiWeatherValueLbl"))
+        self.gridLayout.addWidget(self.uiWeatherValueLbl, 3, 2, 1, 1)
         self.uiLowCloudHeightLbl = QtGui.QLabel(self.gridLayoutWidget)
         self.uiLowCloudHeightLbl.setObjectName(_fromUtf8("uiLowCloudHeightLbl"))
         self.gridLayout.addWidget(self.uiLowCloudHeightLbl, 2, 0, 1, 1)
@@ -87,24 +90,38 @@ class Ui_apisWeatherDialog(object):
         self.uiButtonBox.setOrientation(QtCore.Qt.Horizontal)
         self.uiButtonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.uiButtonBox.setObjectName(_fromUtf8("uiButtonBox"))
-        self.gridLayout.addWidget(self.uiButtonBox, 8, 3, 1, 2)
+        self.gridLayout.addWidget(self.uiButtonBox, 8, 4, 1, 2)
         self.uiWeatherCombo = QtGui.QComboBox(self.gridLayoutWidget)
         self.uiWeatherCombo.setObjectName(_fromUtf8("uiWeatherCombo"))
         self.gridLayout.addWidget(self.uiWeatherCombo, 3, 1, 1, 1)
-        self.line_2 = QtGui.QFrame(self.gridLayoutWidget)
-        self.line_2.setFrameShape(QtGui.QFrame.VLine)
-        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_2.setObjectName(_fromUtf8("line_2"))
-        self.gridLayout.addWidget(self.line_2, 0, 2, 9, 1)
         self.uiRemarksTableV = QtGui.QTableView(self.gridLayoutWidget)
+        self.uiRemarksTableV.setStyleSheet(_fromUtf8("selection-background-color: rgb(152, 202, 255);\n"
+"selection-color: rgb(0, 0, 0);"))
         self.uiRemarksTableV.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.uiRemarksTableV.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
+        self.uiRemarksTableV.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.uiRemarksTableV.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.uiRemarksTableV.setObjectName(_fromUtf8("uiRemarksTableV"))
-        self.gridLayout.addWidget(self.uiRemarksTableV, 1, 3, 7, 2)
+        self.gridLayout.addWidget(self.uiRemarksTableV, 1, 4, 7, 2)
+        self.uiLowCloudHeightValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiLowCloudHeightValueLbl.setObjectName(_fromUtf8("uiLowCloudHeightValueLbl"))
+        self.gridLayout.addWidget(self.uiLowCloudHeightValueLbl, 2, 2, 1, 1)
+        self.uiRemarksMissionValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiRemarksMissionValueLbl.setObjectName(_fromUtf8("uiRemarksMissionValueLbl"))
+        self.gridLayout.addWidget(self.uiRemarksMissionValueLbl, 4, 2, 1, 1)
+        self.uiLowCloudAmountValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiLowCloudAmountValueLbl.setObjectName(_fromUtf8("uiLowCloudAmountValueLbl"))
+        self.gridLayout.addWidget(self.uiLowCloudAmountValueLbl, 0, 2, 1, 1)
         self.uiRemarksLbl = QtGui.QLabel(self.gridLayoutWidget)
         self.uiRemarksLbl.setObjectName(_fromUtf8("uiRemarksLbl"))
-        self.gridLayout.addWidget(self.uiRemarksLbl, 0, 3, 1, 2)
+        self.gridLayout.addWidget(self.uiRemarksLbl, 0, 4, 1, 1)
+        self.uiVisibilityValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiVisibilityValueLbl.setObjectName(_fromUtf8("uiVisibilityValueLbl"))
+        self.gridLayout.addWidget(self.uiVisibilityValueLbl, 1, 2, 1, 1)
+        self.uiRemarksValueLbl = QtGui.QLabel(self.gridLayoutWidget)
+        self.uiRemarksValueLbl.setObjectName(_fromUtf8("uiRemarksValueLbl"))
+        self.gridLayout.addWidget(self.uiRemarksValueLbl, 0, 5, 1, 1)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem, 0, 3, 9, 1)
 
         self.retranslateUi(apisWeatherDialog)
         QtCore.QObject.connect(self.uiButtonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), apisWeatherDialog.accept)
@@ -113,12 +130,18 @@ class Ui_apisWeatherDialog(object):
 
     def retranslateUi(self, apisWeatherDialog):
         apisWeatherDialog.setWindowTitle(_translate("apisWeatherDialog", "Wetter Auswahl", None))
+        self.uiWeatherValueLbl.setText(_translate("apisWeatherDialog", "-", None))
         self.uiLowCloudHeightLbl.setText(_translate("apisWeatherDialog", "Low Cloud Height:", None))
         self.uiWeatherLbl.setText(_translate("apisWeatherDialog", "Weather:", None))
         self.uiDescriptionLbl.setText(_translate("apisWeatherDialog", "Beschreibung:", None))
         self.uiRemarksMissionLbl.setText(_translate("apisWeatherDialog", "Remarks Mission:", None))
         self.uiVisibilityLbl.setText(_translate("apisWeatherDialog", "Visibility (km):", None))
         self.uiLowCloudAmountLbl.setText(_translate("apisWeatherDialog", "Low Cloud Amount:", None))
+        self.uiLowCloudHeightValueLbl.setText(_translate("apisWeatherDialog", "-", None))
+        self.uiRemarksMissionValueLbl.setText(_translate("apisWeatherDialog", "-", None))
+        self.uiLowCloudAmountValueLbl.setText(_translate("apisWeatherDialog", "-", None))
         self.uiRemarksLbl.setText(_translate("apisWeatherDialog", "Remarks:", None))
+        self.uiVisibilityValueLbl.setText(_translate("apisWeatherDialog", "-", None))
+        self.uiRemarksValueLbl.setText(_translate("apisWeatherDialog", "-", None))
 
 import resource_rc

@@ -44,6 +44,13 @@
     <property name="sizeConstraint">
      <enum>QLayout::SetMaximumSize</enum>
     </property>
+    <item row="3" column="2">
+     <widget class="QLabel" name="uiWeatherValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="0">
      <widget class="QLabel" name="uiLowCloudHeightLbl">
       <property name="text">
@@ -125,7 +132,7 @@
       </property>
      </widget>
     </item>
-    <item row="8" column="3" colspan="2">
+    <item row="8" column="4" colspan="2">
      <widget class="QDialogButtonBox" name="uiButtonBox">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -138,32 +145,77 @@
     <item row="3" column="1">
      <widget class="QComboBox" name="uiWeatherCombo"/>
     </item>
-    <item row="0" column="2" rowspan="9">
-     <widget class="Line" name="line_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3" rowspan="7" colspan="2">
+    <item row="1" column="4" rowspan="7" colspan="2">
      <widget class="QTableView" name="uiRemarksTableV">
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(152, 202, 255);
+selection-color: rgb(0, 0, 0);</string>
+      </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="selectionMode">
-       <enum>QAbstractItemView::NoSelection</enum>
+       <enum>QAbstractItemView::MultiSelection</enum>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
      </widget>
     </item>
-    <item row="0" column="3" colspan="2">
+    <item row="2" column="2">
+     <widget class="QLabel" name="uiLowCloudHeightValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLabel" name="uiRemarksMissionValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="uiLowCloudAmountValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
      <widget class="QLabel" name="uiRemarksLbl">
       <property name="text">
        <string>Remarks:</string>
       </property>
      </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="uiVisibilityValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
+     <widget class="QLabel" name="uiRemarksValueLbl">
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3" rowspan="9">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
