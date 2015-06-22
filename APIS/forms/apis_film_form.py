@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Wed Jun 10 11:40:51 2015
+# Created: Mon Jun 22 09:48:17 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -477,12 +477,12 @@ class Ui_apisFilmDialog(object):
         self.uiProjectSelectionCombo.setObjectName(_fromUtf8("uiProjectSelectionCombo"))
         self.uiLeftGridLayout.addWidget(self.uiProjectSelectionCombo, 10, 1, 1, 1)
         self.uiAddProjectBtn = QtGui.QPushButton(self.gridLayoutWidget_2)
-        self.uiAddProjectBtn.setEnabled(False)
+        self.uiAddProjectBtn.setEnabled(True)
         self.uiAddProjectBtn.setIcon(icon5)
         self.uiAddProjectBtn.setObjectName(_fromUtf8("uiAddProjectBtn"))
         self.uiLeftGridLayout.addWidget(self.uiAddProjectBtn, 10, 2, 1, 1)
         self.uiRemoveProjectBtn = QtGui.QPushButton(self.gridLayoutWidget_2)
-        self.uiRemoveProjectBtn.setEnabled(False)
+        self.uiRemoveProjectBtn.setEnabled(True)
         self.uiRemoveProjectBtn.setText(_fromUtf8(""))
         icon12 = QtGui.QIcon()
         icon12.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/remove.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -627,3 +627,4 @@ class Ui_apisFilmDialog(object):
         self.uiOkBtn.setText(_translate("apisFilmDialog", "OK", None))
 
 import resource_rc
+import composer_rc

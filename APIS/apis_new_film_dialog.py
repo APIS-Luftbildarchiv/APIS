@@ -28,6 +28,9 @@ class ApisNewFilmDialog(QDialog, Ui_apisNewFilmDialog):
     def useLastEntry(self):
         return self.uiUseLastEntryChk.isChecked()
 
+    def producer(self):
+        return self.uiProducerCombo.currentText()
+
     def showEvent(self, evnt):
         self.uiFlightDate.setDate(QDate.currentDate())
 

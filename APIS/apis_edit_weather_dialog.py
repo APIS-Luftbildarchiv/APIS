@@ -132,6 +132,7 @@ class ApisEditWeatherDialog(QDialog, Ui_apisWeatherDialog):
             #code = code[:idx] + unicode(editor.model().data(mIdx)) + code[idx+1:]
 
             self.uiCodeEdit.setText("".join(code) + "".join(remarks))
+            self.generateWeatherDescription()
 
     def setWeatherCode(self, weatherCode):
         self.setMode = True
@@ -175,14 +176,37 @@ class ApisEditWeatherDialog(QDialog, Ui_apisWeatherDialog):
                     item["codelbl"].setText("-")
 
         self.setMode = False
-        # for w in weatherCode:
-            # QMessageBox.warning(None, "FilmNumber", w)
+        self.generateWeatherDescription()
+
+    def generateWeatherDescription(self):
+        weatherCode = self.uiCodeEdit.text()
+        code = []
+        idx = 0
+        query = QSqlQuery(self.dbm.db)
+        for c in weatherCode:
+            for key, item in self.comboBoxMaps.items():
+                if "index" in item:
+                    if idx == item["index"]:
+                        code.append({'code': c, 'category': item["category"]})
+                        break
+                elif "indexstart" in item:
+                    if idx >= item["indexstart"]:
+                        code.append({'code': c, 'category': item["category"]})
+                        break
+            idx += 1
+        self.uiDescriptionPTxt.clear()
+        for c in code:
+            qryStr = "select description from wetter where category = '{0}' and code = '{1}' limit 1".format(c['category'], c['code'])
+            query.exec_(qryStr)
+            query.first()
+            fn = query.value(0)
+            self.uiDescriptionPTxt.appendPlainText(c['code'] + ' - ' + fn)
 
     def weatherCode(self):
         return unicode(self.uiCodeEdit.text())
 
     def weatherDescription(self):
-        return unicode(self.uiCodeEdit.text())
+        return unicode(self.uiDescriptionPTxt.toPlainText())
 
     def setupComboBox(self, editor, table, modelColumn, category):
         model = QSqlRelationalTableModel(self, self.dbm.db)

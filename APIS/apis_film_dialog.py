@@ -5,6 +5,8 @@ import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtSql import *
+from PyQt4.QtXml import *
+from qgis.core import *
 
 from apis_db_manager import *
 from apis_film_number_selection_dialog import *
@@ -14,9 +16,12 @@ from apis_search_film_dialog import *
 from apis_film_selection_list_dialog import *
 
 from functools import partial
+import subprocess
+import string
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/composer")
 
 # --------------------------------------------------------
 # Film - Eingabe, Pflege
@@ -47,10 +52,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
         self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
+        self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
 
         # init Project Btn
-        #self.uiAddProjectBtn.clicked.connect(self.addProject)
-        #self.uiRemoveProjectBtn.clicked.connect(self.removeProject)
+        self.uiAddProjectBtn.clicked.connect(self.addProject)
+        self.uiRemoveProjectBtn.clicked.connect(self.removeProject)
         #self.uiButtonBox.button(QDialogButtonBox.Ok).setDefault(False)
         #self.uiButtonBox.button(QDialogButtonBox.Ok).setAutoDefault(False)
         #self.uiButtonBox.button(QDialogButtonBox.Cancel).setDefault(False)
@@ -62,6 +68,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
 
+
+
         # Setup film model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
         self.model.setTable("film")
@@ -70,6 +78,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.model.fetchMore()
 
         self.setupMapper()
+        self.setupComboBox(self.uiProjectSelectionCombo, "projekt", 0, None)
+
+        self.setupComboBox(self.newFilmDlg.uiProducerCombo, "hersteller", 2, None)
 
         self.setupNavigation()
 
@@ -91,6 +102,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.mapper.setModel(self.model)
 
+        self.mandatoryEdtis = [self.uiImageCountEdit, self.uiCameraCombo, self.uiFilmMakeCombo, self.uiFilmModeCombo]
+
         # LineEdits & PlainTextEdits
         self.lineEditMaps = {
             "filmnummer": {
@@ -100,8 +113,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "editor": self.uiProducerEdit
             },
             "anzahl_bilder":{
-                "editor": self.uiImageCountEdit,
-                "mandatory": True
+                "editor": self.uiImageCountEdit
             },
             "militaernummer":{
                 "editor": self.uiMilitaryNumberEdit
@@ -186,15 +198,13 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "editor": self.uiCameraCombo,
                 "table": "kamera",
                 "modelcolumn": 0,
-                "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}],
-                "mandatory": True
+                "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}]
             },
             "filmfabrikat": {
                 "editor": self.uiFilmMakeCombo,
                 "table": "film_fabrikat",
                 "modelcolumn": 0,
-                "depend": [{"art": self.uiFilmMakeEdit}],
-                "mandatory": True
+                "depend": [{"art": self.uiFilmMakeEdit}]
             },
             "target": {
                 "editor": self.uiTargetCombo,
@@ -207,12 +217,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 "table": "copyright",
                 "modelcolumn": 0,
                 "depend": None
-            },
-            "projekt": {
-                "editor": self.uiProjectSelectionCombo,
-                "table": "projekt",
-                "modelcolumn": 0,
-                "depend": None
             }
         }
         for key, item in self.comboBoxMaps.items():
@@ -220,6 +224,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["depend"])
             item["editor"].editTextChanged.connect(partial(self.onLineEditChanged, item["editor"]))
 
+        self.mapper.addMapping(self.uiProjectList, self.model.fieldIndex("projekt"))
 
     def setupComboBox(self, editor, table, modelColumn, depend):
         model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -373,6 +378,25 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
     def onComboBoxChanged(self, editor):
         pass
 
+    def addProject(self):
+        editor =  self.uiProjectList
+        editor.addItem(self.uiProjectSelectionCombo.currentText())
+        editor.sortItems()
+        if not self.editMode and not self.initalLoad:
+            self.startEditMode()
+        if not self.initalLoad:
+            editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
+            self.editorsEdited.append(editor)
+
+    def removeProject(self):
+        editor =  self.uiProjectList
+        editor.takeItem(self.uiProjectList.currentRow())
+        if not self.editMode and not self.initalLoad:
+            self.startEditMode()
+        if not self.initalLoad:
+            editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
+            self.editorsEdited.append(editor)
+
     def onAccept(self):
         '''
         Check DB
@@ -392,6 +416,35 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         if self.editMode:
             self.cancelEdit()
         self.close()
+
+    def exportDetailsPdf(self):
+        fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
+        if fileName:
+            #QMessageBox.warning(None, "Save", fileName)
+            #FIXME template from Settings
+            template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
+            #if os.path.isfile(template):
+            templateDOM = QDomDocument()
+            templateDOM.setContent(QFile(template), False)
+            mr = QgsMapRenderer()
+            comp = QgsComposition(mr)
+            m = self.mapper.model()
+            r = self.mapper.currentIndex()
+            filmDict = {}
+            for c in range(m.columnCount()):
+                filmDict[m.headerData(c, Qt.Horizontal)] = unicode(m.data(m.createIndex(r, c)))
+                #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
+
+            comp.loadFromTemplate(templateDOM, filmDict)
+            comp.exportAsPDF(fileName)
+
+            if sys.platform == 'linux2':
+                subprocess.call(["xdg-open", fileName])
+            else:
+                os.startfile(fileName)
+            #else:
+            #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
+
 
     def openSearchFilmDialog(self):
         """Run method that performs all the real work"""
@@ -419,35 +472,24 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 self.openSearchFilmDialog()
             # QMessageBox.warning(None, "FilmNumber", u"{0}, rows: {1}".format(self.searchFilmDlg.generateSearchQuery(), model.rowCount()))
 
-
-
             # Get Search String/Query
             #if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
                 #self.openFilmSelectionDialog()
 
     def openFilmSelectionDialog(self):
         """Run method that performs all the real work"""
-        # show the dialog
         self.filmSelectionDlg.show()
         self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
-        # Run the dialog event loop and See if OK was pressed
         if self.filmSelectionDlg.exec_():
             if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
                 self.openFilmSelectionDialog()
 
 
     def openNewFilmDialog(self):
+        """Run method that performs all the real work"""
         self.newFilmDlg.show()
-        # Run the dialog event loop
-        result = self.newFilmDlg.exec_()
-        # See if OK was pressed
-        if result:
-
-            # TODO AddNewFilm .-..
-            self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry())
-            # QMessageBox.warning(None, "FilmNumber", self.filmSelectionDlg.filmNumber())
-            #
-            pass
+        if self.newFilmDlg.exec_():
+            self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry(), self.newFilmDlg.producer())
 
     def openEditWeatherDialog(self):
         self.editWeatherDlg.setWeatherCode(self.uiWeatherCodeEdit.text())
@@ -457,7 +499,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.uiWeatherCodeEdit.setText(self.editWeatherDlg.weatherCode())
             self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
 
-    def addNewFilm(self, flightDate, useLastEntry):
+    def addNewFilm(self, flightDate, useLastEntry, producer):
         self.initalLoad = True
         self.addMode = True
         row = self.model.rowCount()
@@ -466,10 +508,21 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.model.fetchMore()
 
         self.model.insertRow(row)
+        if useLastEntry:
+            #copy last row
+            #selectionModel = QItemSelectionModel(self.model)
+            #QMessageBox.warning(None, "SelectionModel","{0}".format(selectionModel.currentIndex().row()))
+            #self.mapper.setCurrentIndex(row)
+            for c in range(self.model.columnCount()):
+                value = self.model.data(self.model.createIndex(row-1, c))
+                #QMessageBox.warning(None, "SelectionModel",u"{0}".format(value))
+                self.model.setData(self.model.createIndex(row,c), value)
+
         self.mapper.setCurrentIndex(row)
 
         self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
         self.uiFlightDate.setDate(flightDate)
+        self.uiProducerEdit.setText(producer)
 
         now = QDate.currentDate()
         self.uiInitalEntryDate.setDate(now)
@@ -486,18 +539,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         mm = flightDate.toString("MM")
 
         query = QSqlQuery(self.dbm.db)
-
         qryStr = "select max(filmnummer_nn) from film where filmnummer_hh_jj_mm = '{0}{1}{2}' limit 1".format(hh, yy, mm)
         query.exec_(qryStr)
-        #
-        # self.query.value(0)
-
-        #QMessageBox.warning(None, "Test", str(self.query.size()) + ',' + str(self.query.numRowsAffected()))
-
         query.first()
         fn = query.value(0)
-
-        #QMessageBox.warning(None, "Test", str(type(fn)))
 
         if isinstance(fn, long):
             nn = str(fn + 1).zfill(2)
@@ -505,9 +550,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             nn = "01"
 
         self.uiCurrentFilmNumberEdit.setText("{0}{1}{2}{3}".format(hh, yy, mm, nn))
-
         self.startEditMode()
-
         self.initalLoad = False
 
     def removeNewFilm(self):
@@ -523,6 +566,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
     def saveEdits(self):
         #ToDo Check Mandatory fields
+        #for mandatoryEditor in self.mandatoryEdtis:
 
         #saveToModel
         currIdx = self.mapper.currentIndex()
@@ -599,8 +643,13 @@ class FilmDelegate(QSqlRelationalDelegate):
         if editor.metaObject().className() == 'QLineEdit':
             editor.setText(unicode(index.model().data(index, Qt.EditRole)))
 
-        if editor.metaObject().className() == 'QComboBox':
+        elif editor.metaObject().className() == 'QComboBox':
             editor.setEditText(unicode(index.model().data(index, Qt.EditRole)))
+
+        elif editor.metaObject().className() == 'QListWidget':
+            #QMessageBox.warning(None, "Test", unicode(index.model().data(index, Qt.EditRole)))
+            editor.clear()
+            editor.addItems(string.split(unicode(index.model().data(index, Qt.EditRole)), ";"))
         else:
             QSqlRelationalDelegate.setEditorData(self, editor, index)
 
@@ -616,7 +665,13 @@ class FilmDelegate(QSqlRelationalDelegate):
             model.setData(model.createIndex(index.row(), 0), str(editor.text())[:6])
             model.setData(model.createIndex(index.row(), 1), int(str(editor.text())[-2:]))
 
-        QSqlRelationalDelegate.setModelData(self, editor, model, index)
+        if editor.metaObject().className() == 'QListWidget':
+            items = []
+            for j in xrange(editor.count()):
+                items.append(editor.item(j))
+            model.setData(index, ";".join([i.text() for i in items]))
+        else:
+            QSqlRelationalDelegate.setModelData(self, editor, model, index)
 
 class DependDelegate(QSqlRelationalDelegate):
     def __init__(self):
