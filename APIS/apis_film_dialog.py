@@ -14,10 +14,13 @@ from apis_new_film_dialog import *
 from apis_edit_weather_dialog import *
 from apis_search_film_dialog import *
 from apis_film_selection_list_dialog import *
+from apis_view_flight_path_dialog import *
 
 from functools import partial
 import subprocess
 import string
+
+from apis_exif2points import Exif2Points
 
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
@@ -53,6 +56,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
         self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
+        #self.uiShowFlightPathBtn.clicked.connect(partial(self.openViewFlightPathDialog, [self.uiCurrentFilmNumberEdit.text()]))
+        self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
+        self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsGromImages)
 
         # init Project Btn
         self.uiAddProjectBtn.clicked.connect(self.addProject)
@@ -67,7 +73,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
         self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
-
+        self.viewFlightPathDlg = ApisViewFlightPathDialog(self.iface, self.dbm)
 
 
         # Setup film model
@@ -248,7 +254,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         tv.resizeRowsToContents()
         tv.verticalHeader().setVisible(False)
         tv.horizontalHeader().setVisible(True)
-        tv.setMinimumWidth(tv.horizontalHeader().length())
+        #tv.setMinimumWidth(tv.horizontalHeader().length())
+        tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
         editor.setAutoCompletion(True)
         #editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), self))
@@ -397,6 +404,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
             self.editorsEdited.append(editor)
 
+
     def onAccept(self):
         '''
         Check DB
@@ -417,6 +425,13 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.cancelEdit()
         self.close()
 
+    def extractGpsGromImages(self):
+        key = self.uiCurrentFilmNumberEdit.text()
+        e2p = Exif2Points(key)
+        layer = e2p.run()
+        self.iface.addVectorLayer(layer, "flugstrecke {0} gps p".format(key), 'ogr')
+
+
     def exportDetailsPdf(self):
         fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
         if fileName:
@@ -426,8 +441,27 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #if os.path.isfile(template):
             templateDOM = QDomDocument()
             templateDOM.setContent(QFile(template), False)
+
+            uri = "C:\\apis\\daten\\aerloc\\flugwege\\2014\\02140301_lin.shp"
+            layer = QgsVectorLayer(uri, "testlayer", "ogr")
+            layerset = []
+            #QgsMapLayerRegistry.instance().addMapLayer(layer)
+            layerset.append(layer.id())
+
             mr = QgsMapRenderer()
+            mr.setLayerSet(layerset)
+
+            #mapRectangle = QgsRectangle(140,-28,155,-15)
+            #mr.setExtent(mapRectangle)
+
             comp = QgsComposition(mr)
+            comp.setPlotStyle(QgsComposition.Print)
+            comp.setPrintResolution(300)
+
+            composerMap = comp.getComposerMapById(0)
+
+            #composerMap.setGridEnabled(True)
+
             m = self.mapper.model()
             r = self.mapper.currentIndex()
             filmDict = {}
@@ -463,7 +497,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
             if model.rowCount():
                 # open film selection list dialog
-                searchListDlg = ApisFilmSelectionListDialog(self.iface, model)
+                searchListDlg = ApisFilmSelectionListDialog(self.iface, model, self)
                 if searchListDlg.exec_():
                     #QMessageBox.warning(None, "FilmNumber", unicode(searchListDlg.filmNumberToLoad))
                     self.loadRecordByKeyAttribute("filmnummer", searchListDlg.filmNumberToLoad)
@@ -498,6 +532,17 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         if self.editWeatherDlg.exec_():
             self.uiWeatherCodeEdit.setText(self.editWeatherDlg.weatherCode())
             self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
+
+    def openViewFlightPathDialog(self, filmList, toClose=None):
+        self.viewFlightPathDlg.viewFilms(filmList)
+        self.viewFlightPathDlg.show()
+
+        if self.viewFlightPathDlg.exec_():
+            #TODO load Data in TOC, Close Windows
+            if toClose:
+                toClose.close()
+            self.close()
+
 
     def addNewFilm(self, flightDate, useLastEntry, producer):
         self.initalLoad = True

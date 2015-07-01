@@ -214,6 +214,8 @@ class Apis:
         print "> Create Spatialite"
         for table in self.gdbStructure:
             newTableName = self.GetNewTableName(table['name'])
+            if newTableName != "luftbild_schraeg_fp":
+                continue
             sql = "DROP TABLE IF EXISTS {0}".format(newTableName)
             self.slcur.execute(sql)
             sql = "CREATE TABLE {0} ".format(newTableName)
@@ -296,9 +298,27 @@ class Apis:
 
                 #add geometry
                 if table['type'] != 100:
+
+
                     gm = feature.GetGeometryRef()
+                    dr = feature.GetDefnRef()
+                    if dr.GetGeomType() == ogr.wkbMultiPolygon:
+                        for i in range(0, gm.GetGeometryCount()):
+                            g = gm.GetGeometryRef(i)
+                            for j in range(0, g.GetGeometryCount()):
+                                g2 = g.GetGeometryRef(i)
+                                if g2.GetPointCount() < 2:
+                                    print feature.GetFID(), gm.ExportToWkt()
+                    #print gm.GetPointCount()
+                    #if feature.GetFID() > 33000:
+                        #print feature.GetFID(), gm.ExportToWkt()
+
                     r.append(gm.ExportToWkt())
+                    #print gm.ExportToWkt()
                     r.append(4312) #int(table['epsg'])))
+
+
+                #print len(r)
 
                 #pprint(r)
                 #self.slcur.execute(sql, r)
@@ -422,7 +442,7 @@ class Apis:
         self.WriteConfigFile('config/apis_db_config.json')
 
         self.CreateSpatialiteTablesFromStructure()
-        self.AddNewSpatialiteTablesFromJson()
+        #self.AddNewSpatialiteTablesFromJson()
         self.CleanUp()
 
 if __name__ == '__main__':

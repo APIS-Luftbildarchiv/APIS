@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Mon Jun 22 09:48:17 2015
+# Created: Mon Jun 22 12:44:24 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -458,9 +458,6 @@ class Ui_apisFilmDialog(object):
         self.uiMilitaryNumberLbl = QtGui.QLabel(self.gridLayoutWidget_2)
         self.uiMilitaryNumberLbl.setObjectName(_fromUtf8("uiMilitaryNumberLbl"))
         self.uiLeftGridLayout.addWidget(self.uiMilitaryNumberLbl, 6, 0, 1, 1)
-        self.uiProjectList = QtGui.QListWidget(self.gridLayoutWidget_2)
-        self.uiProjectList.setObjectName(_fromUtf8("uiProjectList"))
-        self.uiLeftGridLayout.addWidget(self.uiProjectList, 12, 0, 2, 2)
         self.uiCopyrightLbl = QtGui.QLabel(self.gridLayoutWidget_2)
         self.uiCopyrightLbl.setObjectName(_fromUtf8("uiCopyrightLbl"))
         self.uiLeftGridLayout.addWidget(self.uiCopyrightLbl, 9, 0, 1, 1)
@@ -494,6 +491,9 @@ class Ui_apisFilmDialog(object):
         self.uiProducerEdit.setReadOnly(True)
         self.uiProducerEdit.setObjectName(_fromUtf8("uiProducerEdit"))
         self.uiLeftGridLayout.addWidget(self.uiProducerEdit, 1, 1, 1, 1)
+        self.uiProjectList = QtGui.QListWidget(self.gridLayoutWidget_2)
+        self.uiProjectList.setObjectName(_fromUtf8("uiProjectList"))
+        self.uiLeftGridLayout.addWidget(self.uiProjectList, 12, 0, 2, 2)
         self.line_10 = QtGui.QFrame(apisFilmDialog)
         self.line_10.setGeometry(QtCore.QRect(310, 60, 20, 371))
         self.line_10.setFrameShape(QtGui.QFrame.VLine)

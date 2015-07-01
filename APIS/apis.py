@@ -76,12 +76,16 @@ class APIS:
         self.configStatus = self.au.checkConfigStatus()
 
         s = QSettings()
+        # FIXME setup paths in settings dialog
+        s.setValue("APIS/flightpath_dir", "C:\\apis\\daten\\aerloc\\flugwege")
+        s.setValue("APIS/image_dir", "C:\\apis\\daten\\luftbild")
+        s.setValue("APIS/hires_vertical", "mrsid")
+        s.setValue("APIS/hires_oblique_digital", "raw")
+        s.setValue("APIS/hires_oblique_analog", "highres%")
 
         # Create the dialog (after translation) and keep reference
         self.settingsDlg = ApisSettingsDialog(self.iface)
         if(self.configStatus):
-            # FIXME get path from Settings
-            #self.dbm = ApisDbManager("C:/apis/APIS/gdb2spatialite/geodbs/APIS.sqlite")
             self.dbm = ApisDbManager(s.value("APIS/database_file", ""))
             self.initDialogs()
 

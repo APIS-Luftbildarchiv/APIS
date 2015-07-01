@@ -17,14 +17,17 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 # Film - Eingabe, Pflege
 # --------------------------------------------------------
 from apis_film_selection_list_form import *
+from functools import partial
 
 class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
-    def __init__(self, iface, model):
+    def __init__(self, iface, model, parent):
         QDialog.__init__(self)
         self.iface = iface
         self.model = model
         self.setupUi(self)
+
+        self.uiDisplayFlightPathBtn.clicked.connect(lambda: parent.openViewFlightPathDialog(self.getFilmList(), self))
 
         self.accepted.connect(self.onAccepted)
 
@@ -51,10 +54,24 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
         self.uiFilmListTableV.resizeColumnsToContents()
         self.uiFilmListTableV.resizeRowsToContents()
+        self.uiFilmListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
         # signals
         self.uiFilmListTableV.doubleClicked.connect(self.viewFilm)
         #self.uiFilmListTableV.selectionModel().selectionChanged.connect(self.onSelectionChanged)
+
+    def getFilmList(self):
+        filmList = []
+        if self.uiFilmListTableV.selectionModel().hasSelection():
+            rows = self.uiFilmListTableV.selectionModel().selectedRows()
+            for row in rows:
+                #get filmnummer
+                filmList.append(self.model.data(self.model.createIndex(row.row(), self.model.fieldIndex("filmnummer"))))
+        else:
+            for row in  range(self.model.rowCount()):
+                filmList.append(self.model.data(self.model.createIndex(row, self.model.fieldIndex("filmnummer"))))
+
+        return filmList
 
     def viewFilm(self):
         # QMessageBox.warning(None, "FilmNumber", "Double")
