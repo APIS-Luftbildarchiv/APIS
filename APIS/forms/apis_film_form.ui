@@ -399,6 +399,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QTimeEdit" name="uiDepartureTime">
+        <property name="specialValueText">
+         <string>---</string>
+        </property>
         <property name="displayFormat">
          <string>h:mm</string>
         </property>
@@ -501,6 +504,9 @@
       </item>
       <item row="0" column="1">
        <widget class="QTimeEdit" name="uiArrivalTime">
+        <property name="specialValueText">
+         <string>---</string>
+        </property>
         <property name="displayFormat">
          <string>h:mm</string>
         </property>
@@ -790,16 +796,6 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="uiImageCountEdit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
      <widget class="QDateEdit" name="uiFlightDate">
       <property name="styleSheet">
@@ -964,6 +960,9 @@
        <iconset resource="resource.qrc">
         <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
       </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
     <item row="12" column="2">
@@ -977,6 +976,9 @@
       <property name="icon">
        <iconset resource="resource.qrc">
         <normaloff>:/plugins/APIS/icons/remove.png</normaloff>:/plugins/APIS/icons/remove.png</iconset>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -992,6 +994,56 @@
     </item>
     <item row="12" column="0" rowspan="2" colspan="2">
      <widget class="QListWidget" name="uiProjectList"/>
+    </item>
+    <item row="3" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="uiImageCountEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;abc def&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="statusTip">
+         <string/>
+        </property>
+        <property name="whatsThis">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="uiImageInformation">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
