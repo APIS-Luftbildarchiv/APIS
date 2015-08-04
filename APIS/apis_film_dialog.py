@@ -581,6 +581,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.close()
 
     def openImageSelectionListDialog(self):
+        self.imageSelectionListDlg.loadImageListByFilm(self.uiCurrentFilmNumberEdit.text(), self.uiFilmModeCombo.lineEdit().text())
         self.imageSelectionListDlg.show()
         if self.imageSelectionListDlg.exec_():
             pass

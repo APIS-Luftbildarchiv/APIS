@@ -119,7 +119,7 @@ class Exif2Points(object):
                 lon = md["Exif.GPSInfo.GPSLongitude"].value
                 ddlon = float(lon[0])+((float(lon[1])+(float(lon[2])/60))/60)
             else:
-                #ddlon = None
+                ddlon = None
                 continue
 
             if "Exif.GPSInfo.GPSLatitude" in md.exif_keys:

@@ -144,7 +144,7 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
                 uri.setDataSource('', 'luftbild_{0}_cp'.format(self.orientation), 'geom')
 
                 vlayer = QgsVectorLayer(uri.uri(), 'Kartierung {0} p'.format(key), 'spatialite')
-                vlayer.setSubsetString(u'"film" ="{0}"'.format(key))
+                vlayer.setSubsetString(u'"film" = "{0}"'.format(key))
                 if self.uiMappingPointChk.checkState() == Qt.Checked:
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer)
 

@@ -29,6 +29,7 @@ import resources_rc
 # from apis_dialog import ApisDialog
 from apis_settings_dialog import *
 from apis_film_dialog import *
+from apis_image_mapping_dialog import *
 
 from apis_utils import *
 from apis_db_manager import *
@@ -166,6 +167,7 @@ class APIS:
 
     def initDialogs(self):
         self.filmDlg = ApisFilmDialog(self.iface, self.dbm)
+        self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
@@ -197,6 +199,16 @@ class APIS:
             parent=self.iface.mainWindow())
         )
 
+        #Kartieren Dialog
+        iconPath = ':/plugins/APIS/icons/icon.png'
+        self.openDialogButtons.append(self.addApisAction(
+            iconPath,
+            text=self.tr(u'Bilder kartieren'),
+            callback=self.toggleImageMappingDialog,
+            enabledFlag=self.configStatus,
+            parent=self.iface.mainWindow())
+        )
+
     def openFilmDialog(self):
         """Run method that performs all the real work"""
         # show the dialog
@@ -208,6 +220,15 @@ class APIS:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
+
+    def toggleImageMappingDialog(self):
+        if not self.imageMappingDlg:
+            self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
+
+        if self.imageMappingDlg.isVisible():
+            self.imageMappingDlg.hide()
+        else:
+            self.imageMappingDlg.show()
 
     def openSettingsDialog(self):
         """Run method that performs all the real work"""

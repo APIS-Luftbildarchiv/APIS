@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Wed Jul 22 18:37:50 2015
+# Created: Fri Jul 31 15:31:07 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -109,7 +109,7 @@ class Ui_apisFilmDialog(object):
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/add.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiNewFilmBtn.setIcon(icon5)
-        self.uiNewFilmBtn.setIconSize(QtCore.QSize(30, 30))
+        self.uiNewFilmBtn.setIconSize(QtCore.QSize(24, 30))
         self.uiNewFilmBtn.setAutoDefault(False)
         self.uiNewFilmBtn.setObjectName(_fromUtf8("uiNewFilmBtn"))
         self.uiTopHorizontalLayout.addWidget(self.uiNewFilmBtn)

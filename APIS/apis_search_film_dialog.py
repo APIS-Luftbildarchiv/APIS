@@ -34,6 +34,7 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
         self.uiToDate.setDate(now)
         self.uiToDate.setMaximumDate(now)
         # FIXME next two lines into def => update on change of one of the two Date edits
+        # FIXME next two lines into def => update on change of one of the two Date edits
         self.uiFromDate.setMaximumDate(self.uiToDate.date())
         self.uiToDate.setMinimumDate(self.uiFromDate.date())
 
