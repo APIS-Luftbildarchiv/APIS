@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_exif2points.py" afterPath="$PROJECT_DIR$/APIS/apis_exif2points.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_search_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource.qrc" afterPath="$PROJECT_DIR$/APIS/forms/resource.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource_rc.py" afterPath="$PROJECT_DIR$/APIS/forms/resource_rc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="APIS.iws" />
@@ -36,21 +26,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="34" selection-end-column="28" />
-              <folding>
-                <marker date="1438000274310" expanded="true" signature="13512:14027" placeholder="SELECT (SELE..film..." />
-                <marker date="1438000274310" expanded="true" signature="13543:13656" placeholder="SELECT COUNT..film..." />
-                <marker date="1438000274310" expanded="true" signature="13720:13860" placeholder="SELECT COUNT..film..." />
-                <marker date="1438000274310" expanded="true" signature="25194:25277" placeholder="select max(f..film..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="apis_image_selection_list_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -81,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="65" selection-end-column="31" />
+              <caret line="11" column="39" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -103,9 +78,24 @@
       <file leaf-file-name="apis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="228" column="39" selection-start-line="228" selection-start-column="39" selection-end-line="228" selection-end-column="39" />
+            <state vertical-scroll-proportion="-11.137931">
+              <caret line="236" column="52" selection-start-line="236" selection-start-column="52" selection-end-line="236" selection-end-column="52" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.1351352">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="45" />
+              <folding>
+                <marker date="1438000274310" expanded="true" signature="13512:14027" placeholder="SELECT (SELE..film..." />
+                <marker date="1438000274310" expanded="true" signature="13543:13656" placeholder="SELECT COUNT..film..." />
+                <marker date="1438000274310" expanded="true" signature="13720:13860" placeholder="SELECT COUNT..film..." />
+                <marker date="1438000274310" expanded="true" signature="25194:25277" placeholder="select max(f..film..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,11 +103,24 @@
       <file leaf-file-name="apis_image_mapping_dialog.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.63978493">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.4798387">
+              <caret line="71" column="63" selection-start-line="71" selection-start-column="63" selection-end-line="71" selection-end-column="63" />
               <folding>
                 <element signature="e#24#50#0" expanded="true" />
+                <marker date="1440242283517" expanded="true" signature="3894:4416" placeholder="SELECT (SELE..film..." />
+                <marker date="1440242283517" expanded="true" signature="3925:4038" placeholder="SELECT COUNT..film..." />
+                <marker date="1440242283517" expanded="true" signature="4102:4242" placeholder="SELECT COUNT..film..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_film_number_selection_dialog.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -136,7 +139,7 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="77" column="62" selection-start-line="77" selection-start-column="62" selection-end-line="77" selection-end-column="62" />
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -193,7 +196,6 @@
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_search_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_exif2points.py" />
@@ -201,6 +203,7 @@
         <option value="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
         <option value="$PROJECT_DIR$/APIS/apis.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
       </list>
     </option>
@@ -213,10 +216,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="x" value="1432" />
+    <option name="y" value="-188" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -241,6 +244,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -275,8 +280,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -682,7 +685,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437593768311</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update">
+      <created>1438726073552</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1438726073552</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TodoView">
@@ -695,15 +704,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <frame x="1432" y="-188" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18611111" sideWeight="0.491404" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17872341" sideWeight="0.491404" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21002132" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29264393" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13272922" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263889" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23888889" sideWeight="0.5028653" order="8" side_tool="true" content_ui="tabs" />
@@ -891,21 +900,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/pylintrc">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="133" column="6" selection-start-line="133" selection-start-column="6" selection-end-line="133" selection-end-column="6" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_new_film_dialog.py">
@@ -1055,14 +1057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="62" selection-start-line="77" selection-start-column="62" selection-end-line="77" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1071,42 +1065,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="34" selection-end-column="28" />
-          <folding>
-            <marker date="1438000274310" expanded="true" signature="13512:14027" placeholder="SELECT (SELE..film..." />
-            <marker date="1438000274310" expanded="true" signature="13543:13656" placeholder="SELECT COUNT..film..." />
-            <marker date="1438000274310" expanded="true" signature="13720:13860" placeholder="SELECT COUNT..film..." />
-            <marker date="1438000274310" expanded="true" signature="25194:25277" placeholder="select max(f..film..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="2" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="72" />
-          <folding>
-            <marker date="1438274855179" expanded="true" signature="2828:2875" placeholder="select weise..film..." />
-            <marker date="1438274855179" expanded="true" signature="3141:3196" placeholder="select count..luftbild_..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="8" selection-start-line="61" selection-start-column="8" selection-end-line="65" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1132,20 +1094,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+    <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="39" selection-start-line="228" selection-start-column="39" selection-end-line="228" selection-end-column="39" />
+          <caret line="11" column="39" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="153" column="20" selection-start-line="153" selection-start-column="20" selection-end-line="153" selection-end-column="72" />
+          <folding>
+            <marker date="1438274855179" expanded="true" signature="2828:2875" placeholder="select weise..film..." />
+            <marker date="1438274855179" expanded="true" signature="3141:3196" placeholder="select count..luftbild_..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.137931">
+          <caret line="236" column="52" selection-start-line="236" selection-start-column="52" selection-end-line="236" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.1351352">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="45" />
+          <folding>
+            <marker date="1438000274310" expanded="true" signature="13512:14027" placeholder="SELECT (SELE..film..." />
+            <marker date="1438000274310" expanded="true" signature="13543:13656" placeholder="SELECT COUNT..film..." />
+            <marker date="1438000274310" expanded="true" signature="13720:13860" placeholder="SELECT COUNT..film..." />
+            <marker date="1438000274310" expanded="true" signature="25194:25277" placeholder="select max(f..film..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63978493">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.4798387">
+          <caret line="71" column="63" selection-start-line="71" selection-start-column="63" selection-end-line="71" selection-end-column="63" />
           <folding>
             <element signature="e#24#50#0" expanded="true" />
+            <marker date="1440242283517" expanded="true" signature="3894:4416" placeholder="SELECT (SELE..film..." />
+            <marker date="1440242283517" expanded="true" signature="3925:4038" placeholder="SELECT COUNT..film..." />
+            <marker date="1440242283517" expanded="true" signature="4102:4242" placeholder="SELECT COUNT..film..." />
           </folding>
         </state>
       </provider>

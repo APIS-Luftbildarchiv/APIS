@@ -100,7 +100,8 @@ class APIS:
         addToToolbar=True,
         statusTip=None,
         whatsThis=None,
-        parent=None):
+        parent=None,
+        checkable=False):
         """
         Add a toolbar icon to the toolbar.
 
@@ -147,6 +148,9 @@ class APIS:
         action.triggered.connect(callback)
         action.setEnabled(enabledFlag)
 
+        if checkable:
+            action.setCheckable(checkable)
+
         if statusTip is not None:
             action.setStatusTip(statusTip)
 
@@ -163,7 +167,7 @@ class APIS:
 
         self.actions.append(action)
 
-        return
+        return action
 
     def initDialogs(self):
         self.filmDlg = ApisFilmDialog(self.iface, self.dbm)
@@ -201,13 +205,15 @@ class APIS:
 
         #Kartieren Dialog
         iconPath = ':/plugins/APIS/icons/icon.png'
-        self.openDialogButtons.append(self.addApisAction(
+        self.mappingActionBtn = self.addApisAction(
             iconPath,
             text=self.tr(u'Bilder kartieren'),
             callback=self.toggleImageMappingDialog,
             enabledFlag=self.configStatus,
-            parent=self.iface.mainWindow())
-        )
+            parent=self.iface.mainWindow(),
+            checkable=True)
+        self.imageMappingDlg.visibilityChanged.connect(self.mappingActionBtn.setChecked)
+        self.openDialogButtons.append(self.mappingActionBtn)
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""
@@ -225,10 +231,13 @@ class APIS:
         if not self.imageMappingDlg:
             self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
 
-        if self.imageMappingDlg.isVisible():
-            self.imageMappingDlg.hide()
-        else:
+        #if self.imageMappingDlg.isVisible():
+        if self.mappingActionBtn.isChecked():
             self.imageMappingDlg.show()
+            #self.mappingActionBtn.setChecked(False)
+        else:
+            self.imageMappingDlg.hide()
+            #self.mappingActionBtn.setChecked(True)
 
     def openSettingsDialog(self):
         """Run method that performs all the real work"""
