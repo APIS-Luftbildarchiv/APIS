@@ -72,22 +72,24 @@ class APIS:
         self.toolbar = self.iface.addToolBar(u'APIS')
         self.toolbar.setObjectName(u'APIS')
 
-        self.au = ApisUtils(self)
+        #check Settings
+        #self.au = ApisUtils(self)
 
-        self.configStatus = self.au.checkConfigStatus()
-
-        s = QSettings()
-        # FIXME setup paths in settings dialog
-        s.setValue("APIS/flightpath_dir", "C:\\apis\\daten\\aerloc\\flugwege")
-        s.setValue("APIS/image_dir", "C:\\apis\\daten\\luftbild")
-        s.setValue("APIS/hires_vertical", "mrsid")
-        s.setValue("APIS/hires_oblique_digital", "raw")
-        s.setValue("APIS/hires_oblique_analog", "highres%")
+        #self.configStatus = self.au.checkConfigStatus()
+        self.configStatus, self.settings = apisPluginSettings()
+        #QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
 
         # Create the dialog (after translation) and keep reference
         self.settingsDlg = ApisSettingsDialog(self.iface)
+
+        self.dbm = None
+        self.areDialogsInit = False
+        self.areDialogsActive = False
+        self.imageMappingMode = False
+        self.imageMappingDlg = None
+
         if(self.configStatus):
-            self.dbm = ApisDbManager(s.value("APIS/database_file", ""))
+            self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
             self.initDialogs()
 
     def addApisAction(
@@ -171,7 +173,11 @@ class APIS:
 
     def initDialogs(self):
         self.filmDlg = ApisFilmDialog(self.iface, self.dbm)
-        self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
+        self.imageMappingDlg = None
+        #self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
+        self.areDialogsInit = True
+        self.areDialogsActive = True
+        #self.imageMappingDlg.visibilityChanged.connect(self.mappingActionBtn.setChecked)
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
@@ -212,8 +218,9 @@ class APIS:
             enabledFlag=self.configStatus,
             parent=self.iface.mainWindow(),
             checkable=True)
-        self.imageMappingDlg.visibilityChanged.connect(self.mappingActionBtn.setChecked)
+
         self.openDialogButtons.append(self.mappingActionBtn)
+
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""
@@ -230,13 +237,17 @@ class APIS:
     def toggleImageMappingDialog(self):
         if not self.imageMappingDlg:
             self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
+            self.imageMappingDlg.visibilityChanged.connect(self.mappingActionBtn.setChecked)
 
         #if self.imageMappingDlg.isVisible():
         if self.mappingActionBtn.isChecked():
             self.imageMappingDlg.show()
+            self.imageMappingMode = True
             #self.mappingActionBtn.setChecked(False)
         else:
+            #TODO Check Mapping State !!!
             self.imageMappingDlg.hide()
+            self.imageMappingMode = False
             #self.mappingActionBtn.setChecked(True)
 
     def openSettingsDialog(self):
@@ -248,11 +259,36 @@ class APIS:
         if self.settingsDlg.exec_():
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            self.configStatus = self.au.checkConfigStatus()
-            if(self.configStatus):
-                s = QSettings()
-                self.dbm = ApisDbManager(s.value("APIS/database_file", ""))
+            #self.configStatus,  = self.au.checkConfigStatus()
+            self.configStatus, self.settings = apisPluginSettings()
+
+            if self.configStatus:
+                self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
                 self.initDialogs()
+                self.activateDialogs(True)
+            else:
+                QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
+                self.activateDialogs(False)
+                #self.openSettingsDialog()
+        else:
+            pass
+
+    def activateDialogs(self, value):
+        for action in self.openDialogButtons:
+            action.setEnabled(value)
+        self.areDialogsActive = value
+
+        if self.configStatus:
+            iconPath = ':/plugins/APIS/icons/settings.png'
+        else:
+            iconPath = ':/plugins/APIS/icons/settings_alert.png'
+
+        self.openSettingsButton.setIcon(QIcon(iconPath))
+
+        if self.mappingActionBtn.isChecked():
+            self.mappingActionBtn.setChecked(False)
+            self.toggleImageMappingDialog()
+
 
      # noinspection PyMethodMayBeStatic
     def tr(self, message):

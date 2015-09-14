@@ -2,7 +2,10 @@
     "fundgewinnung": [
         "ID"
     ],
-    "luftbild_shraeg_fp": [
+    "luftbild_schraeg_fp": [
+        "ID"
+    ],
+    "luftbild_senk_fp": [
         "ID"
     ]
 }

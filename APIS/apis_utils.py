@@ -25,6 +25,46 @@ from PyQt4.QtCore import QSettings, QTranslator
 from PyQt4.QtGui import *
 import os.path
 
+def apisPluginSettings():
+    s = QSettings()
+    if s.contains("APIS/config_ini"):
+        if os.path.isfile(s.value("APIS/config_ini")):
+            return isApisIni(s.value("APIS/config_ini"))
+        else:
+            #Settings INI as stored does not exist
+            return False, u"Ausgewählte APIS INI Datei ({0}) ist nicht vorhanden!".format(s.value("APIS/config_ini"))
+    else:
+        #Settings INI is not stored
+        return False, u"Keine APIS INI Datei ausgewählt! "
+
+def isApisIni(ini):
+    s = QSettings(ini, QSettings.IniFormat)
+    requiredKeysIsFile = ['database_file']
+    requiredKeysIsDir = ['flightpath_dir', 'image_dir', 'ortho_image_dir', 'repr_image_dir', 'insp_image_dir', 'site_image_dir', 'oek50_bmn_dir', 'oek50_utm_dir']
+    requiredKeys = ['hires_vertical', 'hires_oblique_digital', 'hires_oblique_analog']
+
+    isIni = True
+    errorKeys = []
+    for k in requiredKeysIsFile:
+        key = "APIS/"+k
+        if not s.contains(key)or not os.path.isfile(s.value(key)):
+            isIni = False
+            errorKeys.append(k)
+
+    for k in requiredKeysIsDir:
+        key = "APIS/"+k
+        if not s.contains(key) or not os.path.isdir(s.value(key)):
+            isIni = False
+            errorKeys.append(k)
+
+    for k in requiredKeys:
+         key = "APIS/"+k
+         if not s.contains(key):
+             isIni = False
+             errorKeys.append(k)
+
+    return isIni, s if isIni else u"Folgende Schlüssel in der INI Datei sind nicht korrekt oder nicht vorhanden: " + u", ".join(errorKeys)
+
 class ApisUtils:
     def __init__(self, dialog):
         self.dialog = dialog

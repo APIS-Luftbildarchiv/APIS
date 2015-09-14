@@ -31,7 +31,7 @@ from PyQt4.QtSql import *
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
-from apis_utils import ApisUtils
+from apis_utils import *
 
 # --------------------------------------------------------
 # Settings - Basis Einstellungen für Plugin
@@ -60,11 +60,19 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         # Selectors for getFileOpenDialogs
         # paths chosen by user
         self.fileSelectors = {
-            "uiDatabaseFile" : {
-                "button" : self.uiDatabaseFileTBtn,
-                "infotext" : self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus ..."),
-                "input" : self.uiDatabaseFileEdit,
-                "path" : s.value("APIS/database_file", "")
+            # "uiDatabaseFile" : {
+            #     "button" : self.uiDatabaseFileTBtn,
+            #     "infotext" : self.tr(u"Wählen Sie eine APIS Spatialite Datenbank aus ..."),
+            #     "input" : self.uiDatabaseFileEdit,
+            #     "path" : s.value("APIS/database_file", ""),
+            #     "filter" : None
+            # },
+            "uiConfigIniFile" : {
+                "button" : self.uiConfigIniFileTBtn,
+                "infotext" : self.tr(u"Wählen Sie eine APIS INI Datei aus ..."),
+                "input" : self.uiConfigIniFileEdit,
+                "path" : s.value("APIS/config_ini", ""),
+                "filter" : self.tr("Config INI (*.ini)")
             }
         }
         for key, item in self.fileSelectors.items():
@@ -103,7 +111,9 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         inPath = QFileDialog.getOpenFileName(
             None,
             self.fileSelectors[key]['infotext'],
-            str(self.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t')
+            str(self.fileSelectors[key]['input'].text().encode('utf-8')).strip(' \t'),
+            self.fileSelectors[key]['filter'],
+
         )
         if os.path.exists(unicode(inPath)):
             self.fileSelectors[key]['input'].setText(unicode(inPath))
@@ -130,9 +140,45 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
 
         # Save Settings
         s = QSettings()
-        s.setValue("APIS/database_file", self.uiDatabaseFileEdit.text())
+        if len(self.uiConfigIniFileEdit.text()) > 0:
+            s.setValue("APIS/config_ini", self.uiConfigIniFileEdit.text())
+        #
+        # sApis = QSettings(s.value("APIS/config_ini"),  QSettings.IniFormat)
+        # #keys = sApis.allKeys()
+        # requiredKeysIsFile = ['database_file']
+        # requiredKeysIsDir = ['flightpath_dir', 'image_dir', 'ortho_image_dir', 'repr_image_dir', 'insp_image_dir', 'site_image_dir', 'oek50_bmn_dir', 'oek50_utm_dir']
+        # requiredKeys = ['hires_vertical', 'hires_oblique_digital', 'hires_oblique_analog']
+        #
+        # requiredKeysStatus = True
+        # errorKeys = []
+        # for k in requiredKeysIsFile:
+        #     key = "APIS/"+k
+        #     if not sApis.contains(key)or not os.path.isfile(sApis.value(key)):
+        #         requiredKeysStatus = False
+        #         errorKeys.append(k)
+        #
+        # for k in requiredKeysIsDir:
+        #     key = "APIS/"+k
+        #     if not sApis.contains(key) or not os.path.isdir(sApis.value(key)):
+        #         requiredKeysStatus = False
+        #         errorKeys.append(k)
+        #
+        # for k in requiredKeys:
+        #      key = "APIS/"+k
+        #      if not sApis.contains(key):
+        #          requiredKeysStatus = False
+        #          errorKeys.append(k)
+        #
+        # if not requiredKeysStatus:
+        #     QMessageBox.warning(None, self.tr(u"Konfiguration"), u"Folgende Schlüssel in der INI Datei sind nicht korrekt oder nicht vorhanden: {0}".format(', '.join(errorKeys)))
+        #     self.callOpenFileDialog("uiConfigIniFile")
+        #     return
+            #Warnung INI FIle passt nicht
 
-        s.setValue("APIS/plugin_config_status", True)
+        #QMessageBox.warning(None, self.tr(u"config"), sApis.applicationName() + ' ' + ', '.join(keys))
+        #QMessageBox.warning(None, self.tr(u"config"), "test")
+
+        #check if all required settings are set in ini file
 
         self.accept()
 
@@ -141,9 +187,6 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         Run some actions when
         the user closes the dialog
         '''
-        s = QSettings()
-        self.uiDatabaseFileEdit.setText(s.value("APIS/database_file"))
-        #s.setValue("APIS/plugin_config_status", True)
         self.close()
 
     def onReset(self):
@@ -151,7 +194,7 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         Delte Settings
         '''
         s = QSettings()
-        s.remove("APIS/database_file")
-        self.uiDatabaseFileEdit.clear()
-        # s.setValue("APIS/plugin_config_status", False)
+        s.remove("APIS/config_ini")
+        self.uiConfigIniFileEdit.clear()
+
 

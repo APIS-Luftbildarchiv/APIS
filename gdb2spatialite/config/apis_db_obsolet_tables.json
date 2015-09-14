@@ -24,8 +24,10 @@
     "industri",
     "fake",
     "luftbild_fundort",
-    "oek50geo",
     "neg_inst",
-    "kgs",
-    "fo_interpretation"
+    "fo_interpretation",
+    "sub_fs_pol",
+    "sub_fs_log_pol",
+    "fo_pol",
+    "fo_log_pol"
 ]}

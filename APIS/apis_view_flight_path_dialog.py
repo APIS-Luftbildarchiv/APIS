@@ -26,6 +26,7 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
         self.iface = iface
         self.setupUi(self)
         self.dbm = dbm
+        self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.accepted.connect(self.onAccepted)
 
         self.buttonBox.button(QDialogButtonBox.Ok).setEnabled(False)
@@ -50,7 +51,7 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
     def viewFilms(self, films):
         #QMessageBox.warning(None, "Test", ";".join(films))
 
-        s = QSettings()
+        #s = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         query = QSqlQuery(self.dbm.db)
 
         table = self.uiFlightPathAvailabilityTable
@@ -61,7 +62,7 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
 
         for film in films:
             availability = [False] * 4
-            flightPathDirectory = s.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(film)
+            flightPathDirectory = self.settings.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(film)
             if os.path.isdir(flightPathDirectory):
                 availability[0] = os.path.isfile(flightPathDirectory + "\\" + film + ".shp")
                 if availability[0]:
@@ -87,7 +88,7 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
             else:
                 self.orientation = "senk"
 
-            qryStr = "select count(*) from luftbild_{0}_cp where film = '{1}'".format(self.orientation,film)
+            qryStr = "select count(*) from luftbild_{0}_cp where filmnummer = '{1}'".format(self.orientation,film)
             query.exec_(qryStr)
             query.first()
             fn = query.value(0)
@@ -118,12 +119,11 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
         self.uiMappingLineChk.setEnabled(chkAvailability[3])
 
     def loadLayer(self):
-        s = QSettings()
         uri = QgsDataSourceURI()
-        uri.setDatabase(s.value("APIS/database_file"))
+        uri.setDatabase(self.dbm.db.databaseName())
 
         for key, item in self.filmsDict.items():
-            flightPathDirectory = s.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(key)
+            flightPathDirectory =  self.settings.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(key)
             if item[0] and self.uiGpsFlightPointChk.checkState() == Qt.Checked:
                 self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + ".shp", "flugstrecke {0}".format(key), 'ogr')
             if item[1] and self.uiGpsFlightLineChk.checkState() == Qt.Checked:
@@ -144,12 +144,12 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
                 uri.setDataSource('', 'luftbild_{0}_cp'.format(self.orientation), 'geom')
 
                 vlayer = QgsVectorLayer(uri.uri(), 'Kartierung {0} p'.format(key), 'spatialite')
-                vlayer.setSubsetString(u'"film" = "{0}"'.format(key))
+                vlayer.setSubsetString(u'"filmnummer" = "{0}"'.format(key))
                 if self.uiMappingPointChk.checkState() == Qt.Checked:
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer)
 
                 if self.uiMappingLineChk.checkState() == Qt.Checked:
-                    p2p = Points2Path(vlayer, 'Kartierung {0} l'.format(key), False, ["BILDNR"])
+                    p2p = Points2Path(vlayer, 'Kartierung {0} l'.format(key), False, ["bildnummer_nn"])
                     vlayer_l = p2p.run()
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer_l)
 

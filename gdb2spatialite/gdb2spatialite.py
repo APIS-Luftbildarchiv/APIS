@@ -1,7 +1,8 @@
  # -*- coding: utf-8 -*-
 
-import os, sys
+import os, sys, math
 from osgeo import ogr
+from osgeo import osr
 from pyspatialite import dbapi2 as db
 import json
 from datetime import datetime
@@ -209,13 +210,62 @@ class Apis:
                 json.dump(self.gdbStructure, configFile)
         print "> Write Config to JSON"
 
+    def Circle2Polygon(self, cpWkt, r, dpWkt):
+        #print cpWkt, r, dpWkt
+        cp = ogr.CreateGeometryFromWkt(cpWkt)
+        dp = ogr.CreateGeometryFromWkt(dpWkt)
+
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(4312)
+
+        target = osr.SpatialReference()
+        target.ImportFromProj4(self.Proj4Utm(cp))
+        #print target.ExportToProj4()
+
+        tF = osr.CoordinateTransformation(source, target)
+        tB = osr.CoordinateTransformation(target, source)
+
+        cp.Transform(tF)
+        dp.Transform(tF)
+
+       # print r, int(math.ceil(cp.Distance(dp)))
+
+        poly = cp.Buffer(math.ceil(cp.Distance(dp)))
+        poly.Transform(tB)
+
+        return ogr.ForceToMultiPolygon(poly)
+
+
+    def Proj4Utm(self,  p):
+        x = p.GetX()
+        y = p.GetY()
+        z = math.floor((x + 180)/6) + 1
+
+        if y >= 56.0 and y < 64.0 and x >= 3.0 and x < 12.0:
+            ZoneNumber = 32
+
+        #Special zones for Svalbard
+        if y >= 72.0 and y < 84.0 :
+            if y >= 0.0 and y <  9.0:
+                z = 31
+            elif y >= 9.0 and y < 21.0:
+                z = 33
+            elif y >= 21.0 and y < 33.0:
+                z = 35
+            elif y >= 33.0 and y < 42.0:
+                z = 37
+
+        return "+proj=utm +zone={0} +datum=WGS84 +units=m +no_defs".format(int(z))
+
+
     def CreateSpatialiteTablesFromStructure(self): 
         # iterate over structure and create tables in spatialite db
         print "> Create Spatialite"
         for table in self.gdbStructure:
             newTableName = self.GetNewTableName(table['name'])
-            if newTableName != "luftbild_schraeg_fp":
-                continue
+            #FIXME : comment out next tow lines ... just test mode
+            #if newTableName not in ["luftbild_schraeg_cp", "luftbild_schraeg_fp"]:
+            #    continue
             sql = "DROP TABLE IF EXISTS {0}".format(newTableName)
             self.slcur.execute(sql)
             sql = "CREATE TABLE {0} ".format(newTableName)
@@ -231,7 +281,7 @@ class Apis:
 
             if table['type'] != 100:
                 #print newTableName, int(table['epsg'])
-                # creating a POINT Geometry column
+                # creating Geometry column
                 sql = "SELECT AddGeometryColumn(?, 'geom', ?, ?, 'XY')"
                 # sql += "'geom', {0}, '{1}', 'XY')".format(table['epsg'], self.ogr2spatialite[table['type']])
                 self.slcur.execute(sql, (newTableName, 4312, self.ogr2spatialite[table['type']])) #int(table['epsg'])
@@ -299,16 +349,23 @@ class Apis:
                 #add geometry
                 if table['type'] != 100:
 
-
                     gm = feature.GetGeometryRef()
                     dr = feature.GetDefnRef()
                     if dr.GetGeomType() == ogr.wkbMultiPolygon:
                         for i in range(0, gm.GetGeometryCount()):
                             g = gm.GetGeometryRef(i)
                             for j in range(0, g.GetGeometryCount()):
-                                g2 = g.GetGeometryRef(i)
-                                if g2.GetPointCount() < 2:
-                                    print feature.GetFID(), gm.ExportToWkt()
+                                circleCandidate = g.GetGeometryRef(i)
+                                if circleCandidate and circleCandidate.GetPointCount() <= 2:
+                                    #print feature.GetFID(), feature.GetField("BILD"), gm.ExportToWkt() #gm.ExportToWkt()
+                                    rs = self.slcur.execute("SELECT AsText(geom), radius FROM luftbild_schraeg_cp WHERE bildnummer = '{0}'".format(feature.GetField("BILD")))
+
+                                    for row in rs:
+                                        dp =  circleCandidate.GetPoint(0)
+                                        gm = self.Circle2Polygon(row[0], row[1], 'POINT ({0} {1})'.format(dp[0], dp[1]))
+                                        #msg = "> CenterPoint for Image {0}: {1}, R = {2}".format(feature.GetField("BILD"), row[0], row[1])
+                                        #print msg
+
                     #print gm.GetPointCount()
                     #if feature.GetFID() > 33000:
                         #print feature.GetFID(), gm.ExportToWkt()
@@ -335,6 +392,9 @@ class Apis:
                         sql = "ALTER TABLE {0} ADD COLUMN {1} {2}".format(newTableName, newField['name'], self.convertionDict[newField['type']])
                         self.slcur.execute(sql)
 
+                        if 'sql' in newField:
+                            self.slcur.execute(newField['sql'])
+
             self.slconn.commit()
 
     def AddNewSpatialiteTablesFromJson(self):
@@ -354,7 +414,7 @@ class Apis:
             self.slcur.execute(sql)
 
             if newTable['type'] != 100:
-                # creating a POINT Geometry column
+                # creating Geometry column
                 sql = "SELECT AddGeometryColumn('{0}',".format(newTable['name'])
                 sql += "'geom', {0}, '{1}', 'XY')".format(4312, self.ogr2spatialite[newTable['type']])
                 self.slcur.execute(sql)
@@ -441,8 +501,10 @@ class Apis:
         self.LoadFileGdb() # creates self.gdbStructure
         self.WriteConfigFile('config/apis_db_config.json')
 
+        #FIXME : dont comment next line ... just test mode
+        self.AddNewSpatialiteTablesFromJson()
         self.CreateSpatialiteTablesFromStructure()
-        #self.AddNewSpatialiteTablesFromJson()
+
         self.CleanUp()
 
 if __name__ == '__main__':

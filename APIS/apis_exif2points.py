@@ -39,12 +39,12 @@ class Exif2Points(object):
     """Data processing for Point2One."""
 
     def __init__(self, filmNumber):
-        s = QSettings()
+        self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.filmNumber = filmNumber
-        self.imagePath = os.path.normpath(s.value("APIS/image_dir"))
+        self.imagePath = os.path.normpath(self.settings.value("APIS/image_dir"))
         self.filmPath = os.path.join(self.imagePath, self.filmNumber)
         self.images = glob.glob(os.path.normpath(self.filmPath + "\\" + self.filmNumber + "_*.*"))
-        self.flightPath = os.path.join(os.path.normpath(s.value("APIS/flightpath_dir")), self.yearFromFilm(self.filmNumber))
+        self.flightPath = os.path.join(os.path.normpath(self.settings.value("APIS/flightpath_dir")), self.yearFromFilm(self.filmNumber))
         self.shpFile = os.path.normpath(self.flightPath + "\\" + self.filmNumber + "_gps.shp")
 
     def run(self):
@@ -63,6 +63,7 @@ class Exif2Points(object):
         if check.exists():
             if not QgsVectorFileWriter.deleteShapeFile(self.shpFile):
                 msg = 'Unable to delete existing shapefile "{}"'
+                #TODO Error ...
                 raise Exception
 
         #fields

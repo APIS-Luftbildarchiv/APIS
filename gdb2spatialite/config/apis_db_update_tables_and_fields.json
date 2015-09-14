@@ -386,5 +386,215 @@
     {
         "name": "sub_fs_pol",
         "rename": "fundstelle_pol"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILMNR",
+                "rename": "filmnummer_hh_jj_mm"
+            },
+            {
+                "name": "LFDNR",
+                "rename": "filmnummer_nn"
+            },
+            {
+                "name": "BILDNR",
+                "rename": "bildnummer_nn"
+            },
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            },
+            {
+                "name": "HOCH",
+                "rename": "hoehe"
+            },
+            {
+                "name": "ETT",
+                "rename": "etikett"
+            },
+            {
+                "name": "GKX",
+                "rename": "gkx"
+            },
+            {
+                "name": "GKY",
+                "rename": "gky"
+            },
+            {
+                "name": "KAPPA",
+                "rename": "kappa"
+            },
+            {
+                "name": "ELLL",
+                "rename": "longitude"
+            },
+            {
+                "name": "ELLB",
+                "rename": "latitude"
+            },
+            {
+                "name": "MASS",
+                "rename": "massstab"
+            },
+            {
+                "name": "NEUDAT",
+                "rename": "datum_ersteintrag"
+            },
+            {
+                "name": "LETZTDAT",
+                "rename": "datum_aenderung"
+            },
+            {
+                "name": "PROJEKT",
+                "rename": "projekt"
+            },
+            {
+                "name": "FOKUS",
+                "rename": "fokus"
+            },
+            {
+                "name": "MERIDIAN",
+                "rename": "meridian"
+            },
+            {
+                "name": "COPYRIGHT",
+                "rename": "copyright"
+            }
+
+        ],
+        "name": "luftbild_senk_cp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILMNR",
+                "rename": "filmnummer_hh_jj_mm"
+            },
+            {
+                "name": "LFDNR",
+                "rename": "filmnummer_nn"
+            },
+            {
+                "name": "BILDNR",
+                "rename": "bildnummer_nn"
+            },
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            },
+            {
+                "name": "HOCH",
+                "rename": "hoehe"
+            },
+            {
+                "name": "ETT",
+                "rename": "etikett"
+            },
+            {
+                "name": "GKX",
+                "rename": "gkx"
+            },
+            {
+                "name": "GKY",
+                "rename": "gky"
+            },
+            {
+                "name": "KAPPA",
+                "rename": "kappa"
+            },
+            {
+                "name": "ELLL",
+                "rename": "longitude"
+            },
+            {
+                "name": "ELLB",
+                "rename": "latitude"
+            },
+            {
+                "name": "MASS",
+                "rename": "massstab"
+            },
+            {
+                "name": "NEUDAT",
+                "rename": "datum_ersteintrag"
+            },
+            {
+                "name": "LETZTDAT",
+                "rename": "datum_aenderung"
+            },
+            {
+                "name": "RADIUS",
+                "rename": "radius"
+            },
+            {
+                "name": "KWD",
+                "rename": "keyword"
+            },
+            {
+                "name": "DESCR",
+                "rename": "description"
+            },
+            {
+                "name": "PROJEKT",
+                "rename": "projekt"
+            },
+            {
+                "name": "FOKUS",
+                "rename": "fokus"
+            },
+            {
+                "name": "MERIDIAN",
+                "rename": "meridian"
+            },
+            {
+                "name": "COPYRIGHT",
+                "rename": "copyright"
+            },
+            {
+                "name": "GPSL",
+                "rename": "gps_longitude"
+            },
+            {
+                "name": "GPSB",
+                "rename": "gps_latitude"
+            }
+
+        ],
+        "name": "luftbild_schraeg_cp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            }
+        ],
+        "name": "luftbild_senk_fp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            }
+        ],
+        "name": "luftbild_schraeg_fp"
     }
 ]

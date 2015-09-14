@@ -3,7 +3,8 @@
         "fields": [
             {
                 "name": "filmid",
-                "type": "String"
+                "type": "String",
+                "sql": "update film  set filmid = (select ht.id from hersteller as ht where ht.kurz = hersteller) || case when substr(filmnummer, 1, 2) = '01' then '19' else '20' end || substr(filmnummer, 3)"
             },
             {
                 "name": "target",
@@ -11,5 +12,31 @@
             }
         ],
         "name": "film"
+    },
+    {
+        "fields": [
+            {
+                "name": "land",
+                "type": "String"
+            }
+        ],
+        "name": "luftbild_senk_cp"
+    },
+    {
+        "fields": [
+            {
+                "name": "land",
+                "type": "String"
+            },
+            {
+                "name": "blende",
+                "type": "Real"
+            },
+            {
+                "name": "belichtungszeit",
+                "type": "Real"
+            }
+        ],
+        "name": "luftbild_schraeg_cp"
     }
 ]

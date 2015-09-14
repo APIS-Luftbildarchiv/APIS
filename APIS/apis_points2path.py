@@ -30,7 +30,7 @@ from qgis.core import *
 
 
 class Points2Path(object):
-    """Data processing for Point2One."""
+    """Data processing for Point2Path."""
 
     def __init__(self, pointLayer, displayName, closeLines=False, sortFields=None):
         self.pointLayer = pointLayer

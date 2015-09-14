@@ -581,10 +581,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.close()
 
     def openImageSelectionListDialog(self):
-        self.imageSelectionListDlg.loadImageListByFilm(self.uiCurrentFilmNumberEdit.text(), self.uiFilmModeCombo.lineEdit().text())
-        self.imageSelectionListDlg.show()
-        if self.imageSelectionListDlg.exec_():
-            pass
+        res = self.imageSelectionListDlg.loadImageListByFilm(self.uiCurrentFilmNumberEdit.text(), self.uiFilmModeCombo.lineEdit().text())
+        if res:
+            self.imageSelectionListDlg.show()
+            if self.imageSelectionListDlg.exec_():
+                pass
 
     def showImageInformation(self):
         filmid = self.uiCurrentFilmNumberEdit.text()
@@ -791,6 +792,7 @@ class FilmDelegate(QSqlRelationalDelegate):
             #QMessageBox.warning(None, "Test", unicode(index.column()) + editor.text())
             model.setData(model.createIndex(index.row(), 0), str(editor.text())[:6])
             model.setData(model.createIndex(index.row(), 1), int(str(editor.text())[-2:]))
+            model.setData(model.createIndex(index.row(), 2), str(editor.text()))
         elif editor.metaObject().className() == 'QDateEdit':
             model.setData(index, editor.date().toString("yyyy-MM-dd"))
         elif editor.metaObject().className() == 'QTimeEdit':
