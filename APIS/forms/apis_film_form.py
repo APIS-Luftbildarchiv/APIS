@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Fri Jul 31 15:31:07 2015
+# Created: Tue Sep 22 08:55:39 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -500,14 +500,6 @@ class Ui_apisFilmDialog(object):
         self.uiImageCountEdit.setWhatsThis(_fromUtf8(""))
         self.uiImageCountEdit.setObjectName(_fromUtf8("uiImageCountEdit"))
         self.horizontalLayout_3.addWidget(self.uiImageCountEdit)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem2)
-        self.uiImageInformation = QtGui.QPushButton(self.gridLayoutWidget_2)
-        self.uiImageInformation.setText(_fromUtf8(""))
-        self.uiImageInformation.setIcon(icon8)
-        self.uiImageInformation.setAutoDefault(False)
-        self.uiImageInformation.setObjectName(_fromUtf8("uiImageInformation"))
-        self.horizontalLayout_3.addWidget(self.uiImageInformation)
         self.uiLeftGridLayout.addLayout(self.horizontalLayout_3, 3, 1, 1, 1)
         self.line_10 = QtGui.QFrame(apisFilmDialog)
         self.line_10.setGeometry(QtCore.QRect(310, 60, 20, 371))
@@ -551,8 +543,8 @@ class Ui_apisFilmDialog(object):
         self.uiLastChangesDate.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
         self.uiLastChangesDate.setObjectName(_fromUtf8("uiLastChangesDate"))
         self.horizontalLayout.addWidget(self.uiLastChangesDate)
-        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem3)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.uiSaveBtn = QtGui.QPushButton(self.horizontalLayoutWidget_2)
         self.uiSaveBtn.setEnabled(False)
         self.uiSaveBtn.setAutoDefault(False)

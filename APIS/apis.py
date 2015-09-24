@@ -30,6 +30,7 @@ import resources_rc
 from apis_settings_dialog import *
 from apis_film_dialog import *
 from apis_image_mapping_dialog import *
+from apis_image_search_tool import *
 
 from apis_utils import *
 from apis_db_manager import *
@@ -210,7 +211,7 @@ class APIS:
         )
 
         #Kartieren Dialog
-        iconPath = ':/plugins/APIS/icons/icon.png'
+        iconPath = ':/plugins/APIS/icons/mapping.png'
         self.mappingActionBtn = self.addApisAction(
             iconPath,
             text=self.tr(u'Bilder kartieren'),
@@ -221,6 +222,16 @@ class APIS:
 
         self.openDialogButtons.append(self.mappingActionBtn)
 
+        iconPath = ':/plugins/APIS/icons/search.png'
+        self.searchImageActionBtn = self.addApisAction(
+            iconPath,
+            text=self.tr(u'Bilder suchen'),
+            callback=self.toggleImageSearchTool,
+            enabledFlag=self.configStatus,
+            parent=self.iface.mainWindow(),
+            checkable=True)
+
+        self.openDialogButtons.append(self.mappingActionBtn)
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""
@@ -249,6 +260,20 @@ class APIS:
             self.imageMappingDlg.hide()
             self.imageMappingMode = False
             #self.mappingActionBtn.setChecked(True)
+
+
+
+    def toggleImageSearchTool(self):
+        # Check if something is working at the moment ... if yes don't do anything!
+        self.imageSearchTool = RectangleMapTool(self.iface, self.dbm)
+        mb = self.iface.messageBar()
+        if self.searchImageActionBtn.isChecked():
+            self.iface.mapCanvas().setMapTool(self.imageSearchTool)
+            mb.pushMessage("Luftbildsuche", "Klicken Sie auf die Karte oder ziehen Sie ein Rechteck auf um nach Luftbildern zu suchen!", level=QgsMessageBar.INFO)
+        else:
+            #if self.imageSearchTool.worker is None:
+            self.iface.mapCanvas().unsetMapTool(self.imageSearchTool)
+            mb.clearWidgets()
 
     def openSettingsDialog(self):
         """Run method that performs all the real work"""

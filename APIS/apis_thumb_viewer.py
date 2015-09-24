@@ -8,6 +8,7 @@ from PyQt4 import QtGui
 from PyQt4 import QtCore
 from PyQt4.QtCore import Qt
 from PyQt4.QtCore import SIGNAL
+import subprocess
 
 class QdGraphicsPixmapItem(QtGui.QGraphicsPixmapItem):
     def __init__(self, path, size, parent=None):
@@ -68,12 +69,15 @@ class QdThumbnailView(QtGui.QGraphicsView):
         imageOptions = QdImageOptions()
         imageOptions.setSize(self._width, self._height)
 
-        self._loader = QdImageLoader(imageOptions, self)
+        self._loader = QdImageLoader(imageOptions, self, parent)
         self.connect(self._loader, SIGNAL('imageLoaded(QString, QImage)'), self.imageLoaded)
         self.connect(self._loader, SIGNAL('finished()'), self.finished)
 
     def imagesPerRow(self):
         return 4
+
+    #def stopLoading(self):
+        #self._loader.stopLoading()
 
     def load(self, images, positionedImages={}):
         self._scene.clear()
@@ -240,7 +244,7 @@ class QdImageOptions(QtCore.QObject):
 class QdImageLoader(QtCore.QObject):
     _mutex = QtCore.QMutex()
 
-    def __init__(self, imageOptions=None, parent=None):
+    def __init__(self, imageOptions=None, parent=None, dialog=None):
         QtCore.QObject.__init__(self, parent)
         self._imageOptions = imageOptions
 
@@ -255,13 +259,14 @@ class QdImageLoader(QtCore.QObject):
         self._paths = []
         self._index = 0
 
-        self.connect( QtGui.QApplication.instance(), SIGNAL('lastWindowClosed()'), self.stopLoading )
+        self.connect( dialog, SIGNAL('rejected()'), self.terminateLoading )
 
     def threadFinished(self):
-        for thread in self._threads:
-            if not thread.isFinished():
-                return
-        self.emit(SIGNAL('loadFinished()'))
+        if not self._stopped:
+            for thread in self._threads:
+                if not thread.isFinished():
+                    return
+            self.emit(SIGNAL('loadFinished()'))
 
     def load(self, paths):
         self._stopped = False
@@ -290,7 +295,8 @@ class QdImageLoader(QtCore.QObject):
         return path
 
     def loaded(self, path, image):
-        self.emit(SIGNAL('imageLoaded(QString, QImage)'), path, image)
+        if not self._stopped:
+            self.emit(SIGNAL('imageLoaded(QString, QImage)'), path, image)
 
     def stopLoading(self, emitSignal=False):
         self._stopped = True
@@ -308,6 +314,9 @@ class QdImageLoader(QtCore.QObject):
     def stopped(self):
         return self._stopped
 
+    def terminateLoading(self):
+        self.stopLoading()
+        self._stopped = True
 
 class QdImageLoaderThread(QtCore.QThread):
     def __init__(self, loader):
@@ -351,6 +360,7 @@ class QdContactSheet(QtGui.QDialog):
         self.connect(self._iconView, SIGNAL('doubleClicked(QString)'), self._itemDoubleClicked)
         self.connect(self._iconView, SIGNAL('loading(int)'), self.updateProgress)
 
+        #self.rejected.connect(self.onReject)
 
     def load(self, images, positionedImages={}):
         self._iconView.load(images, positionedImages)
@@ -365,6 +375,10 @@ class QdContactSheet(QtGui.QDialog):
 
     def _itemDoubleClicked(self, path):
         self.emit(SIGNAL('doubleClicked(QString)'), path)
+
+    #def onReject(self):
+        #QtGui.QMessageBox.warning(None, "Thumbs", u"StopLoadingBeforeClosing")
+        #self._iconView.stopLoading()
 
 
 if __name__ == '__main__':

@@ -55,6 +55,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiSaveBtn.clicked.connect(self.saveEdits)
 
         self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
+
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
         self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
@@ -63,8 +64,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
         self.uiListImagesOfFilmBtn.clicked.connect(self.openImageSelectionListDialog)
         self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsGromImages)
-
-        self.uiImageInformation.clicked.connect(self.showImageInformation)
 
         # init Project Btn
         self.uiAddProjectBtn.clicked.connect(self.addProject)
@@ -448,12 +447,13 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
         if fileName:
             #QMessageBox.warning(None, "Save", fileName)
-            #FIXME template from Settings
+            #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
             template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
             #if os.path.isfile(template):
             templateDOM = QDomDocument()
             templateDOM.setContent(QFile(template), False)
 
+            #FIXME load correct Flightpath
             printLayers = []
             uri = "C:\\apis\\daten\\aerloc\\flugwege\\2014\\02140301_lin.shp"
             printLayer = QgsVectorLayer(uri, "testlayer", "ogr")
@@ -463,10 +463,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #layerset.append(printLayer.id())
             printLayers.append(printLayer.id())
 
-            urlWithParams = ' '
-            urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
-            rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
-            QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+            #urlWithParams = ' '
+            #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
+            #rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
+            #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
             #printLayers.append(rlayer.id())
 
             ms = QgsMapSettings()
@@ -507,7 +507,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             comp.exportAsPDF(fileName)
             #FIXME: Delete all alyers (array) not just one layer
             QgsMapLayerRegistry.instance().removeMapLayer(printLayer.id())
-            QgsMapLayerRegistry.instance().removeMapLayer(rlayer.id())
+            #QgsMapLayerRegistry.instance().removeMapLayer(rlayer.id())
 
             if sys.platform == 'linux2':
                 subprocess.call(["xdg-open", fileName])
@@ -534,7 +534,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
             if model.rowCount():
                 # open film selection list dialog
-                searchListDlg = ApisFilmSelectionListDialog(self.iface, model, self)
+                searchListDlg = ApisFilmSelectionListDialog(self.iface, model, self.dbm, self)
                 if searchListDlg.exec_():
                     #QMessageBox.warning(None, "FilmNumber", unicode(searchListDlg.filmNumberToLoad))
                     self.loadRecordByKeyAttribute("filmnummer", searchListDlg.filmNumberToLoad)
@@ -586,11 +586,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.imageSelectionListDlg.show()
             if self.imageSelectionListDlg.exec_():
                 pass
-
-    def showImageInformation(self):
-        filmid = self.uiCurrentFilmNumberEdit.text()
-
-
 
     def addNewFilm(self, flightDate, useLastEntry, producer):
         self.initalLoad = True

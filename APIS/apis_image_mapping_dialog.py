@@ -11,6 +11,7 @@ import pyexiv2 as exiv
 import os.path
 
 from apis_film_number_selection_dialog import *
+from apis_monoplot_import_dialog import *
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
@@ -23,6 +24,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         QDockWidget.__init__(self)
         self.iface = iface
         self.setupUi(self)
+        self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.dbm = dbm
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self)
         self.hide()
@@ -53,12 +55,14 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.filmSelectionDlg = ApisFilmNumberSelectionDialog(self.iface, self.dbm)
         self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
 
+        self.uiMonoplotImportBtn.clicked.connect(self.openMonoplotImportDialog)
+
         self.uiAddCenterPointBtn.clicked.connect(self.startAddingDetails)
 
         self.uiCancelCenterPointBtn.clicked.connect(self.onCancelAddCenterPoint)
         self.uiSaveCenterPointBtn.clicked.connect(self.onSaveAddCenterPoint)
 
-        self.uiGenerateFootprintsBtn.clicked.connect(self.generateFootprintsForFilmVertical)
+        self.uiGenerateFootprintsBtn.clicked.connect(self.generateFootprints)
 
         self.resetCurrentFilmNumber()
 
@@ -73,6 +77,15 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             else:
                 self.setCurrentFilmNumber(self.filmSelectionDlg.filmNumber())
 
+    def openMonoplotImportDialog(self):
+        """Run method that performs all the real work"""
+        self.reloadCpLayer()
+        self.reloadFpLayer()
+
+        monoplotImportDlg = ApisMonoplotImportDialog(self, self.iface, self.dbm, self.cpLayer, self.fpLayer, self.currentFilmNumber)
+        monoplotImportDlg.show()
+        if monoplotImportDlg.exec_():
+            pass
 
     def setCurrentFilmNumber(self, filmNumber):
         self.currentFilmNumber = filmNumber
@@ -325,8 +338,6 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
             feat = QgsFeature(self.cpLayer.pendingFields())
             feat.setGeometry(QgsGeometry.fromPoint(self.imageCenterPoint))
-            #TODO Rename (Tool GDB2Spatialite) Cols!
-            #TODO iterate over currentFilmInfoDict and use keys = colnames
 
             # From Film Table
             #filmFields = ["form1", "form2", "weise", "kammerkonstante"]
@@ -448,9 +459,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             return query.value(0)
 
     def getExifForImage(self, imageNumber):
-        s = QSettings()
         exif = [None, None, None, None, None, None]
-        dirName = s.value("APIS/image_dir")
+        dirName = self.settings.value("APIS/image_dir")
         imageName = imageNumber.replace('.','_') + '.jpg'
         image = os.path.normpath(dirName+'\\'+self.currentFilmNumber+'\\'+imageName)
         #QMessageBox.warning(None, u"exif", image)
@@ -488,6 +498,12 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def reloadFpLayer(self):
          if self.fpLayerId not in QgsMapLayerRegistry.instance().mapLayers():
             self.loadFootPrintLayerForFilm()
+
+    def generateFootprints(self):
+        if self.isOblique:
+            self.generateFootprintsForFilmOblique()
+        else:
+            self.generateFootprintsForFilmVertical()
 
     def generateFootprintsForFilmVertical(self):
         self.reloadCpLayer()

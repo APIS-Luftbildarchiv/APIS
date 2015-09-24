@@ -5,5 +5,7 @@
         <file>icons/film.png</file>
         <file>icons/settings.png</file>
         <file>icons/settings_alert.png</file>
+        <file>icons/search.png</file>
+        <file>icons/mapping.png</file>
     </qresource>
 </RCC>

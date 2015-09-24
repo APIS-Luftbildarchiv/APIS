@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/plugins/APIS/">
+    <file>templates/FilmDetails.qpt</file>
+  </qresource>
+</RCC>
