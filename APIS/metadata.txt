@@ -24,9 +24,9 @@ email=johannes.liem@digitalcartography.org
 # Tags are comma separated with spaces allowed
 tags=apis
 
-homepage=github
-tracker=github
-repository=github
+homepage=http://luftbildarchiv.univie.ac.at/
+tracker=https://github.com/APIS-Luftbildarchiv/APIS/issues
+repository=https://github.com/APIS-Luftbildarchiv/APIS
 category=Database
 icon=icon.png
 # experimental flag
