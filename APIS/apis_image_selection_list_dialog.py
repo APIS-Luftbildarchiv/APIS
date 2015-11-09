@@ -121,14 +121,16 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             filmDir = QDir(filmDirName)
             hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
             if len(hiResDirs) > 0:
+                hasHiRes = "nein"
                 for hiResDirName in hiResDirs:
                     hiResDir = QDir(filmDirName + "\\" + hiResDirName)
                     hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
                     if len(hiResFiles) > 0:
                         #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
-                        newRow.append(QStandardItem("ja"))
-                    else:
-                        newRow.append(QStandardItem("nein"))
+                        #newRow.append(QStandardItem("ja"))
+                        hasHiRes = "ja"
+
+                newRow.append(QStandardItem(hasHiRes))
             else:
                 newRow.append(QStandardItem("nein"))
 
@@ -215,14 +217,17 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             filmDir = QDir(filmDirName)
             hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
             if len(hiResDirs) > 0:
+                hasHiRes = "nein"
                 for hiResDirName in hiResDirs:
                     hiResDir = QDir(filmDirName + "\\" + hiResDirName)
                     hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
                     if len(hiResFiles) > 0:
                         #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
-                        newRow.append(QStandardItem("ja"))
-                    else:
-                        newRow.append(QStandardItem("nein"))
+                        #newRow.append(QStandardItem("ja"))
+                        hasHiRes = "ja"
+                    #else:
+                        #newRow.append(QStandardItem("nein"))
+                newRow.append(QStandardItem(hasHiRes))
             else:
                 newRow.append(QStandardItem("nein"))
 

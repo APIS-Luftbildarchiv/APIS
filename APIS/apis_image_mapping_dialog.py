@@ -85,7 +85,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         monoplotImportDlg = ApisMonoplotImportDialog(self, self.iface, self.dbm, self.cpLayer, self.fpLayer, self.currentFilmNumber)
         monoplotImportDlg.show()
         if monoplotImportDlg.exec_():
-            pass
+            self.cpLayer.updateExtents()
+            self.fpLayer.updateExtents()
 
     def setCurrentFilmNumber(self, filmNumber):
         self.currentFilmNumber = filmNumber

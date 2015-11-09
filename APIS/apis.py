@@ -31,6 +31,7 @@ from apis_settings_dialog import *
 from apis_film_dialog import *
 from apis_image_mapping_dialog import *
 from apis_image_search_tool import *
+from apis_image_registry import *
 
 from apis_utils import *
 from apis_db_manager import *
@@ -90,6 +91,9 @@ class APIS:
         self.imageMappingDlg = None
 
         if(self.configStatus):
+            #generate ApisImageRegistry in Background Thread
+            self.imageRegistry = ApisImageRegistry()
+            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"{0}".format(self.imageRegistry.hasImage('abc')))
             self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
             self.initDialogs()
 
@@ -231,7 +235,7 @@ class APIS:
             parent=self.iface.mainWindow(),
             checkable=True)
 
-        self.openDialogButtons.append(self.mappingActionBtn)
+        self.openDialogButtons.append(self.searchImageActionBtn)
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""

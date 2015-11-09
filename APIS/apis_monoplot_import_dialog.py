@@ -45,7 +45,7 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
             return False
         provCP = self.sourceLayerCP.dataProvider()
         fieldNamesCP = [field.name() for field in provCP.fields()]
-        if set(fieldNamesCP) != set(["Image", "ERROR", "XCOORD", "YCOORD"]):
+        if set(fieldNamesCP) != set(["Image", "ERROR"]):
             return False
 
         provFP = self.sourceLayerFP.dataProvider()
@@ -53,11 +53,11 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
         if set(fieldNamesFP) != set(["Image", "ERROR"]):
             return False
 
-        filmNumberCP = set([feature["Image"][0:8] for feature in self.sourceLayerCP.getFeatures()])
+        filmNumberCP = set([feature["Image"].split('_')[0] for feature in self.sourceLayerCP.getFeatures()])
         if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != self.filmId:
             return False
 
-        filmNumberFP = set([feature["Image"][0:8] for feature in self.sourceLayerFP.getFeatures()])
+        filmNumberFP = set([feature["Image"].split('_')[0]for feature in self.sourceLayerFP.getFeatures()])
         if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != self.filmId:
             return False
 
@@ -127,7 +127,7 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
                 sourceFeatFP = QgsFeature()
                 while iterCP.nextFeature(sourceFeatCP):
                     iterFP.nextFeature(sourceFeatFP)
-                    imageNumber = int(sourceFeatCP["Image"][10:14])
+                    imageNumber = int(sourceFeatCP["Image"].split('_')[1].split('.')[0])
                     bn = '{0}.{1:03d}'.format(self.filmId, imageNumber)
                     if imageNumber in existingFeaturesCP or imageNumber in existingFeatureFP:
                         #TODO: Wenn kartiert Abfragen ob überspringen oder überschreiben (diesmal oder alle)!
