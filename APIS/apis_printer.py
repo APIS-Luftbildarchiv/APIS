@@ -14,3 +14,16 @@ class ApisPrinter():
         self.comp.setPlotStyle(QgsComposition.Print)
         self.comp.setPrintResolution(r)
         self.comp.setPaperSize(w, h)
+
+class ApisListPrinter(ApisPrinter):
+
+    def __init__(self):
+        pass
+
+class ApisFilmDetailsPrinter(ApisPrinter):
+    def __init__(self):
+        pass
+
+class ApisMultipleFilmsDetailsPrinter(ApisPrinter):
+     def __init__(self):
+        pass
