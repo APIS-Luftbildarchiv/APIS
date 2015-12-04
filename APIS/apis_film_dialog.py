@@ -25,6 +25,7 @@ import string
 
 from apis_exif2points import Exif2Points
 
+
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/composer")
@@ -43,6 +44,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.iface = iface
         self.dbm = dbm
         self.setupUi(self)
+
+        self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
 
         self.editMode = False
         self.addMode = False
@@ -64,6 +67,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
         self.uiListImagesOfFilmBtn.clicked.connect(self.openImageSelectionListDialog)
         self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsGromImages)
+
+        self.uiWeatherCodeEdit.textChanged.connect(self.generateWeatherCode)
 
         # init Project Btn
         self.uiAddProjectBtn.clicked.connect(self.addProject)
@@ -444,7 +449,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
 
     def exportDetailsPdf(self):
-        fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
+        filmId = self.uiCurrentFilmNumberEdit.text()
+        saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+        #fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
+        fileName = QFileDialog.getSaveFileName(self, 'Film Details', saveDir + "\\" + 'Filmdetails_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+
         if fileName:
             #QMessageBox.warning(None, "Save", fileName)
             #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
@@ -453,11 +462,15 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             templateDOM = QDomDocument()
             templateDOM.setContent(QFile(template), False)
 
-            #FIXME load correct Flightpath
+            #FIXME load correct Flightpath; from Settings
             printLayers = []
-            uri = "C:\\apis\\daten\\aerloc\\flugwege\\2014\\02140301_lin.shp"
-            printLayer = QgsVectorLayer(uri, "testlayer", "ogr")
-            QgsMapLayerRegistry.instance().addMapLayer(printLayer, False)
+            flightpathDir = self.settings.value("APIS/flightpath_dir")
+            uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
+            printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+            #printLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.8'})
+            #printLayer.rendererV2().setSymbol(symbol)
+            QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
             extent = printLayer.extent()
 
             #layerset.append(printLayer.id())
@@ -480,16 +493,24 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             comp.setPlotStyle(QgsComposition.Print)
             comp.setPrintResolution(300)
 
-
             m = self.mapper.model()
             r = self.mapper.currentIndex()
             filmDict = {}
             for c in range(m.columnCount()):
-                filmDict[m.headerData(c, Qt.Horizontal)] = unicode(m.data(m.createIndex(r, c)))
+                val = unicode(m.data(m.createIndex(r, c)))
+                if val.replace(" ", "")=='' or val=='NULL':
+                    val = u"---"
+
+                filmDict[m.headerData(c, Qt.Horizontal)] = val
+
+
+
+
                 #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
 
-            comp.loadFromTemplate(templateDOM, filmDict)
+            filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
 
+            comp.loadFromTemplate(templateDOM, filmDict)
 
             composerMap = comp.getComposerMapById(0)
             composerMap.setKeepLayerSet(True)
@@ -499,7 +520,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
             #if composerMap:
                 #QMessageBox.warning(None, "Save", composerMap)
-            #composerMap.setKeepLayerSet(True)
+           #composerMap.setKeepLayerSet(True)
             #composerMap.setLayerSet(layerset)
 
 
@@ -568,7 +589,34 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         if self.editWeatherDlg.exec_():
             self.uiWeatherCodeEdit.setText(self.editWeatherDlg.weatherCode())
-            self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
+            #self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
+
+    def generateWeatherCode(self):
+        weatherDescription = self._generateWeatherCode(self.uiWeatherCodeEdit.text())
+        self.uiWeatherPTxt.setPlainText(weatherDescription)
+
+    def _generateWeatherCode(self, weatherCode):
+        categories = ["Low Cloud Amount", "Visibility Kilometres", "Low Cloud Height", "Weather", "Remarks Mission", "Remarks Weather"]
+        query = QSqlQuery(self.dbm.db)
+        pos = 0
+        help = 0
+        weatherDescription = ""
+        for c in weatherCode:
+            qryStr = "select description from wetter where category = '{0}' and code = '{1}' limit 1".format(categories[pos-help], c)
+            query.exec_(qryStr)
+            query.first()
+            fn = query.value(0)
+            if pos <= 5:
+                weatherDescription += categories[pos] + ': ' + fn
+                if pos < 5:
+                   weatherDescription += '\n'
+            else:
+                weatherDescription += '; ' + fn
+
+            if pos >= 5:
+                help += 1
+            pos += 1
+        return weatherDescription
 
     def openViewFlightPathDialog(self, filmList, toClose=None):
         self.viewFlightPathDlg.viewFilms(filmList)
@@ -617,6 +665,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
         self.uiFlightDate.setDate(flightDate)
         self.uiProducerEdit.setText(producer)
+        if not useLastEntry:
+            self.uiWeatherCodeEdit.setText("9990X")
 
         now = QDate.currentDate()
         self.uiInitalEntryDate.setDate(now)

@@ -342,7 +342,7 @@ class Apis:
                         if field['type'] != newType:
                             v = self.DoTypeCast(v, field['type'], newType)
 
-                        v = self.GetContentConversion(table['name'], field['name'], v)
+                    v = self.GetContentConversion(table['name'], field['name'], v)
 
                     r.append(v)
 

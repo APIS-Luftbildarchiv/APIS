@@ -8,7 +8,11 @@ from PyQt4.QtSql import *
 from qgis.gui import *
 from qgis.core import *
 
+from PyPDF2 import PdfFileMerger, PdfFileReader
+
+
 from apis_db_manager import *
+from apis_printer import *
 
 from functools import partial
 
@@ -33,6 +37,7 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
         self.uiDisplayFlightPathBtn.clicked.connect(lambda: parent.openViewFlightPathDialog(self.getFilmList(), self))
         self.uiExportListAsPdfBtn.clicked.connect(self.exportListAsPdf)
+        self.uiExportDetailsAsPdfBtn.clicked.connect(self.exportDetailsAsPdf)
 
         self.accepted.connect(self.onAccepted)
 
@@ -113,27 +118,198 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
             self.uiDisplayFlightPathBtn.setEnabled(False)
         #QMessageBox.warning(None, "FilmNumber", "selection Changed")
 
-
-    def exportListAsPdf(self):
-
+    def checkSelection(self):
         if self.uiFilmListTableV.selectionModel().hasSelection():
-            #Abfrage Footprints der selektierten Bilder Exportieren oder alle
+            # Export selected or all items
             msgBox = QMessageBox()
-            msgBox.setWindowTitle(u'Filmliste als PDF speichern')
+            msgBox.setWindowTitle(u'Filme als PDF speichern')
             msgBox.setText(u'Wollen Sie die ausgewählten Filme oder die gesamte Liste als PDF speichern?')
             msgBox.addButton(QPushButton(u'Auswahl'), QMessageBox.YesRole)
             msgBox.addButton(QPushButton(u'Gesamte Liste'), QMessageBox.NoRole)
             msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
             ret = msgBox.exec_()
 
-            if ret == 0:
-                filmList = self.getFilmListWithRows(False)
-            elif ret == 1:
-                filmList = self.getFilmListWithRows(True)
-            else:
-                return
+            return ret
         else:
+            return 1
+
+    def _generateWeatherCode(self, weatherCode):
+        categories = ["Low Cloud Amount", "Visibility Kilometres", "Low Cloud Height", "Weather", "Remarks Mission", "Remarks Weather"]
+        query = QSqlQuery(self.dbm.db)
+        pos = 0
+        help = 0
+        weatherDescription = ""
+        for c in weatherCode:
+            qryStr = "select description from wetter where category = '{0}' and code = '{1}' limit 1".format(categories[pos-help], c)
+            query.exec_(qryStr)
+            query.first()
+            fn = query.value(0)
+            if pos <= 5:
+                weatherDescription += categories[pos] + ': ' + fn
+                if pos < 5:
+                   weatherDescription += '\n'
+            else:
+                weatherDescription += '; ' + fn
+
+            if pos >= 5:
+                help += 1
+            pos += 1
+        return weatherDescription
+
+    def exportDetailsAsPdf(self):
+
+        selection = self.checkSelection()
+        query = QSqlQuery(self.dbm.db)
+
+
+        if selection == 0:
+            filmList = self.getFilmList(False)
+        elif selection == 1:
+            filmList = self.getFilmList(True)
+        else:
+            return
+
+        if filmList:
+            saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+            fileNames = []
+            if len(filmList) <= 1:
+                fn = u"Filmdetails_{0}".format(filmList[0])
+            else:
+                fn = u"Filmdetails_Sammlung"
+
+            fileName = QFileDialog.getSaveFileName(self, u"Filmdetails speichern", saveDir + "\\" + '{0}_{1}'.format(fn,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+
+            if not fileName:
+                return
+
+            #Query Film Details!
+
+            qryStr = "select * from film where filmnummer in ({0})".format("'"+"','".join(filmList)+"'")
+            query.exec_(qryStr)
+
+
+
+        #filmId = filmList[0]
+        #if fileName:
+            tempFileNames = []
+            while query.next():
+
+                filmDict = {}
+                rec = query.record()
+                for col in range(rec.count()):
+                    val = unicode(rec.value(col))
+                    if val.replace(" ", "")=='' or val=='NULL':
+                        val = u"---"
+
+                    filmDict[unicode(rec.fieldName(col))] = val
+
+                filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
+
+
+                #for filmId in filmList:
+                #QMessageBox.warning(None, "Save", fileName)
+                #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
+                template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
+                #if os.path.isfile(template):
+                templateDOM = QDomDocument()
+                templateDOM.setContent(QFile(template), False)
+
+                #FIXME load correct Flightpath; from Settings
+                printLayers = []
+                flightpathDir = self.settings.value("APIS/flightpath_dir")
+                #uri = flightpathDir + "\\2014\\02140301_lin.shp"
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_lin.shp"
+                if not os.path.isfile(uri):
+                    uri = flightpathDir + "\\2014\\02140301_lin.shp"
+                printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+                QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
+                printLayer.updateExtents()
+                extent = printLayer.extent()
+
+                #layerset.append(printLayer.id())
+                printLayers.append(printLayer.id())
+
+                #urlWithParams = ' '
+                #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
+                #rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
+                #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+                #printLayers.append(rlayer.id())
+
+                ms = QgsMapSettings()
+                ms.setExtent(extent)
+                #mr.setLayerSet(layerset)
+
+                #mapRectangle = QgsRectangle(140,-28,155,-15)
+                #mr.setExtent(extent)
+
+                comp = QgsComposition(ms)
+                comp.setPlotStyle(QgsComposition.Print)
+                comp.setPrintResolution(300)
+
+                #m = self.mapper.model()
+                #r = self.mapper.currentIndex()
+                #filmDict = {'filmnummer':filmId}
+               # for c in range(m.columnCount()):
+                    #filmDict[m.headerData(c, Qt.Horizontal)] = unicode(m.data(m.createIndex(r, c)))
+                    #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
+
+
+                comp.loadFromTemplate(templateDOM, filmDict)
+
+                composerMap = comp.getComposerMapById(0)
+                composerMap.setKeepLayerSet(True)
+                composerMap.setLayerSet(printLayers)
+                #composerMap.renderModeUpdateCachedImage()
+                #ms.setLayers(printLayers)
+
+                #if composerMap:
+                    #QMessageBox.warning(None, "Save", composerMap)
+               #composerMap.setKeepLayerSet(True)
+                #composerMap.setLayerSet(layerset)
+
+
+                if len(filmList) > 1:
+                    tempFileName = fileName + "." + filmDict["filmnummer"] + ".pdf"
+                    comp.exportAsPDF(tempFileName)
+                    tempFileNames.append(tempFileName)
+                else:
+                    comp.exportAsPDF(fileName)
+                #FIXME: Delete all alyers (array) not just one layer
+                QgsMapLayerRegistry.instance().removeMapLayer(printLayer.id())
+                #QgsMapLayerRegistry.instance().removeMapLayer(rlayer.id())
+
+            if tempFileNames:
+                #merge pdfs
+                merger = PdfFileMerger()
+                for filename in tempFileNames:
+                    merger.append(PdfFileReader(file(filename, 'rb')))
+
+                merger.write(fileName)
+
+                for filename in tempFileNames:
+                    try:
+                        os.remove(filename)
+                    except Exception, e:
+                        continue
+
+            try:
+                if sys.platform == 'linux2':
+                    subprocess.call(["xdg-open", fileName])
+                else:
+                    os.startfile(fileName)
+            except Exception, e:
+                pass
+
+    def exportListAsPdf(self):
+
+        selection = self.checkSelection()
+
+        if selection == 0:
+            filmList = self.getFilmListWithRows(False)
+        elif selection == 1:
             filmList = self.getFilmListWithRows(True)
+        else:
+            return
 
         #fileName = 'C:\\apis\\temp\\BildListe.pdf'
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
@@ -147,7 +323,6 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
             comp = QgsComposition(ms)
             comp.setPlotStyle(QgsComposition.Print)
             comp.setPrintResolution(300)
-            comp.setPaperSize(297.0, 210.0,)
             comp.setPaperSize(297.0, 210.0)
 
             #header

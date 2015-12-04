@@ -297,26 +297,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="uiListSitesByYearBtn">
-      <property name="text">
-       <string>Fundorte eines Jahres</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="uiListImagesOfFilmBtn">
       <property name="text">
        <string>Bilder des Films</string>

@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Neuer Film</string>
+   <string>APIS Neuer Film</string>
   </property>
   <property name="locale">
    <locale language="German" country="Austria"/>

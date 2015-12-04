@@ -125,31 +125,31 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
         for key, item in self.filmsDict.items():
             flightPathDirectory =  self.settings.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(key)
             if item[0] and self.uiGpsFlightPointChk.checkState() == Qt.Checked:
-                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + ".shp", "flugstrecke {0}".format(key), 'ogr')
+                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + ".shp", "flugzeug-gps {0}".format(key), 'ogr')
             if item[1] and self.uiGpsFlightLineChk.checkState() == Qt.Checked:
-                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + "_lin.shp", "flugstrecke {0}".format(key), 'ogr')
+                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + "_lin.shp", "flugzeug-gps {0}".format(key), 'ogr')
             if item[2] and (self.uiGpsCameraPointChk.checkState() == Qt.Checked or self.uiGpsCameraLineChk.checkState() == Qt.Checked):
                 #self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + "_gps.shp", "flugstrecke {0} gps p".format(key), 'ogr')
 
-                vlayer = QgsVectorLayer(flightPathDirectory+ "\\" + key + "_gps.shp", "flugstrecke {0} gps p".format(key), 'ogr')
+                vlayer = QgsVectorLayer(flightPathDirectory+ "\\" + key + "_gps.shp", "kamera-gps {0} p".format(key), 'ogr')
                 if self.uiGpsCameraPointChk.checkState() == Qt.Checked:
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer)
 
                 if self.uiGpsCameraLineChk.checkState() == Qt.Checked:
-                    p2p = Points2Path(vlayer, 'flugstrecke {0} gps l'.format(key), False, ["bildnr"])
+                    p2p = Points2Path(vlayer, 'kamera-gps {0} gps l'.format(key), False, ["bildnr"])
                     vlayer_l = p2p.run()
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer_l)
 
             if item[3] and (self.uiMappingPointChk.checkState() == Qt.Checked or self.uiMappingLineChk.checkState() == Qt.Checked):
                 uri.setDataSource('', 'luftbild_{0}_cp'.format(self.orientation), 'geom')
 
-                vlayer = QgsVectorLayer(uri.uri(), 'Kartierung {0} p'.format(key), 'spatialite')
+                vlayer = QgsVectorLayer(uri.uri(), 'kartierung {0} p'.format(key), 'spatialite')
                 vlayer.setSubsetString(u'"filmnummer" = "{0}"'.format(key))
                 if self.uiMappingPointChk.checkState() == Qt.Checked:
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer)
 
                 if self.uiMappingLineChk.checkState() == Qt.Checked:
-                    p2p = Points2Path(vlayer, 'Kartierung {0} l'.format(key), False, ["bildnummer_nn"])
+                    p2p = Points2Path(vlayer, 'kartierung {0} l'.format(key), False, ["bildnummer_nn"])
                     vlayer_l = p2p.run()
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer_l)
 

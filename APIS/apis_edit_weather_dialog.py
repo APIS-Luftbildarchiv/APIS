@@ -195,12 +195,17 @@ class ApisEditWeatherDialog(QDialog, Ui_apisWeatherDialog):
                         break
             idx += 1
         self.uiDescriptionPTxt.clear()
+        pos = 0
         for c in code:
+            pos += 1
             qryStr = "select description from wetter where category = '{0}' and code = '{1}' limit 1".format(c['category'], c['code'])
             query.exec_(qryStr)
             query.first()
             fn = query.value(0)
-            self.uiDescriptionPTxt.appendPlainText(c['code'] + ' - ' + fn)
+            if pos <= 6:
+                self.uiDescriptionPTxt.appendPlainText(c['category'] + ': ' + fn)
+            else:
+                self.uiDescriptionPTxt.insertPlainText('; ' + fn)
 
     def weatherCode(self):
         return unicode(self.uiCodeEdit.text())
