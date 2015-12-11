@@ -7,6 +7,7 @@
     "flugwege_schraeg_pnt_Layer_Dissolve_F2E",
     "flugwege_senk_pnt_Layer_Dissolve",
     "flugwege_senk_pnt_Layer_Dissolve_F2E",
+    "flugweg_senk_pnt",
     "fo_pnt_test",
     "fo_pnt_orig",
     "fo_pol_old",
@@ -24,10 +25,6 @@
     "industri",
     "fake",
     "luftbild_fundort",
-    "neg_inst",
-    "fo_interpretation",
-    "sub_fs_pol",
-    "sub_fs_log_pol",
-    "fo_pol",
-    "fo_log_pol"
+    "film_report_pol",
+    "neg_inst"
 ]}

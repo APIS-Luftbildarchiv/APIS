@@ -6,63 +6,325 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>878</width>
+    <height>621</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>APIS Fundorte Auswahl</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
-     <height>32</height>
+     <x>10</x>
+     <y>20</y>
+     <width>823</width>
+     <height>34</height>
     </rect>
    </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="uiImageThumbsBtn">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Fundorte Anzeigen</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="uiExportFootprintsBtn">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Fundorte Export</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="uiCopyImagesBtn">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Interpretation Anzeigen</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="uiExportListAsPdfBtn">
+      <property name="text">
+       <string>PDF Export</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/print.png</normaloff>:/plugins/APIS/icons/print.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTableView" name="uiImageListTableV">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>823</width>
+     <height>410</height>
+    </rect>
    </property>
   </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>490</y>
+     <width>823</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>Fundorte:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiImageCountLbl">
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiImageFilterCountLbl">
+      <property name="text">
+       <string>(-)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Scan:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiScanCountLbl">
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiScanFilterCountLbl">
+      <property name="text">
+       <string>(-)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>HiRes:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiHiResCountLbl">
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiHiResFilterCountLbl">
+      <property name="text">
+       <string>(-)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Ortho:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiOrthoCountLbl">
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiOrthoFilterCountLbl">
+      <property name="text">
+       <string>(-)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="uiImageCountLabelLbl">
+      <property name="text">
+       <string>Gesamt (Filter)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
  </widget>
- <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
 </ui>

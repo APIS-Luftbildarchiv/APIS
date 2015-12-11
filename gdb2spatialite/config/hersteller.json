@@ -1,0 +1,57 @@
+{
+    "source": "data",
+    "name": "hersteller",
+    "type": 100,
+    "primary": "id",
+    "fields": [
+        {
+            "name": "id",
+            "type": "String"
+        },
+        {
+            "name": "name",
+            "type": "String"
+        },
+        {
+            "name": "kurz",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "id": "99",
+            "name": "unbekannt",
+            "kurz": "unbek."
+        },
+        {
+            "id": "01",
+            "name": "Luftbildarchiv",
+            "kurz": "IUHA"
+        },
+        {
+            "id": "02",
+            "name": "Langenlebarn",
+            "kurz": "Lale"
+        },
+        {
+            "id": "03",
+            "name": "Hoersching",
+            "kurz": "Hoer"
+        },
+        {
+            "id": "04",
+            "name": "Bundesdenkmalamt",
+            "kurz": "BDA"
+        },
+        {
+            "id": "05",
+            "name": "Bundesamt Eich-Vermw",
+            "kurz": "BEV"
+        },
+        {
+            "id": "06",
+            "name": "Royal Commission on the Historical Monuments of England; RAF",
+            "kurz": "RCHMEK"
+        }
+    ]
+  }

@@ -2,9 +2,9 @@
     {
         "fields": [
             {
-                "name": "filmid",
+                "name": "filmnummer",
                 "type": "String",
-                "sql": "update film  set filmid = (select ht.id from hersteller as ht where ht.kurz = hersteller) || case when substr(filmnummer, 1, 2) = '01' then '19' else '20' end || substr(filmnummer, 3)"
+                "sql": "update film  set filmnummer = (select ht.id from hersteller as ht where ht.kurz = hersteller) || case when substr(filmnummer_legacy, 1, 2) = '01' then '19' else '20' end || substr(filmnummer_legacy, 3)"
             },
             {
                 "name": "target",

@@ -5,38 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_db_entry_form.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form_variante.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_oblique_form.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_vertical_form.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_viewer.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form_ORIG.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form_ORIG.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form_ORIG.ui" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/hersteller.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_printer.py" afterPath="$PROJECT_DIR$/APIS/apis_printer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_apis.ini" afterPath="$PROJECT_DIR$/config_apis.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" afterPath="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,124 +43,141 @@
     <favorites_list name="APIS" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pb_tool.cfg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gdb2spatialite.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="395" column="62" selection-start-line="395" selection-start-column="55" selection-end-line="395" selection-end-column="62" />
-              <folding>
-                <marker date="1448641738146" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
-                <marker date="1448641738146" expanded="true" signature="11574:11601" placeholder="INSERT INTO ..." />
-                <marker date="1448641738146" expanded="true" signature="14482:14559" placeholder="SELECT AsTex..luftbild_schraeg_cp..." />
-                <marker date="1448641738146" expanded="true" signature="15838:15872" placeholder="ALTER TABLE ..." />
-                <marker date="1448641738146" expanded="true" signature="16295:16319" placeholder="DROP TABLE I..." />
-                <marker date="1448641738146" expanded="true" signature="17287:17315" placeholder="INSERT INTO ..." />
-                <marker date="1448641738146" expanded="true" signature="20640:20668" placeholder="INSERT INTO ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_db_new_fields.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="20" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_db_new_tables.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="769" column="25" selection-start-line="769" selection-start-column="22" selection-end-line="769" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30650684">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <marker date="1448909536782" expanded="true" signature="13610:14125" placeholder="SELECT (SELE..film..." />
-                <marker date="1448909536782" expanded="true" signature="13641:13754" placeholder="SELECT COUNT..film..." />
-                <marker date="1448909536782" expanded="true" signature="13818:13958" placeholder="SELECT COUNT..film..." />
-                <marker date="1448909536782" expanded="true" signature="24399:24477" placeholder="select descr..wetter..." />
-                <marker date="1448909536782" expanded="true" signature="27422:27505" placeholder="select max(f..film..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/py_tiled_layer/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tiles.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/py_tiled_layer/tiles.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#1133#1144#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tilelayer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/py_tiled_layer/tilelayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="30" column="40" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_points2path.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_points2path.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config_apis.ini" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config_apis.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="81" selection-start-line="4" selection-start-column="81" selection-end-line="4" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.53418803">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="gdb2spatialite.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="353" column="20" selection-start-line="353" selection-start-column="20" selection-end-line="353" selection-end-column="63" />
+                  <folding>
+                    <element signature="e#26#46#0" expanded="true" />
+                    <marker date="1449346796731" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
+                    <marker date="1449346796731" expanded="true" signature="11574:11601" placeholder="INSERT INTO ..." />
+                    <marker date="1449346796731" expanded="true" signature="14482:14559" placeholder="SELECT AsTex..luftbild_schraeg_cp..." />
+                    <marker date="1449346796731" expanded="true" signature="15838:15872" placeholder="ALTER TABLE ..." />
+                    <marker date="1449346796731" expanded="true" signature="16295:16319" placeholder="DROP TABLE I..." />
+                    <marker date="1449346796731" expanded="true" signature="17287:17315" placeholder="INSERT INTO ..." />
+                    <marker date="1449346796731" expanded="true" signature="20640:20668" placeholder="INSERT INTO ..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_gdb2spatialite.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.6353111">
+                  <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#25#45#0" expanded="true" />
+                    <marker date="1449831040170" expanded="true" signature="2518:2539" placeholder="DROP TABLE I... " />
+                    <marker date="1449831040170" expanded="true" signature="2518:2542" placeholder="DROP TABLE I..." />
+                    <marker date="1449831040170" expanded="true" signature="2636:2649" placeholder="CREATE TABLE... missing_value" />
+                    <marker date="1449831040170" expanded="true" signature="5206:5239" placeholder="INSERT INTO ..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_obsolet_fields_future.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="15" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_new_fields.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_obsolet_fields_now.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_obsolet_tables.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_update_tables_and_fields.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="523" column="35" selection-start-line="523" selection-start-column="27" selection-end-line="523" selection-end-column="35" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="luftbild_schraeg_cp.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_image_search_tool.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="201" column="350" selection-start-line="201" selection-start-column="281" selection-end-line="201" selection-end-column="350" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="apis_db_config.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="0" column="12543" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17380" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="luftbild_schraeg_cp.json" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.02556391">
+                  <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -189,13 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Apis/resources.qrc" />
-        <option value="$PROJECT_DIR$/Apis/apis.py" />
-        <option value="$PROJECT_DIR$/APIS/__init__.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/README.txt" />
-        <option value="$PROJECT_DIR$/APIS/forms/resource.qrc" />
-        <option value="$PROJECT_DIR$/APIS/dialogs/__init__.py" />
         <option value="$PROJECT_DIR$/APIS/apis_dialogs.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/film.py" />
         <option value="$PROJECT_DIR$/APIS/apisdialogs/__init__.py" />
@@ -210,12 +206,9 @@
         <option value="$PROJECT_DIR$/APIS/apis_points2path.py" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json" />
         <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
         <option value="$PROJECT_DIR$/APIS/apis_geolocation.py" />
         <option value="$PROJECT_DIR$/APIS/apis_geolocator.py" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json" />
         <option value="$PROJECT_DIR$/config_apis_2.ini" />
         <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
@@ -234,12 +227,22 @@
         <option value="$PROJECT_DIR$/APIS/apis_image_registry.py" />
         <option value="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_printer.py" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
         <option value="$PROJECT_DIR$/config_apis.ini" />
         <option value="$PROJECT_DIR$/APIS/apis_edit_weather_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_gdb2spatialite_film.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_gdb2spatialite_hersteller.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_gdb2spatialite_fundort_pol.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
       </list>
     </option>
   </component>
@@ -251,7 +254,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1452" />
+    <option name="width" value="1456" />
     <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -279,6 +282,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -308,13 +312,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="gdb2spatialite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
               <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gdb2spatialite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -339,16 +360,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="968" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JSON" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\apis\APIS\APIS\" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\apis\APIS" />
       <recent name="C:\apis\APIS\APIS" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\apis\APIS\APIS\" />
     </key>
   </component>
   <component name="RunManager">
@@ -768,7 +789,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447952859632</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Update">
+      <created>1449248644682</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1449248644682</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -781,14 +808,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1452" height="876" extended-state="0" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1488178" sideWeight="0.491404" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11404729" sideWeight="0.491404" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18287373" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20689656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16404012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32343236" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23888889" sideWeight="0.5028653" order="8" side_tool="true" content_ui="tabs" />
@@ -796,15 +823,15 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32765958" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32765958" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -825,9 +852,9 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15953545" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32553193" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -855,53 +882,11 @@
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="9" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APIS/points2one/points2one_plugin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/points2one/p2o_errors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/points2one/points2one_gui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="52" selection-start-line="97" selection-start-column="52" selection-end-line="97" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/points2one/p2o_engine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="133" column="39" selection-start-line="133" selection-start-column="39" selection-end-line="133" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm40/system/python_stubs/1492868609/PyQt4/QtSql.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51686907">
-          <caret line="1203" column="8" selection-start-line="1203" selection-start-column="8" selection-end-line="1203" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm40/system/python_stubs/1492868609/PyQt4/QtGui/QDialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_search_film_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -916,38 +901,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config_default.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1923077">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.1463416">
-          <caret line="0" column="6351" selection-start-line="0" selection-start-column="6349" selection-end-line="0" selection-end-column="6351" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1074,10 +1031,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="88" column="41" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
-          <folding>
-            <marker date="1447956264584" expanded="true" signature="2991:3038" placeholder="select weise..film..." />
-            <marker date="1447956264584" expanded="true" signature="3304:3365" placeholder="select count..luftbild_..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,19 +1041,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="13.896552">
-          <caret line="150" column="51" selection-start-line="150" selection-start-column="37" selection-end-line="150" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="171" column="35" selection-start-line="171" selection-start-column="8" selection-end-line="171" selection-end-column="35" />
           <folding>
-            <element signature="e#24#39#0" expanded="true" />
+            <element signature="e#24#39#0" expanded="false" />
             <marker date="1443095168103" expanded="true" signature="3015:3064" placeholder="select count..." />
             <marker date="1443095168103" expanded="true" signature="3399:3557" placeholder="select cp.bi..." />
             <marker date="1443095168103" expanded="true" signature="7250:7611" placeholder="select cp.bi..film..." />
@@ -1127,24 +1073,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/run_convertion.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0880829">
-          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_geolocator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5106383">
           <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7643785">
-          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1162,50 +1094,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.4">
-          <caret line="518" column="29" selection-start-line="518" selection-start-column="25" selection-end-line="518" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="769" column="25" selection-start-line="769" selection-start-column="22" selection-end-line="769" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="395" column="62" selection-start-line="395" selection-start-column="55" selection-end-line="395" selection-end-column="62" />
-          <folding>
-            <marker date="1448641738146" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
-            <marker date="1448641738146" expanded="true" signature="11574:11601" placeholder="INSERT INTO ..." />
-            <marker date="1448641738146" expanded="true" signature="14482:14559" placeholder="SELECT AsTex..luftbild_schraeg_cp..." />
-            <marker date="1448641738146" expanded="true" signature="15838:15872" placeholder="ALTER TABLE ..." />
-            <marker date="1448641738146" expanded="true" signature="16295:16319" placeholder="DROP TABLE I..." />
-            <marker date="1448641738146" expanded="true" signature="17287:17315" placeholder="INSERT INTO ..." />
-            <marker date="1448641738146" expanded="true" signature="20640:20668" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_points2path.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,7 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="81" selection-start-line="4" selection-start-column="81" selection-end-line="4" selection-end-column="81" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1221,15 +1112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/py_tiled_layer/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1237,9 +1119,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#1133#1144#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1251,17 +1130,161 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/py_tiled_layer/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30650684">
+        <state vertical-scroll-proportion="0.0">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/run_convertion.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12230216">
+          <caret line="4" column="5" selection-start-line="4" selection-start-column="5" selection-end-line="4" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config_default.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-362.23077">
+          <caret line="554" column="34" selection-start-line="554" selection-start-column="25" selection-end-line="554" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/hersteller.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="12543" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17380" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="353" column="20" selection-start-line="353" selection-start-column="20" selection-end-line="353" selection-end-column="63" />
           <folding>
-            <marker date="1448909536782" expanded="true" signature="13610:14125" placeholder="SELECT (SELE..film..." />
-            <marker date="1448909536782" expanded="true" signature="13641:13754" placeholder="SELECT COUNT..film..." />
-            <marker date="1448909536782" expanded="true" signature="13818:13958" placeholder="SELECT COUNT..film..." />
-            <marker date="1448909536782" expanded="true" signature="24399:24477" placeholder="select descr..wetter..." />
-            <marker date="1448909536782" expanded="true" signature="27422:27505" placeholder="select max(f..film..." />
+            <element signature="e#26#46#0" expanded="true" />
+            <marker date="1449346796731" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
+            <marker date="1449346796731" expanded="true" signature="11574:11601" placeholder="INSERT INTO ..." />
+            <marker date="1449346796731" expanded="true" signature="14482:14559" placeholder="SELECT AsTex..luftbild_schraeg_cp..." />
+            <marker date="1449346796731" expanded="true" signature="15838:15872" placeholder="ALTER TABLE ..." />
+            <marker date="1449346796731" expanded="true" signature="16295:16319" placeholder="DROP TABLE I..." />
+            <marker date="1449346796731" expanded="true" signature="17287:17315" placeholder="INSERT INTO ..." />
+            <marker date="1449346796731" expanded="true" signature="20640:20668" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="201" column="350" selection-start-line="201" selection-start-column="281" selection-end-line="201" selection-end-column="350" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02915952">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/film.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="523" column="35" selection-start-line="523" selection-start-column="27" selection-end-line="523" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6353111">
+          <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
+          <folding>
+            <element signature="e#25#45#0" expanded="true" />
+            <marker date="1449831040170" expanded="true" signature="2518:2539" placeholder="DROP TABLE I... " />
+            <marker date="1449831040170" expanded="true" signature="2518:2542" placeholder="DROP TABLE I..." />
+            <marker date="1449831040170" expanded="true" signature="2636:2649" placeholder="CREATE TABLE... missing_value" />
+            <marker date="1449831040170" expanded="true" signature="5206:5239" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02556391">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
