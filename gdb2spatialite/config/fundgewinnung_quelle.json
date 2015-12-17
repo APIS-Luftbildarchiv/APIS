@@ -1,0 +1,29 @@
+ {
+    "targetname": "fundgewinnung_quelle",
+    "source": "data",
+    "type": 100,
+    "primary": ["quelle"],
+    "fields": [
+        {
+            "targetname": "quelle",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "quelle": "Luftbild"
+        },
+        {
+            "quelle": "Vermessung"
+        },
+        {
+            "quelle": "MM auf ÖK"
+        },
+        {
+            "quelle": "Parzellennummer"
+        },
+        {
+            "quelle": "Flurname"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+ {
+    "targetname": "datierung_quelle",
+    "source": "data",
+    "type": 100,
+    "primary": ["quelle"],
+    "fields": [
+        {
+            "targetname": "quelle",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "quelle": "Prospektion"
+        },
+        {
+            "quelle": "Typologie"
+        },
+        {
+            "quelle": "Naturwiss."
+        },
+        {
+            "quelle": "Stratigrafie"
+        },
+        {
+            "quelle": "unbekannt"
+        }
+    ]
+}

@@ -1,0 +1,206 @@
+{
+    "targetname": "film",
+    "source": "esrigdb",
+    "esrigdb": "geodbs/APIS.gdb",
+    "sourcename": "film",
+    "type": 100,
+    "primary": ["filmnummer"],
+    "fields": [
+        {
+            "targetname": "filmnummer",
+            "sourcename": "FILM",
+            "type": "String"
+        },
+        {
+            "targetname": "filmnummer_legacy",
+            "sourcename": "FILM",
+            "type": "String"
+        },
+        {
+            "targetname": "filmnummer_hh_jjjj_mm",
+            "sourcename": "FILMNR",
+            "type": "String"
+        },
+        {
+            "targetname": "filmnummer_nn",
+            "sourcename": "LFDNR",
+            "type": "Integer"
+        },
+        {
+            "targetname": "hersteller",
+            "sourcename": "NEG_AUF",
+            "type": "String"
+        },
+        {
+            "targetname": "datum_ersteintrag",
+            "sourcename": "ERSDAT",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "datum_aenderung",
+            "sourcename": "LEZDAT",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "militaernummer",
+            "sourcename": "MILNR",
+            "type": "String"
+        },
+        {
+            "targetname": "militaernummer_alt",
+            "sourcename": "ALTNR",
+            "type": "String"
+        },
+        {
+            "targetname": "anzahl_bilder",
+            "sourcename": "BILBANZ",
+            "type": "Integer"
+        },
+        {   
+            "targetname": "weise",
+            "sourcename": "WEISE",
+            "type": "String"
+        },
+        {
+            "targetname": "kamera",
+            "sourcename": "KAMERA",
+            "type": "String"           
+        },
+        {
+            "targetname": "form1",
+            "sourcename": "FORM1",
+            "type": "Integer"
+        },
+        {
+            "targetname": "form2",
+            "sourcename": "FORM2",
+            "type": "Integer"
+        },
+        {
+            "targetname": "kalibrierungsnummer",
+            "sourcename": "KAMNR",
+            "type": "String"
+        },
+        {
+            "targetname": "kammerkonstante",
+            "sourcename": "KKON",
+            "type": "Real"
+        },
+        {
+            "targetname": "kassettennummer",
+            "sourcename": "KASNR",
+            "type": "String"
+        },
+        {
+            "targetname": "filmfabrikat",
+            "sourcename": "FILMFAB",
+            "type": "String"
+        },
+        {
+            "targetname": "art_ausarbeitung",
+            "sourcename": "ART",
+            "type": "String"
+        },
+        {
+            "targetname": "auftragsnummer",
+            "sourcename": "AUFTRNR",
+            "type": "String"
+        },
+        {
+            "targetname": "auftragsnummer_int",
+            "sourcename": "AAUFTRNR",
+            "type": "Integer" 
+        },
+        {
+            "targetname": "flugdatum",
+            "sourcename": "AUFDAT",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "fotograf",
+            "sourcename": "PHOTOGR",
+            "type": "String"
+        },
+        {
+            "targetname": "pilot",
+            "sourcename": "PILOT",
+            "type": "String"
+        },
+        {
+            "targetname": "flugzeug",
+            "sourcename": "FLUGZEUG",
+            "type": "String"
+        },
+        {
+            "targetname": "abflug_zeit",
+            "sourcename": "ABZEIT",
+            "type": "String",
+            "typecast": "Time"
+        },
+        {
+            "targetname": "ankunft_zeit",
+            "sourcename": "ANZEIT",
+            "type": "String",
+            "typecast": "Time"
+        },
+        {
+            "targetname": "flugzeit",
+            "sourcename": "FLUGZEIT",
+            "type": "Integer"
+        },
+        {
+            "targetname": "abflug_flughafen",
+            "sourcename": "ABPLATZ",
+            "type": "String"
+        },
+        {
+            "targetname": "ankunft_flughafen",
+            "sourcename": "ANPLATZ",
+            "type": "String"
+        },
+        {
+            "targetname": "wetter",
+            "sourcename": "WETTER",
+            "type": "String"
+        },
+        {
+            "targetname": "target",
+            "type": "String"
+        },
+        {
+            "targetname": "projekt",
+            "sourcename": "PROJEKT",
+            "type": "String"
+        },
+        {
+            "targetname": "copyright",
+            "sourcename": "COPYRIGHT",
+            "type": "String"
+        },
+        {
+            "targetname": "kommentar",
+            "sourcename": "FKOM",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_SC",
+            "sourcename": "SC",
+            "type": "String"            
+        },
+        {
+            "targetname": "OBS_KART",
+            "sourcename": "KART",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_STATUS",
+            "sourcename": "STATUS",
+            "type": "String"   
+        },
+        {
+            "targetname": "OBS_ULAPP",
+            "sourcename": "ULAPP",
+            "type": "Real"
+        }
+    ]
+} 

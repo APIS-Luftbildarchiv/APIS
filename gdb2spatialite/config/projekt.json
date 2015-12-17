@@ -1,0 +1,12 @@
+{
+    "targetname": "projekt",
+    "source": "sqlupdate",
+    "type": 100,
+    "primary": ["bezeichnung"],
+    "fields": [
+        {
+            "targetname": "bezeichnung",
+            "type": "String"
+        }
+    ]
+}

@@ -1,8 +1,8 @@
 {
-    "targetname": "luftbild_schraeg_cp",
+    "targetname": "luftbild_senk_cp",
     "source": "esrigdb",
     "esrigdb": "geodbs/APIS.gdb",
-    "sourcename": "luftbild_schraeg_cp",
+    "sourcename": "luftbild_senk_cp",
     "epsg": "4312",
     "type": 1,
     "primary": ["bildnummer"],
@@ -31,7 +31,7 @@
             "targetname": "filmnummer_nn",
             "sourcename": "LFDNR",
             "type": "Integer"
-        },
+        }, 
         {
             "targetname": "datum_ersteintrag",
             "sourcename": "NEUDAT",
@@ -94,21 +94,6 @@
             "type": "Real"
         },
         {
-            "targetname": "radius",
-            "sourcename": "RADIUS",
-            "type": "String"
-        },
-        {
-            "targetname": "keyword",
-            "sourcename": "KWD",
-            "type": "String"
-        },
-        {
-            "targetname": "description",
-            "sourcename": "DESCR",
-            "type": "String"
-        },
-        {
             "targetname": "projekt",
             "sourcename": "PROJEKT",
             "type": "String"
@@ -121,24 +106,6 @@
         {
             "targetname": "fokus",
             "sourcename": "FOKUS",
-            "type": "Real"
-        },
-        {
-            "targetname": "gps_longitude",
-            "sourcename": "GPSL",
-            "type": "Real"
-        },
-        {
-            "targetname": "gps_latitude",
-            "sourcename": "GPSB",
-            "type": "Real"
-        },
-        {
-            "targetname": "blende",
-            "type": "Real"
-        },
-        {
-            "targetname": "belichtungszeit",
             "type": "Real"
         },
         {
@@ -187,9 +154,24 @@
             "type": "Integer"
         },
         {
+            "targetname": "OBS_RADIUS",
+            "sourcename": "RADIUS",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_KWD",
+            "sourcename": "KWD",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_DESCR",
+            "sourcename": "DESCR",
+            "type": "String"
+        },
+        {
             "targetname": "OBS_WEISE",
             "sourcename": "WEISE",
             "type": "String"
-        }
+        }        
     ]
 }

@@ -1,8 +1,8 @@
 {
-    "targetname": "fundort_pol",
+    "targetname": "fundort_log_pol",
     "source": "esrigdb",
     "esrigdb": "geodbs/APIS.gdb",
-    "sourcename": "fo_pol",
+    "sourcename": "fo_log_pol",
     "epsg": 4312,
     "type": 3,
     "primary": ["fundortnummer"],

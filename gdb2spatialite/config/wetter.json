@@ -1,0 +1,353 @@
+{
+    "targetname": "wetter",
+    "source": "data",
+    "type": 100,
+    "primary": ["category", "code"],
+    "fields": [
+        {
+            "targetname": "category",
+            "type": "String"
+        },
+        {
+            "targetname": "code",
+            "type": "String"
+        },
+        {
+            "targetname": "description",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "category": "Low Cloud Amount",
+            "code": "0",
+            "description": "No Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "1",
+            "description": "1/8 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "2",
+            "description": "1/4 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "3",
+            "description": "3/8 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "4",
+            "description": "1/2 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "5",
+            "description": "5/8 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "6",
+            "description": "3/4 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "7",
+            "description": "7/8 Low Cloud"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "8",
+            "description": "Overcast"
+        },
+        {
+            "category": "Low Cloud Amount",
+            "code": "9",
+            "description": "not observed"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "0",
+            "description": "0 to less than 1"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "1",
+            "description": "1 to less than 2"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "2",
+            "description": "2 to less than 3"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "3",
+            "description": "3 to less than 4"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "4",
+            "description": "4 to less than 5"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "5",
+            "description": "5 to less than 6"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "6",
+            "description": "6 to less than 7"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "7",
+            "description": "7 to less than 8"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "8",
+            "description": "8 or greater"
+        },
+        {
+            "category": "Visibility Kilometres",
+            "code": "9",
+            "description": "not reported"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "0",
+            "description": "No Low Cloud"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "1",
+            "description": "500ft AGL or less"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "2",
+            "description": "1000ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "3",
+            "description": "1500ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "4",
+            "description": "2000ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "5",
+            "description": "2500ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "6",
+            "description": "3000ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "7",
+            "description": "3500ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "8",
+            "description": "4000ft AGL"
+        },
+        {
+            "category": "Low Cloud Height",
+            "code": "9",
+            "description": "not observed"
+        },
+        {
+            "category": "Weather",
+            "code": "0",
+            "description": "not observed"
+        },
+        {
+            "category": "Weather",
+            "code": "1",
+            "description": "no significant weather"
+        },
+        {
+            "category": "Weather",
+            "code": "2",
+            "description": "sleet"
+        },
+        {
+            "category": "Weather",
+            "code": "3",
+            "description": "dust or smoke"
+        },
+        {
+            "category": "Weather",
+            "code": "4",
+            "description": "fog or haze"
+        },
+        {
+            "category": "Weather",
+            "code": "5",
+            "description": "drizzle"
+        },
+        {
+            "category": "Weather",
+            "code": "6",
+            "description": "rain"
+        },
+        {
+            "category": "Weather",
+            "code": "7",
+            "description": "snow"
+        },
+        {
+            "category": "Weather",
+            "code": "8",
+            "description": "showers"
+        },
+        {
+            "category": "Weather",
+            "code": "9",
+            "description": "thunder"
+        },
+        {
+            "category": "Remarks Mission",
+            "code": "X",
+            "description": "Wx suitable for mission"
+        },
+        {
+            "category": "Remarks Mission",
+            "code": "Y",
+            "description": "Wx marginal for mission"
+        },
+        {
+            "category": "Remarks Mission",
+            "code": "Z",
+            "description": "Wx unsuitable for mission"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "A",
+            "description": "encoded weather is simulated (for exercise purposes)"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "B",
+            "description": "multiply cloud ht x 10"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "C",
+            "description": "no medium or scattered medium cloud"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "D",
+            "description": "scattered, variable broken medium cloud"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "E",
+            "description": "broken variable overcast medium cloud"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "F",
+            "description": "contrails at flight level"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "G",
+            "description": "en route Wx predominantly IMC"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "H",
+            "description": "en route Wx predominantly VMC"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "I",
+            "description": "gusty winds at surface"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "J",
+            "description": "fog in valley"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "K",
+            "description": "higher terrain obscured"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "L",
+            "description": "surface conditions variable due to showers"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "M",
+            "description": "thunderstorms occurring"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "N",
+            "description": "thunderstorms en route"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "O",
+            "description": "icing at flight level or freezing rain"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "P",
+            "description": "surface wind NE quadrant"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "Q",
+            "description": "surface wind SE quadrant"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "R",
+            "description": "surface wind SW quadrant"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "S",
+            "description": "surface wind NW quadrant"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "T",
+            "description": "Wx better to North"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "U",
+            "description": "Wx better to East"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "V",
+            "description": "Wx better to South"
+        },
+        {
+            "category": "Remarks Weather",
+            "code": "W",
+            "description": "Wx better to West"
+        }
+
+    ]
+}

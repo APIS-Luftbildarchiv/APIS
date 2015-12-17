@@ -1,0 +1,25 @@
+{
+    "targetname": "zeit",
+    "source": "esrigdb",
+    "esrigdb": "geodbs/APIS.gdb",
+    "sourcename": "zeit",
+    "type": 100,
+    "primary": ["zeit", "periode", "periode_detail"],
+    "fields": [
+        {
+            "targetname": "zeit",
+            "sourcename": "Zeit",
+            "type": "String"
+        },
+        {
+            "targetname": "periode",
+            "sourcename": "Periode",
+            "type": "String"
+        },
+        {
+            "targetname": "periode_detail",
+            "sourcename": "Pperiode",
+            "type": "String"
+        }
+    ]
+}

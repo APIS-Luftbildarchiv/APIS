@@ -32,7 +32,9 @@ class ApisSpatialite:
             "Integer": "INTEGER",
             "String": "TEXT",
             "Real": "REAL",
-            "DateTime": "DATETIME"
+            "DateTime": "DATETIME",
+            "Date": "DATETIME",
+            "Time": "DATETIME"
         }
 
     def _InitSpatialiteDatabase(self, spatialitePath):
@@ -90,16 +92,22 @@ class ApisSpatialite:
             fieldCount = 0
             for field in self.table['fields']:
                 fieldCount += 1
-                sql += "{0} {1}".format(field['targetname'], self.typeDict[field['type']])
-                if field['targetname'] == self.table['primary']:
-                    sql += " PRIMARY KEY"
+                if 'typecast' in field:
+                    t = 'typecast'
+                else:
+                    t = 'type'
+                sql += "{0} {1}".format(field['targetname'], self.typeDict[field[t]])
+                #if field['targetname'] == self.table['primary']:
+                #    sql += " PRIMARY KEY"
                 if fieldCount < len(self.table['fields']):
                     sql += ", "
+            if len(self.table['primary']) > 0:
+                sql += ", CONSTRAINT pk_{0} PRIMARY KEY ({1})".format(self.table['targetname'], ", ".join(self.table['primary']))
             sql += ")"
             self.slCursor.execute(sql)
 
             if self.table['type'] != 100:
-                # creating Geometry column
+                # creating Geometry col:umn
                 sql = "SELECT AddGeometryColumn('{0}',".format(self.table['targetname'])
                 sql += "'geometry', {0}, '{1}', 'XY')".format(self.table['epsg'], self.ogr2spatialite[self.table['type']])
                 self.slCursor.execute(sql)
@@ -111,16 +119,39 @@ class ApisSpatialite:
 
         except Exception, e:
             print "> Error Creating Spatialite Table", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
             sys.exit(1)
 
     def _FillSpatialiteTable(self):
         if self.table['source'] == 'esrigdb':
             self._FillSpatialiteTableFromEsriGdb()
+        elif self.table['source'] == 'esrishp':
+            self._FillSpatialiteTableFromEsriShp()
+        elif self.table['source'] == 'data':
+            self._FillSpatialiteTableFromData()
+        elif self.table['source'] == 'aggregate':
+            self._FillSpatialiteTableByAggregation()
+
+    def _FillSpatialiteTableFromData(self):
+        try:
+            sql = "INSERT INTO {0} VALUES ({1})".format(self.table['targetname'], ','.join(map(unicode, ['?' for i in range(len(self.table['fields']))])))
+            rows = []
+            for row in self.table['data']:
+                r = ()
+                for field in self.table['fields']:
+                    r += (row[field['targetname']],)
+                rows.append(r)       
+                    
+            self.slCursor.executemany(sql, rows)
+            self.slConnection.commit()
+        except Exception, e:
+            print "> Error Filling Spatialite Table", e
+            sys.exit(1)
 
     def _FillSpatialiteTableFromEsriGdb(self):
         try:
-
-
             if self.sourceDB and self.currentSoruceDBPath != self.table['esrigdb']:
                 del self.sourceDB
                 self.sourceDB = None
@@ -150,13 +181,17 @@ class ApisSpatialite:
 
             sourceTable.ResetReading()
             rows = []
-            bildNr = []
+            primaryArr = []
+            addFlag = True
+            primary = self.table['primary'][0]
             for feature in sourceTable:
                 row = []
                 for field in self.table['fields']:
                     if 'sourcename' not in field:
                         continue
                     sourceField = field['sourcename'].encode("utf-8")
+                    targetField = field['targetname'].encode("utf-8")
+                    
                     if not feature.IsFieldSet(sourceField):
                         value = None
                     else:
@@ -171,34 +206,226 @@ class ApisSpatialite:
                             ffs = feature.GetFieldAsString(sourceField)
                             value = ffs.decode('utf-8')
 
+                            if "".join(value.split()) == "":
+                                value = None
+
                         elif fieldType == ogr.OFTDateTime:
                             value = feature.GetFieldAsDateTime(feature.GetFieldIndex(sourceField))
                             value = "{0}-{1}-{2}".format(value[0],str(value[1]).zfill(2),str(value[2]).zfill(2))
 
-                        # TODO: TypeCast (String to DateTime)
+                        # TypeCast (String to DateTime)
+                        if value and 'typecast' in field:
+                            value = self._DoTypeCast(value, field['type'].encode("utf-8"), field['typecast'].encode("utf-8"))
+
+                    if targetField == primary:
+                        if value in primaryArr:
+                            addFlag = False
+                        else:
+                            addFlag = True
+                            primaryArr.append(value)
 
                     row.append(value)
-                    if sourceField == "BILD":
-                        bildNr.append(value)
 
                 #add geometry
                 if self.table['type'] != 100:
                     geometryRef = feature.GetGeometryRef()
                     defnRef = feature.GetDefnRef()
                     if defnRef.GetGeomType() == ogr.wkbMultiPolygon:
-                        geometryRef = ogr.ForceToPolygon(geometryRef)
-
+                        if 'geometrycheck' in self.table:
+                            featureKey = feature.GetField(self.table['geometrycheck']['featurekey'].encode("utf-8"))
+                            geometryRef = self._DoGeometryCheck(self.table['geometrycheck'], geometryRef, featureKey)
+                            geometryRef = ogr.ForceToPolygon(geometryRef)
+                        else:
+                            geometryRef = ogr.ForceToPolygon(geometryRef)
+                        
                     row.append(geometryRef.ExportToWkt())
                     row.append(int(self.table['epsg']))
-                rows.append(row)
+
+                if addFlag:
+                    rows.append(row)
 
             self.slCursor.executemany(sql, rows)
             self.slConnection.commit()
 
+        except Exception, e:
+            print "> Error Filling Spatialite Table", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            sys.exit(1)
+
+    def _FillSpatialiteTableFromEsriShp(self):
+        try:
+            print "> Fill Spatialite Table ({0})".format(self.table['targetname'])
+
+            driver = ogr.GetDriverByName('ESRI Shapefile')
+            sourceShp = driver.Open(self.table['esrishp'], 0) # 0 means read-only. 1 means writeable.
+            if sourceShp is None:
+                sys.exit("ERROR: can not find shp '{0}'".format(self.table['esrishp'].encode("utf-8")))
+
+            sourceTable = sourceShp.GetLayer()
+            placeholderFieldsArr = []
+            placeholderValuesArr = []
+            for field in self.table['fields']:
+                if 'sourcename' not in field:
+                    continue
+                placeholderFieldsArr.append(field['targetname'])
+                placeholderValuesArr.append('?')
+
+            placeholderFields = ", ".join(placeholderFieldsArr)
+            placeholderValues = ", ".join(placeholderValuesArr)
+            if self.table['type'] != 100:
+                placeholderFields += ", geometry"
+                placeholderValues += ", GeomFromText(?, ?)"
+            sql = "INSERT INTO {0} ({1}) VALUES({2})".format(self.table['targetname'], placeholderFields, placeholderValues)
+
+            sourceTable.ResetReading()
+            rows = []
+            primaryArr = []
+            addFlag = True
+            primary = self.table['primary'][0]
+            for feature in sourceTable:
+                row = []
+                for field in self.table['fields']:
+                    if 'sourcename' not in field:
+                        continue
+                    sourceField = field['sourcename'].encode("utf-8")
+                    targetField = field['targetname'].encode("utf-8")
+
+                    if not feature.IsFieldSet(sourceField):
+                        value = None
+                    else:
+                        fieldType = feature.GetFieldType(sourceField)
+                        if fieldType == ogr.OFTInteger:
+                            value = feature.GetFieldAsInteger(sourceField)
+
+                        elif fieldType == ogr.OFTReal:
+                            value = feature.GetFieldAsDouble(sourceField)
+
+                        elif fieldType == ogr.OFTString:
+                            ffs = feature.GetFieldAsString(sourceField)
+                            value = ffs.decode('utf-8')
+
+                            if "".join(value.split()) == "":
+                                value = None
+
+                        elif fieldType == ogr.OFTDateTime:
+                            value = feature.GetFieldAsDateTime(feature.GetFieldIndex(sourceField))
+                            value = "{0}-{1}-{2}".format(value[0],str(value[1]).zfill(2),str(value[2]).zfill(2))
+
+                        if value and 'typecast' in field:
+                            value = self._DoTypeCast(value, field['type'].encode("utf-8"), field['typecast'].encode("utf-8"))
+
+                    if targetField == primary:
+                        if value in primaryArr:
+                            addFlag = False
+                        else:
+                            addFlag = True
+                            primaryArr.append(value)
+
+                    row.append(value)
+
+                #add geometry
+                if self.table['type'] != 100:
+                    geometryRef = feature.GetGeometryRef()
+                    if self.table['type'] == 6:
+                        geometryRef = ogr.ForceToMultiPolygon(geometryRef)
+                    # defnRef = feature.GetDefnRef()
+                    # if defnRef.GetGeomType() == ogr.wkbMultiPolygon:
+                    #     if 'geometrycheck' in self.table:
+                    #         featureKey = feature.GetField(self.table['geometrycheck']['featurekey'].encode("utf-8"))
+                    #         geometryRef = self._DoGeometryCheck(self.table['geometrycheck'], geometryRef, featureKey)
+                    #         geometryRef = ogr.ForceToPolygon(geometryRef)
+                    #     else:
+                    #         geometryRef = ogr.ForceToPolygon(geometryRef)
+
+                    row.append(geometryRef.ExportToWkt())
+                    row.append(int(self.table['epsg']))
+
+                if addFlag:
+                    rows.append(row)
+
+            self.slCursor.executemany(sql, rows)
+            self.slConnection.commit()
 
         except Exception, e:
             print "> Error Filling Spatialite Table", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
             sys.exit(1)
+
+    def _FillSpatialiteTableByAggregation(self):
+        try:
+            if self.sourceDB and self.currentSoruceDBPath != self.table['esrigdb']:
+                del self.sourceDB
+                self.sourceDB = None
+            if not self.sourceDB:
+                self._OpenGdb(self.table['esrigdb']) #self.sourceDB
+
+            print "> Fill Spatialite Table ({0})".format(self.table['targetname'])
+
+            rows = []
+            for dataset in self.table['aggregate']: 
+                row = []  
+                for field in self.table['fields']:
+                    # print field['name'], dataset[field['name']]
+                    if isinstance(dataset[field['targetname']], dict):
+                        if 'table' in dataset[field['targetname']] and 'attr' in dataset[field['targetname']]:
+                            #print dataset[field['name']]['table'], dataset[field['name']]['attr']
+                            layer = self.sourceDB.GetLayerByName(dataset[field['targetname']]['table'].encode("utf-8"))
+                            # print layer.GetFeatureCount()
+                            if not layer:
+                                sys.exit("ERROR: can not find layer '{0}' in GeoDB".format(dataset[field['targetname']]['table'].encode("utf-8")))
+                            layer.ResetReading()
+                            r = []
+                            for feature in layer:
+
+                                # FIXME was passiert mit nicht strings
+                                r.append(str(feature.GetField(dataset[field['targetname']]['attr'].encode("utf-8"))).decode("utf-8"))
+
+                                #print dataset[field['name']]['attr'], str(feature.GetField(dataset[field['name']]['attr'].encode("utf-8"))).decode("utf-8")
+                                #geom = feature.GetGeometryRef()
+                                #print geom.Centroid().ExportToWkt()
+                            row.append(r)
+                    elif dataset[field['targetname']] == "None":
+                        row.append(None)
+                    else: # value
+                        row.append(dataset[field['targetname']])
+                rows.append(row)
+            #sql
+            #pprint(rows)
+            results = []
+            for r1 in rows:
+                result = []
+                result.append([])
+                for i in r1:
+                    if isinstance(i, list):
+                        #print len(i), len(result)
+                        while len(i) > len(result):
+                            result.append([a for a in result[len(result)-1]])
+
+                        for j, item in enumerate(result):
+                            item.append(i[j])
+                    else:
+                        for insert in result:
+                            insert.append(i)
+
+                #remove dublicates
+                resultChecked = [list(t) for t in set(tuple(element) for element in result)]
+                results += resultChecked
+
+            sql = "INSERT INTO {0} VALUES ({1})".format(self.table['targetname'], ','.join(map(unicode, ['?' for i in range(len(self.table['fields']))])))
+            self.slCursor.executemany(sql, results)
+
+
+        except Exception, e:
+            print "> Error Filling Spatialite Table", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            sys.exit(1)
+
 
     def _SetJsonFile(self, jsonFile):
         self.table = None
@@ -211,10 +438,157 @@ class ApisSpatialite:
         self.slCursor.close()
         self.slConnection.close()
 
-    def AddTable(self, jsonFile):
+    def AddTableJson(self, jsonFile):
         self._SetJsonFile(jsonFile)
         self._CreateSpatialiteTable()
         self._FillSpatialiteTable()
+
+    # def AddTableSqlite(self, sqliteFile, tableName):
+    #     try:
+    #         print "> Adding Spatialite Table ({0} from {1})".format(tableName, sqliteFile)
+    #         # Attach db to connection
+    #         self.slCursor.execute("ATTACH DATABASE ? AS db2", (sqliteFile, ))
+    #
+    #         rs = self.slCursor.execute("SELECT DISTINCT Srid(geometry), GeometryType(geometry) FROM db2.{0}".format(tableName))
+    #         for row in rs:
+    #             epsg = row[0]
+    #             geomType = row[1]
+    #
+    #         # Create new Table
+    #         self.slCursor.execute("CREATE TABLE AS SELECT * FROM db2.{0}".format(tableName))
+    #
+    #         self.slCursor.execute("SELECT RecoverGeometryColumn('{0}', 'geometry', {1}, '{2}', 'XY')".format(tableName, epsg, geomType))
+    #
+    #         self.slCursor.execute("SELECT CreateSpatialIndex('{0}', 'geometry')".format(tableName))
+    #
+    #         # Detach db from connection
+    #         self.slCursor.execute("DETACH DATABASE db2")
+    #
+    #         self.slConnection.commit()
+    #
+    #     except Exception, e:
+    #         print "> Error Adding Spatialite Table", e
+    #         sys.exit(1)
+
+    def RunSqlUpdates(self, sqlUpdatesJson):
+        try:
+            print "> Running SQL Updates"
+            with open(sqlUpdatesJson,'rU') as sqlUpdates:
+                self.sqlUpdates = json.load(sqlUpdates)
+
+            for update in self.sqlUpdates['sqlupdates']:
+                self.slCursor.execute(update)
+
+            self.slConnection.commit()
+
+        except Exception, e:
+            print "> Error Running SQL Updates", e
+            sys.exit(1)
+
+    def _DoTypeCast(self, value, fromType, toType):
+        if fromType == 'String' and toType == 'Time':
+            v = value.strip()
+
+            if any(d in v for d in ('.',':')):
+                r = v.split('.')
+                if len(r) < 2:
+                    r = v.split(':')
+                r = "{0}:{1}:00".format(r[0].zfill(2), r[1].zfill(2))
+            else:
+                if len(v) == 4:
+                    r = "{0}:{1}:00".format(v[0:2], v[2:4])
+                elif len(v) == 3:
+                    r = "{0}:{1}:00".format(v[0].zfill(2), v[1:3])
+                elif len(v) == 2:
+                    r = "{0}:00:00".format(v[0:2])
+                elif len(v) == 1:
+                    r = "{0}:00:00".format(v[0].zfill(2))
+                else:
+                    r = None
+            return r
+        elif fromType == 'String' and toType == 'Date':
+            if len(value) == 10:
+                r = "{0}-{1}-{2}".format(value[6:10], value[0:2], value[3:5]) # month-day-year > year-month-day
+            elif len(value) == 19:
+                r = "{0}-{1}-{2}".format(value[6:10], value[3:5], value[0:2]) # day-month-year > year-month-day
+            else:
+                r = None
+            return r
+        elif fromType == 'Real' and toType == 'Integer':
+            return int(value)
+
+    def _DoGeometryCheck(self, check, geometryRef, featureKey):
+        try: 
+            if check['type'] == "circle2polygon":
+
+                for i in range(0, geometryRef.GetGeometryCount()):
+                    g = geometryRef.GetGeometryRef(i)
+                    for j in range(0, g.GetGeometryCount()):
+                        circleCandidate = g.GetGeometryRef(i)
+                        if circleCandidate and circleCandidate.GetPointCount() <= 2:
+                            sql = check['sql'].encode("utf-8").format(featureKey)
+                            rs = self.slCursor.execute(sql)
+                            
+                            for row in rs:
+                                dp = circleCandidate.GetPoint(0)
+                                geometryRef = self._Circle2Polygon(row[0], row[1], 'POINT ({0} {1})'.format(dp[0], dp[1]), check['epsg'])
+            
+            return geometryRef
+
+        except Exception, e:
+            print "> Error Doing Geometry Check", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            sys.exit(1)
+
+    def _Circle2Polygon(self, cpWkt, r, dpWkt, epsg):
+        #print cpWkt, r, dpWkt
+        cp = ogr.CreateGeometryFromWkt(cpWkt)
+        dp = ogr.CreateGeometryFromWkt(dpWkt)
+
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(epsg)
+
+        target = osr.SpatialReference()
+        target.ImportFromProj4(self._Proj4Utm(cp))
+        #print target.ExportToProj4()
+
+        tF = osr.CoordinateTransformation(source, target)
+        tB = osr.CoordinateTransformation(target, source)
+
+        cp.Transform(tF)
+        dp.Transform(tF)
+
+       # print r, int(math.ceil(cp.Distance(dp)))
+
+        poly = cp.Buffer(math.ceil(cp.Distance(dp)))
+        poly.Transform(tB)
+
+        return poly
+
+    def _Proj4Utm(self, p):
+        x = p.GetX()
+        y = p.GetY()
+        z = math.floor((x + 180)/6) + 1
+
+        if y >= 56.0 and y < 64.0 and x >= 3.0 and x < 12.0:
+            ZoneNumber = 32
+
+        #Special zones for Svalbard
+        if y >= 72.0 and y < 84.0 :
+            if y >= 0.0 and y <  9.0:
+                z = 31
+            elif y >= 9.0 and y < 21.0:
+                z = 33
+            elif y >= 21.0 and y < 33.0:
+                z = 35
+            elif y >= 33.0 and y < 42.0:
+                z = 37
+
+        return "+proj=utm +zone={0} +datum=WGS84 +units=m +no_defs".format(int(z))
+
+
 
 if __name__ == '__main__':
 
@@ -223,7 +597,50 @@ if __name__ == '__main__':
 
     apis = ApisSpatialite(targetDB)
 
-    apis.AddTable("config/luftbild_schraeg_cp.json")
-    apis.AddTable("config/fundort_pol.json")
+    # Add Spatial Reference Tables: OSM Boundaries, Katastralgemeinden from SHP
+    apis.AddTableJson("config/katastralgemeinden.json")
+    apis.AddTableJson("config/osm_boundaries.json")
+
+    # Add all independen Tables
+    apis.AddTableJson("config/hersteller.json")
+    apis.AddTableJson("config/projekt.json")
+    apis.AddTableJson("config/copyright.json")
+    apis.AddTableJson("config/kamera.json")
+    apis.AddTableJson("config/film_fabrikat.json")
+    apis.AddTableJson("config/target.json")
+    apis.AddTableJson("config/wetter.json")
+    apis.AddTableJson("config/fundart.json")
+    apis.AddTableJson("config/kultur.json")
+    apis.AddTableJson("config/phase.json")
+    apis.AddTableJson("config/zeit.json")
+    apis.AddTableJson("config/fundgewinnung.json")
+    apis.AddTableJson("config/fundgewinnung_quelle.json")
+    apis.AddTableJson("config/datierung_quelle.json")
+
+    apis.AddTableJson("config/begehung.json")
+    apis.AddTableJson("config/begehung_zustand.json")
+    apis.AddTableJson("config/begehung_begehtyp.json")
+
+    apis.AddTableJson("config/film.json")
+
+    apis.AddTableJson("config/luftbild_schraeg_cp.json")
+    apis.AddTableJson("config/luftbild_schraeg_fp.json")
+
+    apis.AddTableJson("config/luftbild_senk_cp.json")
+    apis.AddTableJson("config/luftbild_senk_fp.json")
+
+    apis.AddTableJson("config/fundort_pnt.json")
+    apis.AddTableJson("config/fundort_pol.json")
+    apis.AddTableJson("config/fundort_interpretation.json")
+
+    apis.AddTableJson("config/fundstelle_pnt.json")
+    apis.AddTableJson("config/fundstelle_pol.json")
+
+    apis.AddTableJson("config/fundort_log_pnt.json")
+    apis.AddTableJson("config/fundort_log_pol.json")
+    apis.AddTableJson("config/fundstelle_log_pnt.json")
+    apis.AddTableJson("config/fundstelle_log_pol.json")
+
+    apis.RunSqlUpdates("config/sqlupdates.json")
 
     apis.CleanUp()

@@ -1,21 +1,21 @@
 {
+    "targetname": "hersteller",
     "source": "data",
-    "name": "hersteller",
     "type": 100,
-    "primary": "id",
+    "primary": ["id"],
     "fields": [
         {
-            "name": "id",
+            "targetname": "id",
             "type": "String"
         },
         {
-            "name": "name",
+            "targetname": "name",
             "type": "String"
         },
         {
-            "name": "kurz",
+            "targetname": "kurz",
             "type": "String"
-        }
+        }   
     ],
     "data": [
         {

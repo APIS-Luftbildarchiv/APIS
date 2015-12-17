@@ -1,0 +1,78 @@
+{
+    "targetname": "begehung_zustand",
+    "source": "data",
+    "type": 100,
+    "primary": ["kategorie", "zustand"],
+    "fields": [
+        {
+            "targetname": "kategorie",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "kategorie": "Bewuchs",
+            "zustand": "kein Bewuchs"
+        },
+        {
+            "kategorie": "Bewuchs",
+            "zustand": "wenig Bewuchs"
+        },
+        {
+            "kategorie": "Bewuchs",
+            "zustand": "dichter Bewuchs"
+        },
+        {
+            "kategorie": "Licht",
+            "zustand": "Sonne"
+        },
+        {
+            "kategorie": "Licht",
+            "zustand": "Schatten"
+        },
+        {
+            "kategorie": "Licht",
+            "zustand": "wechselndes Licht"
+        },
+        {
+            "kategorie": "Boden",
+            "zustand": "Boden geeggt"
+        },
+        {
+            "kategorie": "Boden",
+            "zustand": "Boden gepflügt"
+        },
+        {
+            "kategorie": "Boden",
+            "zustand": "Boden ungepflügt"
+        },
+        {
+            "kategorie": "Feuchtigkeit",
+            "zustand": "feucht"
+        },
+        {
+            "kategorie": "Feuchtigkeit",
+            "zustand": "trocken"
+        },
+        {
+            "kategorie": "Feuchtigkeit",
+            "zustand": "staubig"
+        },
+        {
+            "kategorie": "abgeregnet",
+            "zustand": "gut abgeregnet"
+        },
+        {
+            "kategorie": "abgeregnet",
+            "zustand": "mittel abgeregnet"
+        },
+        {
+            "kategorie": "abgeregnet",
+            "zustand": "schlecht abgeregnet"
+        }
+    ]
+}

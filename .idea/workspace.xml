@@ -2,27 +2,50 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" line="101" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" line="333" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/hersteller.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/begehung.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/begehung_begehtyp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/begehung_zustand.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/copyright.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/datierung_quelle.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/film_fabrikat.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundart.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundgewinnung.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundgewinnung_quelle.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_interpretation.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/kamera.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/katastralgemeinden.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/kultur.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_fp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_senk_cp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_senk_fp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/oek50geo.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/osm_boundaries.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/phase.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/projekt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/target.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/wetter.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spatialite/config/zeit.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" afterPath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/film.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/hersteller.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/hersteller.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,141 +66,49 @@
     <favorites_list name="APIS" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53418803">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="gdb2spatialite.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="353" column="20" selection-start-line="353" selection-start-column="20" selection-end-line="353" selection-end-column="63" />
-                  <folding>
-                    <element signature="e#26#46#0" expanded="true" />
-                    <marker date="1449346796731" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
-                    <marker date="1449346796731" expanded="true" signature="11574:11601" placeholder="INSERT INTO ..." />
-                    <marker date="1449346796731" expanded="true" signature="14482:14559" placeholder="SELECT AsTex..luftbild_schraeg_cp..." />
-                    <marker date="1449346796731" expanded="true" signature="15838:15872" placeholder="ALTER TABLE ..." />
-                    <marker date="1449346796731" expanded="true" signature="16295:16319" placeholder="DROP TABLE I..." />
-                    <marker date="1449346796731" expanded="true" signature="17287:17315" placeholder="INSERT INTO ..." />
-                    <marker date="1449346796731" expanded="true" signature="20640:20668" placeholder="INSERT INTO ..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_gdb2spatialite.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.6353111">
-                  <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
-                  <folding>
-                    <element signature="e#25#45#0" expanded="true" />
-                    <marker date="1449831040170" expanded="true" signature="2518:2539" placeholder="DROP TABLE I... " />
-                    <marker date="1449831040170" expanded="true" signature="2518:2542" placeholder="DROP TABLE I..." />
-                    <marker date="1449831040170" expanded="true" signature="2636:2649" placeholder="CREATE TABLE... missing_value" />
-                    <marker date="1449831040170" expanded="true" signature="5206:5239" placeholder="INSERT INTO ..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_obsolet_fields_future.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="15" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_new_fields.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_obsolet_fields_now.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_obsolet_tables.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_update_tables_and_fields.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="523" column="35" selection-start-line="523" selection-start-column="27" selection-end-line="523" selection-end-column="35" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="luftbild_schraeg_cp.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_image_search_tool.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="201" column="350" selection-start-line="201" selection-start-column="281" selection-end-line="201" selection-end-column="350" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="apis_db_config.json" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="0" column="12543" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17380" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="luftbild_schraeg_cp.json" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.02556391">
-                  <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="apis_gdb2spatialite.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5710956">
+              <caret line="120" column="56" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
+              <folding>
+                <element signature="e#25#45#0" expanded="true" />
+                <marker date="1450270468468" expanded="true" signature="2582:2603" placeholder="DROP TABLE I... " />
+                <marker date="1450270468468" expanded="true" signature="2582:2606" placeholder="DROP TABLE I..." />
+                <marker date="1450270468468" expanded="true" signature="2700:2713" placeholder="CREATE TABLE... missing_value" />
+                <marker date="1450270468468" expanded="true" signature="4861:4889" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="6708:6741" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="11319:11352" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="17875:17903" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="19145:19209" placeholder="SELECT DISTI... missing_value" />
+                <marker date="1450270468468" expanded="true" signature="19406:19440" placeholder="CREATE TABLE... AS" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="luftbild_schraeg_fp.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_fp.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.230769">
+              <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sqlupdates.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.4363637">
+              <caret line="8" column="148" selection-start-line="8" selection-start-column="148" selection-end-line="8" selection-end-column="148" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -192,13 +123,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/APIS/apis_dialogs.py" />
-        <option value="$PROJECT_DIR$/APIS/apisdialogs/film.py" />
-        <option value="$PROJECT_DIR$/APIS/apisdialogs/__init__.py" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" />
-        <option value="$PROJECT_DIR$/APIS/plugin_upload.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_selection_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/points2one/points2one_plugin.py" />
         <option value="$PROJECT_DIR$/APIS/points2one/points2one_gui.py" />
         <option value="$PROJECT_DIR$/APIS/points2one/p2o_engine.py" />
@@ -239,10 +163,17 @@
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_gdb2spatialite_hersteller.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_gdb2spatialite_fundort_pol.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/katastralgemeinden.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/osm_boundaries.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/film.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_pnt.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pnt.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
+        <option value="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json" />
       </list>
     </option>
   </component>
@@ -282,8 +213,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -795,7 +726,13 @@
       <option name="project" value="LOCAL" />
       <updated>1449248644682</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Update">
+      <created>1449831241769</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1449831241769</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView">
@@ -809,16 +746,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11404729" sideWeight="0.491404" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11281337" sideWeight="0.48853868" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18287373" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16404012" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32343236" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1683381" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3231198" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23888889" sideWeight="0.5028653" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23816156" sideWeight="0.5114613" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24707136" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -887,97 +824,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APIS/apis_search_film_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="37" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="12.4827585">
-          <caret line="68" column="15" selection-start-line="68" selection-start-column="15" selection-end-line="68" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_thumb_viewer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.310345">
-          <caret line="298" column="42" selection-start-line="298" selection-start-column="42" selection-end-line="298" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1871508">
-          <caret line="140" column="28" selection-start-line="140" selection-start-column="28" selection-end-line="140" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/resources_rc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4750499">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="10" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.84090906">
@@ -1182,15 +1028,71 @@
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="12543" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17380" />
+          <caret line="0" column="12543" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17871" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63909775">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2556391">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02556391">
+          <caret line="524" column="14" selection-start-line="523" selection-start-column="27" selection-end-line="523" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55716354">
+          <caret line="201" column="350" selection-start-line="201" selection-start-column="281" selection-end-line="201" selection-end-column="350" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.84661657">
+          <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02556391">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41203007">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="353" column="20" selection-start-line="353" selection-start-column="20" selection-end-line="353" selection-end-column="63" />
+        <state vertical-scroll-proportion="6.9782925">
+          <caret line="294" column="0" selection-start-line="294" selection-start-column="0" selection-end-line="294" selection-end-column="0" />
           <folding>
             <element signature="e#26#46#0" expanded="true" />
             <marker date="1449346796731" expanded="true" signature="9908:9932" placeholder="DROP TABLE I..." />
@@ -1204,87 +1106,142 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json">
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/osm_boundaries.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.6896552">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_image_search_tool.py">
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/katastralgemeinden.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="201" column="350" selection-start-line="201" selection-start-column="281" selection-end-line="201" selection-end-column="350" />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/oek50geo.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.44827586">
+          <caret line="13" column="10" selection-start-line="9" selection-start-column="8" selection-end-line="13" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02915952">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.19396552">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json">
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_pnt.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="32" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.33189654">
+          <caret line="66" column="21" selection-start-line="66" selection-start-column="13" selection-end-line="66" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/film.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.25862068">
+          <caret line="141" column="35" selection-start-line="141" selection-start-column="35" selection-end-line="141" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json">
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pol.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21982759">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33189654">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_interpretation.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33189654">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pol.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21982759">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pnt.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33189654">
+          <caret line="79" column="21" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33189654">
+          <caret line="80" column="21" selection-start-line="80" selection-start-column="13" selection-end-line="80" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pol.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="523" column="35" selection-start-line="523" selection-start-column="27" selection-end-line="523" selection-end-column="35" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_fp.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.4363637">
+          <caret line="8" column="148" selection-start-line="8" selection-start-column="148" selection-end-line="8" selection-end-column="148" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6353111">
-          <caret line="181" column="44" selection-start-line="181" selection-start-column="44" selection-end-line="181" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.5710956">
+          <caret line="120" column="56" selection-start-line="120" selection-start-column="56" selection-end-line="120" selection-end-column="56" />
           <folding>
             <element signature="e#25#45#0" expanded="true" />
-            <marker date="1449831040170" expanded="true" signature="2518:2539" placeholder="DROP TABLE I... " />
-            <marker date="1449831040170" expanded="true" signature="2518:2542" placeholder="DROP TABLE I..." />
-            <marker date="1449831040170" expanded="true" signature="2636:2649" placeholder="CREATE TABLE... missing_value" />
-            <marker date="1449831040170" expanded="true" signature="5206:5239" placeholder="INSERT INTO ..." />
+            <marker date="1450270468468" expanded="true" signature="2582:2603" placeholder="DROP TABLE I... " />
+            <marker date="1450270468468" expanded="true" signature="2582:2606" placeholder="DROP TABLE I..." />
+            <marker date="1450270468468" expanded="true" signature="2700:2713" placeholder="CREATE TABLE... missing_value" />
+            <marker date="1450270468468" expanded="true" signature="4861:4889" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="6708:6741" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="11319:11352" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="17875:17903" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="19145:19209" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1450270468468" expanded="true" signature="19406:19440" placeholder="CREATE TABLE... AS" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02556391">
-          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>

@@ -1,11 +1,11 @@
 {
-    "targetname": "fundort_pol",
+    "targetname": "fundstelle_pol",
     "source": "esrigdb",
     "esrigdb": "geodbs/APIS.gdb",
-    "sourcename": "fo_pol",
+    "sourcename": "sub_fs_pol",
     "epsg": 4312,
     "type": 3,
-    "primary": ["fundortnummer"],
+    "primary": ["fundortnummer", "fundstellenummer"],
     "fields": [
         {
             "targetname": "fundortnummer",
@@ -13,9 +13,9 @@
             "type": "String"
         },
         {
-            "targetname": "filmnummer_projekt",
-            "sourcename": "FILM",
-            "type": "String"
+            "targetname": "fundstellenummer",
+            "sourcename": "SUBNUM",
+            "type": "Integer"
         },
         {
             "targetname": "aktion",
@@ -33,24 +33,14 @@
             "type": "String"
         },
         {
-            "targetname": "raster",
-            "sourcename": "RASTER",
-            "type": "String"
-        },
-        {
-            "targetname": "bildnummer",
-            "sourcename": "BILDNR",
-            "type": "String"
-        },
-        {
             "targetname": "shape_length",
-            "sourcename": "Shape_Length",
+            "sourcename": "SHAPE_Length",
             "type": "Real"
         },
         {
             "targetname": "shape_area",
-            "sourcename": "Shape_Area",
+            "sourcename": "SHAPE_Area",
             "type": "Real"
         }
-    ]
+    ]  
 }

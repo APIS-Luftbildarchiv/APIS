@@ -1,0 +1,15 @@
+{
+    "targetname": "phase",
+    "source": "esrigdb",
+    "esrigdb": "geodbs/APIS.gdb",
+    "sourcename": "phase",
+    "type": 100,
+    "primary": ["bezeichnung"],
+    "fields": [
+        {
+            "targetname": "bezeichnung",
+            "sourcename": "BEZ",
+            "type": "String"
+        }
+    ]
+}

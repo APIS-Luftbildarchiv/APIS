@@ -1,0 +1,32 @@
+{
+    "targetname": "oek50geo",
+    "source": "esrigdb",
+    "esrigdb": "geodbs/APIS.gdb",
+    "sourcename": "oek50geo",
+    "epsg": 4312,
+    "type": 3,
+    "primary": ["id"],
+    "fields": [
+        {
+            "targetname": "id",
+            "sourcename": "ID",
+            "type": "Integer"
+        },
+        {
+            "targetname": "oek50geo",
+            "sourcename": "OEK50GEO_",
+            "type": "Integer"
+        },
+        {
+            "targetname": "shape_length",
+            "sourcename": "Shape_Length",
+            "type": "Real"
+
+        },
+        {
+            "targetname": "shape_area",
+            "sourcename": "Shape_Area",
+            "type": "Real"
+        }
+    ]
+}

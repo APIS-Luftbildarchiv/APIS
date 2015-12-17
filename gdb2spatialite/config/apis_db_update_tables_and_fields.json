@@ -30,7 +30,7 @@
                 "rename": "hersteller",
                 "contentconversion": [
                     {
-                        "old": "IfUFG",
+                        "old": "IfUFG", 
                         "new": "IUHA"
                     },
                     {
