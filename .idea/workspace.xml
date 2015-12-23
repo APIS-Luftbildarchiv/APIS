@@ -1,47 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" line="105" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" line="107" mnemonic="9" />
     <bookmark url="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" line="333" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
+    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="Update">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_exif2points.py" afterPath="$PROJECT_DIR$/APIS/apis_exif2points.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_registry.py" afterPath="$PROJECT_DIR$/APIS/apis_image_registry.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_search_tool.py" afterPath="$PROJECT_DIR$/APIS/apis_image_search_tool.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image2exif.py" afterPath="$PROJECT_DIR$/APIS/apis_image2exif.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_utils.py" afterPath="$PROJECT_DIR$/APIS/apis_utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_apis.ini" afterPath="$PROJECT_DIR$/config_apis.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" afterPath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,26 +33,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="526" column="70" selection-start-line="526" selection-start-column="0" selection-end-line="527" selection-end-column="0" />
-              <folding>
-                <element signature="e#24#33#0" expanded="true" />
-                <marker date="1450789984096" expanded="true" signature="13936:14451" placeholder="SELECT (SELE... film" />
-                <marker date="1450789984096" expanded="true" signature="13967:14080" placeholder="SELECT COUNT... film" />
-                <marker date="1450789984096" expanded="true" signature="14144:14284" placeholder="SELECT COUNT... film" />
-                <marker date="1450789984096" expanded="true" signature="25199:25277" placeholder="select descr... wetter" />
-                <marker date="1450789984096" expanded="true" signature="26458:26908" placeholder="SELECT fundo... fundort_pnt" />
-                <marker date="1450789984096" expanded="true" signature="26573:26907" placeholder="SELECT DISTI... fundort_pol" />
-                <marker date="1450789984096" expanded="true" signature="26809:26906" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1450789984096" expanded="true" signature="29286:29371" placeholder="select max(f... film" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="apis_exif2points.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -121,25 +71,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_image_mapping_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
+      <file leaf-file-name="apis_gdb2spatialite.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="479" column="90" selection-start-line="479" selection-start-column="68" selection-end-line="479" selection-end-column="90" />
+            <state vertical-scroll-proportion="1.4482758">
+              <caret line="592" column="26" selection-start-line="592" selection-start-column="0" selection-end-line="592" selection-end-column="26" />
               <folding>
-                <element signature="e#24#50#0" expanded="true" />
-                <marker date="1450685671226" expanded="true" signature="5308:5830" placeholder="SELECT (SELE... film" />
-                <marker date="1450685671226" expanded="true" signature="5339:5452" placeholder="SELECT COUNT... film" />
-                <marker date="1450685671226" expanded="true" signature="5516:5656" placeholder="SELECT COUNT... film" />
-                <marker date="1450685671226" expanded="true" signature="6516:6561" placeholder="SELECT missi... film" />
-                <marker date="1450685671226" expanded="true" signature="7372:7533" placeholder="SELECT COUNT... luftbild_missing_value_cp" />
-                <marker date="1450685671226" expanded="true" signature="20442:20523" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20722" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20752" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20758" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20790" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20852" placeholder="SELECT code osm_boundaries" />
-                <marker date="1450685671226" expanded="true" signature="20604:20853" placeholder="SELECT code osm_boundaries" />
+                <marker date="1450270468468" expanded="true" signature="2582:2603" placeholder="DROP TABLE I... " />
+                <marker date="1450270468468" expanded="true" signature="2582:2606" placeholder="DROP TABLE I..." />
+                <marker date="1450270468468" expanded="true" signature="2700:2713" placeholder="CREATE TABLE... missing_value" />
+                <marker date="1450270468468" expanded="true" signature="4861:4889" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="6708:6741" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="11319:11352" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="17875:17903" placeholder="INSERT INTO missing_value... " />
+                <marker date="1450270468468" expanded="true" signature="19145:19209" placeholder="SELECT DISTI... missing_value" />
+                <marker date="1450270468468" expanded="true" signature="19406:19440" placeholder="CREATE TABLE... AS" />
               </folding>
             </state>
           </provider>
@@ -170,26 +116,45 @@
       <file leaf-file-name="apis_image_selection_list_dialog.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3328551">
-              <caret line="187" column="136" selection-start-line="187" selection-start-column="134" selection-end-line="187" selection-end-column="136" />
+            <state vertical-scroll-proportion="0.34542817">
+              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
               <folding>
-                <element signature="e#24#39#0" expanded="true" />
-                <marker date="1450778954494" expanded="true" signature="3107:3156" placeholder="select count..." />
-                <marker date="1450778954494" expanded="true" signature="3491:3649" placeholder="select cp.bi..." />
-                <marker date="1450778954494" expanded="true" signature="8069:8430" placeholder="select cp.bi..film..." />
-                <marker date="1450778954494" expanded="true" signature="8069:8828" placeholder="select cp.bi..." />
-                <marker date="1450778954494" expanded="true" signature="8270:8396" placeholder="select fp.bi..luftbild_schraeg_fp..." />
-                <marker date="1450778954494" expanded="true" signature="8441:8796" placeholder="select cp_s...film..." />
-                <marker date="1450778954494" expanded="true" signature="8627:8758" placeholder="select fp_s...luftbild_senk_fp..." />
-                <marker date="1450778954494" expanded="true" signature="8960:9321" placeholder="select cp.bi..film..." />
-                <marker date="1450778954494" expanded="true" signature="8960:9719" placeholder="select cp.bi..." />
-                <marker date="1450778954494" expanded="true" signature="9161:9287" placeholder="select fp.bi..luftbild_schraeg_fp..." />
-                <marker date="1450778954494" expanded="true" signature="9332:9687" placeholder="select cp_s...film..." />
-                <marker date="1450778954494" expanded="true" signature="9518:9649" placeholder="select fp_s...luftbild_senk_fp..." />
-                <marker date="1450778954494" expanded="true" signature="25674:25802" placeholder="select filmn..luftbild_senk_fp..." />
-                <marker date="1450778954494" expanded="true" signature="25674:25964" placeholder="select filmn..." />
-                <marker date="1450778954494" expanded="true" signature="25813:25944" placeholder="select filmn..luftbild_schraeg_fp..." />
+                <marker date="1450903100557" expanded="true" signature="3199:3248" placeholder="select count..." />
+                <marker date="1450903100557" expanded="true" signature="3583:3741" placeholder="select cp.bi..." />
+                <marker date="1450903100557" expanded="true" signature="8161:8522" placeholder="select cp.bi..film..." />
+                <marker date="1450903100557" expanded="true" signature="8161:8920" placeholder="select cp.bi..." />
+                <marker date="1450903100557" expanded="true" signature="8362:8488" placeholder="select fp.bi..luftbild_schraeg_fp..." />
+                <marker date="1450903100557" expanded="true" signature="8533:8888" placeholder="select cp_s...film..." />
+                <marker date="1450903100557" expanded="true" signature="8719:8850" placeholder="select fp_s...luftbild_senk_fp..." />
+                <marker date="1450903100557" expanded="true" signature="9052:9413" placeholder="select cp.bi..film..." />
+                <marker date="1450903100557" expanded="true" signature="9052:9811" placeholder="select cp.bi..." />
+                <marker date="1450903100557" expanded="true" signature="9253:9379" placeholder="select fp.bi..luftbild_schraeg_fp..." />
+                <marker date="1450903100557" expanded="true" signature="9424:9779" placeholder="select cp_s...film..." />
+                <marker date="1450903100557" expanded="true" signature="9610:9741" placeholder="select fp_s...luftbild_senk_fp..." />
+                <marker date="1450903100557" expanded="true" signature="25766:25894" placeholder="select filmn..luftbild_senk_fp..." />
+                <marker date="1450903100557" expanded="true" signature="25766:26056" placeholder="select filmn..." />
+                <marker date="1450903100557" expanded="true" signature="25905:26036" placeholder="select filmn..luftbild_schraeg_fp..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_image2exif.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_image2exif.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pb_tool.cfg" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -209,16 +174,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_site_selection_list_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="54" column="76" selection-start-line="54" selection-start-column="76" selection-end-line="54" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -229,12 +184,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
         <option value="$PROJECT_DIR$/APIS/apis_geolocation.py" />
         <option value="$PROJECT_DIR$/APIS/apis_geolocator.py" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json" />
@@ -265,7 +220,6 @@
         <option value="$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_new_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
         <option value="$PROJECT_DIR$/APIS/forms/output.py" />
         <option value="$PROJECT_DIR$/APIS/forms/output3.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" />
@@ -277,7 +231,6 @@
         <option value="$PROJECT_DIR$/APIS/apis_image_search_tool.py" />
         <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_exif2points.py" />
         <option value="$PROJECT_DIR$/APIS/apis_image_registry.py" />
@@ -285,6 +238,9 @@
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/metadata.txt" />
         <option value="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
+        <option value="$PROJECT_DIR$/APIS/apis_image2exif.py" />
       </list>
     </option>
   </component>
@@ -295,9 +251,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1432" />
-    <option name="y" value="-188" />
-    <option name="width" value="1936" />
-    <option name="height" value="1070" />
+    <option name="y" value="-158" />
+    <option name="width" value="1696" />
+    <option name="height" value="1062" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -340,6 +296,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gdb2spatialite" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -831,7 +801,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450343195950</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Update">
+      <created>1450902511868</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1450902511868</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView">
@@ -844,15 +820,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1432" y="-188" width="1936" height="1070" extended-state="0" />
+    <frame x="1432" y="-158" width="1696" height="1062" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17324561" sideWeight="0.48594132" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17477876" sideWeight="0.48594132" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18266475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17217484" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24625267" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18215159" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19743276" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42477876" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19162996" sideWeight="0.5140587" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24625267" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -862,7 +839,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32765958" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -928,13 +904,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84661657">
-          <caret line="194" column="1" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.02556391">
@@ -1058,13 +1027,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="445" selection-start-line="50" selection-start-column="445" selection-end-line="50" selection-end-column="445" />
         </state>
       </provider>
     </entry>
@@ -1202,24 +1164,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="262" column="33" selection-start-line="262" selection-start-column="33" selection-end-line="262" selection-end-column="33" />
-          <folding>
-            <marker date="1450270468468" expanded="true" signature="2582:2603" placeholder="DROP TABLE I... " />
-            <marker date="1450270468468" expanded="true" signature="2582:2606" placeholder="DROP TABLE I..." />
-            <marker date="1450270468468" expanded="true" signature="2700:2713" placeholder="CREATE TABLE... missing_value" />
-            <marker date="1450270468468" expanded="true" signature="4861:4889" placeholder="INSERT INTO missing_value... " />
-            <marker date="1450270468468" expanded="true" signature="6708:6741" placeholder="INSERT INTO missing_value... " />
-            <marker date="1450270468468" expanded="true" signature="11319:11352" placeholder="INSERT INTO missing_value... " />
-            <marker date="1450270468468" expanded="true" signature="17875:17903" placeholder="INSERT INTO missing_value... " />
-            <marker date="1450270468468" expanded="true" signature="19145:19209" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1450270468468" expanded="true" signature="19406:19440" placeholder="CREATE TABLE... AS" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_printer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1235,22 +1179,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="51" />
-          <folding>
-            <element signature="e#1166#1241#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="479" column="90" selection-start-line="479" selection-start-column="68" selection-end-line="479" selection-end-column="90" />
           <folding>
-            <element signature="e#24#50#0" expanded="true" />
+            <element signature="e#24#50#0" expanded="false" />
             <marker date="1450685671226" expanded="true" signature="5308:5830" placeholder="SELECT (SELE... film" />
             <marker date="1450685671226" expanded="true" signature="5339:5452" placeholder="SELECT COUNT... film" />
             <marker date="1450685671226" expanded="true" signature="5516:5656" placeholder="SELECT COUNT... film" />
@@ -1267,32 +1201,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="49" selection-start-line="56" selection-start-column="49" selection-end-line="56" selection-end-column="49" />
-          <folding>
-            <marker date="1450788944532" expanded="true" signature="2850:2931" placeholder="SELECT code osm_boundaries" />
-            <marker date="1450788944532" expanded="true" signature="2971:3220" placeholder="SELECT code osm_boundaries" />
-            <marker date="1450788944532" expanded="true" signature="3089:3219" placeholder="SELECT ROWID... SpatialIndex" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="526" column="70" selection-start-line="526" selection-start-column="0" selection-end-line="527" selection-end-column="0" />
           <folding>
-            <element signature="e#24#33#0" expanded="true" />
+            <element signature="e#24#33#0" expanded="false" />
             <marker date="1450789984096" expanded="true" signature="13936:14451" placeholder="SELECT (SELE... film" />
             <marker date="1450789984096" expanded="true" signature="13967:14080" placeholder="SELECT COUNT... film" />
             <marker date="1450789984096" expanded="true" signature="14144:14284" placeholder="SELECT COUNT... film" />
@@ -1318,16 +1232,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="61" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
-          <folding>
-            <element signature="e#1105#1134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_registry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1338,27 +1242,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_exif2points.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="61" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
+          <folding>
+            <element signature="e#1105#1134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="51" />
+          <folding>
+            <element signature="e#1166#1241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="49" selection-start-line="56" selection-start-column="49" selection-end-line="56" selection-end-column="49" />
+          <folding>
+            <marker date="1450788944532" expanded="true" signature="2850:2931" placeholder="SELECT code osm_boundaries" />
+            <marker date="1450788944532" expanded="true" signature="2971:3220" placeholder="SELECT code osm_boundaries" />
+            <marker date="1450788944532" expanded="true" signature="3089:3219" placeholder="SELECT ROWID... SpatialIndex" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4482758">
+          <caret line="592" column="26" selection-start-line="592" selection-start-column="0" selection-end-line="592" selection-end-column="26" />
+          <folding>
+            <marker date="1450270468468" expanded="true" signature="2582:2603" placeholder="DROP TABLE I... " />
+            <marker date="1450270468468" expanded="true" signature="2582:2606" placeholder="DROP TABLE I..." />
+            <marker date="1450270468468" expanded="true" signature="2700:2713" placeholder="CREATE TABLE... missing_value" />
+            <marker date="1450270468468" expanded="true" signature="4861:4889" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="6708:6741" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="11319:11352" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="17875:17903" placeholder="INSERT INTO missing_value... " />
+            <marker date="1450270468468" expanded="true" signature="19145:19209" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1450270468468" expanded="true" signature="19406:19440" placeholder="CREATE TABLE... AS" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_image2exif.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3328551">
-          <caret line="187" column="136" selection-start-line="187" selection-start-column="134" selection-end-line="187" selection-end-column="136" />
+        <state vertical-scroll-proportion="0.34542817">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding>
-            <element signature="e#24#39#0" expanded="true" />
-            <marker date="1450778954494" expanded="true" signature="3107:3156" placeholder="select count..." />
-            <marker date="1450778954494" expanded="true" signature="3491:3649" placeholder="select cp.bi..." />
-            <marker date="1450778954494" expanded="true" signature="8069:8430" placeholder="select cp.bi..film..." />
-            <marker date="1450778954494" expanded="true" signature="8069:8828" placeholder="select cp.bi..." />
-            <marker date="1450778954494" expanded="true" signature="8270:8396" placeholder="select fp.bi..luftbild_schraeg_fp..." />
-            <marker date="1450778954494" expanded="true" signature="8441:8796" placeholder="select cp_s...film..." />
-            <marker date="1450778954494" expanded="true" signature="8627:8758" placeholder="select fp_s...luftbild_senk_fp..." />
-            <marker date="1450778954494" expanded="true" signature="8960:9321" placeholder="select cp.bi..film..." />
-            <marker date="1450778954494" expanded="true" signature="8960:9719" placeholder="select cp.bi..." />
-            <marker date="1450778954494" expanded="true" signature="9161:9287" placeholder="select fp.bi..luftbild_schraeg_fp..." />
-            <marker date="1450778954494" expanded="true" signature="9332:9687" placeholder="select cp_s...film..." />
-            <marker date="1450778954494" expanded="true" signature="9518:9649" placeholder="select fp_s...luftbild_senk_fp..." />
-            <marker date="1450778954494" expanded="true" signature="25674:25802" placeholder="select filmn..luftbild_senk_fp..." />
-            <marker date="1450778954494" expanded="true" signature="25674:25964" placeholder="select filmn..." />
-            <marker date="1450778954494" expanded="true" signature="25813:25944" placeholder="select filmn..luftbild_schraeg_fp..." />
+            <marker date="1450903100557" expanded="true" signature="3199:3248" placeholder="select count..." />
+            <marker date="1450903100557" expanded="true" signature="3583:3741" placeholder="select cp.bi..." />
+            <marker date="1450903100557" expanded="true" signature="8161:8522" placeholder="select cp.bi..film..." />
+            <marker date="1450903100557" expanded="true" signature="8161:8920" placeholder="select cp.bi..." />
+            <marker date="1450903100557" expanded="true" signature="8362:8488" placeholder="select fp.bi..luftbild_schraeg_fp..." />
+            <marker date="1450903100557" expanded="true" signature="8533:8888" placeholder="select cp_s...film..." />
+            <marker date="1450903100557" expanded="true" signature="8719:8850" placeholder="select fp_s...luftbild_senk_fp..." />
+            <marker date="1450903100557" expanded="true" signature="9052:9413" placeholder="select cp.bi..film..." />
+            <marker date="1450903100557" expanded="true" signature="9052:9811" placeholder="select cp.bi..." />
+            <marker date="1450903100557" expanded="true" signature="9253:9379" placeholder="select fp.bi..luftbild_schraeg_fp..." />
+            <marker date="1450903100557" expanded="true" signature="9424:9779" placeholder="select cp_s...film..." />
+            <marker date="1450903100557" expanded="true" signature="9610:9741" placeholder="select fp_s...luftbild_senk_fp..." />
+            <marker date="1450903100557" expanded="true" signature="25766:25894" placeholder="select filmn..luftbild_senk_fp..." />
+            <marker date="1450903100557" expanded="true" signature="25766:26056" placeholder="select filmn..." />
+            <marker date="1450903100557" expanded="true" signature="25905:26036" placeholder="select filmn..luftbild_schraeg_fp..." />
           </folding>
         </state>
       </provider>

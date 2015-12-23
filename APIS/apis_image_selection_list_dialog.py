@@ -12,6 +12,7 @@ from qgis.core import *
 from apis_db_manager import *
 from apis_thumb_viewer import *
 from apis_image_registry import *
+from apis_image2exif import *
 
 from functools import partial
 
@@ -41,6 +42,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         self.uiImageThumbsBtn.clicked.connect(self.viewAsThumbs)
         self.uiLoadOrthoBtn.clicked.connect(self.loadOrthos)
         self.uiCopyImagesBtn.clicked.connect(self.copyImages)
+        self.uiImage2ExifBtn.clicked.connect(self.image2Exif)
         self.uiExportListAsPdfBtn.clicked.connect(self.exportListAsPdf)
         self.accepted.connect(self.onAccepted)
 
@@ -735,6 +737,29 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
 
             else:
                 QMessageBox.warning(None, "Bilder kopieren", u"Das Ziel Verzeichnis {0} konnte in {1} nicht erstellt werden".format(newDirName, selectedDirName))
+
+    def image2Exif(self):
+        self.metadataDict = {}
+        self.metadataDict['bildnummer'] = u"0120140301.001"
+        self.metadataDict['flughoehe'] = 1200
+        self.metadataDict['longitude'] = 16.12345
+        self.metadataDict['latitude'] = 48.12345
+        self.metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
+        self.metadataDict['keyword'] = u"Schlüsselwort"
+        self.metadataDict['description'] = u"Beschreibung"
+        self.metadataDict['projekt'] = u"Projekt A;ProjektB"
+        self.metadataDict['copyright'] = u"IUHA"
+        self.metadataDict['militaernummer'] = u"ABC/1254"
+        self.metadataDict['militaernummer_alt'] = u"ABC 458"
+        self.metadataDict['hersteller'] = u"IUHA"
+        self.metadataDict['kamera'] = u"IUHA"
+        self.metadataDict['kalibrierungsnummer'] = u"IUHA"
+        self.metadataDict['kammerkonstante'] = 150.0
+        self.metadataDict['fotograf'] = u"Doneus"
+        self.metadataDict['flugdatum'] = u"2014-03-22"
+        self.metadataDict['flugzeug'] = u"C172"
+        imagePath = self.settings.value("APIS/image_dir") + "\\02140301\\02140301_001.jpg"
+        Image2Exif(self.metadataDict, imagePath)
 
     def exportListAsPdf(self):
 

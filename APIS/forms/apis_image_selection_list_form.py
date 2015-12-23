@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_image_selection_list_form.ui'
 #
-# Created: Fri Dec 18 09:53:41 2015
+# Created: Wed Dec 23 21:38:59 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -64,11 +64,11 @@ class Ui_apisImageSelectionListDialog(object):
         self.uiCopyImagesBtn.setAutoDefault(False)
         self.uiCopyImagesBtn.setObjectName(_fromUtf8("uiCopyImagesBtn"))
         self.horizontalLayout.addWidget(self.uiCopyImagesBtn)
-        self.pushButton = QtGui.QPushButton(apisImageSelectionListDialog)
-        self.pushButton.setIcon(icon1)
-        self.pushButton.setIconSize(QtCore.QSize(24, 24))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.uiImage2ExifBtn = QtGui.QPushButton(apisImageSelectionListDialog)
+        self.uiImage2ExifBtn.setIcon(icon1)
+        self.uiImage2ExifBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiImage2ExifBtn.setObjectName(_fromUtf8("uiImage2ExifBtn"))
+        self.horizontalLayout.addWidget(self.uiImage2ExifBtn)
         self.uiExportListAsPdfBtn = QtGui.QPushButton(apisImageSelectionListDialog)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/print.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -222,7 +222,7 @@ class Ui_apisImageSelectionListDialog(object):
         self.uiLoadOrthoBtn.setText(_translate("apisImageSelectionListDialog", "Ortho Laden", None))
         self.uiExportFootprintsBtn.setText(_translate("apisImageSelectionListDialog", "Footprints Export", None))
         self.uiCopyImagesBtn.setText(_translate("apisImageSelectionListDialog", "Bilder Kopieren", None))
-        self.pushButton.setText(_translate("apisImageSelectionListDialog", "EXIF/IPTC Export", None))
+        self.uiImage2ExifBtn.setText(_translate("apisImageSelectionListDialog", "EXIF/IPTC Export", None))
         self.uiExportListAsPdfBtn.setText(_translate("apisImageSelectionListDialog", "PDF Export", None))
         self.label.setText(_translate("apisImageSelectionListDialog", "Kartiert:", None))
         self.uiImageCountLbl.setText(_translate("apisImageSelectionListDialog", "0", None))

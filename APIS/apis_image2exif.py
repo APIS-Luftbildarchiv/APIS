@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*
 
-import pyexiv2
+import pyexiv2, os, sys
 
-class Image2Exif:
+class Image2Exif():
     '''
     Image2Exif(metadataDict, imagePath)
     on instantiation this class updates the meta data of imagePath with info from metadataDict
@@ -19,9 +20,40 @@ class Image2Exif:
 
 
     def update_metaData(self):
-        metadata = pyexiv2.ImageMetadata(self.imagePath)
-        pyexiv2.xmp.register_namespace('/', 'apis')
-        for k,v in self.metadataDict.items():
-            metadata_key = 'Xmp.apis.{0}'.format(k)
-            metadata[metadata_key] = v
-        metadata.write()
+        try:
+            metadata = pyexiv2.ImageMetadata(self.imagePath)
+            metadata.read()
+            pyexiv2.xmp.register_namespace('/', 'apis')
+            for k ,v in self.metadataDict.items():
+                metadata_key = 'Xmp.apis.{0}'.format(k)
+                metadata[metadata_key] = v
+            metadata.write()
+        except Exception, e:
+            print "> Error metadata", e
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+
+
+if __name__ == '__main__':
+    metadataDict = {}
+    metadataDict['bildnummer'] = u"0120140301.001"
+    metadataDict['flughoehe'] = "1200"
+    metadataDict['longitude'] = "16.12345"
+    metadataDict['latitude'] = "48.12345"
+    metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
+    metadataDict['keyword'] = u"Schlüsselwort"
+    metadataDict['description'] = u"Beschreibung"
+    metadataDict['projekt'] = u"Projekt A;ProjektB"
+    metadataDict['copyright'] = u"IUHA"
+    metadataDict['militaernummer'] = u"ABC/1254"
+    metadataDict['militaernummer_alt'] = u"ABC 458"
+    metadataDict['hersteller'] = u"IUHA"
+    metadataDict['kamera'] = u"IUHA"
+    metadataDict['kalibrierungsnummer'] = u"IUHA"
+    metadataDict['kammerkonstante'] = "150.0"
+    metadataDict['fotograf'] = u"Doneus"
+    metadataDict['flugdatum'] = u"2014-03-22"
+    metadataDict['flugzeug'] = u"C172"
+    imagePath = "C:\\apis\\daten\\luftbild\\02140301\\02140301_001.jpg"
+    Image2Exif(metadataDict, imagePath)
