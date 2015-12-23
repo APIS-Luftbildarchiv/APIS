@@ -44,12 +44,12 @@
             "type": "String"
         },
         {
-            "targetname": "fundart",
+            "targetname": "fundart_detail",
             "sourcename": "FUNDART",
             "type": "String"
         },
         {
-            "targetname": "siedlung",
+            "targetname": "fundart",
             "sourcename": "SIEDL",
             "type": "String"
         },

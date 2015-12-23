@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_new_film_form.ui'
 #
-# Created: Sun May 31 20:44:16 2015
+# Created: Fri Dec 18 09:53:39 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,7 +74,7 @@ class Ui_apisNewFilmDialog(object):
         QtCore.QMetaObject.connectSlotsByName(apisNewFilmDialog)
 
     def retranslateUi(self, apisNewFilmDialog):
-        apisNewFilmDialog.setWindowTitle(_translate("apisNewFilmDialog", "Neuer Film", None))
+        apisNewFilmDialog.setWindowTitle(_translate("apisNewFilmDialog", "APIS Neuer Film", None))
         self.uiFlightDateLbl.setText(_translate("apisNewFilmDialog", "Flugdatum:", None))
         self.uiFlightDate.setDisplayFormat(_translate("apisNewFilmDialog", "dd.MM.yyyy", None))
         self.uiUseLastEntryChk.setText(_translate("apisNewFilmDialog", "Daten von letztem Eintrag übernehmen", None))

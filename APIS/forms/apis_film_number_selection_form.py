@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_number_selection_form.ui'
 #
-# Created: Tue Jun 02 14:12:12 2015
+# Created: Fri Dec 18 09:53:39 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -43,7 +43,7 @@ class Ui_apisFilmNumberSelectionDialog(object):
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.uiFilmNumberEdit = QtGui.QLineEdit(self.gridLayoutWidget)
-        self.uiFilmNumberEdit.setMaxLength(8)
+        self.uiFilmNumberEdit.setMaxLength(10)
         self.uiFilmNumberEdit.setObjectName(_fromUtf8("uiFilmNumberEdit"))
         self.gridLayout.addWidget(self.uiFilmNumberEdit, 0, 1, 1, 1)
         self.uiFilmNumberLbl = QtGui.QLabel(self.gridLayoutWidget)

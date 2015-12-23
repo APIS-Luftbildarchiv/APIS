@@ -10,7 +10,7 @@
 name=APIS
 qgisMinimumVersion=2.0
 description=QGIS Plugin for APIS
-version=0.1.3
+version=0.1.5
 author=Johannes Liem/Luftbildarchiv Uni Wien
 email=johannes.liem@digitalcartography.org
 

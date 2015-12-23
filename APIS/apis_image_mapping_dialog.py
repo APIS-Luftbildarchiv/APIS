@@ -64,6 +64,12 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
         self.uiGenerateFootprintsBtn.clicked.connect(self.generateFootprints)
 
+        self.uiAddProjectObliqueBtn.clicked.connect(self.addProjectOblique)
+        self.uiAddProjectVerticalBtn.clicked.connect(self.addProjectVertical)
+
+        self.uiRemoveProjectObliqueBtn.clicked.connect(self.removeProjectOblique)
+        self.uiRemoveProjectVerticalBtn.clicked.connect(self.removeProjectVertical)
+
         self.resetCurrentFilmNumber()
 
     def openFilmSelectionDialog(self):
@@ -97,7 +103,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.getMappingStats()
         self.updateMappingDetails()
 
-         # Enable Controls
+        # Enable Controls
         self.setCurrentLayout(True,True,self.isOblique,False)
         if not self.imageCenterPoint:
             self.uiAddCenterPointBtn.setEnabled(False)
@@ -153,7 +159,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             return False
 
     def getFilmInfo(self):
-        filmFields = ["filmnummer_hh_jj_mm", "filmnummer_nn", "filmnummer", "anzahl_bilder", "form1", "form2", "weise", "kammerkonstante", "datum_ersteintrag", "datum_aenderung", "projekt", "copyright"]
+        filmFields = ["filmnummer_hh_jjjj_mm", "filmnummer_nn", "filmnummer", "anzahl_bilder", "form1", "form2", "weise", "kammerkonstante", "datum_ersteintrag", "datum_aenderung", "projekt", "copyright"]
         self.currentFilmInfoDict = {}
         query = QSqlQuery(self.dbm.db)
         qryStr = "SELECT {0} FROM film WHERE filmnummer = '{1}'".format(", ".join(filmFields), self.currentFilmNumber)
@@ -272,7 +278,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def loadCenterPointLayerForFilm(self):
         uri = QgsDataSourceURI()
         uri.setDatabase(self.dbm.db.databaseName())
-        uri.setDataSource('', 'luftbild_{0}_cp'.format(self.orientation), 'geom')
+        uri.setDataSource('', 'luftbild_{0}_cp'.format(self.orientation), 'geometry')
         self.cpLayer = QgsVectorLayer(uri.uri(), u'Kartierung {0} Mittelpunkt'.format(self.currentFilmNumber), 'spatialite')
         self.cpLayer.setSubsetString(u'"filmnummer" = "{0}"'.format(self.currentFilmNumber))
         QgsMapLayerRegistry.instance().addMapLayer(self.cpLayer)
@@ -281,7 +287,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def loadFootPrintLayerForFilm(self):
         uri = QgsDataSourceURI()
         uri.setDatabase(self.dbm.db.databaseName())
-        uri.setDataSource('', 'luftbild_{0}_fp'.format(self.orientation), 'geom')
+        uri.setDataSource('', 'luftbild_{0}_fp'.format(self.orientation), 'geometry')
         self.fpLayer = QgsVectorLayer(uri.uri(), u'Kartierung {0} Footprint'.format(self.currentFilmNumber), 'spatialite')
         self.fpLayer.setSubsetString(u'"filmnummer" = "{0}"'.format(self.currentFilmNumber))
         QgsMapLayerRegistry.instance().addMapLayer(self.fpLayer)
@@ -342,7 +348,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
             # From Film Table
             #filmFields = ["form1", "form2", "weise", "kammerkonstante"]
-            feat.setAttribute('filmnummer_hh_jj_mm', self.currentFilmInfoDict["filmnummer_hh_jj_mm"])
+            feat.setAttribute('filmnummer_hh_jjjj_mm', self.currentFilmInfoDict["filmnummer_hh_jjjj_mm"])
             feat.setAttribute('filmnummer_nn', self.currentFilmInfoDict["filmnummer_nn"])
             feat.setAttribute('filmnummer', self.currentFilmNumber)
 
@@ -351,20 +357,23 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             feat.setAttribute('datum_ersteintrag', now.toString("yyyy-MM-dd"))
             feat.setAttribute('datum_aenderung', now.toString("yyyy-MM-dd"))
 
-            #TODO Get Projects from Projekte Liste
-            # feat.setAttribute('projekt', self.currentFilmInfoDict["projekt"])
+
             # Iterate over Project Selection List und String mit ; trennung generieren
             feat.setAttribute('copyright', self.currentFilmInfoDict["copyright"])
 
             # By Default Fix Value
             feat.setAttribute('etikett', 0)
 
+            # Get Projects from Projekte Liste
+            items = []
             # From Input (Radius, Höhe, Schlüsslewort, Beschreibung)
             if self.isOblique:
                 feat.setAttribute('radius', self.uiImageDiameterSpn.value()/2)
                 feat.setAttribute('keyword', self.uiImageKeywordEdit.text())
                 feat.setAttribute('description', self.uiImageDescriptionEdit.text())
                 h = self.uiFlightHeightObliqueSpn.value()
+                for j in xrange(self.uiProjectObliqueList.count()):
+                    items.append(self.uiProjectObliqueList.item(j))
             else:
                 h = self.uiFlightHeightVerticalSpn.value()
                 feat.setAttribute('fokus', self.currentFilmInfoDict["kammerkonstante"])
@@ -372,7 +381,11 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
                     feat.setAttribute('massstab', 0)
                 else:
                     feat.setAttribute('massstab', h/self.currentFilmInfoDict["kammerkonstante"]*1000)
+                for j in xrange(self.uiProjectVerticalList.count()):
+                    items.append(self.uiProjectVerticalList.item(j))
 
+
+            feat.setAttribute('projekt',  ";".join([i.text() for i in items]))
             feat.setAttribute('hoehe', h)
 
             # Calculated/Derived
@@ -451,7 +464,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
     def getCountryCode(self):
         query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT ISO3166 FROM osm_borders WHERE within(MakePoint({0}, {1}, 4312), Geometry)".format(self.imageCenterPoint.x(), self.imageCenterPoint.y())
+        #qryStr = "SELECT code FROM osm_boundaries WHERE within(MakePoint({0}, {1}, 4312), geometry)".format(self.imageCenterPoint.x(), self.imageCenterPoint.y())
+        qryStr = "SELECT code FROM osm_boundaries WHERE intersects(Transform(MakePoint({0}, {1}, 4312), 4326), geometry)  AND ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'osm_boundaries' AND search_frame = Transform(MakePoint({0}, {1}, 4312), 4326))".format(self.imageCenterPoint.x(), self.imageCenterPoint.y())
         query.exec_(qryStr)
         query.first()
         if query.value(0) is None:
@@ -462,8 +476,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def getExifForImage(self, imageNumber):
         exif = [None, None, None, None, None, None]
         dirName = self.settings.value("APIS/image_dir")
-        imageName = imageNumber.replace('.','_') + '.jpg'
-        image = os.path.normpath(dirName+'\\'+self.currentFilmNumber+'\\'+imageName)
+        imageName = self.imageToImageLegacy(imageNumber).replace('.','_') + '.jpg'
+        image = os.path.normpath(dirName+'\\'+self.filmToFilmLegacy(self.currentFilmNumber)+'\\'+imageName)
         #QMessageBox.warning(None, u"exif", image)
 
         if os.path.isfile(image):
@@ -492,6 +506,22 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
         return exif
 
+    def filmToFilmLegacy(self, film):
+        mil = ""
+        if film[2:4] == "19":
+            mil = "01"
+        elif film[2:4] == "20":
+            mil = "02"
+        return mil + film[4:]
+
+    def imageToImageLegacy(self, image):
+        mil = ""
+        if image[2:4] == "19":
+            mil = "01"
+        elif image[2:4] == "20":
+            mil = "02"
+        return mil + image[4:]
+
     def reloadCpLayer(self):
          if self.cpLayerId not in QgsMapLayerRegistry.instance().mapLayers():
             self.loadCenterPointLayerForFilm()
@@ -511,7 +541,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.reloadFpLayer()
         #uri = QgsDataSourceURI()
         #uri.setDatabase(self.dbm.db.databaseName())
-        #uri.setDataSource('', 'luftbild_{0}_fp'.format(self.orientation), 'geom')
+        #uri.setDataSource('', 'luftbild_{0}_fp'.format(self.orientation), 'geometry')
         #self.fpLayer = QgsVectorLayer(uri.uri(), u'Kartierung {0} Footprint'.format(self.currentFilmNumber), 'spatialite')
         #self.fpLayer.setSubsetString(u'"filmnummer" = "{0}"'.format(self.currentFilmNumber))
         #QgsMapLayerRegistry.instance().addMapLayer(self.fpLayer)
@@ -718,6 +748,31 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.enableItemsInLayout(self.uiMappingGridLayout, mapping)
         self.enableItemsInLayout(self.uiMonoplotHorizontalLayout, monoplot)
         self.enableItemsInLayout(self.uiMappingDetailsGridLayout, details)
+
+    def addProjectOblique(self):
+        self.addProject(self.uiProjectObliqueList, self.uiProjectObliqueCombo.currentText())
+
+    def addProjectVertical(self):
+        self.addProject(self.uiProjectVerticalList, self.uiProjectVerticalCombo.currentText())
+
+    def removeProjectOblique(self):
+        self.removeProject(self.uiProjectObliqueList)
+
+    def removeProjectVertical(self):
+        self.removeProject(self.uiProjectVerticalList)
+
+    def addProject(self, editor, value):
+        notInList = True
+        for row in range(editor.count()):
+            if value == editor.item(row).data(0):
+                notInList = False
+                break
+        if notInList:
+            editor.addItem(value)
+            editor.sortItems()
+
+    def removeProject(self, editor):
+        editor.takeItem(editor.currentRow())
 
 
 class SetPointMapTool(QgsMapToolEmitPoint):

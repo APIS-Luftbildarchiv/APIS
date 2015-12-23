@@ -1,0 +1,158 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'forms/apis_site_selection_list_form.ui'
+#
+# Created: Fri Dec 18 13:55:20 2015
+#      by: PyQt4 UI code generator 4.10.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt4 import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
+
+class Ui_apisSiteSelectionListDialog(object):
+    def setupUi(self, apisSiteSelectionListDialog):
+        apisSiteSelectionListDialog.setObjectName(_fromUtf8("apisSiteSelectionListDialog"))
+        apisSiteSelectionListDialog.setWindowModality(QtCore.Qt.ApplicationModal)
+        apisSiteSelectionListDialog.resize(821, 524)
+        self.verticalLayout = QtGui.QVBoxLayout(apisSiteSelectionListDialog)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.uiViewSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
+        self.uiViewSitesBtn.setEnabled(True)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiViewSitesBtn.setIcon(icon)
+        self.uiViewSitesBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiViewSitesBtn.setAutoDefault(False)
+        self.uiViewSitesBtn.setObjectName(_fromUtf8("uiViewSitesBtn"))
+        self.horizontalLayout.addWidget(self.uiViewSitesBtn)
+        self.uiExportSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
+        self.uiExportSitesBtn.setEnabled(True)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/extractgps.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportSitesBtn.setIcon(icon1)
+        self.uiExportSitesBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportSitesBtn.setAutoDefault(False)
+        self.uiExportSitesBtn.setObjectName(_fromUtf8("uiExportSitesBtn"))
+        self.horizontalLayout.addWidget(self.uiExportSitesBtn)
+        self.uiViewInterpretationBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
+        self.uiViewInterpretationBtn.setEnabled(True)
+        self.uiViewInterpretationBtn.setIcon(icon1)
+        self.uiViewInterpretationBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiViewInterpretationBtn.setAutoDefault(False)
+        self.uiViewInterpretationBtn.setObjectName(_fromUtf8("uiViewInterpretationBtn"))
+        self.horizontalLayout.addWidget(self.uiViewInterpretationBtn)
+        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/print.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportListAsPdfBtn.setIcon(icon2)
+        self.uiExportListAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportListAsPdfBtn.setAutoDefault(False)
+        self.uiExportListAsPdfBtn.setObjectName(_fromUtf8("uiExportListAsPdfBtn"))
+        self.horizontalLayout.addWidget(self.uiExportListAsPdfBtn)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.uiSiteListTableV = QtGui.QTableView(apisSiteSelectionListDialog)
+        self.uiSiteListTableV.setObjectName(_fromUtf8("uiSiteListTableV"))
+        self.verticalLayout.addWidget(self.uiSiteListTableV)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.label = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout_2.addWidget(self.label)
+        self.uiImageCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiImageCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiImageCountLbl.setObjectName(_fromUtf8("uiImageCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiImageCountLbl)
+        self.uiImageFilterCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiImageFilterCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiImageFilterCountLbl.setObjectName(_fromUtf8("uiImageFilterCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiImageFilterCountLbl)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem)
+        self.label_2 = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.horizontalLayout_2.addWidget(self.label_2)
+        self.uiScanCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiScanCountLbl.setLineWidth(1)
+        self.uiScanCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiScanCountLbl.setObjectName(_fromUtf8("uiScanCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiScanCountLbl)
+        self.uiScanFilterCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiScanFilterCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiScanFilterCountLbl.setObjectName(_fromUtf8("uiScanFilterCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiScanFilterCountLbl)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
+        self.label_3 = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.horizontalLayout_2.addWidget(self.label_3)
+        self.uiHiResCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiHiResCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiHiResCountLbl.setObjectName(_fromUtf8("uiHiResCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiHiResCountLbl)
+        self.uiHiResFilterCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiHiResFilterCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiHiResFilterCountLbl.setObjectName(_fromUtf8("uiHiResFilterCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiHiResFilterCountLbl)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem2)
+        self.label_4 = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.horizontalLayout_2.addWidget(self.label_4)
+        self.uiOrthoCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiOrthoCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiOrthoCountLbl.setObjectName(_fromUtf8("uiOrthoCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiOrthoCountLbl)
+        self.uiOrthoFilterCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiOrthoFilterCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiOrthoFilterCountLbl.setObjectName(_fromUtf8("uiOrthoFilterCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiOrthoFilterCountLbl)
+        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem3)
+        self.uiImageCountLabelLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiImageCountLabelLbl.setObjectName(_fromUtf8("uiImageCountLabelLbl"))
+        self.horizontalLayout_2.addWidget(self.uiImageCountLabelLbl)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem4)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+
+        self.retranslateUi(apisSiteSelectionListDialog)
+        QtCore.QMetaObject.connectSlotsByName(apisSiteSelectionListDialog)
+
+    def retranslateUi(self, apisSiteSelectionListDialog):
+        apisSiteSelectionListDialog.setWindowTitle(_translate("apisSiteSelectionListDialog", "APIS Fundorte Auswahl", None))
+        self.uiViewSitesBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte Anzeigen", None))
+        self.uiExportSitesBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte Export", None))
+        self.uiViewInterpretationBtn.setText(_translate("apisSiteSelectionListDialog", "Interpretation Anzeigen", None))
+        self.uiExportListAsPdfBtn.setText(_translate("apisSiteSelectionListDialog", "PDF Export", None))
+        self.label.setText(_translate("apisSiteSelectionListDialog", "Fundorte:", None))
+        self.uiImageCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
+        self.uiImageFilterCountLbl.setText(_translate("apisSiteSelectionListDialog", "(-)", None))
+        self.label_2.setText(_translate("apisSiteSelectionListDialog", "Scan:", None))
+        self.uiScanCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
+        self.uiScanFilterCountLbl.setText(_translate("apisSiteSelectionListDialog", "(-)", None))
+        self.label_3.setText(_translate("apisSiteSelectionListDialog", "HiRes:", None))
+        self.uiHiResCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
+        self.uiHiResFilterCountLbl.setText(_translate("apisSiteSelectionListDialog", "(-)", None))
+        self.label_4.setText(_translate("apisSiteSelectionListDialog", "Ortho:", None))
+        self.uiOrthoCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
+        self.uiOrthoFilterCountLbl.setText(_translate("apisSiteSelectionListDialog", "(-)", None))
+        self.uiImageCountLabelLbl.setText(_translate("apisSiteSelectionListDialog", "Gesamt (Filter)", None))
+
+import resource_rc

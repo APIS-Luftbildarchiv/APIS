@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Tue Sep 22 08:55:39 2015
+# Created: Fri Dec 18 09:53:39 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -144,12 +144,6 @@ class Ui_apisFilmDialog(object):
         self.uiListSitesOfFilmBtn.setAutoDefault(False)
         self.uiListSitesOfFilmBtn.setObjectName(_fromUtf8("uiListSitesOfFilmBtn"))
         self.uiBottomHorizontalLayout.addWidget(self.uiListSitesOfFilmBtn)
-        self.uiListSitesByYearBtn = QtGui.QPushButton(self.layoutWidget)
-        self.uiListSitesByYearBtn.setIcon(icon8)
-        self.uiListSitesByYearBtn.setIconSize(QtCore.QSize(30, 30))
-        self.uiListSitesByYearBtn.setAutoDefault(False)
-        self.uiListSitesByYearBtn.setObjectName(_fromUtf8("uiListSitesByYearBtn"))
-        self.uiBottomHorizontalLayout.addWidget(self.uiListSitesByYearBtn)
         self.uiListImagesOfFilmBtn = QtGui.QPushButton(self.layoutWidget)
         icon9 = QtGui.QIcon()
         icon9.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -581,7 +575,6 @@ class Ui_apisFilmDialog(object):
         self.uiShowFlightPathBtn.setToolTip(_translate("apisFilmDialog", "Flugweg des Filmes in QGIS anzeigen", None))
         self.uiShowFlightPathBtn.setText(_translate("apisFilmDialog", "Flugweg anzeigen", None))
         self.uiListSitesOfFilmBtn.setText(_translate("apisFilmDialog", "Fundorte des Filmes", None))
-        self.uiListSitesByYearBtn.setText(_translate("apisFilmDialog", "Fundorte eines Jahres", None))
         self.uiListImagesOfFilmBtn.setText(_translate("apisFilmDialog", "Bilder des Films", None))
         self.uiExtractGpsFromImagesBtn.setText(_translate("apisFilmDialog", "GPS extrahieren", None))
         self.uiExportPdfBtn.setText(_translate("apisFilmDialog", "PDF exportieren", None))

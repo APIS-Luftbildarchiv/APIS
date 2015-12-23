@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_view_flight_path_form.ui'
 #
-# Created: Tue Jul 07 10:56:14 2015
+# Created: Fri Dec 18 09:53:41 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -105,7 +105,7 @@ class Ui_apisViewFlightPathDialog(object):
         QtCore.QMetaObject.connectSlotsByName(apisViewFlightPathDialog)
 
     def retranslateUi(self, apisViewFlightPathDialog):
-        apisViewFlightPathDialog.setWindowTitle(_translate("apisViewFlightPathDialog", "Flugwege anzeigen", None))
+        apisViewFlightPathDialog.setWindowTitle(_translate("apisViewFlightPathDialog", "APIS Flugwege anzeigen", None))
         item = self.uiFlightPathAvailabilityTable.horizontalHeaderItem(0)
         item.setText(_translate("apisViewFlightPathDialog", "Film", None))
         item = self.uiFlightPathAvailabilityTable.horizontalHeaderItem(1)

@@ -13,6 +13,7 @@ from PyPDF2 import PdfFileMerger, PdfFileReader
 
 from apis_db_manager import *
 from apis_printer import *
+from apis_image_registry import *
 
 from functools import partial
 
@@ -27,11 +28,12 @@ from functools import partial
 
 class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
-    def __init__(self, iface, model, dbm, parent):
+    def __init__(self, iface, model, dbm, imageRegistry, parent):
         QDialog.__init__(self)
         self.iface = iface
         self.model = model
         self.dbm = dbm
+        self.imageRegistry = imageRegistry
         self.setupUi(self)
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
 
@@ -204,12 +206,13 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                     filmDict[unicode(rec.fieldName(col))] = val
 
                 filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
+                filmDict['datum_druck'] =  QDate.currentDate().toString("yyyy-MM-dd")
 
 
                 #for filmId in filmList:
                 #QMessageBox.warning(None, "Save", fileName)
                 #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
-                template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
+                template = os.path.dirname(__file__) + "/composer/templates/FilmDetails.qpt" #':/plugins/APIS/composer/templates/FilmDetails.gpt' #'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
                 #if os.path.isfile(template):
                 templateDOM = QDomDocument()
                 templateDOM.setContent(QFile(template), False)
@@ -442,10 +445,11 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                 query.first()
                 mappedImages = query.value(0)
 
-                imageDir = self.settings.value("APIS/image_dir")
-                filmDirName = imageDir + "\\{0}".format(filmid)
-                filmDir = QDir(filmDirName)
-                scanns = len(filmDir.entryList([filmid+"_*.jpg"], QDir.Files))
+                #imageDir = self.settings.value("APIS/image_dir")
+                #filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(filmid))
+                #filmDir = QDir(filmDirName)
+                #scanns = len(filmDir.entryList([self.filmToFilmLegacy(filmid)+"_*.jpg"], QDir.Files))
+                scanns = self.imageRegistry.hasImageRE(self.filmToFilmLegacy(filmid)+"_.+")
 
                 #imageTab.addRow([str(imageCountTotal).zfill(len(str(len(imageList))))])
                 filmTab.addRow([str(filmCountTotal).zfill(len(str(len(filmList))))] + [unicode(item) for item in filmRow] + [unicode(mappedImages), unicode(scanns)])
@@ -475,6 +479,22 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
             #comp.moveItemToBottom(footer)
 
             comp.exportAsPDF(fileName)
+
+            try:
+                if sys.platform == 'linux2':
+                    subprocess.call(["xdg-open", fileName])
+                else:
+                    os.startfile(fileName)
+            except Exception, e:
+                pass
+
+    def filmToFilmLegacy(self, film):
+        mil = ""
+        if film[2:4] == "19":
+            mil = "01"
+        elif film[2:4] == "20":
+            mil = "02"
+        return mil + film[4:]
 
     def onAccepted(self):
         self.accept()

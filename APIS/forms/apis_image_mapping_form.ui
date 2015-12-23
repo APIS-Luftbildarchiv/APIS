@@ -352,7 +352,7 @@
             </widget>
            </item>
            <item row="4" column="4">
-            <widget class="QPushButton" name="pushButton_8">
+            <widget class="QPushButton" name="uiAddProjectObliqueBtn">
              <property name="text">
               <string/>
              </property>
@@ -363,7 +363,7 @@
             </widget>
            </item>
            <item row="6" column="4">
-            <widget class="QPushButton" name="pushButton_9">
+            <widget class="QPushButton" name="uiRemoveProjectObliqueBtn">
              <property name="text">
               <string/>
              </property>
@@ -374,7 +374,7 @@
             </widget>
            </item>
            <item row="6" column="0" colspan="4">
-            <widget class="QListWidget" name="listWidget_2"/>
+            <widget class="QListWidget" name="uiProjectObliqueList"/>
            </item>
           </layout>
          </widget>
@@ -453,7 +453,7 @@
             </widget>
            </item>
            <item row="3" column="3">
-            <widget class="QPushButton" name="pushButton_6">
+            <widget class="QPushButton" name="uiAddProjectVerticalBtn">
              <property name="text">
               <string/>
              </property>
@@ -464,7 +464,7 @@
             </widget>
            </item>
            <item row="4" column="3">
-            <widget class="QPushButton" name="pushButton_7">
+            <widget class="QPushButton" name="uiRemoveProjectVerticalBtn">
              <property name="text">
               <string/>
              </property>
@@ -475,7 +475,7 @@
             </widget>
            </item>
            <item row="4" column="0" colspan="3">
-            <widget class="QListWidget" name="listWidget"/>
+            <widget class="QListWidget" name="uiProjectVerticalList"/>
            </item>
           </layout>
          </widget>

@@ -31,6 +31,12 @@ class ApisNewFilmDialog(QDialog, Ui_apisNewFilmDialog):
     def producer(self):
         return self.uiProducerCombo.currentText()
 
+    def producerCode(self):
+        editor = self.uiProducerCombo
+        idx = editor.model().createIndex(editor.currentIndex(), editor.model().fieldIndex("id"))
+        return unicode(editor.model().data(idx))
+
+
     def showEvent(self, evnt):
         self.uiFlightDate.setDate(QDate.currentDate())
 

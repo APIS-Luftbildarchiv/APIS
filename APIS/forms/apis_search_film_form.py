@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_film_form.ui'
 #
-# Created: Fri Jun 12 13:56:05 2015
+# Created: Fri Dec 18 09:53:40 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -145,14 +145,14 @@ class Ui_apisSearchFilmDialog(object):
         self.uiFilmModeLbl.setObjectName(_fromUtf8("uiFilmModeLbl"))
 
         self.retranslateUi(apisSearchFilmDialog)
-        self.uiSearchModeTBox.setCurrentIndex(2)
+        self.uiSearchModeTBox.setCurrentIndex(0)
         self.uiSearchModeTBox.layout().setSpacing(0)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), apisSearchFilmDialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), apisSearchFilmDialog.reject)
         QtCore.QMetaObject.connectSlotsByName(apisSearchFilmDialog)
 
     def retranslateUi(self, apisSearchFilmDialog):
-        apisSearchFilmDialog.setWindowTitle(_translate("apisSearchFilmDialog", "Film Suche", None))
+        apisSearchFilmDialog.setWindowTitle(_translate("apisSearchFilmDialog", "APIS Film Suche", None))
         self.uiSearchDate.setDisplayFormat(_translate("apisSearchFilmDialog", "dd.MM.yyyy", None))
         self.uiYearOnlyRBtn.setText(_translate("apisSearchFilmDialog", "nur Jahr", None))
         self.uiMonthOnlyRBtn.setText(_translate("apisSearchFilmDialog", "nur Monat", None))

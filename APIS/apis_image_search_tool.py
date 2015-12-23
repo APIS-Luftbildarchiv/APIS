@@ -6,6 +6,7 @@ from PyQt4.QtSql import *
 from qgis.core import *
 from qgis.gui import *
 from apis_image_selection_list_dialog import *
+from apis_image_registry import *
 
 import traceback
 import time
@@ -13,10 +14,11 @@ import time
 
 
 class RectangleMapTool(QgsMapToolEmitPoint):
-  def __init__(self, iface, dbm):
+  def __init__(self, iface, dbm, imageRegistry):
       self.iface = iface
       self.canvas = self.iface.mapCanvas()
       self.dbm = dbm
+      self.imageRegistry = imageRegistry
 
       QgsMapToolEmitPoint.__init__(self, self.canvas)
       self.rubberBand = QgsRubberBand(self.canvas, QGis.Polygon)
@@ -28,7 +30,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
       self.reset()
 
-      self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm)
+      self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
 
       self.worker = None
 
@@ -199,7 +201,7 @@ class Worker(QtCore.QObject):
         try:
             epsg = 4312
             query = QSqlQuery(self.dbm.db)
-            qryStr = "select  cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp as cp where cp.bildnummer in (select fp.bildnummer from luftbild_schraeg_fp as fp where not IsEmpty(fp.geom) and intersects(GeomFromText('{0}',{1}),fp.geom)) and f.filmnummer = cp.filmnummer UNION ALL select  cp_s.bildnummer as bildnummer, cp_S.filmnummer as filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung from film as f_s, luftbild_senk_cp as cp_s where cp_s.bildnummer in (select fp_s.bildnummer from luftbild_senk_fp as fp_s where not IsEmpty(fp_s.geom) and intersects(GeomFromText('{0}',{1}),fp_s.geom)) and f_s.filmnummer = cp_s.filmnummer ORDER BY filmnummer, bildnummer".format(self.geometryWkt, epsg)
+            qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(self.geometryWkt, epsg)
             query.exec_(qryStr)
         except Exception, e:
             # forward the exception upstream

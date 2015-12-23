@@ -32,6 +32,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
 from apis_utils import *
+from apis_image_registry import *
 
 # --------------------------------------------------------
 # Settings - Basis Einstellungen für Plugin
@@ -40,9 +41,10 @@ from apis_settings_form import *
 from functools import partial
 
 class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
-    def __init__(self, iface):
+    def __init__(self, iface, imageRegistry):
         QDialog.__init__(self)
         self.iface = iface
+        self.imageRegistry = imageRegistry
         self.setupUi(self)
 
         s = QSettings()
@@ -56,6 +58,8 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         self.buttonBox.accepted.connect(self.onAccept)
 
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.onReset)
+
+        self.uiUpdateImageRegistryBtn.clicked.connect(self.updateImageRegistry)
 
         # Selectors for getFileOpenDialogs
         # paths chosen by user
@@ -102,6 +106,9 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         #     control.clicked.connect(slot)
 
         #Load Settings from QSettings
+    def updateImageRegistry(self):
+        self.imageRegistry.updateRegistries()
+        self.imageRegistry.writeRegistryToFile()
 
     def callOpenFileDialog(self, key):
         """

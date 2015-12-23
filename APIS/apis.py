@@ -30,7 +30,7 @@ import resources_rc
 from apis_settings_dialog import *
 from apis_film_dialog import *
 from apis_image_mapping_dialog import *
-from apis_image_search_tool import *
+from apis_search_dialog import *
 from apis_image_registry import *
 
 from apis_utils import *
@@ -81,19 +81,26 @@ class APIS:
         self.configStatus, self.settings = apisPluginSettings()
         #QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
 
+        self.imageRegistry = ApisImageRegistry(self.plugin_dir, self.iface)
+        self.imageRegistry.setupRegistry()
+
         # Create the dialog (after translation) and keep reference
-        self.settingsDlg = ApisSettingsDialog(self.iface)
+        self.settingsDlg = ApisSettingsDialog(self.iface, self.imageRegistry)
 
         self.dbm = None
         self.areDialogsInit = False
         self.areDialogsActive = False
         self.imageMappingMode = False
         self.imageMappingDlg = None
+        self.searchDlg = None
 
-        if(self.configStatus):
+
+        if(self.configStatus and self.imageRegistry.isLoaded()):
             #generate ApisImageRegistry in Background Thread
-            self.imageRegistry = ApisImageRegistry()
-            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"{0}".format(self.imageRegistry.hasImage('abc')))
+            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has Image: {0}".format(self.imageRegistry.hasImage('02140301_750')))
+            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has HiRes: {0}".format(self.imageRegistry.hasHiRes('01850205_005')))
+            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has Ortho: {0}".format(self.imageRegistry.hasOrtho('02030608_045')))
+
             self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
             self.initDialogs()
 
@@ -177,8 +184,9 @@ class APIS:
         return action
 
     def initDialogs(self):
-        self.filmDlg = ApisFilmDialog(self.iface, self.dbm)
+        self.filmDlg = ApisFilmDialog(self.iface, self.dbm, self.imageRegistry)
         self.imageMappingDlg = None
+        self.searchDlg = None
         #self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
         self.areDialogsInit = True
         self.areDialogsActive = True
@@ -188,7 +196,7 @@ class APIS:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         # Settings Dialog
-        if self.configStatus:
+        if self.configStatus and self.imageRegistry.isLoaded():
             iconPath = ':/plugins/APIS/icons/settings.png'
         else:
             iconPath = ':/plugins/APIS/icons/settings_alert.png'
@@ -210,7 +218,7 @@ class APIS:
             iconPath,
             text=self.tr(u'Film'),
             callback=self.openFilmDialog,
-            enabledFlag=self.configStatus,
+            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
             parent=self.iface.mainWindow())
         )
 
@@ -220,22 +228,22 @@ class APIS:
             iconPath,
             text=self.tr(u'Bilder kartieren'),
             callback=self.toggleImageMappingDialog,
-            enabledFlag=self.configStatus,
+            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
             parent=self.iface.mainWindow(),
             checkable=True)
 
         self.openDialogButtons.append(self.mappingActionBtn)
 
         iconPath = ':/plugins/APIS/icons/search.png'
-        self.searchImageActionBtn = self.addApisAction(
+        self.searchActionBtn = self.addApisAction(
             iconPath,
-            text=self.tr(u'Bilder suchen'),
-            callback=self.toggleImageSearchTool,
-            enabledFlag=self.configStatus,
+            text=self.tr(u'APIS Suche'),
+            callback=self.toggleSearchDialg,
+            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
             parent=self.iface.mainWindow(),
             checkable=True)
 
-        self.openDialogButtons.append(self.searchImageActionBtn)
+        self.openDialogButtons.append(self.searchActionBtn)
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""
@@ -265,6 +273,15 @@ class APIS:
             self.imageMappingMode = False
             #self.mappingActionBtn.setChecked(True)
 
+    def toggleSearchDialg(self):
+        if not self.searchDlg:
+            self.searchDlg = ApisSearchDialog(self.iface, self.dbm, self.imageRegistry)
+            self.searchDlg.visibilityChanged.connect(self.searchActionBtn.setChecked)
+
+        if self.searchActionBtn.isChecked():
+            self.searchDlg.show()
+        else:
+            self.searchDlg.hide()
 
 
     def toggleImageSearchTool(self):
@@ -291,7 +308,7 @@ class APIS:
             #self.configStatus,  = self.au.checkConfigStatus()
             self.configStatus, self.settings = apisPluginSettings()
 
-            if self.configStatus:
+            if self.configStatus and self.imageRegistry.isLoaded():
                 self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
                 self.initDialogs()
                 self.activateDialogs(True)
@@ -307,7 +324,7 @@ class APIS:
             action.setEnabled(value)
         self.areDialogsActive = value
 
-        if self.configStatus:
+        if self.configStatus and self.imageRegistry.isLoaded():
             iconPath = ':/plugins/APIS/icons/settings.png'
         else:
             iconPath = ':/plugins/APIS/icons/settings_alert.png'

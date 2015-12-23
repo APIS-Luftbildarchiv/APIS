@@ -65,16 +65,16 @@ def isApisIni(ini):
 
     return isIni, s if isIni else u"Folgende Schlüssel in der INI Datei sind nicht korrekt oder nicht vorhanden: " + u", ".join(errorKeys)
 
-class ApisUtils:
-    def __init__(self, dialog):
-        self.dialog = dialog
-
-    def checkConfigStatus(self):
-        s = QSettings()
-        value = s.value("APIS/plugin_config_status", False)
-        if isinstance(value, (bool)):
-            return value
-        else:
-            return value.lower() in ("yes", "true", "t", "1")
+# class ApisUtils:
+#     def __init__(self, dialog):
+#         self.dialog = dialog
+#
+#     def checkConfigStatus(self):
+#         s = QSettings()
+#         value = s.value("APIS/plugin_config_status", False)
+#         if isinstance(value, (bool)):
+#             return value
+#         else:
+#             return value.lower() in ("yes", "true", "t", "1")
 
 

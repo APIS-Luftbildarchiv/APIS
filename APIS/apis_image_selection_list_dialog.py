@@ -11,6 +11,7 @@ from qgis.core import *
 
 from apis_db_manager import *
 from apis_thumb_viewer import *
+from apis_image_registry import *
 
 from functools import partial
 
@@ -26,10 +27,11 @@ import subprocess
 
 class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
 
-    def __init__(self, iface, dbm):
+    def __init__(self, iface, dbm, imageRegistry):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
+        self.imageRegistry = imageRegistry
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
@@ -93,8 +95,10 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
 
 
         #iterate over query result
+        # TODO: Introduce Image Registry
         imageDir = self.settings.value("APIS/image_dir")
         orthoDir = self.settings.value("APIS/ortho_image_dir")
+
         while query.next():
             newRow = []
             rec = query.record()
@@ -103,36 +107,46 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 newRow.append(newCol)
 
             #scan
-            fileName = imageDir + "\\{0}\\{1}.jpg".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_'))
-            if os.path.isfile(os.path.normpath(fileName)):
+            #fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_'))
+            #if os.path.isfile(os.path.normpath(fileName)):
+            #    newRow.append(QStandardItem("ja"))
+            #else:
+            #    newRow.append(QStandardItem("nein"))
+            imageNumber = self.imageToImageLegacy(rec.value("bildnummer"))
+            if self.imageRegistry.hasImage(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
 
             #ortho
-            fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_')))
-            if fileNames:
+            #fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')))
+            #if fileNames:
+            if self.imageRegistry.hasOrtho(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
 
             #hires
-            filmDirName = imageDir + "\\{0}".format(rec.value("filmnummer"))
-            filmDir = QDir(filmDirName)
-            hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
-            if len(hiResDirs) > 0:
-                hasHiRes = "nein"
-                for hiResDirName in hiResDirs:
-                    hiResDir = QDir(filmDirName + "\\" + hiResDirName)
-                    hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
-                    if len(hiResFiles) > 0:
-                        #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
-                        #newRow.append(QStandardItem("ja"))
-                        hasHiRes = "ja"
-
-                newRow.append(QStandardItem(hasHiRes))
+            if self.imageRegistry.hasHiRes(imageNumber):
+                newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
+            # filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(rec.value("filmnummer")))
+            # filmDir = QDir(filmDirName)
+            # hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
+            # if len(hiResDirs) > 0:
+            #     hasHiRes = "nein"
+            #     for hiResDirName in hiResDirs:
+            #         hiResDir = QDir(filmDirName + "\\" + hiResDirName)
+            #         hiResFiles = hiResDir.entryList([self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #         if len(hiResFiles) > 0:
+            #             #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
+            #             #newRow.append(QStandardItem("ja"))
+            #             hasHiRes = "ja"
+            #
+            #     newRow.append(QStandardItem(hasHiRes))
+            # else:
+            #     newRow.append(QStandardItem("nein"))
 
             self.model.appendRow(newRow)
 
@@ -170,7 +184,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         return True
 
     def loadImageListBySpatialQuery(self, query=None):
-        epsg = 4312
+        #epsg = 4312
         #qryStr = "select  cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp as cp where cp.bildnummer in (select fp.bildnummer from luftbild_schraeg_fp as fp where not IsEmpty(fp.geom) and intersects(GeomFromText('{0}',{1}),fp.geom)) and f.filmnummer = cp.filmnummer UNION ALL select  cp_s.bildnummer as bildnummer, cp_S.filmnummer as filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung from film as f_s, luftbild_senk_cp as cp_s where cp_s.bildnummer in (select fp_s.bildnummer from luftbild_senk_fp as fp_s where not IsEmpty(fp_s.geom) and intersects(GeomFromText('{0}',{1}),fp_s.geom)) and f_s.filmnummer = cp_s.filmnummer ORDER BY filmnummer, bildnummer".format(geometry, epsg)
         #t = QTime()
         #t.start()
@@ -199,37 +213,55 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 newRow.append(newCol)
 
             #scan
-            fileName = imageDir + "\\{0}\\{1}.jpg".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_'))
-            if os.path.isfile(os.path.normpath(fileName)):
+            imageNumber = self.imageToImageLegacy(rec.value("bildnummer"))
+            if self.imageRegistry.hasImage(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
 
             #ortho
-            fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_')))
-            if fileNames:
+            if self.imageRegistry.hasOrtho(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
 
             #hires
-            filmDirName = imageDir + "\\{0}".format(rec.value("filmnummer"))
-            filmDir = QDir(filmDirName)
-            hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
-            if len(hiResDirs) > 0:
-                hasHiRes = "nein"
-                for hiResDirName in hiResDirs:
-                    hiResDir = QDir(filmDirName + "\\" + hiResDirName)
-                    hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
-                    if len(hiResFiles) > 0:
-                        #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
-                        #newRow.append(QStandardItem("ja"))
-                        hasHiRes = "ja"
-                    #else:
-                        #newRow.append(QStandardItem("nein"))
-                newRow.append(QStandardItem(hasHiRes))
+            if self.imageRegistry.hasHiRes(imageNumber):
+                newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
+            #scan
+            # fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_'))
+            # if os.path.isfile(os.path.normpath(fileName)):
+            #     newRow.append(QStandardItem("ja"))
+            # else:
+            #     newRow.append(QStandardItem("nein"))
+            #
+            # #ortho
+            # fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')))
+            # if fileNames:
+            #     newRow.append(QStandardItem("ja"))
+            # else:
+            #     newRow.append(QStandardItem("nein"))
+            #
+            # #hires
+            # filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(rec.value("filmnummer")))
+            # filmDir = QDir(filmDirName)
+            # hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
+            # if len(hiResDirs) > 0:
+            #     hasHiRes = "nein"
+            #     for hiResDirName in hiResDirs:
+            #         hiResDir = QDir(filmDirName + "\\" + hiResDirName)
+            #         hiResFiles = hiResDir.entryList([self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #         if len(hiResFiles) > 0:
+            #             #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
+            #             #newRow.append(QStandardItem("ja"))
+            #             hasHiRes = "ja"
+            #         #else:
+            #             #newRow.append(QStandardItem("nein"))
+            #     newRow.append(QStandardItem(hasHiRes))
+            # else:
+            #     newRow.append(QStandardItem("nein"))
 
             self.model.appendRow(newRow)
 
@@ -392,7 +424,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
     def viewImage(self):
         r = self.uiImageListTableV.currentIndex().row()
         imageDir = self.settings.value("APIS/image_dir")
-        fileName = imageDir + "\\{0}\\{1}.jpg".format(self.model.item(r, 1).text(), self.model.item(r, 0).text().replace('.','_'))
+        fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(self.model.item(r, 1).text()), self.imageToImageLegacy(self.model.item(r, 0).text()).replace('.','_'))
         if os.path.isfile(os.path.normpath(fileName)):
             if sys.platform == 'linux2':
                 subprocess.call(["xdg-open", fileName])
@@ -444,7 +476,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         imageDir = self.settings.value("APIS/image_dir")
 
         for image in imageList:
-            imagePathList.append(os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(image.split('.')[0], image.replace('.','_'))))
+            imagePathList.append(os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(image.split('.')[0]), self.imageToImageLegacy(image).replace('.','_'))))
 
         #QMessageBox.warning(None, "BildNumber", "{0}".format(', '.join(imagePathList)))
         #app = QtGui.QApplication([])
@@ -466,7 +498,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         orthoDir = self.settings.value("APIS/ortho_image_dir")
 
         for ortho in orthoList:
-            orthoFileNames = glob.glob(os.path.normpath(orthoDir + "\\{0}\\{1}_op*.*".format(ortho.split('.')[0], ortho.replace('.','_'))))
+            orthoFileNames = glob.glob(os.path.normpath(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(ortho.split('.')[0]), self.imageToImageLegacy(ortho).replace('.','_'))))
             for orthoFile in orthoFileNames:
                 if os.path.splitext(orthoFile)[1] in ['.sid', '.tif', '.tiff', '.jpg']:
                     fileInfo = QFileInfo(orthoFile)
@@ -508,7 +540,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         #QMessageBox.warning(None, "BildNumber", "{0}".format(imageString))
 
         query = QSqlQuery(self.dbm.db)
-        qryStr = "select filmnummer, bildnummer, weise, AsWKT(geom) as fpGeom, Area(geom) as area from luftbild_senk_fp where bildnummer in ({0}) union all select filmnummer, bildnummer, weise, AsWKT(geom) as fpGeom, Area(geom) as area from luftbild_schraeg_fp where bildnummer in ({0}) order by bildnummer".format(imageString[:-1])
+        qryStr = "select filmnummer, bildnummer, AsWKT(geometry) as fpGeom, Area(geometry) as area from luftbild_senk_fp where bildnummer in ({0}) union all select filmnummer, bildnummer, AsWKT(geometry) as fpGeom, Area(geometry) as area from luftbild_schraeg_fp where bildnummer in ({0}) order by bildnummer".format(imageString[:-1])
         query.exec_(qryStr)
 
 
@@ -529,10 +561,9 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             fields = QgsFields()
             fields.append(QgsField("bildnummer", QVariant.String))
             fields.append(QgsField("filmnummer", QVariant.String))
-            fields.append(QgsField("weise", QVariant.String))
             fields.append(QgsField("area", QVariant.Double))
 
-            writer = QgsVectorFileWriter(layer, "UTF-8", fields, QGis.WKBMultiPolygon, QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
+            writer = QgsVectorFileWriter(layer, "UTF-8", fields, QGis.WKBPolygon, QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
 
             for feature in self.iter_features(query):
                 writer.addFeature(feature)
@@ -666,17 +697,17 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                             destinationDir.mkdir(filmDirName)
 
                         if loRes:
-                            sourceFileName = os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(filmDirName, image.replace('.','_')))
+                            sourceFileName = os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(filmDirName), self.imageToImageLegacy(image).replace('.','_')))
                             destinationFileName = os.path.normpath(destinationDirName + "\\{0}\\{1}.jpg".format(filmDirName, image.replace('.','_')))
                             #MessageBox.warning(None, "Bilder kopieren", u"SourceVZ: {0}, DestVZ: {1}".format(sourceFileName, destinationFileName))
                             sourceFile = QFile(sourceFileName)
                             sourceFile.copy(destinationFileName)
 
-                        #TODO HiRes Kopieren
+                        #HiRes Kopieren
                         #QMessageBox.warning(None, "Bilder kopieren", u"{0}, {1}".format(hiRes, ', '.join(hiResImageList)))
                         if hiRes and image in hiResImageList:
                             #copy hi res image files
-                            filmDirPathName = imageDir + "\\" + filmDirName
+                            filmDirPathName = imageDir + "\\" + self.filmToFilmLegacy(filmDirName)
                             filmDir = QDir(filmDirPathName)
                             hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
                             if len(hiResDirs) > 0:
@@ -686,7 +717,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                                     if not filmDestDir.exists(hiResDirName):
                                         filmDestDir.mkdir(hiResDirName)
                                     hiResDir = QDir(filmDirPathName + "\\" + hiResDirName)
-                                    hiResFiles = hiResDir.entryList([image.replace('.','_')+"*"], QDir.Files)
+                                    hiResFiles = hiResDir.entryList([self.imageToImageLegacy(image).replace('.','_')+"*"], QDir.Files)
                                     if len(hiResFiles) > 0:
                                         for hiResFile in hiResFiles:
                                             sourceHiResFileName = os.path.normpath("{0}\\{1}\\{2}".format(filmDirPathName, hiResDirName, hiResFile))
@@ -879,9 +910,15 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             #comp.addItem(footer)
             #comp.moveItemToBottom(footer)
 
-
-
             comp.exportAsPDF(fileName)
+
+            try:
+                if sys.platform == 'linux2':
+                    subprocess.call(["xdg-open", fileName])
+                else:
+                    os.startfile(fileName)
+            except Exception, e:
+                pass
 
 
     def onSelectionChanged(self, current, previous):
@@ -969,6 +1006,21 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             self.uiFilterHiResChk.setChecked(False)
             self.uiFilterOrthoChk.setChecked(False)
 
+    def filmToFilmLegacy(self, film):
+        mil = ""
+        if film[2:4] == "19":
+            mil = "01"
+        elif film[2:4] == "20":
+            mil = "02"
+        return mil + film[4:]
+
+    def imageToImageLegacy(self, image):
+        mil = ""
+        if image[2:4] == "19":
+            mil = "01"
+        elif image[2:4] == "20":
+            mil = "02"
+        return mil + image[4:]
 
     def onAccepted(self):
         self.accept()

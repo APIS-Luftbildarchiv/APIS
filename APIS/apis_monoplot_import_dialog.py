@@ -53,19 +53,27 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
         if set(fieldNamesFP) != set(["Image", "ERROR"]):
             return False
 
-        filmNumberCP = set([feature["Image"].split('_')[0] for feature in self.sourceLayerCP.getFeatures()])
-        if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != self.filmId:
+        imageNumberCPSet = set([feature["Image"] for feature in self.sourceLayerCP.getFeatures()])
+        imageNumberFPSet = set([feature["Image"] for feature in self.sourceLayerFP.getFeatures()])
+
+        if imageNumberCPSet != imageNumberFPSet:
             return False
 
-        filmNumberFP = set([feature["Image"].split('_')[0]for feature in self.sourceLayerFP.getFeatures()])
-        if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != self.filmId:
-            return False
+        #filmNumberCP = set([feature["Image"].split('_')[0] for feature in self.sourceLayerCP.getFeatures()])
+        #if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != self.filmToFilmLegacy(self.filmId):
+        #    return False
+
+        #filmNumberFP = set([feature["Image"].split('_')[0]for feature in self.sourceLayerFP.getFeatures()])
+        #if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != self.filmToFilmLegacy(self.filmId):
+        #    return False
 
         return True
 
     def getCountryCode(self, p):
         query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT ISO3166 FROM osm_borders WHERE within(MakePoint({0}, {1}, 4312), Geometry)".format(p.x(),p.y())
+        #qryStr = "SELECT code FROM osm_boundaries WHERE within(MakePoint({0}, {1}, 4312), Geometry)".format(p.x(),p.y())
+        qryStr = "SELECT code FROM osm_boundaries WHERE intersects(Transform(MakePoint({0}, {1}, 4312), 4326), geometry)  AND ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'osm_boundaries' AND search_frame = Transform(MakePoint({0}, {1}, 4312), 4326))".format(p.x(),p.y())
+
         query.exec_(qryStr)
         query.first()
         if query.value(0) is None:
@@ -76,8 +84,8 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
     def getExifForImage(self, imageNumber):
         exif = [None, None, None, None, None, None]
         dirName = self.settings.value("APIS/image_dir")
-        imageName = imageNumber.replace('.','_') + '.jpg'
-        image = os.path.normpath(dirName+'\\'+self.filmId+'\\'+imageName)
+        imageName = self.imageToImageLegacy(imageNumber).replace('.','_') + '.jpg'
+        image = os.path.normpath(dirName+'\\'+self.filmToFilmLegacy(self.filmId)+'\\'+imageName)
         #QMessageBox.warning(None, u"exif", image)
 
         if os.path.isfile(image):
@@ -106,6 +114,22 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
 
         return exif
 
+    def filmToFilmLegacy(self, film):
+        mil = ""
+        if film[2:4] == "19":
+            mil = "01"
+        elif film[2:4] == "20":
+            mil = "02"
+        return mil + film[4:]
+
+    def imageToImageLegacy(self, image):
+        mil = ""
+        if image[2:4] == "19":
+            mil = "01"
+        elif image[2:4] == "20":
+            mil = "02"
+        return mil + image[4:]
+
     def run(self):
 
         self.sourceLayerCP = self.uiCenterPointMLCombo.currentLayer()
@@ -125,9 +149,12 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
                 #for sourceFeat in iterCP:
                 sourceFeatCP = QgsFeature()
                 sourceFeatFP = QgsFeature()
+                i = 0
                 while iterCP.nextFeature(sourceFeatCP):
+                    i += 1
                     iterFP.nextFeature(sourceFeatFP)
-                    imageNumber = int(sourceFeatCP["Image"].split('_')[1].split('.')[0])
+                    #imageNumber = int(sourceFeatCP["Image"].split('_')[1].split('.')[0])
+                    imageNumber = i
                     bn = '{0}.{1:03d}'.format(self.filmId, imageNumber)
                     if imageNumber in existingFeaturesCP or imageNumber in existingFeatureFP:
                         #TODO: Wenn kartiert Abfragen ob überspringen oder überschreiben (diesmal oder alle)!
@@ -153,7 +180,7 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
 
                     # From Film Table
                     #filmFields = ["form1", "form2", "weise", "kammerkonstante"]
-                    targetFeatCP.setAttribute('filmnummer_hh_jj_mm', self.parent.currentFilmInfoDict["filmnummer_hh_jj_mm"])
+                    targetFeatCP.setAttribute('filmnummer_hh_jjjj_mm', self.parent.currentFilmInfoDict["filmnummer_hh_jjjj_mm"])
                     targetFeatCP.setAttribute('filmnummer_nn', self.parent.currentFilmInfoDict["filmnummer_nn"])
                     targetFeatCP.setAttribute('filmnummer', self.parent.currentFilmNumber)
 
@@ -169,6 +196,8 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
                     targetFeatCP.setAttribute('copyright', self.parent.currentFilmInfoDict["copyright"])
                     # By Default Fix Value
                     targetFeatCP.setAttribute('etikett', 0)
+
+
 
                     targetFeatCP.setAttribute('radius', 175)
                     targetFeatCP.setAttribute('keyword', "")

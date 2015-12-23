@@ -28,8 +28,9 @@
 from itertools import groupby
 
 from PyQt4.QtCore import *
-from PyQt4.QtGui import QMessageBox
+from PyQt4.QtGui import QMessageBox, QProgressBar
 from qgis.core import *
+from qgis.gui import QgsMessageBar
 
 import pyexiv2 as exif
 import glob
@@ -38,9 +39,10 @@ import os.path
 class Exif2Points(object):
     """Data processing for Point2One."""
 
-    def __init__(self, filmNumber):
+    def __init__(self, iface, filmNumber):
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.filmNumber = filmNumber
+        self.iface = iface
         self.imagePath = os.path.normpath(self.settings.value("APIS/image_dir"))
         self.filmPath = os.path.join(self.imagePath, self.filmNumber)
         self.images = glob.glob(os.path.normpath(self.filmPath + "\\" + self.filmNumber + "_*.*"))
@@ -51,7 +53,8 @@ class Exif2Points(object):
         """Create the output shapefile."""
         gpsStatus = self.checkGpsStatus()
         if gpsStatus:
-            QMessageBox.warning(None, "Test", "Create GPS SHP")
+            pass
+            #QMessageBox.warning(None, "Test", "Create GPS SHP")
         elif gpsStatus == None:
             QMessageBox.warning(None, "Verzeichnis", u"Es wurde kein Bildverzeichnis für diesen Film gefunden.")
             return
@@ -63,8 +66,8 @@ class Exif2Points(object):
         if check.exists():
             if not QgsVectorFileWriter.deleteShapeFile(self.shpFile):
                 msg = 'Unable to delete existing shapefile "{}"'
-                #TODO Error ...
-                raise Exception
+                self.iface.messageBar().pushMessage(u"Error", u"Die Datei existiert bereits und kann nicht überschrieben werden (Eventuell in QGIS geladen!).", level=QgsMessageBar.CRITICAL, duration=10)
+                return False
 
         #fields
         fields = QgsFields()
@@ -75,9 +78,20 @@ class Exif2Points(object):
 
         writer = QgsVectorFileWriter(str(self.shpFile), "UTF-8", fields, QGis.WKBPoint, QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
 
+        mb = self.iface.messageBar().createMessage(u"EXIF", u"Die EXIF Daten (Geo Koordinaten und Höhe) werden aus den Bildern ausgelesen")
+        progress = QProgressBar()
+        progress.setMinimum(0)
+        progress.setMaximum(0)
+        progress.setAlignment(Qt.AlignLeft|Qt.AlignVCenter)
+        mb.layout().addWidget(progress)
+        self.iface.messageBar().pushWidget(mb, QgsMessageBar.INFO)
+
         for feature in self.iter_points():
             writer.addFeature(feature)
         del writer
+        self.iface.messageBar().clearWidgets()
+        self.iface.messageBar().pushMessage(u"EXIF", u"Die Shape Datei wurde erfolgreich erstellt und in QGIS geladen!", level=QgsMessageBar.SUCCESS, duration=10)
+
 
         return self.shpFile
 
