@@ -9,7 +9,7 @@ from apis_db_manager import *
 import sys, os, math, string
 import os.path
 
-from apis_image_search_tool import *
+from apis_search_tools import *
 from apis_image_selection_list_dialog import *
 from apis_image_registry import *
 
@@ -30,15 +30,9 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self)
         self.hide()
 
-        # Filmsuche
-
-
-        # Bildsuche
-
-
-
-        self.uiImageSpatialSearchBtn.clicked.connect(self.spatialImageSearchTool)
-        self.uiImageSpatialSearchBtn.setCheckable(True)
+        # Spatial Search
+        self.uiSpatialSearchBtn.clicked.connect(self.spatialSearch)
+        self.uiSpatialSearchBtn.setCheckable(True)
 
         self.imageSearchTool = None
 
@@ -50,21 +44,19 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
 
         # Fundstellensuche
 
-    def spatialImageSearchTool(self):
-        if self.imageSearchTool == None:
-            self.imageSearchTool = RectangleMapTool(self.iface, self.dbm, self.imageRegistry)
-        mb = self.iface.messageBar()
+    def spatialSearch(self):
+        if self.spatialSearchTool == None:
+            self.spatialSearchTool = RectangleMapTool(self.iface, self.dbm, self.imageRegistry)
         if self.uiImageSpatialSearchBtn.isChecked():
-            self.iface.mapCanvas().setMapTool(self.imageSearchTool)
-            mb.pushMessage(u"Luftbildsuche", u"Klicken Sie auf die Karte oder ziehen Sie ein Rechteck auf um nach Luftbildern zu suchen!", level=QgsMessageBar.INFO)
+            self.iface.mapCanvas().setMapTool(self.spatialSearchTool)
+            self.iface.messageBar().pushMessage(u"APIS räumliche Suche", u"Klicken Sie auf die Karte oder ziehen Sie ein Rechteck auf um in der ausgewählten Kategorie zu suchen!", level=QgsMessageBar.INFO)
         else:
             #if self.imageSearchTool.worker is None:
             self.iface.mapCanvas().unsetMapTool(self.imageSearchTool)
+            self.iface.messageBar().clearWidgets()
 
-            mb.clearWidgets()
-
-    def spatialImageSearchByLayer(self):
-        vlayer = self.uiImageSearchMapLayerCombo.currentLayer()
+    def spatialSearchByLayer(self):
+        vlayer = self.uiSearchByMapLayerCombo.currentLayer()
         selection = vlayer.selectedFeatures()
         if len(selection) > 0:
 

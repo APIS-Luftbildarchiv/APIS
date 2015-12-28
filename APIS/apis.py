@@ -74,6 +74,14 @@ class APIS:
         self.toolbar = self.iface.addToolBar(u'APIS')
         self.toolbar.setObjectName(u'APIS')
 
+        self.dbm = None
+        self.areDialogsInit = False
+        self.areDialogsActive = False
+        self.imageMappingMode = False
+        self.imageMappingDlg = None
+        self.searchDlg = None
+        self.openDialogButtons = None
+
         #check Settings
         #self.au = ApisUtils(self)
 
@@ -82,20 +90,21 @@ class APIS:
         #QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
 
         self.imageRegistry = ApisImageRegistry(self.plugin_dir, self.iface)
-        self.imageRegistry.setupRegistry()
+        self.imageRegistry.loaded.connect(self.enableApis)
+
+        if self.configStatus:
+            self.imageRegistry.setupSettings()
+            self.imageRegistry.setupRegistry()
 
         # Create the dialog (after translation) and keep reference
         self.settingsDlg = ApisSettingsDialog(self.iface, self.imageRegistry)
 
-        self.dbm = None
-        self.areDialogsInit = False
-        self.areDialogsActive = False
-        self.imageMappingMode = False
-        self.imageMappingDlg = None
-        self.searchDlg = None
 
 
-        if(self.configStatus and self.imageRegistry.isLoaded()):
+
+    def enableApis(self):
+        #QMessageBox.warning(None, self.tr(u"ApisEnabled"), u"ImageRegistry is now loaded!")
+        if(self.configStatus and self.imageRegistry.registryIsLoaded()):
             #generate ApisImageRegistry in Background Thread
             #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has Image: {0}".format(self.imageRegistry.hasImage('02140301_750')))
             #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has HiRes: {0}".format(self.imageRegistry.hasHiRes('01850205_005')))
@@ -103,6 +112,12 @@ class APIS:
 
             self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
             self.initDialogs()
+            if self.openDialogButtons is not None:
+                self.activateDialogs(True)
+        else:
+            QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
+            if self.openDialogButtons is not None:
+                self.activateDialogs(False)
 
     def addApisAction(
         self,
@@ -196,7 +211,7 @@ class APIS:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         # Settings Dialog
-        if self.configStatus and self.imageRegistry.isLoaded():
+        if self.configStatus and self.imageRegistry.registryIsLoaded():
             iconPath = ':/plugins/APIS/icons/settings.png'
         else:
             iconPath = ':/plugins/APIS/icons/settings_alert.png'
@@ -218,7 +233,7 @@ class APIS:
             iconPath,
             text=self.tr(u'Film'),
             callback=self.openFilmDialog,
-            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
             parent=self.iface.mainWindow())
         )
 
@@ -228,7 +243,7 @@ class APIS:
             iconPath,
             text=self.tr(u'Bilder kartieren'),
             callback=self.toggleImageMappingDialog,
-            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
             parent=self.iface.mainWindow(),
             checkable=True)
 
@@ -239,7 +254,7 @@ class APIS:
             iconPath,
             text=self.tr(u'APIS Suche'),
             callback=self.toggleSearchDialg,
-            enabledFlag=self.configStatus and self.imageRegistry.isLoaded(),
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
             parent=self.iface.mainWindow(),
             checkable=True)
 
@@ -298,6 +313,16 @@ class APIS:
 
     def openSettingsDialog(self):
         """Run method that performs all the real work"""
+
+        self.configStatus, self.settings = apisPluginSettings()
+        if self.configStatus:
+            if not self.imageRegistry.registryIsSetup():
+                self.imageRegistry.setupSettings()
+            if not self.imageRegistry.registryIsLoaded():
+                self.imageRegistry.setupRegistry()
+            self.settingsDlg.uiUpdateImageRegistryBtn.setEnabled(True)
+        else:
+            self.settingsDlg.uiUpdateImageRegistryBtn.setEnabled(False)
         # show the dialog
         self.settingsDlg.show()
         # Run the dialog event loop
@@ -307,14 +332,20 @@ class APIS:
             # substitute with your code.
             #self.configStatus,  = self.au.checkConfigStatus()
             self.configStatus, self.settings = apisPluginSettings()
-
-            if self.configStatus and self.imageRegistry.isLoaded():
-                self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
-                self.initDialogs()
-                self.activateDialogs(True)
-            else:
-                QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
-                self.activateDialogs(False)
+            if self.configStatus:
+                if not self.imageRegistry.registryIsSetup():
+                    self.imageRegistry.setupSettings()
+                if not self.imageRegistry.registryIsLoaded():
+                    self.imageRegistry.setupRegistry()
+            self.enableApis()
+            # if self.configStatus and self.imageRegistry.registryIsLoaded():
+            #     self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
+            #     self.initDialogs()
+            #     self.activateDialogs(True)
+            # else:
+            #if self.configStatus is False or self.imageRegistry.registryIsLoaded() is False:
+            #    QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
+            #    self.activateDialogs(False)
                 #self.openSettingsDialog()
         else:
             pass
@@ -324,7 +355,7 @@ class APIS:
             action.setEnabled(value)
         self.areDialogsActive = value
 
-        if self.configStatus and self.imageRegistry.isLoaded():
+        if self.configStatus and self.imageRegistry.registryIsLoaded():
             iconPath = ':/plugins/APIS/icons/settings.png'
         else:
             iconPath = ':/plugins/APIS/icons/settings_alert.png'

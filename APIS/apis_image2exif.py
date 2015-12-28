@@ -13,6 +13,10 @@ class Image2Exif():
 
         self.metadataDict = metadataDict
         self.imagePath = imagePath
+
+        if not os.path.isfile(self.imagePath):
+            raise IOError('Was not able to read file {0}'.format(self.imagePath))
+
         try:
             self.update_metaData()
         except:
@@ -23,10 +27,13 @@ class Image2Exif():
         try:
             metadata = pyexiv2.ImageMetadata(self.imagePath)
             metadata.read()
-            pyexiv2.xmp.register_namespace('/', 'apis')
+            try:
+                pyexiv2.xmp.register_namespace('/', 'apis')
+            except:
+                pass
             for k ,v in self.metadataDict.items():
                 metadata_key = 'Xmp.apis.{0}'.format(k)
-                metadata[metadata_key] = v
+                metadata[metadata_key] = unicode(v)
             metadata.write()
         except Exception, e:
             print "> Error metadata", e
@@ -38,7 +45,7 @@ class Image2Exif():
 if __name__ == '__main__':
     metadataDict = {}
     metadataDict['bildnummer'] = u"0120140301.001"
-    metadataDict['flughoehe'] = "1200"
+    metadataDict['flughoehe'] = 1200
     metadataDict['longitude'] = "16.12345"
     metadataDict['latitude'] = "48.12345"
     metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
@@ -55,5 +62,5 @@ if __name__ == '__main__':
     metadataDict['fotograf'] = u"Doneus"
     metadataDict['flugdatum'] = u"2014-03-22"
     metadataDict['flugzeug'] = u"C172"
-    imagePath = "C:\\apis\\daten\\luftbild\\02140301\\02140301_001.jpg"
+    imagePath = "C:\\Users\\Johannes\\Desktop\\bild.jpg"
     Image2Exif(metadataDict, imagePath)

@@ -106,9 +106,12 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         #     control.clicked.connect(slot)
 
         #Load Settings from QSettings
+
+    def setImageRegistry(self, imageRegistry):
+        self.imageRegistry = imageRegistry
+
     def updateImageRegistry(self):
         self.imageRegistry.updateRegistries()
-        self.imageRegistry.writeRegistryToFile()
 
     def callOpenFileDialog(self, key):
         """

@@ -739,26 +739,59 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 QMessageBox.warning(None, "Bilder kopieren", u"Das Ziel Verzeichnis {0} konnte in {1} nicht erstellt werden".format(newDirName, selectedDirName))
 
     def image2Exif(self):
-        self.metadataDict = {}
-        self.metadataDict['bildnummer'] = u"0120140301.001"
-        self.metadataDict['flughoehe'] = 1200
-        self.metadataDict['longitude'] = 16.12345
-        self.metadataDict['latitude'] = 48.12345
-        self.metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
-        self.metadataDict['keyword'] = u"Schlüsselwort"
-        self.metadataDict['description'] = u"Beschreibung"
-        self.metadataDict['projekt'] = u"Projekt A;ProjektB"
-        self.metadataDict['copyright'] = u"IUHA"
-        self.metadataDict['militaernummer'] = u"ABC/1254"
-        self.metadataDict['militaernummer_alt'] = u"ABC 458"
-        self.metadataDict['hersteller'] = u"IUHA"
-        self.metadataDict['kamera'] = u"IUHA"
-        self.metadataDict['kalibrierungsnummer'] = u"IUHA"
-        self.metadataDict['kammerkonstante'] = 150.0
-        self.metadataDict['fotograf'] = u"Doneus"
-        self.metadataDict['flugdatum'] = u"2014-03-22"
-        self.metadataDict['flugzeug'] = u"C172"
-        imagePath = self.settings.value("APIS/image_dir") + "\\02140301\\02140301_001.jpg"
+        if self.uiImageListTableV.selectionModel().hasSelection():
+            #Abfrage Footprints der selektierten Bilder Exportieren oder alle
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Schreibe EXIF/IPTC')
+            msgBox.setText(u'Wollen Sie die Metadaten der ausgewählten Bilder oder der gesamten Liste exportieren?')
+            msgBox.addButton(QPushButton(u'Auswahl'), QMessageBox.YesRole)
+            msgBox.addButton(QPushButton(u'Gesamte Liste'), QMessageBox.NoRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+
+            if ret == 0:
+                imageList = self.getImageList(False)
+            elif ret == 1:
+                imageList = self.getImageList(True)
+            else:
+                return
+        else:
+            imageList = self.getImageList(True)
+
+        imageString = ""
+       #for image in imageList:
+       #     imageString += "'" + image + "',"
+
+        iamgeString = "'" + "','".join(imageList) + "'"
+
+        # use: imageString[:-1]
+        #QMessageBox.warning(None, "BildNumber", "{0}".format(imageString))
+
+        query = QSqlQuery(self.dbm.db)
+        qryStr = "select bildnummer, hoehe, longitude, latitude, projekt, copyright, land from luftbild_senk_cp as lv, film as f where bildnummer in ({0})".format(imageString)
+               #  "union all select filmnummer, bildnummer, AsWKT(geometry) as fpGeom, Area(geometry) as area from luftbild_schraeg_fp where bildnummer in ({0}) order by bildnummer".format(imageString[:-1])
+        query.exec_(qryStr)
+
+        # self.metadataDict = {}
+        # self.metadataDict['bildnummer'] = u"0120140301.001"
+        # self.metadataDict['hoehe'] = 1200
+        # self.metadataDict['longitude'] = 16.12345
+        # self.metadataDict['latitude'] = 48.12345
+        # #self.metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
+        # self.metadataDict['keyword'] = u"Schlüsselwort"
+        # self.metadataDict['description'] = u"Beschreibung"
+        # self.metadataDict['projekt'] = u"Projekt A;ProjektB"
+        # self.metadataDict['copyright'] = u"IUHA"
+        # self.metadataDict['militaernummer'] = u"ABC/1254"
+        # self.metadataDict['militaernummer_alt'] = u"ABC 458"
+        # self.metadataDict['hersteller'] = u"IUHA"
+        # self.metadataDict['kamera'] = u"IUHA"
+        # self.metadataDict['kalibrierungsnummer'] = u"IUHA"
+        # self.metadataDict['kammerkonstante'] = 150.0
+        # self.metadataDict['fotograf'] = u"Doneus"
+        # self.metadataDict['flugdatum'] = u"2014-03-22"
+        # self.metadataDict['flugzeug'] = u"C172"
+        imagePath = self.settings.value("APIS/image_dir") + "\\02140301\\02140301_003.jpg"
         Image2Exif(self.metadataDict, imagePath)
 
     def exportListAsPdf(self):
