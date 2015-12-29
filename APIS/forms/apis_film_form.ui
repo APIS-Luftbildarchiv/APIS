@@ -299,7 +299,7 @@
     <item>
      <widget class="QPushButton" name="uiListImagesOfFilmBtn">
       <property name="text">
-       <string>Bilder des Films</string>
+       <string>Bilder des Filmes</string>
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
@@ -392,13 +392,20 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="uiDepartureAirportLbl">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kürzel laut Protokoll&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Flugplatz:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="uiDepartureAirportEdit"/>
+       <widget class="QLineEdit" name="uiDepartureAirportEdit">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kürzel laut Protokoll&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -477,6 +484,9 @@
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="uiArrivalAirportLbl">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kürzel laut Protokoll&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Flugplatz:</string>
         </property>
@@ -493,7 +503,11 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="uiArrivalAirportEdit"/>
+       <widget class="QLineEdit" name="uiArrivalAirportEdit">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kürzel laut Protokoll&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

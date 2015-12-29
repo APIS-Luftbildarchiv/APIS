@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Fri Dec 18 09:53:39 2015
+# Created: Tue Dec 29 15:52:42 2015
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -575,13 +575,15 @@ class Ui_apisFilmDialog(object):
         self.uiShowFlightPathBtn.setToolTip(_translate("apisFilmDialog", "Flugweg des Filmes in QGIS anzeigen", None))
         self.uiShowFlightPathBtn.setText(_translate("apisFilmDialog", "Flugweg anzeigen", None))
         self.uiListSitesOfFilmBtn.setText(_translate("apisFilmDialog", "Fundorte des Filmes", None))
-        self.uiListImagesOfFilmBtn.setText(_translate("apisFilmDialog", "Bilder des Films", None))
+        self.uiListImagesOfFilmBtn.setText(_translate("apisFilmDialog", "Bilder des Filmes", None))
         self.uiExtractGpsFromImagesBtn.setText(_translate("apisFilmDialog", "GPS extrahieren", None))
         self.uiExportPdfBtn.setText(_translate("apisFilmDialog", "PDF exportieren", None))
         self.uiDepartureTimeLbl.setText(_translate("apisFilmDialog", "Zeit:", None))
         self.uiDepartureTime.setSpecialValueText(_translate("apisFilmDialog", "---", None))
         self.uiDepartureTime.setDisplayFormat(_translate("apisFilmDialog", "h:mm", None))
+        self.uiDepartureAirportLbl.setToolTip(_translate("apisFilmDialog", "<html><head/><body><p><span style=\" font-weight:600;\">Kürzel laut Protokoll</span></p></body></html>", None))
         self.uiDepartureAirportLbl.setText(_translate("apisFilmDialog", "Flugplatz:", None))
+        self.uiDepartureAirportEdit.setToolTip(_translate("apisFilmDialog", "<html><head/><body><p><span style=\" font-weight:600;\">Kürzel laut Protokoll</span></p></body></html>", None))
         self.uiArrivalLbl.setText(_translate("apisFilmDialog", "Ankunft:", None))
         self.uiFlightDurationLbl.setText(_translate("apisFilmDialog", "Flugdauer:", None))
         self.uiAirplaneLbl.setText(_translate("apisFilmDialog", "Flugzeug:", None))
@@ -589,9 +591,11 @@ class Ui_apisFilmDialog(object):
         self.uiPilotLbl.setText(_translate("apisFilmDialog", "Pilot:", None))
         self.uiDepartureLbl.setText(_translate("apisFilmDialog", "Abflug:", None))
         self.uiArrivalTimeLbl.setText(_translate("apisFilmDialog", "Zeit:", None))
+        self.uiArrivalAirportLbl.setToolTip(_translate("apisFilmDialog", "<html><head/><body><p><span style=\" font-weight:600;\">Kürzel laut Protokoll</span></p></body></html>", None))
         self.uiArrivalAirportLbl.setText(_translate("apisFilmDialog", "Flugplatz:", None))
         self.uiArrivalTime.setSpecialValueText(_translate("apisFilmDialog", "---", None))
         self.uiArrivalTime.setDisplayFormat(_translate("apisFilmDialog", "h:mm", None))
+        self.uiArrivalAirportEdit.setToolTip(_translate("apisFilmDialog", "<html><head/><body><p><span style=\" font-weight:600;\">Kürzel laut Protokoll</span></p></body></html>", None))
         self.uiTargetLbl.setText(_translate("apisFilmDialog", "Target:", None))
         self.uiWeatherLbl.setText(_translate("apisFilmDialog", "Wetter:", None))
         self.uiFilmModeLbl_2.setText(_translate("apisFilmDialog", "Art:", None))

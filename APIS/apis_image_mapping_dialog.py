@@ -38,8 +38,9 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.setPointMapTool.canvasClicked.connect(self.updatePoint)
         #self.setPointMapTool.canvasDoubleClicked.connect(self.handleDoubleClick)
         self.setPointMapTool.setButton(self.uiSetCenterPointBtn)
-
-        self.uiSetCenterPointBtn.clicked.connect(self.activateSetCenterPoint)
+        self.uiSetCenterPointBtn.setCheckable(True)
+        self.uiSetCenterPointBtn.toggled.connect(self.toggleSetCenterPoint)
+        #self.uiSetCenterPointBtn.clicked.connect(self.activateSetCenterPoint)
 
         self.vertexMarker = QgsVertexMarker(self.canvas)
         self.vertexMarker2 = QgsVertexMarker(self.canvas)
@@ -136,18 +137,19 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
     def checkFilmNumber(self, filmNumber):
         query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT" \
-                 "  (SELECT COUNT(*)" \
-                 "       FROM film AS t2" \
-                 "       WHERE t2.rowid < t1.rowid" \
-                 "      ) + (" \
-                 "         SELECT COUNT(*)" \
-                 "         FROM film AS t3" \
-                 "        WHERE t3.rowid = t1.rowid AND t3.rowid < t1.rowid" \
-                 "      ) AS rowNum" \
-                 "   FROM film AS t1" \
-                 "   WHERE filmnummer = '{0}'" \
-                 "   ORDER BY t1.rowid ASC".format(filmNumber)
+        qryStr = "SELECT rowid FROM film WHERE filmnummer = '{0}'".format(filmNumber)
+        # qryStr = "SELECT" \
+        #          "  (SELECT COUNT(*)" \
+        #          "       FROM film AS t2" \
+        #          "       WHERE t2.rowid < t1.rowid" \
+        #          "      ) + (" \
+        #          "         SELECT COUNT(*)" \
+        #          "         FROM film AS t3" \
+        #          "        WHERE t3.rowid = t1.rowid AND t3.rowid < t1.rowid" \
+        #          "      ) AS rowNum" \
+        #          "   FROM film AS t1" \
+        #          "   WHERE filmnummer = '{0}'" \
+        #          "   ORDER BY t1.rowid ASC".format(filmNumber)
         query.exec_(qryStr)
         query.first()
         if query.value(0) != None:
@@ -228,6 +230,18 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
                 #deactivate buttons
                 pass
 
+    def toggleSetCenterPoint(self, isChecked):
+        if isChecked:
+            self.canvas.setMapTool(self.setPointMapTool)
+            self.iface.messageBar().pushMessage(u"APIS Bild Kartierung", u"Positionieren Sie den Bildmittelpunkt mit der linken Maustaste und klicken Sie auf das Plus Symbol (oder verwenden Sie die reche Maustaste)", level=QgsMessageBar.INFO)
+            self.vertexMarker.show()
+            self.vertexMarker2.show()
+        else:
+            self.canvas.unsetMapTool(self.setPointMapTool)
+            self.iface.actionTouch().trigger()
+            self.vertexMarker.hide()
+            self.vertexMarker2.hide()
+            self.iface.messageBar().clearWidgets()
 
     def activateSetCenterPoint(self):
         if self.uiSetCenterPointBtn.isChecked():
