@@ -73,6 +73,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
         self.resetCurrentFilmNumber()
 
+        self.mappingMode = False
+
     def openFilmSelectionDialog(self):
         """Run method that performs all the real work"""
         self.filmSelectionDlg.show()
@@ -108,9 +110,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.setCurrentLayout(True,True,self.isOblique,False)
         if not self.imageCenterPoint:
             self.uiAddCenterPointBtn.setEnabled(False)
-
+        self.mappingMode = False
         if not self.uiSetCenterPointBtn.isChecked():
-            self.uiSetCenterPointBtn.click()
+            self.uiSetCenterPointBtn.toggle()
+
 
         # Remove old Layer & Load New Layer
         self.removeCenterPointLayer()
@@ -122,7 +125,11 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.uiCurrentFilmNumberEdit.clear()
         self.setCurrentLayout(True,False,False,False)
 
-        self.canvas.unsetMapTool(self.setPointMapTool)
+        #self.canvas.unsetMapTool(self.setPointMapTool)
+        self.mappingMode = False
+        if self.uiSetCenterPointBtn.isChecked():
+            self.uiSetCenterPointBtn.toggle()
+
         self.vertexMarker.hide()
         self.vertexMarker2.hide()
 
@@ -239,19 +246,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         else:
             self.canvas.unsetMapTool(self.setPointMapTool)
             self.iface.actionTouch().trigger()
-            self.vertexMarker.hide()
-            self.vertexMarker2.hide()
+            if not self.mappingMode:
+                self.vertexMarker.hide()
+                self.vertexMarker2.hide()
             self.iface.messageBar().clearWidgets()
-
-    def activateSetCenterPoint(self):
-        if self.uiSetCenterPointBtn.isChecked():
-            self.canvas.setMapTool(self.setPointMapTool)
-            self.vertexMarker.show()
-            self.vertexMarker2.show()
-        else:
-            self.canvas.unsetMapTool(self.setPointMapTool)
-            self.vertexMarker.hide()
-            self.vertexMarker2.hide()
 
     def updatePoint(self, point, button):
         self.reloadCpLayer()
@@ -272,7 +270,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         #TODO Delete Comments
         #QMessageBox.warning(None, u"Film Nummer", u"Bildmittelpunkt Kartieren")
         # Disable Layouts
-        self.canvas.unsetMapTool(self.setPointMapTool)
+        #self.canvas.unsetMapTool(self.setPointMapTool)
+        self.mappingMode = True
+        if self.uiSetCenterPointBtn.isChecked():
+                self.uiSetCenterPointBtn.toggle()
         self.setCurrentLayout(False, False, False, True)
         #self.enableItemsInLayout(self.uiFilmSelectionHorizontalLayout, False)
         #self.enableItemsInLayout(self.uiMappingGridLayout, False)
@@ -319,7 +320,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.setCurrentLayout(True, True, self.isOblique, False)
         self.getMappingStats()
         self.updateMappingDetails()
-        self.canvas.setMapTool(self.setPointMapTool)
+        #self.canvas.setMapTool(self.setPointMapTool)
+        self.mappingMode = False
+        if not self.uiSetCenterPointBtn.isChecked():
+            self.uiSetCenterPointBtn.toggle()
 
     def onSaveAddCenterPoint(self):
         #QMessageBox.warning(None, u"Film Nummer", u"{0},{1},{2}".format(self.imageCenterPoint.x(), self.imageCenterPoint.y(), type(self.imageCenterPoint)))

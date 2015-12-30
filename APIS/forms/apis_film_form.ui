@@ -277,26 +277,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="uiListSitesOfFilmBtn">
-      <property name="text">
-       <string>Fundorte des Filmes</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="autoDefault">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="uiListImagesOfFilmBtn">
       <property name="text">
        <string>Bilder des Filmes</string>
@@ -324,6 +304,26 @@
       <property name="icon">
        <iconset resource="resource.qrc">
         <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>30</height>
+       </size>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="uiListSitesOfFilmBtn">
+      <property name="text">
+       <string>Fundorte des Filmes</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -372,6 +372,9 @@
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <widget class="QLabel" name="uiDepartureTimeLbl">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zeitangabe in MEZ als HH:MM &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Zeit:</string>
         </property>
@@ -379,11 +382,14 @@
       </item>
       <item row="0" column="1">
        <widget class="QTimeEdit" name="uiDepartureTime">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zeitangabe in MEZ als HH:MM &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="specialValueText">
          <string>---</string>
         </property>
         <property name="displayFormat">
-         <string>h:mm</string>
+         <string>hh:mm</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
@@ -477,6 +483,9 @@
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
        <widget class="QLabel" name="uiArrivalTimeLbl">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zeitangabe in MEZ als HH:MM &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Zeit:</string>
         </property>
@@ -494,11 +503,14 @@
       </item>
       <item row="0" column="1">
        <widget class="QTimeEdit" name="uiArrivalTime">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Zeitangabe in MEZ als HH:MM &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="specialValueText">
          <string>---</string>
         </property>
         <property name="displayFormat">
-         <string>h:mm</string>
+         <string>hh:mm</string>
         </property>
        </widget>
       </item>
@@ -620,7 +632,11 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="QLineEdit" name="uiCalibratedFocalLengthEdit"/>
+     <widget class="QLineEdit" name="uiCalibratedFocalLengthEdit">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kammerkonstante in mm z.B. '5.7'&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
     </item>
     <item row="4" column="0">
      <widget class="QLabel" name="uiCassetteLbl">
@@ -660,7 +676,7 @@
     <item row="3" column="0">
      <widget class="QLabel" name="uiCalibratedFocalLengthLbl">
       <property name="toolTip">
-       <string>Kammerkonstante '5.7 mm'</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kammerkonstante in mm z.B. '5.7'&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="whatsThis">
        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beschrreibung zu Kammerkonsante + Beispiele&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
