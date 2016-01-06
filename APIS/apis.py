@@ -30,6 +30,7 @@ import resources_rc
 from apis_settings_dialog import *
 from apis_film_dialog import *
 from apis_image_mapping_dialog import *
+from apis_site_mapping_dialog import *
 from apis_search_dialog import *
 from apis_image_registry import *
 
@@ -79,6 +80,7 @@ class APIS:
         self.areDialogsActive = False
         self.imageMappingMode = False
         self.imageMappingDlg = None
+        self.siteMappingDlg = None
         self.searchDlg = None
         self.openDialogButtons = None
 
@@ -201,6 +203,7 @@ class APIS:
     def initDialogs(self):
         self.filmDlg = ApisFilmDialog(self.iface, self.dbm, self.imageRegistry)
         self.imageMappingDlg = None
+        self.siteMappingDlg = None
         self.searchDlg = None
         #self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
         self.areDialogsInit = True
@@ -249,6 +252,18 @@ class APIS:
 
         self.openDialogButtons.append(self.mappingActionBtn)
 
+        #Fundortkartierung
+        iconPath = ':/plugins/APIS/icons/sites.png'
+        self.siteMappingActionBtn = self.addApisAction(
+            iconPath,
+            text=self.tr(u'Fundorte kartieren'),
+            callback=self.toggleSiteMappingDialog,
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
+            parent=self.iface.mainWindow(),
+            checkable=True)
+
+        self.openDialogButtons.append(self.siteMappingActionBtn)
+
         iconPath = ':/plugins/APIS/icons/search.png'
         self.searchActionBtn = self.addApisAction(
             iconPath,
@@ -287,6 +302,16 @@ class APIS:
             self.imageMappingDlg.hide()
             self.imageMappingMode = False
             #self.mappingActionBtn.setChecked(True)
+
+    def toggleSiteMappingDialog(self):
+        if not self.siteMappingDlg:
+            self.siteMappingDlg = ApisSiteMappingDialog(self.iface, self.dbm)
+            self.siteMappingDlg.visibilityChanged.connect(self.siteMappingActionBtn.setChecked)
+
+        if self.siteMappingActionBtn.isChecked():
+            self.siteMappingDlg.show()
+        else:
+            self.siteMappingDlg.hide()
 
     def toggleSearchDialg(self):
         if not self.searchDlg:

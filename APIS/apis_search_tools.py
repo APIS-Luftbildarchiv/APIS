@@ -129,10 +129,10 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
         if self.worker is None:
 
-            worker = Worker(self.dbm, geometry, topic)
+            worker = Worker(self.dbm, geometry, None)
 
             # configure the QgsMessageBar
-            messageBar = self.iface.messageBar().createMessage('Luftbilder werden gesucht ...', )
+            messageBar = self.iface.messageBar().createMessage(u'Luftbilder werden gesucht ...', )
             progressBar = QtGui.QProgressBar()
             progressBar.setMinimum(0)
             progressBar.setMaximum(0)
@@ -190,7 +190,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
 class Worker(QtCore.QObject):
     '''Example worker for calculating the total area of all features in a layer'''
-    def __init__(self, dbm, geometry):
+    def __init__(self, dbm, geometry, topic=None):
         QtCore.QObject.__init__(self)
         self.dbm = dbm
         self.killed = False

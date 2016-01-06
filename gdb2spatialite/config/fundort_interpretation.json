@@ -5,16 +5,17 @@
     "sourcename": "fo_interpretation",
     "epsg": 4312,
     "type": 3,
-    "primary": ["interpretationsnummer"],
+    "primary": ["fundortnummer, interpretation"],
     "fields": [
-        {
-            "targetname": "interpretationsnummer",
-            "type": "String"
-        },
         {
             "targetname": "fundortnummer",
             "sourcename": "FUNDORT",
             "type": "String"
+        },
+        {
+            "targetname": "interpretation",
+            "incrementByFieldRow": 1,
+            "type": "Integer"
         },
         {
             "targetname": "merkmal",

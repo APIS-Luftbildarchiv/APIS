@@ -6,6 +6,8 @@ from osgeo import osr
 from pyspatialite import dbapi2 as db
 import json
 from datetime import datetime
+import logging
+
 from pprint import pprint
 
 class ApisSpatialite:
@@ -157,8 +159,9 @@ class ApisSpatialite:
                 self.sourceDB = None
             if not self.sourceDB:
                 self._OpenGdb(self.table['esrigdb']) #self.sourceDB
-
-            print "> Fill Spatialite Table ({0})".format(self.table['targetname'])
+            info = "> Fill Spatialite Table ({0})".format(self.table['targetname'])
+            print info
+            logging.info(info)
 
             sourceTable = self.sourceDB.GetLayerByName(self.table['sourcename'].encode("utf-8"))
             if not sourceTable:
@@ -167,7 +170,7 @@ class ApisSpatialite:
             placeholderFieldsArr = []
             placeholderValuesArr = []
             for field in self.table['fields']:
-                if 'sourcename' not in field:
+                if 'sourcename' not in field and 'incrementByFieldRow' not in field:
                     continue
                 placeholderFieldsArr.append(field['targetname'])
                 placeholderValuesArr.append('?')
@@ -183,15 +186,22 @@ class ApisSpatialite:
             rows = []
             primaryArr = []
             addFlag = True
-            primary = self.table['primary'][0]
+            primary = self.table['primary']
+            featureCount = 0
             for feature in sourceTable:
                 row = []
+                primaryValuesRow = []
+                featureCount += 1
                 for field in self.table['fields']:
+                    targetField = field['targetname'].encode("utf-8")
                     if 'sourcename' not in field:
+                        if 'incrementByFieldRow' in field:
+                            if targetField in primary:
+                                primaryValuesRow.append(featureCount)
+                            row.append(featureCount)
                         continue
                     sourceField = field['sourcename'].encode("utf-8")
-                    targetField = field['targetname'].encode("utf-8")
-                    
+
                     if not feature.IsFieldSet(sourceField):
                         value = None
                     else:
@@ -217,14 +227,12 @@ class ApisSpatialite:
                         if value and 'typecast' in field:
                             value = self._DoTypeCast(value, field['type'].encode("utf-8"), field['typecast'].encode("utf-8"))
 
-                    if targetField == primary:
-                        if value in primaryArr:
-                            addFlag = False
-                        else:
-                            addFlag = True
-                            primaryArr.append(value)
+                    # FIXME Problem wenn mehrere Felder Primary Key
+                    if targetField in primary:
+                        primaryValuesRow.append(value)
 
                     row.append(value)
+
 
                 #add geometry
                 if self.table['type'] != 100:
@@ -234,15 +242,40 @@ class ApisSpatialite:
                         if 'geometrycheck' in self.table:
                             featureKey = feature.GetField(self.table['geometrycheck']['featurekey'].encode("utf-8"))
                             geometryRef = self._DoGeometryCheck(self.table['geometrycheck'], geometryRef, featureKey)
-                            geometryRef = ogr.ForceToPolygon(geometryRef)
+                            if self.table['type'] == 3:
+                                geometryRef = ogr.ForceToPolygon(geometryRef)
+                            else:
+                                geometryRef = ogr.ForceToMultiPolygon(geometryRef)
                         else:
-                            geometryRef = ogr.ForceToPolygon(geometryRef)
+                            if self.table['type'] == 3:
+                                geometryRef = ogr.ForceToPolygon(geometryRef)
+                            else:
+                                geometryRef = ogr.ForceToMultiPolygon(geometryRef)
                         
                     row.append(geometryRef.ExportToWkt())
                     row.append(int(self.table['epsg']))
 
+                if len(primaryValuesRow) > 0 and set(primaryValuesRow) in primaryArr:
+                    addFlag = False
+                else:
+                    addFlag = True
+                    if len(primaryValuesRow) > 0:
+                        primaryArr.append(set(primaryValuesRow))
+
                 if addFlag:
                     rows.append(row)
+                else:
+                    i = 0
+                    for item in primaryValuesRow:
+                        if item is None:
+                            primaryValuesRow[i] = 'NULL'
+                        i += 1
+
+                    val = ",".join(unicode(v) for v in primaryValuesRow)
+
+                    warning = "> Warning: Row with primary key ({0}) already exists! It will not be added to new Database!".format(val)
+                    print warning
+                    logging.warning(warning)
 
             self.slCursor.executemany(sql, rows)
             self.slConnection.commit()
@@ -457,7 +490,7 @@ class ApisSpatialite:
     #         # Create new Table
     #         self.slCursor.execute("CREATE TABLE AS SELECT * FROM db2.{0}".format(tableName))
     #
-    #         self.slCursor.execute("SELECT RecoverGeometryColumn('{0}', 'geometry', {1}, '{2}', 'XY')".format(tableName, epsg, geomType))
+    #
     #
     #         self.slCursor.execute("SELECT CreateSpatialIndex('{0}', 'geometry')".format(tableName))
     #
@@ -476,7 +509,11 @@ class ApisSpatialite:
             with open(sqlUpdatesJson,'rU') as sqlUpdates:
                 self.sqlUpdates = json.load(sqlUpdates)
 
+            updateCount = len(self.sqlUpdates['sqlupdates'])
+            updateCurrent = 0
             for update in self.sqlUpdates['sqlupdates']:
+                updateCurrent += 1
+                print "> Update {0}/{1}".format(updateCurrent, updateCount)
                 self.slCursor.execute(update)
 
             self.slConnection.commit()
@@ -567,13 +604,52 @@ class ApisSpatialite:
 
         return poly
 
+    def _Point2Rectangle(self, cpWkt, d=100, epsg=4312):
+        #print cpWkt, r, dpWkt
+        cp = ogr.CreateGeometryFromWkt(cpWkt)
+        cpWGS = ogr.CreateGeometryFromWkt(cpWkt)
+
+        source = osr.SpatialReference()
+        source.ImportFromEPSG(epsg)
+
+        target2 = osr.SpatialReference()
+        target2.ImportFromEPSG(4326)
+
+        t = osr.CoordinateTransformation(source, target2)
+        cpWGS.Transform(t)
+
+        target = osr.SpatialReference()
+        target.ImportFromProj4(self._Proj4Utm(cpWGS))
+        #print target.ExportToProj4()
+
+        tF = osr.CoordinateTransformation(source, target)
+        tI = osr.CoordinateTransformation(target, source)
+
+        cp.Transform(tF)
+
+        #poly2 = cp.Buffer(100).Simplify(20)
+        # s = (d/2)/math.sqrt(2)
+        s = 70
+        l = cp.GetX() - s
+        b = cp.GetY() - s
+        r = cp.GetX() + s
+        t = cp.GetY() + s
+
+        poly = ogr.CreateGeometryFromWkt("POLYGON (({0} {1}, {2} {1}, {2} {3}, {0} {3}, {0} {1}))".format(l,b,r,t))
+        sa = poly.GetArea()
+        sl = 0.0
+        #sl = ogr.ForceToLineString(poly).Length()
+        poly.Transform(tI)
+
+        return poly, sl, sa
+
     def _Proj4Utm(self, p):
         x = p.GetX()
         y = p.GetY()
         z = math.floor((x + 180)/6) + 1
 
         if y >= 56.0 and y < 64.0 and x >= 3.0 and x < 12.0:
-            ZoneNumber = 32
+            z = 32
 
         #Special zones for Svalbard
         if y >= 72.0 and y < 84.0 :
@@ -588,12 +664,49 @@ class ApisSpatialite:
 
         return "+proj=utm +zone={0} +datum=WGS84 +units=m +no_defs".format(int(z))
 
+    def generateMissingSitePolygons(self):
+        # Get Site Points which miss a Polygon
+        rs = self.slCursor.execute("SELECT fundortnummer, filmnummer_projekt, AsText(geometry) FROM fundort_pnt WHERE fundort_pnt.fundortnummer IS NOT NULL AND fundort_pnt.fundortnummer NOT IN (SELECT fundort_pol.fundortnummer FROM fundort_pol WHERE fundort_pol.fundortnummer IS NOT NULL)")
+        rows_pol = []
+        for row_pnt in rs:
+            row_pol = [row_pnt[0], row_pnt[1], "-1"]
+            poly, sl, sa = self._Point2Rectangle(row_pnt[2])
+            polGeom = ogr.ForceToMultiPolygon(poly)
+            epsg = 4312
+
+            row_pol += [sl, sa, polGeom.ExportToWkt(), epsg]
+            rows_pol.append(row_pol)
+
+        sql = "INSERT INTO fundort_pol (fundortnummer, filmnummer_projekt, bildnummer, shape_length, shape_area, geometry) VALUES(?,?,?,?,?,GeomFromText(?, ?))"
+
+        self.slCursor.executemany(sql, rows_pol)
+        self.slConnection.commit()
+
+    def generateMissingFindSpotPolygons(self):
+        # Get FindSpots Points which miss a Polygon
+        rs = self.slCursor.execute("SELECT fundortnummer, fundstellenummer, AsText(geometry) FROM fundstelle_pnt WHERE fundstelle_pnt.fundortnummer IS NOT NULL AND fundstelle_pnt.fundortnummer NOT IN (SELECT fundstelle_pol.fundortnummer FROM fundstelle_pol WHERE fundstelle_pol.fundortnummer IS NOT NULL)")
+
+        rows_pol = []
+        for row_pnt in rs:
+            row_pol = [row_pnt[0], row_pnt[1]]
+            poly, sl, sa = self._Point2Rectangle(row_pnt[2])
+            polGeom = ogr.ForceToMultiPolygon(poly)
+            epsg = 4312
+
+            row_pol += [sl, sa, polGeom.ExportToWkt(), epsg]
+            rows_pol.append(row_pol)
+
+        sql = "INSERT INTO fundstelle_pol (fundortnummer, fundstellenummer, shape_length, shape_area, geometry) VALUES(?,?,?,?,GeomFromText(?, ?))"
+
+        self.slCursor.executemany(sql, rows_pol)
+        self.slConnection.commit()
+
 
 
 if __name__ == '__main__':
-
     d = datetime.today()
     targetDB = "dbtest/APIS_{0}.sqlite".format(d.strftime("%Y%m%d_%H%M%S"))
+    logging.basicConfig(filename='{0}.log'.format(d.strftime("%Y%m%d_%H%M%S")),level=logging.DEBUG)
 
     apis = ApisSpatialite(targetDB)
 
@@ -642,5 +755,9 @@ if __name__ == '__main__':
     apis.AddTableJson("config/fundstelle_log_pol.json")
 
     apis.RunSqlUpdates("config/sqlupdates.json")
+    #apis.RunSqlUpdates("config/sqlupdates_test.json")
+
+    apis.generateMissingSitePolygons()
+    apis.generateMissingFindSpotPolygons()
 
     apis.CleanUp()

@@ -4,8 +4,8 @@
     "esrigdb": "geodbs/APIS.gdb",
     "sourcename": "sub_fs_log_pol",
     "epsg": 4312,
-    "type": 3,
-    "primary": ["fundortnummer", "fundstellenummer"],
+    "type": 6,
+    "primary": [],
     "fields": [
         {
             "targetname": "fundortnummer",

@@ -10,7 +10,8 @@ from PyQt4.QtXml import *
 from qgis.core import *
 
 from apis_db_manager import *
-
+from apis_image_registry import *
+from apis_site_dialog import *
 from functools import partial
 
 import sys
@@ -24,12 +25,17 @@ from functools import partial
 import subprocess
 
 class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
-    def __init__(self, iface, dbm):
+    def __init__(self, iface, dbm, imageRegistry):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
+        self.imageRegistry = imageRegistry
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
+
+        self.uiSiteListTableV.doubleClicked.connect(self.openSiteDialog)
+
+        self.siteDlg = None
 
     def loadSiteListBySpatialQuery(self, query=None):
 
@@ -65,3 +71,17 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         self.uiSiteListTableV.resizeColumnsToContents()
         self.uiSiteListTableV.resizeRowsToContents()
         self.uiSiteListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+
+    def openSiteDialog(self, idx):
+        siteNumber = self.model.item(idx.row(), 0).text()
+        if self.siteDlg == None:
+            self.siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteDlg.openInViewMode(siteNumber)
+        self.siteDlg.show()
+        # Run the dialog event loop
+
+        if self.siteDlg.exec_():
+            # Do something useful here - delete the line containing pass and
+            # substitute with your code.
+            pass
+        #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"For Site: {0}".format(siteNumber)))

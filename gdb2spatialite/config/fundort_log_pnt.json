@@ -5,7 +5,7 @@
     "sourcename": "fo_log_pnt",
     "epsg": "4312",
     "type": 1,
-    "primary": ["fundortnummer"],
+    "primary": [],
     "fields": [
         {
             "targetname": "fundortnummer",

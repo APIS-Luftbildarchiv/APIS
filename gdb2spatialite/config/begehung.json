@@ -4,16 +4,17 @@
     "esrigdb": "geodbs/APIS.gdb",
     "sourcename": "begehung",
     "type": 100,
-    "primary": ["begehung"],
+    "primary": ["fundortnummer","begehung"],
     "fields": [
-        {
-            "targetname": "begehung",
-            "type": "String"
-        },
         {
             "targetname": "fundortnummer",
             "sourcename": "FONR",
             "type": "String"
+        },
+        {
+            "targetname": "begehung",
+            "incrementByFieldRow": 1,
+            "type": "Integer"
         },
         {
             "targetname": "fundortnummer_legacy",

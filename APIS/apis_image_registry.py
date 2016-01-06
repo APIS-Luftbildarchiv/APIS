@@ -265,12 +265,12 @@ class UpdateRegistryWorker(QObject):
         try:
             self.updateImageRegistries()
             self.updateOrthoRegistry()
-            import time
-            for i in range(5000):
-                if self.killed is True:
+            #import time
+            #for i in range(5000):
+                #if self.killed is True:
                     # kill request received, exit loop early
-                    break
-                time.sleep(0.001)
+                    #break
+                #time.sleep(0.001)
 
             if self.killed is False:
                 ret = True

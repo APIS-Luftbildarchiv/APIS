@@ -19,6 +19,17 @@
             "typecast": "Integer"
         },
         {
+            "targetname": "fundortnummer_legacy",
+            "sourcename": "FUNDORT",
+            "type": "String"
+        },
+        {
+            "targetname": "fundortnummer_nn_legacy",
+            "sourcename": "FONUM",
+            "type": "Real",
+            "typecast": "Integer"
+        },
+        {
             "targetname": "filmnummer_projekt",
             "sourcename": "FILM",
             "type": "String"
@@ -75,6 +86,12 @@
             "targetname": "fundgewinnung_quelle",
             "sourcename": "ERSTELL",
             "type": "String"
+        },
+        {
+            "targetname": "land",
+            "type": "String",
+            "sqlupdate": "UPDATE fundort_pnt SET land = (SELECT osm_borders.ISO3166 FROM osm_borders where intersects(luftbild_schraeg_cp.geom, osm_borders.Geometry))",
+            "sqlupdate2": "UPDATE luftbild_schraeg_cp SET land = (SELECT osm_borders.ISO3166 FROM osm_borders where Contains(osm_borders.Geometry, Transform(luftbild_schraeg_cp.geom, 4326) ))"
         },
         {
             "targetname": "gkx",

@@ -5,7 +5,7 @@
     "sourcename": "sub_fs_log_pnt",
     "epsg": 4312,
     "type": 1,
-    "primary": ["fundortnummer", "fundstellenummer"],
+    "primary": [],
     "fields": [
         {
             "targetname": "fundortnummer",
@@ -15,7 +15,8 @@
         {
             "targetname": "fundstellenummer",
             "sourcename": "SUBNUM",
-            "type": "Real"
+            "type": "Real",
+            "typecast": "Integer"
         }, 
         {
             "targetname": "sicherheit",
