@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" afterPath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,8 +83,8 @@
       <file leaf-file-name="apis_gdb2spatialite.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9066667">
-              <caret line="694" column="46" selection-start-line="694" selection-start-column="46" selection-end-line="694" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.31733334">
+              <caret line="388" column="23" selection-start-line="388" selection-start-column="23" selection-end-line="388" selection-end-column="23" />
               <folding>
                 <element signature="e#25#45#0" expanded="true" />
                 <marker date="1452252037183" expanded="true" signature="2598:2619" placeholder="DROP TABLE I... " />
@@ -912,7 +911,13 @@
       <option name="project" value="LOCAL" />
       <updated>1452251700632</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Update">
+      <created>1452252848594</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1452252848594</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -926,7 +931,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1432" y="-158" width="1696" height="1062" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13938053" sideWeight="0.48594132" order="12" side_tool="false" content_ui="tabs" />
@@ -934,7 +939,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14933628" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20904645" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23105134" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23105134" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.289823" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19162996" sideWeight="0.5140587" order="8" side_tool="true" content_ui="tabs" />
@@ -1481,8 +1486,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9066667">
-          <caret line="694" column="46" selection-start-line="694" selection-start-column="46" selection-end-line="694" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.31733334">
+          <caret line="388" column="23" selection-start-line="388" selection-start-column="23" selection-end-line="388" selection-end-column="23" />
           <folding>
             <element signature="e#25#45#0" expanded="true" />
             <marker date="1452252037183" expanded="true" signature="2598:2619" placeholder="DROP TABLE I... " />
