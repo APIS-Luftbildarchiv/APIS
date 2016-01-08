@@ -4,7 +4,7 @@ import os, re
 
 from PyQt4.QtCore import QDate, Qt
 from PyQt4.QtGui import *
-# from PyQt4.QtSql import *
+from PyQt4.QtSql import *
 
 # from apis_db_manager import *
 
@@ -20,10 +20,10 @@ from apis_search_film_form import *
 
 class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
 
-    def __init__(self, iface):
+    def __init__(self, iface, dbm):
         QDialog.__init__(self)
         self.iface = iface
-        #self.dbm = dbm
+        self.dbm = dbm
         self.setupUi(self)
 
         self.accepted.connect(self.onAccepted)
@@ -45,11 +45,38 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
         #self.uiSearchDate.dateChanged.connect()
 
         #self.uiMilitaryNumberEdit.textChanged()
+        self.setupMilitaryCombo()
 
         self.uiFromDate.dateChanged.connect(self.timeSpanChanged)
         self.uiToDate.dateChanged.connect(self.timeSpanChanged)
         self.uiFromChk.stateChanged.connect(self.timeSpanConstraints)
         self.uiToChk.stateChanged.connect(self.timeSpanConstraints)
+
+    def setupMilitaryCombo(self):
+        model = QSqlQueryModel(self)
+        model.setQuery("SELECT DISTINCT militaernummer as milnum FROM film WHERE  militaernummer IS NOT NULL UNION ALL SELECT DISTINCT militaernummer_alt as milnum FROM film WHERE militaernummer_alt IS NOT NULL ORDER BY milnum", self.dbm.db)
+
+        tv = QTableView()
+        self.uiMilitaryNumberCombo.setView(tv)
+
+        tv.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        tv.setSelectionMode(QAbstractItemView.SingleSelection)
+        tv.setSelectionBehavior(QAbstractItemView.SelectRows)
+        tv.setAutoScroll(False)
+
+        self.uiMilitaryNumberCombo.setModel(model)
+
+        self.uiMilitaryNumberCombo.setModelColumn(0)
+        self.uiMilitaryNumberCombo.setInsertPolicy(QComboBox.NoInsert)
+
+        tv.resizeColumnsToContents()
+        tv.resizeRowsToContents()
+        tv.verticalHeader().setVisible(False)
+        tv.horizontalHeader().setVisible(True)
+        #tv.setMinimumWidth(tv.horizontalHeader().length())
+        tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+
+        self.uiMilitaryNumberCombo.setAutoCompletion(True)
 
     def timeSpanConstraints(self):
         # From Date isChecked => FromDate = 01.01.1900, disable FromDate; else enable FromDate
@@ -111,7 +138,8 @@ class ApisSearchFilmDialog(QDialog, Ui_apisSearchFilmDialog):
                 searchModePart = u"(strftime('{0}', flugdatum) = '{1}')".format(pattern, searchString)
             elif self.uiSearchModeTBox.currentIndex() == 1:
                 # byMilitaryNumber
-                milNum = self.uiMilitaryNumberEdit.text()
+                #milNum = self.uiMilitaryNumberEdit.text()
+                milNum = self.uiMilitaryNumberCombo.currentText()
                 milNum = ''.join(i for i in milNum if i not in '/() ')
                 searchString = '%' + '%'.join(milNum[i:i+1] for i in range(0, len(milNum), 1)) + '%'
                 searchModePart = u"(militaernummer like '{0}' or militaernummer_alt like '{0}')".format(searchString)

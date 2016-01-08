@@ -11,6 +11,7 @@ import os.path
 
 from apis_search_tools import *
 from apis_image_selection_list_dialog import *
+from apis_site_selection_list_dialog import *
 from apis_image_registry import *
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
@@ -41,8 +42,20 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         self.uiSearchByMapLayerCombo.setFilters(QgsMapLayerProxyModel.HasGeometry)
         self.uiSearchByMapLayerBtn.clicked.connect(self.spatialSearchByMapLayer)
 
+        self.uiSearchImageRBtn.toggled.connect(self.setSearchTopic)
+        self.uiSearchSiteRBtn.toggled.connect(self.setSearchTopic)
+        self.uiSearchFindspotRBtn.toggled.connect(self.setSearchTopic)
+
 
         # Attributive Search
+
+    def setSearchTopic(self):
+        if self.uiSearchImageRBtn.isChecked():
+            self.spatialSearchTool.setTopic('image')
+        elif self.uiSearchSiteRBtn.isChecked():
+            self.spatialSearchTool.setTopic('site')
+        elif self.uiSearchFindspotRBtn.isChecked():
+            self.spatialSearchTool.setTopic('findspot')
 
     def toggleSpatialSearch(self, isChecked):
         if isChecked:
@@ -54,6 +67,8 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             self.iface.messageBar().clearWidgets()
 
     def spatialSearchByMapLayer(self):
+        if self.uiSpatialSearchBtn.isChecked():
+            self.uiSpatialSearchBtn.toggle()
         vlayer = self.uiSearchByMapLayerCombo.currentLayer()
         selection = vlayer.selectedFeatures()
         if len(selection) > 0:
@@ -77,18 +92,38 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
 
             epsg = 4312
             query = QSqlQuery(self.dbm.db)
-            qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
-            query.exec_(qryStr)
 
-            QMessageBox.warning(None, "Query", "Query finished")
+            if self.uiSearchImageRBtn.isChecked():
+                # LuftbildSuche
+                qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
+                query.exec_(qryStr)
+                self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+                res = self.imageSelectionListDlg.loadImageListBySpatialQuery(query)
+                if res:
+                    self.imageSelectionListDlg.show()
+                    if self.imageSelectionListDlg.exec_():
+                        pass
+            elif self.uiSearchSiteRBtn.isChecked():
+                # Fundortsuche
+                qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol WHERE NOT IsEmpty(fundort_pol.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = GeomFromText('{0}',{1}) ) )".format(searchGeometry.exportToWkt(), epsg)
+                #qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
+                query.exec_(qryStr)
+                self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+                res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
+                if res:
+                    self.siteSelectionListDlg.show()
+                    if self.siteSelectionListDlg.exec_():
+                        pass
+            elif self.uiSearchFindspotRBtn.isChecked():
+                pass
+                #Fundstellensuche
 
 
-            self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
-            res = self.imageSelectionListDlg.loadImageListBySpatialQuery(query)
-            if res:
-                self.imageSelectionListDlg.show()
-                if self.imageSelectionListDlg.exec_():
-                    pass
+
+            #QMessageBox.warning(None, "Query", "Query finished")
+
+
+
 
         else:
             self.iface.messageBar().pushMessage(u"Error", u"Bitte selektieren sie zumindest ein Feature im Layer {0} für die Suche!".format(vlayer.name()), level=QgsMessageBar.WARNING, duration=5)

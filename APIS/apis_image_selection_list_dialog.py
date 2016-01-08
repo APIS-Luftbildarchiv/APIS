@@ -768,11 +768,11 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         #QMessageBox.warning(None, "BildNumber", "{0}".format(imageString))
 
         query = QSqlQuery(self.dbm.db)
-        qryStr = "select bildnummer, hoehe, longitude, latitude, projekt, copyright, land from luftbild_senk_cp as lv, film as f where bildnummer in ({0})".format(imageString)
+        qryStr = "select bildnummer, hoehe, longitude, latitude, projekt, copyright, land from luftbild_senk_cp as lb, film as f where bildnummer in ({0})".format(imageString)
                #  "union all select filmnummer, bildnummer, AsWKT(geometry) as fpGeom, Area(geometry) as area from luftbild_schraeg_fp where bildnummer in ({0}) order by bildnummer".format(imageString[:-1])
         query.exec_(qryStr)
 
-        # self.metadataDict = {}
+        self.metadataDict = {}
         # self.metadataDict['bildnummer'] = u"0120140301.001"
         # self.metadataDict['hoehe'] = 1200
         # self.metadataDict['longitude'] = 16.12345

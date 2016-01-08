@@ -16,12 +16,8 @@
         "UPDATE luftbild_senk_cp SET bildnummer = filmnummer|| SUBSTR(bildnummer, 9, 4)",
         "UPDATE luftbild_schraeg_fp SET bildnummer = filmnummer|| SUBSTR(bildnummer, 9, 4)",
         "UPDATE luftbild_senk_fp SET bildnummer = filmnummer|| SUBSTR(bildnummer, 9, 4)",
-        "UPDATE fundort_pnt SET land = (SELECT osm_boundaries.code FROM osm_boundaries WHERE NOT IsEmpty(fundort_pnt.geometry) AND ST_Within(Transform(fundort_pnt.geometry,4326), osm_boundaries.geometry) AND osm_boundaries.rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name='osm_boundaries' AND search_frame=Transform(fundort_pnt.geometry, 4326)))",
+        "UPDATE fundort_pnt SET land = 'AUT'",
         "UPDATE fundort_pnt SET fundortnummer_nn = (SELECT COUNT(*) FROM fundort_pnt AS t2 WHERE t2.rowid <= fundort_pnt.rowid AND fundort_pnt.land = 'AUT' AND t2.land = 'AUT') WHERE fundort_pnt.land = 'AUT'",
-        "UPDATE fundort_pnt SET fundortnummer_nn = (SELECT COUNT(*) FROM fundort_pnt AS t2 WHERE t2.rowid <= fundort_pnt.rowid AND fundort_pnt.land = 'CZE' AND t2.land = 'CZE') WHERE fundort_pnt.land = 'CZE'",
-        "UPDATE fundort_pnt SET fundortnummer_nn = (SELECT COUNT(*) FROM fundort_pnt AS t2 WHERE t2.rowid <= fundort_pnt.rowid AND fundort_pnt.land = 'DEU' AND t2.land = 'DEU') WHERE fundort_pnt.land = 'DEU'",
-        "UPDATE fundort_pnt SET fundortnummer_nn = (SELECT COUNT(*) FROM fundort_pnt AS t2 WHERE t2.rowid <= fundort_pnt.rowid AND fundort_pnt.land = 'SVN' AND t2.land = 'SVN') WHERE fundort_pnt.land = 'SVN'",
-        "UPDATE fundort_pnt SET fundortnummer_nn = (SELECT COUNT(*) FROM fundort_pnt AS t2 WHERE t2.rowid <= fundort_pnt.rowid AND fundort_pnt.land = 'HUN' AND t2.land = 'HUN') WHERE fundort_pnt.land = 'HUN'",
         "UPDATE fundort_pnt SET fundortnummer = land || '.' || fundortnummer_nn",
         "UPDATE fundort_pol SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = fundort_pol.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
         "UPDATE fundort_pnt SET filmnummer_projekt = (SELECT film.filmnummer FROM film WHERE film.filmnummer_legacy = fundort_pnt.filmnummer_projekt) WHERE filmnummer_projekt IN (SELECT filmnummer_legacy FROM film)",
@@ -29,6 +25,7 @@
         "UPDATE fundstelle_pnt SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = fundstelle_pnt.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
         "UPDATE fundstelle_pol SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = fundstelle_pol.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
         "UPDATE begehung SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = begehung.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
-        "UPDATE katastralgemeinden SET katastralgemeindenummer = (SELECT '0'|| kgs.katastralgemeindenummer FROM katastralgemeinden as kgs WHERE katastralgemeinden.katastralgemeindenummer = kgs.katastralgemeindenummer) WHERE length(katastralgemeindenummer) < 5"
+        "UPDATE katastralgemeinden SET katastralgemeindenummer = (SELECT '0'|| kgs.katastralgemeindenummer FROM katastralgemeinden as kgs WHERE katastralgemeinden.katastralgemeindenummer = kgs.katastralgemeindenummer) WHERE length(katastralgemeindenummer) < 5",
+        "UPDATE fundstelle_pnt SET fundart = fundart_detail, fundart_detail = fundart WHERE datum_ersteintrag > '2013-01-01'"
     ]
 }

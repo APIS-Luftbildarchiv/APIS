@@ -6,6 +6,7 @@ from PyQt4.QtSql import *
 from qgis.core import *
 from qgis.gui import *
 from apis_image_selection_list_dialog import *
+from apis_site_selection_list_dialog import *
 from apis_image_registry import *
 
 import traceback
@@ -26,15 +27,24 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
         #self.vertexMarker = QgsVertexMarker(self.canvas)
 
+        self.topic = 'image' # 'image', 'site', 'findspot'
+
         self.reset()
 
         self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
 
         self.worker = None
+
+    def setTopic(self, topic):
+        self.topic = topic
 
     def deactivate(self):
         super(RectangleMapTool, self).deactivate()
         self.emit(SIGNAL("deactivated()"))
+
+    def activate(self):
+        pass
 
     def reset(self):
         self.startPoint = self.endPoint = None
@@ -91,6 +101,15 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
         self.rubberBand.hide()
 
+    def openSiteSelectionListDialogByLocation(self, query):
+        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
+        if res:
+            self.siteSelectionListDlg.show()
+            if self.siteSelectionListDlg.exec_():
+                pass
+
+        self.rubberBand.hide()
+
     def canvasMoveEvent(self, e):
         if not self.isEmittingPoint:
             return
@@ -129,10 +148,10 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
         if self.worker is None:
 
-            worker = Worker(self.dbm, geometry, None)
+            worker = Worker(self.dbm, geometry, self.topic)
 
             # configure the QgsMessageBar
-            messageBar = self.iface.messageBar().createMessage(u'Luftbilder werden gesucht ...', )
+            messageBar = self.iface.messageBar().createMessage(u'Räumliche Suche wird durchgeführt ...', )
             progressBar = QtGui.QProgressBar()
             progressBar.setMinimum(0)
             progressBar.setMaximum(0)
@@ -162,7 +181,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         self.progressBar.setMaximum(100)
         self.progressBar.setValue(100)
 
-    def workerFinished(self, ret):
+    def workerFinished(self, query, topic):
         # clean up the worker and thread
         self.worker.deleteLater()
         self.thread.quit()
@@ -170,11 +189,16 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         self.thread.deleteLater()
         # remove widget from message bar
         self.iface.messageBar().popWidget(self.messageBar)
-        if ret is not None:
+        if query is not None:
             # report the result
-            #query = ret
+            #query = result
             if not self.worker.killed:
-                self.openImageSelectionListDialogByLocation(ret)
+                if topic == 'image':
+                    self.openImageSelectionListDialogByLocation(query)
+                elif topic == 'site':
+                    self.openSiteSelectionListDialogByLocation(query)
+                elif topic == 'findspot':
+                    pass
             else:
                 self.rubberBand.hide()
             #self.iface.messageBar().pushMessage('Result')
@@ -190,26 +214,33 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
 class Worker(QtCore.QObject):
     '''Example worker for calculating the total area of all features in a layer'''
-    def __init__(self, dbm, geometry, topic=None):
+    def __init__(self, dbm, geometry, topic):
         QtCore.QObject.__init__(self)
         self.dbm = dbm
         self.killed = False
         self.geometryWkt = geometry
+        self.topic = topic
 
     def run(self):
         query = None
         try:
             epsg = 4312
             query = QSqlQuery(self.dbm.db)
-            qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(self.geometryWkt, epsg)
+            if self.topic == 'image':
+                qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(self.geometryWkt, epsg)
+            elif self.topic == 'site':
+                qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol WHERE NOT IsEmpty(fundort_pol.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = GeomFromText('{0}',{1}) ) )".format(self.geometryWkt, epsg)
+            elif self.topic == "findspot":
+                qryStr = ""
+                self.kill()
             query.exec_(qryStr)
         except Exception, e:
             # forward the exception upstream
             self.error.emit(e, traceback.format_exc())
-        self.finished.emit(query)
+        self.finished.emit(query, self.topic)
 
     def kill(self):
         self.killed = True
 
-    finished = QtCore.pyqtSignal(object)
+    finished = QtCore.pyqtSignal(object, basestring)
     error = QtCore.pyqtSignal(Exception, basestring)

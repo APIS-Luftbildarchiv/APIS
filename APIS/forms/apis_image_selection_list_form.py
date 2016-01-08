@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_image_selection_list_form.ui'
 #
-# Created: Wed Dec 23 21:38:59 2015
+# Created: Fri Jan 08 10:53:53 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -65,6 +65,7 @@ class Ui_apisImageSelectionListDialog(object):
         self.uiCopyImagesBtn.setObjectName(_fromUtf8("uiCopyImagesBtn"))
         self.horizontalLayout.addWidget(self.uiCopyImagesBtn)
         self.uiImage2ExifBtn = QtGui.QPushButton(apisImageSelectionListDialog)
+        self.uiImage2ExifBtn.setEnabled(False)
         self.uiImage2ExifBtn.setIcon(icon1)
         self.uiImage2ExifBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiImage2ExifBtn.setObjectName(_fromUtf8("uiImage2ExifBtn"))

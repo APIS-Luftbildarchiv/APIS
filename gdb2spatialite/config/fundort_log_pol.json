@@ -4,7 +4,7 @@
     "esrigdb": "geodbs/APIS.gdb",
     "sourcename": "fo_log_pol",
     "epsg": 4312,
-    "type": 6,
+    "type": 3,
     "primary": [],
     "fields": [
         {

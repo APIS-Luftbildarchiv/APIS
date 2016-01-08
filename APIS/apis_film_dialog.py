@@ -73,6 +73,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsFromImages)
 
         self.uiWeatherCodeEdit.textChanged.connect(self.generateWeatherCode)
+        self.uiFilmModeCombo.currentIndexChanged.connect(self.onFilmModeChanged)
 
         # init Project Btn
         self.uiAddProjectBtn.clicked.connect(self.addProject)
@@ -85,7 +86,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # Setup Sub-Dialogs
         self.filmSelectionDlg = ApisFilmNumberSelectionDialog(self.iface, self.dbm)
         self.newFilmDlg = ApisNewFilmDialog(self.iface)
-        self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
+        self.searchFilmDlg = ApisSearchFilmDialog(self.iface, self.dbm)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
         self.viewFlightPathDlg = ApisViewFlightPathDialog(self.iface, self.dbm)
         self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageReistry)
@@ -125,7 +126,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.mapper.setModel(self.model)
 
         self.mandatoryEditors = [self.uiImageCountEdit, self.uiCameraCombo, self.uiFilmMakeCombo, self.uiFilmModeCombo]
-
+        self.disableEditorsIfOblique = [self.uiCameraNumberEdit, self.uiCalibratedFocalLengthEdit]
         # LineEdits & PlainTextEdits
         self.intValidator = QIntValidator()
         self.doubleValidator = QDoubleValidator()
@@ -381,12 +382,23 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
     def onCurrentIndexChanged(self):
         self.uiCurrentFilmCountEdit.setText(str(self.mapper.currentIndex() + 1))
+        self.onFilmModeChanged()
 
     def onFlightTimeChanged(self):
         dTime = self.uiDepartureTime.time()
         aTime = self.uiArrivalTime.time()
         flightDuration = dTime.secsTo(aTime)
         self.uiFlightDurationEdit.setText(unicode(flightDuration/60))
+
+    def disableIfOblique(self, isOblique):
+        for editor in self.disableEditorsIfOblique:
+            editor.setDisabled(isOblique)
+
+    def onFilmModeChanged(self):
+        if self.uiFilmModeCombo.currentText() == u'schräg':
+            self.disableIfOblique(True)
+        else:
+            self.disableIfOblique(False)
 
     def onLineEditChanged(self):
         sender = self.sender()

@@ -154,6 +154,9 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             "katastralgemeindenummer":{
                 "editor": self.uiCadastralCommunityNumberEdit
             },
+            "land":{
+                "editor": self.uiCountryEdit
+            },
             "katastralgemeinde":{
                 "editor": self.uiCadastralCommunityEdit
             },

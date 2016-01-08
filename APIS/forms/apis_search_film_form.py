@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_film_form.ui'
 #
-# Created: Fri Dec 18 09:53:40 2015
+# Created: Fri Jan 08 11:44:43 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -86,9 +86,11 @@ class Ui_apisSearchFilmDialog(object):
         self.uiMilitaryNumberLbl = QtGui.QLabel(self.horizontalLayoutWidget_2)
         self.uiMilitaryNumberLbl.setObjectName(_fromUtf8("uiMilitaryNumberLbl"))
         self.horizontalLayout_3.addWidget(self.uiMilitaryNumberLbl)
-        self.uiMilitaryNumberEdit = QtGui.QLineEdit(self.horizontalLayoutWidget_2)
-        self.uiMilitaryNumberEdit.setObjectName(_fromUtf8("uiMilitaryNumberEdit"))
-        self.horizontalLayout_3.addWidget(self.uiMilitaryNumberEdit)
+        self.uiMilitaryNumberCombo = QtGui.QComboBox(self.horizontalLayoutWidget_2)
+        self.uiMilitaryNumberCombo.setEditable(True)
+        self.uiMilitaryNumberCombo.setFrame(True)
+        self.uiMilitaryNumberCombo.setObjectName(_fromUtf8("uiMilitaryNumberCombo"))
+        self.horizontalLayout_3.addWidget(self.uiMilitaryNumberCombo)
         self.uiSearchModeTBox.addItem(self.uiSearchByMilitaryNumber, _fromUtf8(""))
         self.uiSearchByTimeSpan = QtGui.QWidget()
         self.uiSearchByTimeSpan.setGeometry(QtCore.QRect(0, 0, 359, 76))
@@ -145,7 +147,7 @@ class Ui_apisSearchFilmDialog(object):
         self.uiFilmModeLbl.setObjectName(_fromUtf8("uiFilmModeLbl"))
 
         self.retranslateUi(apisSearchFilmDialog)
-        self.uiSearchModeTBox.setCurrentIndex(0)
+        self.uiSearchModeTBox.setCurrentIndex(1)
         self.uiSearchModeTBox.layout().setSpacing(0)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), apisSearchFilmDialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), apisSearchFilmDialog.reject)
