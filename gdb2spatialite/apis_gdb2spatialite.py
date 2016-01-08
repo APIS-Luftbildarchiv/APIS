@@ -671,7 +671,8 @@ class ApisSpatialite:
         for row_pnt in rs:
             row_pol = [row_pnt[0], row_pnt[1], "-1"]
             poly, sl, sa = self._Point2Rectangle(row_pnt[2])
-            polGeom = ogr.ForceToMultiPolygon(poly)
+            #polGeom = ogr.ForceToMultiPolygon(poly)
+            polGeom = ogr.ForceToPolygon(poly)
             epsg = 4312
 
             row_pol += [sl, sa, polGeom.ExportToWkt(), epsg]
@@ -690,7 +691,8 @@ class ApisSpatialite:
         for row_pnt in rs:
             row_pol = [row_pnt[0], row_pnt[1]]
             poly, sl, sa = self._Point2Rectangle(row_pnt[2])
-            polGeom = ogr.ForceToMultiPolygon(poly)
+            #polGeom = ogr.ForceToMultiPolygon(poly)
+            polGeom = ogr.ForceToPolygon(poly)
             epsg = 4312
 
             row_pol += [sl, sa, polGeom.ExportToWkt(), epsg]
