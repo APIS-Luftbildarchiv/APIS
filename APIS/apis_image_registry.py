@@ -124,7 +124,11 @@ class ApisImageRegistry(QObject):
         if os.path.isfile(self.registryFile):
             today = datetime.datetime.today()
             creationDate = datetime.datetime.fromtimestamp(os.path.getctime(self.registryFile))
-            fileAge = today - creationDate
+            modificationDate = datetime.datetime.fromtimestamp(os.path.getmtime(self.registryFile))
+            if modificationDate > creationDate:
+                fileAge = today - modificationDate
+            else:
+                fileAge = today - creationDate
             #QMessageBox.warning(None, "Zeit", "{0}".format(fileAge.days))
             if fileAge.days > 30:
                 return True

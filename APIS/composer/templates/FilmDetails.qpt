@@ -1,12 +1,12 @@
 <Composer title="Composer 1" visible="1">
- <Composition gridVisible="1" printResolution="300" paperWidth="297" snapGridOffsetX="0" guidesVisible="1" snapGridResolution="5" snapGridOffsetY="0" alignmentSnap="1" snapping="0" snapTolerancePixels="5" numPages="1" paperHeight="210" smartGuides="1" printAsRaster="0" generateWorldFile="0">
-  <symbol alpha="1" type="fill" name="">
+ <Composition resizeToContentsMarginLeft="0" snapping="0" showPages="1" guidesVisible="1" resizeToContentsMarginTop="0" alignmentSnap="1" printResolution="300" paperWidth="297" gridVisible="1" snapGridOffsetX="0" smartGuides="1" snapGridOffsetY="0" resizeToContentsMarginRight="0" snapTolerancePixels="5" printAsRaster="0" generateWorldFile="0" paperHeight="210" numPages="1" snapGridResolution="5" resizeToContentsMarginBottom="0">
+  <symbol alpha="1" clip_to_extent="1" type="fill" name="">
    <layer pass="0" class="SimpleFill" locked="0">
-    <prop k="border_width_map_unit_scale" v="0,0"/>
+    <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
     <prop k="color" v="255,255,255,255"/>
     <prop k="joinstyle" v="miter"/>
     <prop k="offset" v="0,0"/>
-    <prop k="offset_map_unit_scale" v="0,0"/>
+    <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
     <prop k="offset_unit" v="MM"/>
     <prop k="outline_color" v="0,0,0,255"/>
     <prop k="outline_style" v="no"/>
@@ -19,400 +19,448 @@
   <SnapLine y1="0" x1="102.461" y2="210" x2="102.461"/>
   <SnapLine y1="0" x1="189.177" y2="210" x2="189.177"/>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[abflug_zeit]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="70.0139" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="70.0139" visibility="1" zValue="196" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{1e119bfd-8e49-4f4c-98be-6141073e3f2b}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
+   <ComposerItem pagey="70.0139" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="70.0139" visibility="1" zValue="196" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{bb2abc9a-fa29-4369-b67a-da53d6173425}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[ankunft_flughafen]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="102.385" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="102.385" visibility="1" zValue="194" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{d58c07bb-5624-4104-b742-5729934aa462}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
+   <ComposerItem pagey="102.385" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="102.385" visibility="1" zValue="194" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{df31202b-c999-4d03-a044-f74fa4872ea2}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Ankunft-Platz" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="103.385" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="103.385" visibility="1" zValue="193" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{fd62da46-8b40-4e79-a23d-185993d20f22}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
+   <ComposerItem pagey="103.385" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="103.385" visibility="1" zValue="193" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{9be435fa-e9c4-4b5c-986e-709a736eef07}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[target]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="181.471" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="181.471" visibility="1" zValue="166" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{a9b9d39f-9490-49c1-b154-6afc109e3327}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
+   <ComposerItem pagey="181.471" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="181.471" visibility="1" zValue="166" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{b69e7589-12bb-493b-80ed-eb9f7bd96da7}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[wetter]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="112.615" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.295" y="112.615" visibility="1" zValue="165" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{5cc03603-03e9-4604-8d94-b5a7ed560d7d}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Target" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="182.471" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="182.471" visibility="1" zValue="165" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{02d947d2-4de9-4150-afff-25c8692d2b01}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
+   <ComposerItem pagey="182.471" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="182.471" visibility="1" zValue="165" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{b8a9678e-d6e1-4771-bab0-199c4dfde1e6}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
-  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[ankunft_zeit]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[wetter]" htmlState="0" halign="1">
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="81.5885" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="81.5885" visibility="1" zValue="147" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{1f4445bb-ca41-4f11-a240-7232e8c27d34}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
+   <ComposerItem pagey="112.615" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.295" y="112.615" visibility="1" zValue="165" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{7e73380a-7273-4245-8a2c-f85c112a75e4}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[abflug_flughafen]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="91.8185" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="91.8185" visibility="1" zValue="147" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{d2be4a65-5c28-4bc4-93e9-e6790b65caff}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
+   <ComposerItem pagey="91.8185" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="91.8185" visibility="1" zValue="147" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{ebec2de0-a4c3-4109-b722-a84ca6828f45}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Abflug-Platz" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[ankunft_zeit]" htmlState="0" halign="1">
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="92.8185" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="92.8185" visibility="1" zValue="146" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{9c998a0f-edba-4e9a-809a-966242607f14}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
+   <ComposerItem pagey="81.5885" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.987" y="81.5885" visibility="1" zValue="147" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{a82b535f-934d-40ac-ba5b-7d0568829205}" height="9.22997" itemRotation="0" frame="true" pagex="233.987">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Ankunft-Zeit" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="82.5885" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="82.5885" visibility="1" zValue="146" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{38998eaa-3083-407e-ac32-fd83eb9027f0}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
+   <ComposerItem pagey="82.5885" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="82.5885" visibility="1" zValue="146" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{8fa10070-b080-4115-a7fa-2ba42aba7837}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Abflug-Platz" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="92.8185" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.603" y="92.8185" visibility="1" zValue="146" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{8de6500b-eb49-4361-aab2-1b733d4b9953}" height="9.22997" itemRotation="0" frame="false" pagex="193.603">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[flugzeit]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="59.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.838" y="59.7839" visibility="1" zValue="123" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{0aa84e6a-d495-4b2f-afc9-29ac7d04a829}" height="9.22997" itemRotation="0" frame="true" pagex="233.838">
+   <ComposerItem pagey="59.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.838" y="59.7839" visibility="1" zValue="123" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{a44bd274-04a3-44ca-aee8-f209fb0f0d61}" height="9.22997" itemRotation="0" frame="true" pagex="233.838">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Abflug-Zeit" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="71.0139" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.454" y="71.0139" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{ed517002-d3f1-4500-b889-d2c5ac549328}" height="9.22997" itemRotation="0" frame="false" pagex="193.454">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Flugdauer" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="60.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.454" y="60.7839" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{69b8c490-bef2-4683-941b-494804a66d24}" height="9.22997" itemRotation="0" frame="false" pagex="193.454">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[wetter_description]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="125.321" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="125.321" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.8073" outlineWidth="0" excludeFromExports="0" uuid="{d0e3f4eb-1c41-435f-806d-cfb86ad19f6c}" height="49.9096" itemRotation="0" frame="true" pagex="103.151">
+   <ComposerItem pagey="125.321" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="125.321" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.8073" outlineWidth="0" excludeFromExports="0" uuid="{49acf60d-e8d9-4712-b879-1b87a9f6c198}" height="49.9096" itemRotation="0" frame="true" pagex="103.151">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Flugdauer" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="60.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.454" y="60.7839" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{535b9da1-4b94-4d05-8df0-b74ec0a92243}" height="9.22997" itemRotation="0" frame="false" pagex="193.454">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Abflug-Zeit" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="71.0139" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.454" y="71.0139" visibility="1" zValue="122" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{f7fb3624-a5a0-401c-a2fa-6ab4b0b80684}" height="9.22997" itemRotation="0" frame="false" pagex="193.454">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Wetter" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="116.41" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="116.41" visibility="1" zValue="121" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{a5ada7b3-c58c-4e3a-aa94-ea6bba504a6c}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
+   <ComposerItem pagey="116.41" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="116.41" visibility="1" zValue="121" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{c9de4a51-433a-4fd7-a65e-5a9f3b80b1ee}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[filmfabrikat]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="82.5885" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="82.5885" visibility="1" zValue="113" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{96fde154-5029-49bc-a307-5fbbcf165321}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[art_ausarbeitung]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="92.8185" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="92.8185" visibility="1" zValue="113" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{ea17f2d2-3e61-4e8b-b5bf-0fde283d5a40}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
+   <ComposerItem pagey="92.8185" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="92.8185" visibility="1" zValue="113" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{90122a47-27ab-4c2e-9475-f3eb986067ce}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Bildträger" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[filmfabrikat]" htmlState="0" halign="1">
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="93.8185" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="93.8185" visibility="1" zValue="112" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{299f4d0e-6862-44d4-a02e-c8c3cedac555}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
+   <ComposerItem pagey="82.5885" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="143.535" y="82.5885" visibility="1" zValue="113" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{6dfe71a7-fdc6-4433-9462-918788cf8d50}" height="9.22997" itemRotation="0" frame="true" pagex="143.535">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Filmfabrikat" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="83.5885" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="83.5885" visibility="1" zValue="112" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{30589b5b-3191-4b3f-b1e6-2b0bc078ff28}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
+   <ComposerItem pagey="83.5885" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="83.5885" visibility="1" zValue="112" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{1d778ce3-837f-4729-8f86-6d61b7d4107d}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Bildträger" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="93.8185" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.151" y="93.8185" visibility="1" zValue="112" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{dc9a9869-ad48-43ba-8900-63cbf1f2ec0d}" height="9.22997" itemRotation="0" frame="false" pagex="103.151">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[pilot]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="38.2839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="38.2839" visibility="1" zValue="107" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{1156e152-339c-4894-88eb-86f707c3fafb}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
+   <ComposerItem pagey="38.2839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="38.2839" visibility="1" zValue="107" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{8b778bd0-192e-41dc-9c96-63abab1ff523}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Pilot" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="39.2839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="39.2839" visibility="1" zValue="106" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{9ae03bcb-762e-458d-89de-34feeb61347a}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
+   <ComposerItem pagey="39.2839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="39.2839" visibility="1" zValue="106" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{2a4918d7-2e3c-4ebe-a785-22637ee66eb0}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[flugzeug]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="48.9388" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="48.9388" visibility="1" zValue="101" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{cdff0a7b-75a7-4a6f-a65b-caacaa24b2d4}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
+   <ComposerItem pagey="48.9388" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="48.9388" visibility="1" zValue="101" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{d12ac7d6-cbd2-4657-a2c5-52fcdfd1d163}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Flugzeug" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="49.9388" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="49.9388" visibility="1" zValue="100" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{16e88506-38ac-4df5-8ea2-bbea21e03227}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
+   <ComposerItem pagey="49.9388" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="49.9388" visibility="1" zValue="100" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{a250baf1-88d7-4cb8-9531-f11d4beba7dd}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kammerkonstante]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="60.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="60.7839" visibility="1" zValue="89" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{05898b9f-dfa3-490c-9b53-48784675401e}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kassettennummer]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="71.0139" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="71.0139" visibility="1" zValue="89" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{3d9385ec-030b-4d19-ae3d-4021a25887c4}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
+   <ComposerItem pagey="71.0139" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="71.0139" visibility="1" zValue="89" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{e1c59360-08ac-4edf-b5a2-2973c1cb01fd}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kammerkonstante" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+  <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kammerkonstante]" htmlState="0" halign="1">
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="61.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.002" y="61.7839" visibility="1" zValue="88" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{927a8ec1-a12a-4118-88f5-d428ffdb96e4}" height="9.22997" itemRotation="0" frame="false" pagex="103.002">
+   <ComposerItem pagey="60.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="60.7839" visibility="1" zValue="89" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{1c9f4a31-26dc-4be9-818f-f84b3d80edae}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kasette" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="72.0139" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.002" y="72.0139" visibility="1" zValue="88" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{bb3c96c9-8614-4f36-bd66-fdbf9db730bb}" height="9.22997" itemRotation="0" frame="false" pagex="103.002">
+   <ComposerItem pagey="72.0139" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.002" y="72.0139" visibility="1" zValue="88" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{32830e00-24e0-4cdb-a9a2-38a4f8c72d5d}" height="9.22997" itemRotation="0" frame="false" pagex="103.002">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kammerkonstante" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="61.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.002" y="61.7839" visibility="1" zValue="88" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{a03bb730-afa9-4612-b0b7-2ead6a516396}" height="9.22997" itemRotation="0" frame="false" pagex="103.002">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[fotograf]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="27.7088" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="27.7088" visibility="1" zValue="87" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{ec46b682-45d8-497c-9437-35843fcd25be}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
+   <ComposerItem pagey="27.7088" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="233.837" y="27.7088" visibility="1" zValue="87" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{219f4260-cad3-4ffc-9d0c-27bf942bd5da}" height="9.22997" itemRotation="0" frame="true" pagex="233.837">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Fotograf" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="28.7088" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="28.7088" visibility="1" zValue="86" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{bbbb317b-816f-4c78-9d71-8d5fa281047c}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
+   <ComposerItem pagey="28.7088" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="193.453" y="28.7088" visibility="1" zValue="86" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{720dcbb5-4fa0-484d-b936-da3d4eadecfe}" height="9.22997" itemRotation="0" frame="false" pagex="193.453">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[form1] x [form2]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="39.2839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="39.2839" visibility="1" zValue="73" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{6d471d2b-3399-49a3-a5f7-3b3e7c472017}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
+   <ComposerItem pagey="39.2839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="39.2839" visibility="1" zValue="73" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{5e45690b-91ef-4673-866e-97fde7acd442}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Format" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="40.2839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="40.2839" visibility="1" zValue="72" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{aa5e0462-1af2-4e57-8069-a0e530fa8ac7}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kommentar]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="144.149" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="144.149" visibility="1" zValue="72" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.8073" outlineWidth="0" excludeFromExports="0" uuid="{d4d7a93d-2ad6-4346-8d31-57ea2f3e0d09}" height="49.9096" itemRotation="0" frame="true" pagex="16.1941">
+   <ComposerItem pagey="144.149" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="144.149" visibility="1" zValue="72" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.8073" outlineWidth="0" excludeFromExports="0" uuid="{66439f8d-c53e-454a-908f-b2d5d6ee4dde}" height="49.9096" itemRotation="0" frame="true" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Format" htmlState="0" halign="1">
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="40.2839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="40.2839" visibility="1" zValue="72" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{1bf62359-6421-4937-aad0-5093bf6a8c86}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kommentar" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="135.238" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="135.238" visibility="1" zValue="71" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{2b9c101c-495a-4c8c-861b-c5b244f92e66}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
+   <ComposerItem pagey="135.238" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="135.238" visibility="1" zValue="71" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{8e95264f-8e66-4bf2-848d-90dab7a4ca53}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kalibrierungsnummer]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="49.9388" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="49.9388" visibility="1" zValue="67" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{d69f661d-24aa-49f4-91c7-ca49beafcd9d}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
+   <ComposerItem pagey="49.9388" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="49.9388" visibility="1" zValue="67" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{e71212d4-a10a-4481-a411-109607d80aa0}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kamera Nr." htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="50.9388" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="50.9388" visibility="1" zValue="66" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{e4eeb661-a16d-424c-b4f9-6e634076d751}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
+   <ComposerItem pagey="50.9388" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="50.9388" visibility="1" zValue="66" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{b17a12d6-008a-4b58-9d2b-cc65b720661c}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[kamera]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="28.7088" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="28.7088" visibility="1" zValue="53" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{a0a286d3-17f9-4650-b478-6002c625cffb}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
+   <ComposerItem pagey="28.7088" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="2" positionLock="false" x="143.295" y="28.7088" visibility="1" zValue="53" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{20545c61-0835-4d44-9cf0-8552d4a365d6}" height="9.22997" itemRotation="0" frame="true" pagex="143.295">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Kamera" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="29.7088" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="29.7088" visibility="1" zValue="52" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{5feb5b18-5240-49f3-8090-17593027934e}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
+   <ComposerItem pagey="29.7088" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="103.001" y="29.7088" visibility="1" zValue="52" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{53f4afb0-804e-48c8-aa32-a8d0e2a60a49}" height="9.22997" itemRotation="0" frame="false" pagex="103.001">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[weise]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="48.7038" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="48.7038" visibility="1" zValue="51" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{6f9e996d-137a-413e-8fd2-31b005ae0301}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
+   <ComposerItem pagey="48.7038" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="48.7038" visibility="1" zValue="51" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{cbb239d2-9377-41da-8415-2ffbeee573af}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Aufnahmerichtung" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="49.7038" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="49.7038" visibility="1" zValue="50" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{23f10aac-aa80-499c-8d23-ac5946c0c0ea}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
+   <ComposerItem pagey="49.7038" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="49.7038" visibility="1" zValue="50" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{4f965959-5e32-4b66-a418-6c2ab20ec74e}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[projekt]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="100.385" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="100.385" visibility="1" zValue="40" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.2666" outlineWidth="0" excludeFromExports="0" uuid="{57ec31dd-04ea-4eb1-a47a-f0e14012d023}" height="32.0503" itemRotation="0" frame="true" pagex="16.1941">
+   <ComposerItem pagey="100.385" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="100.385" visibility="1" zValue="40" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="86.2666" outlineWidth="0" excludeFromExports="0" uuid="{eb07c432-8dcd-4479-bb61-3bf7d828ee3b}" height="32.0503" itemRotation="0" frame="true" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Projekt(e)" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="91.4737" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="91.4737" visibility="1" zValue="39" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{794f4e33-358a-46e7-9def-716d4375029e}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
+   <ComposerItem pagey="91.4737" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="91.4737" visibility="1" zValue="39" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{f743c1ed-0b38-48df-bb18-a0b36698690e}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[anzahl_bilder]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="38.4738" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="38.4738" visibility="1" zValue="37" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{bcbaa54b-b093-485f-99df-01d17d4a2870}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
+   <ComposerItem pagey="38.4738" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="38.4738" visibility="1" zValue="37" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{539d03c4-d962-468c-9175-b9efed51ea59}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Bildanzahl&#xa;" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="39.4738" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="39.4738" visibility="1" zValue="36" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{91afa9d7-4dec-478a-8742-c5c318bde8f5}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
+   <ComposerItem pagey="39.4738" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="39.4738" visibility="1" zValue="36" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{3180c568-c462-43bb-882f-0d4215e9b1a2}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[copyright]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="80.2438" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5785" y="80.2438" visibility="1" zValue="34" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{45845648-8fc5-4b8b-a83a-73b267950603}" height="9.22997" itemRotation="0" frame="true" pagex="56.5785">
+   <ComposerItem pagey="80.2438" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5785" y="80.2438" visibility="1" zValue="34" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{ccd4b59d-8192-4e40-a7ec-ab63c96eda58}" height="9.22997" itemRotation="0" frame="true" pagex="56.5785">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Copyright" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="81.2438" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="81.2438" visibility="1" zValue="33" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{45126679-1c17-4ef2-bb11-2fac9e604722}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
+   <ComposerItem pagey="81.2438" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1944" y="81.2438" visibility="1" zValue="33" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{b34ddded-eb4a-4ce9-85db-f3b613eff1c9}" height="9.22997" itemRotation="0" frame="false" pagex="16.1944">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[hersteller]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="28.2438" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="28.2438" visibility="1" zValue="20" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{f87d71a8-3adb-4639-a8ac-88fe5aa40889}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
+   <ComposerItem pagey="28.2438" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="28.2438" visibility="1" zValue="20" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{7edf721f-c0a9-4edb-9938-d8098242d911}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Hersteller" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="29.2438" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="29.2438" visibility="1" zValue="19" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{e37574c7-2afd-4165-b6bc-baa947ca8ce8}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
+   <ComposerItem pagey="29.2438" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="29.2438" visibility="1" zValue="19" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{2a31c9f2-480a-4061-8412-8ff2af869dc0}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="1" marginY="1" labelText="Ersteingrag [datum_ersteintrag]&#xa;Letzte Bearbeitung [datum_aenderung]&#xa;Druck: [datum_druck]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,10,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,10,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="183.471" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="209.293" y="183.471" visibility="1" zValue="17" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="72.5764" outlineWidth="0.3" excludeFromExports="0" uuid="{efd4420f-cb86-4b35-b58b-cc4188c16919}" height="17.7883" itemRotation="0" frame="false" pagex="209.293">
+   <ComposerItem pagey="183.471" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="209.293" y="183.471" visibility="1" zValue="17" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="72.5764" outlineWidth="0.3" excludeFromExports="0" uuid="{a1fd377b-efd0-4379-ab7c-f0fd20f3ae2a}" height="17.7883" itemRotation="0" frame="false" pagex="209.293">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerMap mapRotation="0" keepLayerSet="false" id="0" previewMode="Cache" drawCanvasItems="false">
-   <Extent ymin="47.83301220484937488" xmin="15.76913171741566622" ymax="48.66052779515061388" xmax="16.85762328258433485"/>
+   <Extent ymin="47.83301220484937488" xmin="15.76913171741566622" ymax="48.665388107625418" xmax="16.85762328258433485"/>
    <LayerSet/>
    <Grid/>
-   <ComposerMapGrid rightAnnotationDirection="0" gridFramePenColor="0,0,0,255" show="0" bottomAnnotationPosition="1" annotationFont="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" annotationPrecision="3" showAnnotation="0" topFrameDivisions="0" uuid="{c47325a0-1d29-405a-a385-a9be0dc6bff6}" leftAnnotationDirection="0" topAnnotationPosition="1" rightAnnotationDisplay="0" offsetX="0" offsetY="0" rightFrameDivisions="0" gridStyle="0" annotationFontColor="0,0,0,255" intervalX="0" gridFrameSideFlags="15" intervalY="0" bottomAnnotationDirection="0" leftAnnotationDisplay="0" leftFrameDivisions="0" frameFillColor1="255,255,255,255" frameFillColor2="0,0,0,255" crossLength="3" gridFramePenThickness="0.5" bottomAnnotationDisplay="0" unit="0" topAnnotationDisplay="0" leftAnnotationPosition="1" blendMode="0" gridFrameStyle="0" rightAnnotationPosition="1" gridFrameWidth="2" name="Grid 1" annotationFormat="0" bottomFrameDivisions="0" topAnnotationDirection="0" frameAnnotationDistance="1">
+   <ComposerMapGrid rightAnnotationDirection="0" gridFramePenColor="0,0,0,255" show="0" bottomAnnotationPosition="1" annotationPrecision="3" showAnnotation="0" topFrameDivisions="0" uuid="{c47325a0-1d29-405a-a385-a9be0dc6bff6}" leftAnnotationDirection="0" topAnnotationPosition="1" rightAnnotationDisplay="0" offsetX="0" offsetY="0" rightFrameDivisions="0" gridStyle="0" annotationFontColor="0,0,0,255" intervalX="0" gridFrameSideFlags="15" intervalY="0" bottomAnnotationDirection="0" leftAnnotationDisplay="0" leftFrameDivisions="0" frameFillColor1="255,255,255,255" annotationExpression="" frameFillColor2="0,0,0,255" crossLength="3" gridFramePenThickness="0.5" bottomAnnotationDisplay="0" unit="0" topAnnotationDisplay="0" leftAnnotationPosition="1" blendMode="0" gridFrameStyle="0" rightAnnotationPosition="1" gridFrameWidth="2" name="Grid 1" annotationFormat="0" bottomFrameDivisions="0" topAnnotationDirection="0" frameAnnotationDistance="1">
     <lineStyle>
-     <symbol alpha="1" type="line" name="">
+     <symbol alpha="1" clip_to_extent="1" type="line" name="">
       <layer pass="0" class="SimpleLine" locked="0">
        <prop k="capstyle" v="square"/>
        <prop k="customdash" v="5;2"/>
-       <prop k="customdash_map_unit_scale" v="0,0"/>
+       <prop k="customdash_map_unit_scale" v="0,0,0,0,0,0"/>
        <prop k="customdash_unit" v="MM"/>
        <prop k="draw_inside_polygon" v="0"/>
        <prop k="joinstyle" v="bevel"/>
@@ -421,90 +469,99 @@
        <prop k="line_width" v="0"/>
        <prop k="line_width_unit" v="MM"/>
        <prop k="offset" v="0"/>
-       <prop k="offset_map_unit_scale" v="0,0"/>
+       <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
        <prop k="offset_unit" v="MM"/>
        <prop k="use_custom_dash" v="0"/>
-       <prop k="width_map_unit_scale" v="0,0"/>
+       <prop k="width_map_unit_scale" v="0,0,0,0,0,0"/>
       </layer>
      </symbol>
     </lineStyle>
     <markerStyle>
-     <symbol alpha="1" type="marker" name="">
+     <symbol alpha="1" clip_to_extent="1" type="marker" name="">
       <layer pass="0" class="SimpleMarker" locked="0">
        <prop k="angle" v="0"/>
        <prop k="color" v="0,0,0,255"/>
        <prop k="horizontal_anchor_point" v="1"/>
        <prop k="name" v="circle"/>
        <prop k="offset" v="0,0"/>
-       <prop k="offset_map_unit_scale" v="0,0"/>
+       <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
        <prop k="offset_unit" v="MM"/>
        <prop k="outline_color" v="0,0,0,255"/>
        <prop k="outline_style" v="solid"/>
        <prop k="outline_width" v="0"/>
-       <prop k="outline_width_map_unit_scale" v="0,0"/>
+       <prop k="outline_width_map_unit_scale" v="0,0,0,0,0,0"/>
        <prop k="outline_width_unit" v="MM"/>
        <prop k="scale_method" v="area"/>
        <prop k="size" v="2"/>
-       <prop k="size_map_unit_scale" v="0,0"/>
+       <prop k="size_map_unit_scale" v="0,0,0,0,0,0"/>
        <prop k="size_unit" v="MM"/>
        <prop k="vertical_anchor_point" v="1"/>
       </layer>
      </symbol>
     </markerStyle>
+    <annotationFontProperties description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style=""/>
    </ComposerMapGrid>
    <AtlasMap scalingMode="2" atlasDriven="0" margin="0.10000000000000001"/>
-   <ComposerItem pagey="116.56" page="1" id="map" lastValidViewScaleFactor="2.81083" positionMode="0" positionLock="false" x="196.686" y="116.56" visibility="1" zValue="15" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="85.1846" outlineWidth="0.3" excludeFromExports="0" uuid="{454464f8-5672-4712-8f30-dfc688c0e3bf}" height="64.7608" itemRotation="0" frame="true" pagex="196.686">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+   <ComposerItem pagey="116.56" page="1" id="map" lastValidViewScaleFactor="2.81083" positionMode="0" positionLock="false" x="195.686" y="116.56" visibility="1" zValue="15" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="85" outlineWidth="0.25" excludeFromExports="0" uuid="{35590039-44b5-433c-bb5b-b6b198af0e02}" height="65" itemRotation="0" frame="true" pagex="195.686">
+    <FrameColor alpha="255" red="128" blue="128" green="128"/>
     <BackgroundColor alpha="255" red="166" blue="227" green="206"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerMap>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[militaernummer_alt]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="69.0138" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="69.0138" visibility="1" zValue="12" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{6fca05f4-6716-4b27-8e1d-3777ead5d9aa}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
+   <ComposerItem pagey="69.0138" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="69.0138" visibility="1" zValue="12" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{b6578fc2-66ea-4709-9d7f-317126c42dd0}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Alte Nummer" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="70.0138" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="70.0138" visibility="1" zValue="11" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{0e9af90d-9198-4698-983d-0befd55fae3f}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
+   <ComposerItem pagey="70.0138" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="70.0138" visibility="1" zValue="11" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{0dfe7f08-0820-427a-8dc9-e0086df8e96d}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
-   </ComposerItem>
-  </ComposerLabel>
-  <ComposerLabel valign="128" marginX="5" marginY="0" labelText="Flugdatum [flugdatum]" htmlState="0" halign="4">
-   <LabelFont description="Arial,12,-1,5,50,0,0,0,0,0"/>
-   <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="11.329" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="220.662" y="11.329" visibility="1" zValue="6" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="59.057" outlineWidth="0.3" excludeFromExports="0" uuid="{6c2c8612-a692-457a-82dd-6d570afa3940}" height="15" itemRotation="0" frame="true" pagex="220.662">
-    <FrameColor alpha="255" red="0" blue="0" green="0"/>
-    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="2" marginY="0" labelText="[militaernummer]" htmlState="0" halign="1">
-   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0"/>
+   <LabelFont description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="58.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="58.7839" visibility="1" zValue="6" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{7cf79674-bfa6-47ce-8b28-3e83529c40b6}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
+   <ComposerItem pagey="58.7839" page="1" id="pcFilmNumber" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="56.5782" y="58.7839" visibility="1" zValue="6" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="45.8825" outlineWidth="0" excludeFromExports="0" uuid="{de95ddb1-7872-4c80-8f16-4f0f7a641f3f}" height="9.22997" itemRotation="0" frame="true" pagex="56.5782">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
+   </ComposerItem>
+  </ComposerLabel>
+  <ComposerLabel valign="128" marginX="5" marginY="0" labelText="Flugdatum [flugdatum]" htmlState="0" halign="4">
+   <LabelFont description="Arial,12,-1,5,50,0,0,0,0,0" style=""/>
+   <FontColor red="0" blue="0" green="0"/>
+   <ComposerItem pagey="11.329" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="220.662" y="11.329" visibility="1" zValue="6" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="59.057" outlineWidth="0.3" excludeFromExports="0" uuid="{d28d2103-e110-4cd0-9210-0f4112bfe59e}" height="15" itemRotation="0" frame="true" pagex="220.662">
+    <FrameColor alpha="255" red="0" blue="0" green="0"/>
+    <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="32" marginX="1" marginY="1" labelText="Militärnummer" htmlState="0" halign="1">
-   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,12,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="59.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="59.7839" visibility="1" zValue="5" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{5f01ffb8-1ff5-484c-a064-00ee9fd371bb}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
+   <ComposerItem pagey="59.7839" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.1941" y="59.7839" visibility="1" zValue="5" background="false" transparency="0" frameJoinStyle="miter" blendMode="0" width="38.2198" outlineWidth="0.3" excludeFromExports="0" uuid="{6b049bf5-30de-4c72-9fcd-c6555209da02}" height="9.22997" itemRotation="0" frame="false" pagex="16.1941">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="255" blue="255" green="255"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
   <ComposerLabel valign="128" marginX="5" marginY="0" labelText="Fim Details: [filmnummer]" htmlState="0" halign="1">
-   <LabelFont description="Arial,16,-1,5,75,0,0,0,0,0"/>
+   <LabelFont description="Arial,16,-1,5,75,0,0,0,0,0" style=""/>
    <FontColor red="0" blue="0" green="0"/>
-   <ComposerItem pagey="11.329" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.448" y="11.329" visibility="1" zValue="4" background="false" transparency="0" frameJoinStyle="round" blendMode="0" width="204.064" outlineWidth="0" excludeFromExports="0" uuid="{a9441d11-4738-41bd-aa68-12f4e5689500}" height="15" itemRotation="0" frame="true" pagex="16.448">
+   <ComposerItem pagey="11.329" page="1" id="" lastValidViewScaleFactor="-1" positionMode="0" positionLock="false" x="16.448" y="11.329" visibility="1" zValue="4" background="false" transparency="0" frameJoinStyle="round" blendMode="0" width="204.064" outlineWidth="0" excludeFromExports="0" uuid="{c736d5b7-6399-4a93-b125-c5c8b3fe1234}" height="15" itemRotation="0" frame="true" pagex="16.448">
     <FrameColor alpha="255" red="0" blue="0" green="0"/>
     <BackgroundColor alpha="255" red="191" blue="191" green="191"/>
+    <customproperties/>
    </ComposerItem>
   </ComposerLabel>
+  <customproperties/>
  </Composition>
 </Composer>

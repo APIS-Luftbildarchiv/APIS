@@ -8,6 +8,7 @@ from PyQt4.QtSql import *
 from PyQt4.QtXml import *
 from qgis.core import *
 from qgis.gui import QgsMapCanvas, QgsMapCanvasLayer
+from qgis.utils import *
 
 from apis_db_manager import *
 from apis_film_number_selection_dialog import *
@@ -19,6 +20,9 @@ from apis_view_flight_path_dialog import *
 from apis_image_selection_list_dialog import *
 from apis_site_selection_list_dialog import *
 from apis_image_registry import *
+
+from py_tiled_layer.tilelayer import TileLayer, TileLayerType
+from py_tiled_layer.tiles import TileServiceInfo, BoundingBox
 
 
 from functools import partial
@@ -65,7 +69,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
         self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
-        self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
+
+        #self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
+        self.uiExportPdfBtn.clicked.connect(self.mapPrintTest)
+
         #self.uiShowFlightPathBtn.clicked.connect(partial(self.openViewFlightPathDialog, [self.uiCurrentFilmNumberEdit.text()]))
         self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
         self.uiListSitesOfFilmBtn.clicked.connect(self.openSiteSelectionListDialog)
@@ -478,6 +485,135 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             mil = "02"
         return mil + film[4:]
 
+    def mapPrintTest(self):
+        filmId = self.uiCurrentFilmNumberEdit.text()
+        saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+        fileName = QFileDialog.getSaveFileName(self, 'Map Print Test', saveDir + "\\" + 'MapPrintTest_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+
+        if fileName:
+            layerSet = []
+
+            # MapSettings
+            mapSettings = QgsMapSettings()
+            mapSettings.setCrsTransformEnabled(True)
+            mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            mapSettings.setMapUnits(QGis.UnitType(0))
+            mapSettings.setOutputDpi(300)
+
+            # Vector Layer
+            flightpathDir = self.settings.value("APIS/flightpath_dir")
+            uri = flightpathDir + "\\2010\\02101101_lin.shp"
+            vectorLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+
+            # GET CRS FROM LAYER !!!!
+            vectorLayer.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
+            vectorLayer.setCoordinateSystem()
+
+            lineSymbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.3'})
+            vectorLayer.rendererV2().setSymbol(lineSymbol)
+
+            QgsMapLayerRegistry.instance().addMapLayer(vectorLayer, False) #False = don't add to Layers (TOC)
+            layerSet.append(vectorLayer.id())
+
+            extent = mapSettings.layerExtentToOutputExtent(vectorLayer, vectorLayer.extent())
+            extent.scale(1.1)
+
+            #e = vectorLayer.extent()
+            #eGeo = QgsGeometry.fromRect(e)
+            #gt = QgsCoordinateTransform(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId), QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #eGeo.transform(gt)
+            #eRect = eGeo.boundingBox()
+
+            import math
+            mapWidth = 160
+            mapHeight = 120
+            c = 40075016.6855785
+            mpW = extent.width() / mapWidth
+            mpH = extent.height() / mapHeight
+            zW = math.log(c/mpW, 2) - 8
+            zH = math.log(c/mpH, 2) - 8
+            z = math.floor(min(zW,zH)) + 2
+            self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+
+
+            # Tile Layer (Background Map)
+            ds = {}
+            ds['type'] = 'TMS'
+            ds['alias'] = 'Google'
+            ds['copyright_text'] = 'Google'
+            ds['copyright_url'] = 'http://www.google.com'
+            ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+
+            service_info = TileServiceInfo(ds['alias'], ds['alias'], ds['tms_url'])
+            service_info.zmin = 0
+            service_info.zmax = int(z)
+            #if ds.tms_y_origin_top is not None:
+            #    service_info.yOriginTop = ds.tms_y_origin_top
+            service_info.epsg_crs_id = 3857
+            service_info.postgis_crs_id = None
+            service_info.custom_proj = None
+            service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+
+            tileLayer = TileLayer(self, service_info, False)
+            tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+
+
+            if not tileLayer.isValid():
+                error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+                self.iface.messageBar().pushMessage(self.tr('Error'),
+                                                   error_message,
+                                                   level=QgsMessageBar.CRITICAL)
+                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+            else:
+                # Set Attributes
+                tileLayer.setAttribution(ds['copyright_text'])
+                tileLayer.setAttributionUrl(ds['copyright_url'])
+                QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+                layerSet.append(tileLayer.id())
+
+            # Set LayerSet
+            tileLayer.setExtent(extent)
+            mapSettings.setExtent(extent)
+
+            mapSettings.setLayers(layerSet)
+
+            # Template
+            template = os.path.dirname(__file__) + "/composer/templates/map_print_test.qpt"
+            templateDom = QDomDocument()
+            templateDom.setContent(QFile(template), False)
+
+            # Composition
+            composition = QgsComposition(mapSettings)
+            composition.setPlotStyle(QgsComposition.Print)
+            composition.setPrintResolution(300)
+
+            # Composer Items
+            infoDict = {}
+            infoDict["map_info"] = "Information ..."
+            composition.loadFromTemplate(templateDom, infoDict)
+
+            # Composer Map
+            composerMap = composition.getComposerMapById(0)
+            #self.iface.messageBar().pushMessage(self.tr('WH'), "w: {0}, h: {1}".format(composerMap.rect().width(), composerMap.rect().height()), level=QgsMessageBar.INFO)
+            composerMap.zoomToExtent(extent)
+            #scomposerMap.resize()
+            #composerMap.setOffset(0,0)
+            #composerMap.updateCachedImage()
+            #composerMap.renderModeUpdateCachedImage()
+
+
+            # Create PDF
+            composition.exportAsPDF(fileName)
+
+            #Remove Layers
+            for layerId in layerSet:
+                QgsMapLayerRegistry.instance().removeMapLayer(layerId)
+
+            # Open PDF
+            if sys.platform == 'linux2':
+                subprocess.call(["xdg-open", fileName])
+            else:
+                os.startfile(fileName)
 
     def exportDetailsPdf(self):
         filmId = self.uiCurrentFilmNumberEdit.text()
@@ -497,16 +633,81 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #FIXME load correct Flightpath; from Settings
             printLayers = []
             flightpathDir = self.settings.value("APIS/flightpath_dir")
-            uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
+            #uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
+            uri = flightpathDir + "\\2014\\02140301_lin.shp"
             printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
-            #printLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.8'})
-            #printLayer.rendererV2().setSymbol(symbol)
+            #printLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            printLayer.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
+            printLayer.setCoordinateSystem()
+            symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.25'})
+            printLayer.rendererV2().setSymbol(symbol)
             QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
-            extent = printLayer.extent()
+            e = printLayer.extent()
+            #self.iface.messageBar().pushMessage(self.tr('Extent'), e.asWktPolygon(), level=QgsMessageBar.INFO)
+
+            eGeo = QgsGeometry.fromRect(e)
+            gt = QgsCoordinateTransform(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId), QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            eGeo.transform(gt)
+            #self.iface.messageBar().pushMessage(self.tr('Extent'), eGeo.exportToWkt(), level=QgsMessageBar.INFO)
+            extent = eGeo.boundingBox()
 
             #layerset.append(printLayer.id())
             printLayers.append(printLayer.id())
+
+            ds = {}
+            #ds['type'] = 'TMS'
+            #ds['alias'] = 'Bing'
+            #ds['copyright_text'] = 'Bing'
+            #ds['copyright_url'] = 'http://www.virtualearth.net'
+            #ds['tms_url'] = "http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=0&dir=dir_n'"
+
+
+            ds['type'] = 'TMS'
+            ds['alias'] = 'MapBox Gray'
+            ds['copyright_text'] = 'MapBox'
+            ds['copyright_url'] = 'http://www.mapbox.com'
+            ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+
+            #service_info = TileServiceInfo('Bing', 'Bing', ds['tms_url'])
+            service_info = TileServiceInfo('MapBox', 'MapBox', ds['tms_url'])
+            service_info.zmin = 0
+            service_info.zmax = 20
+            #if ds.tms_y_origin_top is not None:
+            #    service_info.yOriginTop = ds.tms_y_origin_top
+            service_info.epsg_crs_id = None
+            service_info.postgis_crs_id = None
+            service_info.custom_proj = None
+            service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+            layer = TileLayer(self, service_info, False)
+            #layer.setExtent(QgsRectangle(-50,-50,50,50))
+            layer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #layer.setExtent(extent)
+            #layer.setExtent(QgsRectangle(1700000.0, 6000000.0, 2000000.0, 6170000.0))
+            #extent = layer.extent()
+            #self.iface.messageBar().pushMessage(self.tr('Extent'), extent.asWktPolygon(), level=QgsMessageBar.INFO)
+            if not layer.isValid():
+                error_message = self.tr('Layer %s can\'t be added to the map!') % ds['alias']
+                self.iface.messageBar().pushMessage(self.tr('Error'),
+                                                   error_message,
+                                                   level=QgsMessageBar.CRITICAL)
+                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+            else:
+                # Set attribs
+                layer.setAttribution(ds['copyright_text'])
+                layer.setAttributionUrl(ds['copyright_url'])
+                # Insert to bottom
+                QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+                #toc_root = QgsProject.instance().layerTreeRoot()
+                #toc_root.insertLayer(len(toc_root.children()), layer)
+                # Save link
+                #self.service_layers.append(layer)
+                # Set OTF CRS Transform for map
+                #if PluginSettings.enable_otf_3857() and ds.type == KNOWN_DRIVERS.TMS:
+                #self.iface.mapCanvas().setCrsTransformEnabled(True)
+                #self.iface.mapCanvas().setDestinationCrs(TileLayer.CRS_3857)
+                printLayers.append(layer.id())
+
+            #printLayers.append(printLayer.id())
 
             #urlWithParams = ' '
             #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
@@ -515,8 +716,13 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #printLayers.append(rlayer.id())
 
             ms = QgsMapSettings()
-            ms.setExtent(extent)
-            #mr.setLayerSet(layerset)
+            ms.setCrsTransformEnabled(True)
+            ms.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            ms.setMapUnits(QGis.UnitType(0))
+            ms.setOutputDpi(300)
+            #ms.setExtent(extent)
+            #self.iface.messageBar().pushMessage(self.tr('Extent'), ms.extent().asWktPolygon(), level=QgsMessageBar.INFO)
+            ms.setLayers(printLayers)
 
             #mapRectangle = QgsRectangle(140,-28,155,-15)
             #mr.setExtent(extent)
@@ -546,22 +752,29 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             comp.loadFromTemplate(templateDOM, filmDict)
 
             composerMap = comp.getComposerMapById(0)
-            composerMap.setKeepLayerSet(True)
-            composerMap.setLayerSet(printLayers)
+            composerMap.setUpdatesEnabled(True)
+            composerMap.zoomToExtent(extent)
+
+            #composerMap.setNewExtent(extent)
+            #self.iface.messageBar().pushMessage(self.tr('Scale'), "{0}".format(composerMap.scale()), level=QgsMessageBar.INFO)
+            #composerMap.setNewScale(1000000)
+
+            #composerMap.setKeepLayerSet(True)
+            #composerMap.setLayerSet(printLayers)
             #composerMap.renderModeUpdateCachedImage()
             #ms.setLayers(printLayers)
 
-            #if composerMap:
-                #QMessageBox.warning(None, "Save", composerMap)
+           # if composerMap:
+            #    QMessageBox.warning(None, "Save", composerMap)
            #composerMap.setKeepLayerSet(True)
             #composerMap.setLayerSet(layerset)
 
 
 
             comp.exportAsPDF(fileName)
-            #FIXME: Delete all alyers (array) not just one layer
-            QgsMapLayerRegistry.instance().removeMapLayer(printLayer.id())
-            #QgsMapLayerRegistry.instance().removeMapLayer(rlayer.id())
+            # Delete all layers (array)
+            for lid in printLayers:
+                QgsMapLayerRegistry.instance().removeMapLayer(lid)
 
             if sys.platform == 'linux2':
                 subprocess.call(["xdg-open", fileName])
