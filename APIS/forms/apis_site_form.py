@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_form.ui'
 #
-# Created: Thu Jan 07 18:30:58 2016
+# Created: Mon Apr 11 11:58:37 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_apisSiteDialog(object):
     def setupUi(self, apisSiteDialog):
         apisSiteDialog.setObjectName(_fromUtf8("apisSiteDialog"))
         apisSiteDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        apisSiteDialog.resize(1046, 701)
+        apisSiteDialog.resize(1000, 700)
         apisSiteDialog.setModal(True)
         self.gridLayout_2 = QtGui.QGridLayout(apisSiteDialog)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
@@ -63,14 +63,15 @@ class Ui_apisSiteDialog(object):
         self.gridLayout.addWidget(self.label_21, 3, 0, 1, 1)
         self.uiCadastralCommunityNumberEdit = QtGui.QLineEdit(apisSiteDialog)
         self.uiCadastralCommunityNumberEdit.setStyleSheet(_fromUtf8("background-color: rgb(218, 218, 218);"))
+        self.uiCadastralCommunityNumberEdit.setReadOnly(True)
         self.uiCadastralCommunityNumberEdit.setObjectName(_fromUtf8("uiCadastralCommunityNumberEdit"))
         self.gridLayout.addWidget(self.uiCadastralCommunityNumberEdit, 3, 1, 1, 1)
         self.label_22 = QtGui.QLabel(apisSiteDialog)
         self.label_22.setObjectName(_fromUtf8("label_22"))
         self.gridLayout.addWidget(self.label_22, 4, 0, 1, 1)
         self.uiProjectOrFilmEdit = QtGui.QLineEdit(apisSiteDialog)
-        self.uiProjectOrFilmEdit.setStyleSheet(_fromUtf8("background-color: rgb(218, 218, 218);"))
-        self.uiProjectOrFilmEdit.setReadOnly(True)
+        self.uiProjectOrFilmEdit.setStyleSheet(_fromUtf8(""))
+        self.uiProjectOrFilmEdit.setReadOnly(False)
         self.uiProjectOrFilmEdit.setObjectName(_fromUtf8("uiProjectOrFilmEdit"))
         self.gridLayout.addWidget(self.uiProjectOrFilmEdit, 4, 1, 1, 1)
         self.label_4 = QtGui.QLabel(apisSiteDialog)

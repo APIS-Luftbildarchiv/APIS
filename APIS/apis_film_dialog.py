@@ -96,7 +96,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.searchFilmDlg = ApisSearchFilmDialog(self.iface, self.dbm)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
         self.viewFlightPathDlg = ApisViewFlightPathDialog(self.iface, self.dbm)
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageReistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm)
         self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageReistry)
 
 
@@ -883,7 +883,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #FIXME Introduce Error System
             sys.exit()
         query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol, {0} WHERE fundort_pol.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = {0}.geometry))".format(fromTable, self.uiCurrentFilmNumberEdit.text())
+        qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, {0} WHERE fo.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = {0}.geometry))".format(fromTable, self.uiCurrentFilmNumberEdit.text())
         query.exec_(qryStr)
 
         res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>701</height>
+    <width>1000</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,6 +88,9 @@
        <property name="styleSheet">
         <string notr="true">background-color: rgb(218, 218, 218);</string>
        </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item row="4" column="0">
@@ -100,10 +103,10 @@
      <item row="4" column="1">
       <widget class="QLineEdit" name="uiProjectOrFilmEdit">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(218, 218, 218);</string>
+        <string notr="true"/>
        </property>
        <property name="readOnly">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -447,7 +450,7 @@
         <string/>
        </property>
        <property name="text">
-        <string>Auswertung</string>
+        <string>Interpretation in QGIS laden</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
@@ -461,6 +464,23 @@
        </property>
        <property name="autoDefault">
         <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Fundort in QGIS laden</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -527,7 +547,7 @@
      <item>
       <widget class="QPushButton" name="uiDeleteSiteBtn">
        <property name="text">
-        <string>Datensatz Löschen</string>
+        <string>Fundort löschen</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">

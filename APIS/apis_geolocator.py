@@ -12,29 +12,35 @@ class ApisGeolocator:
         # Load kgs
         # Load countries
 
-    def setLocation(self, location):
-        self.__location = QgsPoint(location)
-        # Handle Projection
-        self.__countryName, self.__countryCode = self.__getCountryDetails()
-        #self.__kgName, self.__kgCode = self.getKgDetails()
-
-    def countryName(self):
-        return self.__countryName
-
-    def countryCode(self):
-        return self.__countryCode
-
-    def kgName(self):
-        if self.__countryCode == 'AUT':
-            return self.__kgName
+    def countryByPoint(self, point):
+        qryStr = "SELECT code FROM osm_boundaries WHERE intersects(Transform(MakePoint({0}, {1}, 4312), 4326), geometry)  AND ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'osm_boundaries' AND search_frame = Transform(MakePoint({0}, {1}, 4312), 4326))".format(
+            self.imageCenterPoint.x(), self.imageCenterPoint.y())
+        query.exec_(qryStr)
+        query.first()
+        if query.value(0) is None:
+            return 'INT'
         else:
-            return False
+            return query.value(0)
+        return code, name
 
-    def kgCode(self):
-        if self.__countryCode == 'AUT':
-            return self.__kgCode
-        else:
-            return False
+    def countryByPolygon(self, polygon):
+        pass
+        return code, name
+
+    def kgAustriaByPoint(self, point):
+        pass
+        return code, name
+
+    def kgAustriaByPolygon(self, point):
+        pass
+        return code, name
+
+    def isPointInAustria(self, point):
+        pass
+
+    def intersectsPolygonAustira(self, polygon):
+        pass
+
 
     def __getCountryDetails(self):
         self.query = QSqlQuery(self.dbm.db)

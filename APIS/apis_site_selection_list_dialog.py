@@ -10,7 +10,6 @@ from PyQt4.QtXml import *
 from qgis.core import *
 
 from apis_db_manager import *
-from apis_image_registry import *
 from apis_site_dialog import *
 from functools import partial
 
@@ -25,11 +24,10 @@ from functools import partial
 import subprocess
 
 class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
-        self.imageRegistry = imageRegistry
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
@@ -65,6 +63,9 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         return True
 
     def setupTable(self):
+        proxy = SiteNumberSortModel()
+        proxy.setSourceModel(self.model)
+        self.model.sort(0, Qt.AscendingOrder)
         self.uiSiteListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.uiSiteListTableV.setModel(self.model)
         self.uiSiteListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -72,10 +73,11 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         self.uiSiteListTableV.resizeRowsToContents()
         self.uiSiteListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
+
     def openSiteDialog(self, idx):
         siteNumber = self.model.item(idx.row(), 0).text()
         if self.siteDlg == None:
-            self.siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
+            self.siteDlg = ApisSiteDialog(self.iface, self.dbm)
         self.siteDlg.openInViewMode(siteNumber)
         self.siteDlg.show()
         # Run the dialog event loop
@@ -85,3 +87,11 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
             # substitute with your code.
             pass
         #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"For Site: {0}".format(siteNumber)))
+
+class SiteNumberSortModel(QSortFilterProxyModel):
+
+    def lessThan(self, left, right):
+
+        lvalue = int(left.data()[4:])
+        rvalue = int(right.data()[4:])
+        return lvalue < rvalue

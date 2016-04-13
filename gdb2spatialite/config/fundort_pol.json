@@ -52,5 +52,12 @@
             "sourcename": "Shape_Area",
             "type": "Real"
         }
-    ]
+
+    ],
+    "geometrycheck": {
+        "type": "circle2polygon",
+        "epsg": 4312,
+        "featurekey": "FUNDORT",
+        "sql": "SELECT AsText(geometry), 100 as radius FROM fundort_pnt WHERE fundortnummer = '{0}'"
+    }
 }

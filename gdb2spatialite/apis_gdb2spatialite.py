@@ -716,7 +716,6 @@ if __name__ == '__main__':
     apis.AddTableJson("config/katastralgemeinden.json")
     apis.AddTableJson("config/osm_boundaries.json")
 
-    # Add all independen Tables
     apis.AddTableJson("config/hersteller.json")
     apis.AddTableJson("config/projekt.json")
     apis.AddTableJson("config/copyright.json")
@@ -748,8 +747,12 @@ if __name__ == '__main__':
     apis.AddTableJson("config/fundort_pol.json")
     apis.AddTableJson("config/fundort_interpretation.json")
 
+    apis.AddTableJson("config/fundort.json")
+
     apis.AddTableJson("config/fundstelle_pnt.json")
     apis.AddTableJson("config/fundstelle_pol.json")
+
+    apis.AddTableJson("config/fundstelle.json")
 
     apis.AddTableJson("config/fundort_log_pnt.json")
     apis.AddTableJson("config/fundort_log_pol.json")
@@ -757,9 +760,10 @@ if __name__ == '__main__':
     apis.AddTableJson("config/fundstelle_log_pol.json")
 
     apis.RunSqlUpdates("config/sqlupdates.json")
-    #apis.RunSqlUpdates("config/sqlupdates_test.json")
 
     apis.generateMissingSitePolygons()
     apis.generateMissingFindSpotPolygons()
+
+    apis.RunSqlUpdates("config/sqlupdates_fundort_neu.json")
 
     apis.CleanUp()

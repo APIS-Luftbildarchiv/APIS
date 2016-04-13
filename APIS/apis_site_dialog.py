@@ -18,8 +18,8 @@ from apis_film_selection_list_dialog import *
 from apis_view_flight_path_dialog import *
 from apis_image_selection_list_dialog import *
 from apis_site_selection_list_dialog import *
-from apis_image_registry import *
 from apis_text_editor_dialog import *
+from apis_sharding_selection_list_dialog import *
 
 from functools import partial
 import subprocess
@@ -33,7 +33,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/composer")
 
 # --------------------------------------------------------
-# Film - Eingabe, Pflege
+# Fundort - Eingabe, Pflege
 # --------------------------------------------------------
 from apis_site_form import *
 
@@ -41,11 +41,11 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     #FIRST, PREV, NEXT, LAST = range(4)
 
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
-        self.imageRegistry = imageRegistry
+
         self.setupUi(self)
 
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
@@ -53,6 +53,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.editMode = False
         self.addMode = False
         self.initalLoad = True
+        self.geometryEditing = False
+        self.isGeometryEditingSaved = False
         # Signals/Slot Connections
         self.rejected.connect(self.onReject)
         #self.uiButtonBox.rejected.connect(self.onReject)
@@ -62,6 +64,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         self.uiPlotNumberBtn.clicked.connect(lambda: self.openTextEditor("Parzellennummer", self.uiPlotNumberEdit))
         self.uiCommentBtn.clicked.connect(lambda: self.openTextEditor("Bemerkung zur Lage", self.uiCommentEdit))
+
+        self.uiListShardingsOfSiteBtn.clicked.connect(self.openShardingSelectionListDialog)
 
         #self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
 
@@ -86,13 +90,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         #self.uiButtonBox.button(QDialogButtonBox.Cancel).setAutoDefault(False)
 
         # Setup Sub-Dialogs
-        # self.filmSelectionDlg = ApisFilmNumberSelectionDialog(self.iface, self.dbm)
-        # self.newFilmDlg = ApisNewFilmDialog(self.iface)
-        # self.searchFilmDlg = ApisSearchFilmDialog(self.iface)
-        # self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
-        # self.viewFlightPathDlg = ApisViewFlightPathDialog(self.iface, self.dbm)
-        # self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm)
-        # self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageReistry)
+        self.shardingDlg = None
+
 
 
 
@@ -109,34 +108,69 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.siteNumber = siteNumber
 
         # Setup site model
-        self.modelPnt = QSqlRelationalTableModel(self, self.dbm.db)
-        self.modelPnt.setTable("fundort_pnt")
-        self.modelPnt.setFilter("fundortnummer='{0}'".format(self.siteNumber))
-        res = self.modelPnt.select()
-        self.setupMapperPnt()
-        self.mapperPnt.toFirst()
-
-        self.modelPol = QSqlRelationalTableModel(self, self.dbm.db)
-        self.modelPol.setTable("fundort_pol")
-        self.modelPol.setFilter("fundortnummer='{0}'".format(self.siteNumber))
-        res = self.modelPol.select()
-        self.setupMapperPol()
-        self.mapperPol.toFirst()
+        self.model = QSqlRelationalTableModel(self, self.dbm.db)
+        self.model.setTable("fundort")
+        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+        res = self.model.select()
+        self.setupMapper()
+        self.mapper.toFirst()
 
         self.setupFindSpotList()
 
         self.initalLoad = False
 
-    def cbValidate(self):
-        #FIXME: Implement with QValidator
-        QMessageBox.warning(None, "Test", unicode([self.uiArchiveCombo.itemText(i) for i in range(self.uiArchiveCombo.count())]))
 
-    def setupMapperPnt(self):
-        self.mapperPnt = QDataWidgetMapper(self)
-        self.mapperPnt.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
-        self.mapperPnt.setItemDelegate(SiteDelegate())
+    def openInEditMode(self, siteNumber, kgCode, kgName, siteArea):
+        self.initalLoad = True
+        self.siteNumber = siteNumber
+        self.geometryEditing = True
 
-        self.mapperPnt.setModel(self.modelPnt)
+        # Setup site model
+        self.model = QSqlRelationalTableModel(self, self.dbm.db)
+        self.model.setTable("fundort")
+        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+        res = self.model.select()
+        self.setupMapper()
+        self.mapper.toFirst()
+
+        self.startEditMode()
+        self.initalLoad = False
+
+        #update Editors
+        if self.uiCadastralCommunityNumberEdit.text() != kgCode:
+            self.uiCadastralCommunityNumberEdit.setText(kgCode)
+        if self.uiCadastralCommunityEdit.text() != kgName:
+            self.uiCadastralCommunityEdit.setText(kgName)
+        if self.uiAreaEdit.text() != siteArea:
+            self.uiAreaEdit.setText(unicode(siteArea))
+
+
+
+    def openInAddMode(self, siteNumber):
+        self.initalLoad = True
+        self.siteNumber = siteNumber
+
+
+        # Setup site model
+        self.model = QSqlRelationalTableModel(self, self.dbm.db)
+        self.model.setTable("fundort")
+        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+        res = self.model.select()
+        self.setupMapper()
+        self.mapper.toFirst()
+
+        self.addMode = True
+        self.startEditMode()
+
+        self.initalLoad = False
+
+
+    def setupMapper(self):
+        self.mapper = QDataWidgetMapper(self)
+        self.mapper.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
+        self.mapper.setItemDelegate(SiteDelegate())
+
+        self.mapper.setModel(self.model)
 
         self.mandatoryEditors = [self.uiSiteDiscoveryCombo, self.uiSiteCreationCombo, self.uiSiteReliabilityCombo]
 
@@ -144,7 +178,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.intValidator = QIntValidator()
         self.doubleValidator = QDoubleValidator()
 
-        self.lineEditMapsPnt = {
+        self.lineEditMaps = {
             "fundortnummer": {
                 "editor": self.uiSiteNumberEdit
             },
@@ -173,6 +207,12 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 "editor": self.uiFirstReportYearEdit,
                 "validator": self.intValidator
             },
+            "bildnummer": {
+                "editor": self.uiImagesEdit
+            },
+            "raster": {
+                "editor": self.uiRasterEdit
+            },
             "ortshoehe":{
                 "editor": self.uiElevationEdit,
                 "validator": self.doubleValidator
@@ -191,25 +231,25 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 "editor": self.uiFindingsPTxt
             }
         }
-        for key, item in self.lineEditMapsPnt.items():
-            self.mapperPnt.addMapping(item["editor"], self.modelPnt.fieldIndex(key))
+        for key, item in self.lineEditMaps.items():
+            self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
             if "validator" in item:
                 item["editor"].setValidator(item["validator"])
             #item["editor"].textChanged.connect(partial(self.onLineEditChanged, item["editor"]))
             item["editor"].textChanged.connect(self.onLineEditChanged)
 
         # Date and Times
-        self.mapperPnt.addMapping(self.uiInitalEntryDate, self.modelPnt.fieldIndex("datum_ersteintrag"))
-        self.mapperPnt.addMapping(self.uiLastChangesDate, self.modelPnt.fieldIndex("datum_aenderung"))
+        self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
+        self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
 
         # ComboBox without Model
-        self.mapperPnt.addMapping(self.uiSiteReliabilityCombo, self.modelPnt.fieldIndex("sicherheit"))
+        self.mapper.addMapping(self.uiSiteReliabilityCombo, self.model.fieldIndex("sicherheit"))
         self.uiSiteReliabilityCombo.editTextChanged.connect(self.onLineEditChanged)
         self.uiSiteReliabilityCombo.setAutoCompletion(True)
         self.uiSiteReliabilityCombo.lineEdit().setValidator(InListValidator([self.uiSiteReliabilityCombo.itemText(i) for i in range(self.uiSiteReliabilityCombo.count())], self.uiSiteReliabilityCombo.lineEdit(), None, self))
 
         # ComboBox with Model
-        self.comboBoxMapsPnt = {
+        self.comboBoxMaps = {
             "fundgewinnung": {
                 "editor": self.uiSiteDiscoveryCombo,
                 "table": "fundgewinnung",
@@ -223,172 +263,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 "depend": None
             }
         }
-        for key, item in self.comboBoxMapsPnt.items():
-            self.mapperPnt.addMapping(item["editor"], self.modelPnt.fieldIndex(key))
+        for key, item in self.comboBoxMaps.items():
+            self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
             self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["depend"])
             item["editor"].editTextChanged.connect(self.onLineEditChanged)
-
-    def setupMapperPol(self):
-        self.mapperPol = QDataWidgetMapper(self)
-        self.mapperPol.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
-        self.mapperPol.setModel(self.modelPol)
-
-        self.lineEditMapsPol = {
-            "bildnummer": {
-                "editor": self.uiImagesEdit
-            },
-            "raster": {
-                "editor": self.uiRasterEdit
-            }
-        }
-        for key, item in self.lineEditMapsPol.items():
-            self.mapperPol.addMapping(item["editor"], self.modelPol.fieldIndex(key))
-            if "validator" in item:
-                item["editor"].setValidator(item["validator"])
-            #item["editor"].textChanged.connect(partial(self.onLineEditChanged, item["editor"]))
-            item["editor"].textChanged.connect(self.onLineEditChanged)
-
-    # def setupMapper(self):
-    #     self.mapperPnt = QDataWidgetMapper(self)
-    #
-    #     self.mapperPnt.currentIndexChanged.connect(self.onCurrentIndexChanged)
-    #
-    #     self.mapperPnt.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
-    #     self.mapperPnt.setItemDelegate(FilmDelegate())
-    #
-    #     self.mapperPnt.setModel(self.modelPnt)
-    #
-    #     self.mandatoryEditors = [self.uiImageCountEdit, self.uiCameraCombo, self.uiFilmMakeCombo, self.uiFilmModeCombo]
-    #
-    #     # LineEdits & PlainTextEdits
-    #     self.intValidator = QIntValidator()
-    #     self.doubleValidator = QDoubleValidator()
-    #
-    #     self.lineEditMaps = {
-    #         "filmnummer": {
-    #             "editor": self.uiCurrentFilmNumberEdit
-    #         },
-    #         "hersteller": {
-    #             "editor": self.uiProducerEdit
-    #         },
-    #         "anzahl_bilder":{
-    #             "editor": self.uiImageCountEdit,
-    #             "validator": self.intValidator
-    #         },
-    #         "militaernummer":{
-    #             "editor": self.uiMilitaryNumberEdit
-    #         },
-    #         "militaernummer_alt":{
-    #             "editor": self.uiOldMilitaryNumberEdit
-    #         },
-    #         "form1":{
-    #             "editor": self.uiFormat1Edit
-    #         },
-    #         "form2":{
-    #             "editor": self.uiFormat2Edit
-    #         },
-    #         "kalibrierungsnummer":{
-    #             "editor": self.uiCameraNumberEdit
-    #         },
-    #         "kammerkonstante":{
-    #             "editor": self.uiCalibratedFocalLengthEdit,
-    #             "validator": self.doubleValidator
-    #         },
-    #         "kassettennummer":{
-    #             "editor": self.uiCassetteEdit
-    #         },
-    #         "art_ausarbeitung":{
-    #             "editor": self.uiFilmMakeEdit
-    #         },
-    #         "fotograf":{
-    #             "editor": self.uiPhotographerEdit
-    #         },
-    #         "pilot":{
-    #             "editor": self.uiPilotEdit
-    #         },
-    #         "flugzeug":{
-    #             "editor": self.uiAirplaneEdit
-    #         },
-    #         "abflug_flughafen":{
-    #             "editor": self.uiDepartureAirportEdit
-    #         },
-    #         "ankunft_flughafen":{
-    #             "editor": self.uiArrivalAirportEdit
-    #         },
-    #         "flugzeit":{
-    #             "editor": self.uiFlightDurationEdit
-    #         },
-    #         "wetter":{
-    #             "editor": self.uiWeatherCodeEdit
-    #         },
-    #         "kommentar": {
-    #             "editor": self.uiCommentsPTxt
-    #         }
-    #     }
-    #     for key, item in self.lineEditMaps.items():
-    #         self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
-    #         if "validator" in item:
-    #             item["editor"].setValidator(item["validator"])
-    #         #item["editor"].textChanged.connect(partial(self.onLineEditChanged, item["editor"]))
-    #         item["editor"].textChanged.connect(self.onLineEditChanged)
-    #     #Text
-    #     #self.mapper.addMapping(self.uiCommentsPTxt, self.model.fieldIndex("kommentar"))
-    #
-    #     # Date and Times
-    #     self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
-    #     self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
-    #     self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
-    #
-    #     self.mapper.addMapping(self.uiDepartureTime, self.model.fieldIndex("abflug_zeit"))
-    #     self.mapper.addMapping(self.uiArrivalTime, self.model.fieldIndex("ankunft_zeit"))
-    #     self.uiDepartureTime.timeChanged.connect(self.onFlightTimeChanged)
-    #     self.uiArrivalTime.timeChanged.connect(self.onFlightTimeChanged)
-    #
-    #     # ComboBox without Model
-    #     self.mapper.addMapping(self.uiFilmModeCombo, self.model.fieldIndex("weise"))
-    #     self.uiFilmModeCombo.editTextChanged.connect(self.onLineEditChanged)
-    #     self.uiFilmModeCombo.setAutoCompletion(True)
-    #     self.uiFilmModeCombo.lineEdit().setValidator(InListValidator([self.uiFilmModeCombo.itemText(i) for i in range(self.uiFilmModeCombo.count())], self.uiFilmModeCombo.lineEdit(), None, self))
-    #
-    #     # ComboBox with Model
-    #     self.comboBoxMaps = {
-    #         # "hersteller": {
-    #         #     "editor": self.uiProducerCombo,
-    #         #     "table": "hersteller",
-    #         #     "modelcolumn": 2,
-    #         #     "depend": None
-    #         # },
-    #         "kamera": {
-    #             "editor": self.uiCameraCombo,
-    #             "table": "kamera",
-    #             "modelcolumn": 0,
-    #             "depend": [{"form1": self.uiFormat1Edit}, {"form2": self.uiFormat2Edit}]
-    #         },
-    #         "filmfabrikat": {
-    #             "editor": self.uiFilmMakeCombo,
-    #             "table": "film_fabrikat",
-    #             "modelcolumn": 0,
-    #             "depend": [{"art": self.uiFilmMakeEdit}]
-    #         },
-    #         "target": {
-    #             "editor": self.uiTargetCombo,
-    #             "table": "target",
-    #             "modelcolumn": 0,
-    #             "depend": None
-    #         },
-    #         "copyright": {
-    #             "editor": self.uiCopyrightCombo,
-    #             "table": "copyright",
-    #             "modelcolumn": 0,
-    #             "depend": None
-    #         }
-    #     }
-    #     for key, item in self.comboBoxMaps.items():
-    #         self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
-    #         self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["depend"])
-    #         item["editor"].editTextChanged.connect(self.onLineEditChanged)
-    #
-    #     self.mapper.addMapping(self.uiProjectList, self.model.fieldIndex("projekt"))
 
 
     def setupComboBox(self, editor, table, modelColumn, depend):
@@ -418,10 +296,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         editor.setAutoCompletion(True)
         editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), depend, self))
-        #self.uiProducerCombo.lineEdit().editingFinished.connect(self.cbValidate)
 
         if depend:
             editor.currentIndexChanged.connect(partial(self.updateDepends, editor, depend))
+
 
     def updateDepends(self, editor, depend):
          for dep in depend:
@@ -430,10 +308,11 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 value.setText(unicode(editor.model().data(idx)))
                 #QMessageBox.warning(None, "Test", str(idx))
 
+
     def setupFindSpotList(self):
 
         query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT fundstellenummer AS 'Nummer', datierung AS 'Datierung', fundart AS 'Fundart', fundart_detail AS 'Fundart Detail' FROM fundstelle_pnt WHERE fundortnummer = '{0}'".format(self.siteNumber)
+        qryStr = "SELECT fundstellenummer AS 'Nummer', datierung AS 'Datierung', fundart AS 'Fundart', fundart_detail AS 'Fundart Detail' FROM fundstelle WHERE fundortnummer = '{0}'".format(self.siteNumber)
         query.exec_(qryStr)
 
         model = QStandardItemModel()
@@ -465,97 +344,12 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.uiFindSpotListTableV.resizeRowsToContents()
         self.uiFindSpotListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
-    # def setupNavigation(self):
-    #     self.uiFirstFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.FIRST))
-    #     self.uiPreviousFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.PREV))
-    #     self.uiNextFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.NEXT))
-    #     self.uiLastFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.LAST))
-    #
-    #     self.uiTotalFilmCountLbl.setText(str(self.model.rowCount()))
-    #     self.intRecordValidator = QIntValidator(1, self.model.rowCount())
-    #     self.uiCurrentFilmCountEdit.setValidator(self.intRecordValidator)
-    #     self.uiCurrentFilmCountEdit.setText(str(self.mapper.currentIndex() + 1))
-    #     self.uiCurrentFilmCountEdit.editingFinished.connect(lambda: self.loadRecordById(int(self.uiCurrentFilmCountEdit.text()) - 1))
-    #     # QMessageBox.warning(None, "Test", str(self.mapper.itemDelegate()))
-
 
     def enableItemsInLayout(self, layout, enable):
         for i in range(layout.count()):
             if layout.itemAt(i).widget():
                 layout.itemAt(i).widget().setEnabled(enable)
 
-    # def loadRecordByNavigation(self, mode):
-    #     #self.mapper.submit()
-    #     #self.submitChanges()
-    #     self.initalLoad = True
-    #     if mode == ApisFilmDialog.FIRST:
-    #         self.mapper.toFirst()
-    #     elif mode == ApisFilmDialog.PREV:
-    #         self.mapper.toPrevious()
-    #     elif mode == ApisFilmDialog.NEXT:
-    #         self.mapper.toNext()
-    #     elif mode == ApisFilmDialog.LAST:
-    #         self.mapper.toLast()
-    #     self.initalLoad = False
-
-    # def loadRecordById(self, id):
-    #     #self.submitChanges
-    #     self.initalLoad = True
-    #     self.mapper.setCurrentIndex(id)
-    #     self.initalLoad = False
-
-    # def loadRecordByKeyAttribute(self, attribute, value):
-    #     #self.model.setFilter(attribute + " = '" + value + "'")
-    #     #self.model.select()
-    #     # self.mapper.toFirst()
-    #
-    #     query = QSqlQuery(self.dbm.db)
-    #     #qryStr = "select {0} from film where {0} = '{1}' limit 1".format(attribute, value)
-    #     #qryStr = "SELECT rowid FROM film WHERE {0} = '{1}' limit 1".format(attribute, value)
-    #     qryStr = "SELECT" \
-    #              "  (SELECT COUNT(*)" \
-    #              "       FROM film AS t2" \
-    #              "       WHERE t2.rowid < t1.rowid" \
-    #              "      ) + (" \
-    #              "         SELECT COUNT(*)" \
-    #              "         FROM film AS t3" \
-    #              "        WHERE t3.rowid = t1.rowid AND t3.rowid < t1.rowid" \
-    #              "      ) AS rowNum" \
-    #              "   FROM film AS t1" \
-    #              "   WHERE {0} = '{1}'" \
-    #              "   ORDER BY t1.rowid ASC".format(attribute, value)
-    #
-    #     query.exec_(qryStr)
-    #
-    #     #QMessageBox.warning(None, "Test", str(query.size()) + ',' + str(query.numRowsAffected()))
-    #
-    #     query.first()
-    #     fn = query.value(0)
-    #
-    #     if fn != None:
-    #         self.loadRecordById(fn)
-    #         return True
-    #     else:
-    #         # Film does not exist
-    #         QMessageBox.warning(None, "Film Nummer", unicode("Der Film mit der Nummer {0} existiert nicht!".format(value)))
-    #         return False
-
-        #self.model.setFilter('')
-        #self.model.select()
-        #while (self.model.canFetchMore()):
-            #self.model.fetchMore()
-
-    # def submitChanges(self):
-    #     self.mapperPnt.submit()
-
-    # def onCurrentIndexChanged(self):
-    #     self.uiCurrentFilmCountEdit.setText(str(self.mapper.currentIndex() + 1))
-
-    # def onFlightTimeChanged(self):
-    #     dTime = self.uiDepartureTime.time()
-    #     aTime = self.uiArrivalTime.time()
-    #     flightDuration = dTime.secsTo(aTime)
-    #     self.uiFlightDurationEdit.setText(unicode(flightDuration/60))
 
     def onLineEditChanged(self):
         sender = self.sender()
@@ -565,34 +359,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             sender.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(sender.metaObject().className()))
             self.editorsEdited.append(sender)
 
+
     def onComboBoxChanged(self, editor):
         pass
 
-    # def addProject(self):
-    #     editor = self.uiProjectList
-    #     value = self.uiProjectSelectionCombo.currentText()
-    #     notInList = True
-    #     for row in range(editor.count()):
-    #         if value == editor.item(row).data(0):
-    #             notInList = False
-    #             break
-    #     if notInList:
-    #         editor.addItem(value)
-    #         editor.sortItems()
-    #         if not self.editMode and not self.initalLoad:
-    #             self.startEditMode()
-    #         if not self.initalLoad:
-    #             editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
-    #             self.editorsEdited.append(editor)
-    #
-    # def removeProject(self):
-    #     editor =  self.uiProjectList
-    #     editor.takeItem(self.uiProjectList.currentRow())
-    #     if not self.editMode and not self.initalLoad:
-    #         self.startEditMode()
-    #     if not self.initalLoad:
-    #         editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
-    #         self.editorsEdited.append(editor)
 
     def openTextEditor(self, title, editor):
         textEditorDlg = ApisTextEditorDialog()
@@ -621,25 +391,21 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             res = self.cancelEdit()
             if res:
                self.close()
+               return "ABC"
             else:
                 self.show()
         else:
             self.close()
 
-    def extractGpsFromImages(self):
-        key = self.uiCurrentFilmNumberEdit.text()
-        e2p = Exif2Points(self.iface, self.filmToFilmLegacy(key))
-        layer = e2p.run()
-        if layer:
-            self.iface.addVectorLayer(layer, "flugstrecke {0} gps p".format(key), 'ogr')
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
+    def openShardingSelectionListDialog(self):
+        #if self.shardingDlg == None:
+        self.shardingDlg = ApisShardingSelectionListDialog(self.iface, self.dbm)
+        siteNumber = self.uiSiteNumberEdit.text()
+        self.shardingDlg.loadShardingListBySiteNumber(siteNumber)
+        if self.shardingDlg.exec_():
+            pass
+            #self.shardingDlg = None
 
 
     def exportDetailsPdf(self):
@@ -734,36 +500,6 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
 
 
-    def openSearchFilmDialog(self):
-        """Run method that performs all the real work"""
-        # show the dialog
-        self.searchFilmDlg.show()
-        #self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
-        # Run the dialog event loop and See if OK was pressed
-        if self.searchFilmDlg.exec_():
-            # QMessageBox.warning(None, "FilmNumber", self.searchFilmDlg.generateSearchQuery())
-            model = QSqlRelationalTableModel(self, self.dbm.db)
-            model.setTable("film")
-            model.setFilter(self.searchFilmDlg.generateSearchQuery())
-            model.select()
-            while (model.canFetchMore()):
-                model.fetchMore()
-
-            if model.rowCount():
-                # open film selection list dialog
-                searchListDlg = ApisFilmSelectionListDialog(self.iface, model, self.dbm, self.imageReistry, self)
-                if searchListDlg.exec_():
-                    #QMessageBox.warning(None, "FilmNumber", unicode(searchListDlg.filmNumberToLoad))
-                    self.loadRecordByKeyAttribute("filmnummer", searchListDlg.filmNumberToLoad)
-            else:
-                QMessageBox.warning(None, u"Film Suche", u"Keine Ergebnisse mit den angegebenen Suchkriterien.")
-                self.openSearchFilmDialog()
-            # QMessageBox.warning(None, "FilmNumber", u"{0}, rows: {1}".format(self.searchFilmDlg.generateSearchQuery(), model.rowCount()))
-
-            # Get Search String/Query
-            #if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
-                #self.openFilmSelectionDialog()
-
     def openFilmSelectionDialog(self):
         """Run method that performs all the real work"""
         self.filmSelectionDlg.show()
@@ -849,10 +585,11 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             if self.imageSelectionListDlg.exec_():
                 pass
 
-    def addNewFilm(self, flightDate, useLastEntry, producer, producerCode):
+    def addNewSite(self, sitePoint, sitePolygon, filmNumberOrProject, imageNumber):
         self.initalLoad = True
         self.addMode = True
         self.startEditMode()
+
         row = self.model.rowCount()
         self.mapper.submit()
         while (self.model.canFetchMore()):
@@ -860,22 +597,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         self.model.insertRow(row)
 
-        if useLastEntry:
-            #copy last row
-            for c in range(self.model.columnCount()):
-                value = self.model.data(self.model.createIndex(row-1, c))
-                self.model.setData(self.model.createIndex(row,c), value)
-                editor = self.mapper.mappedWidgetAt(c)
-
-                if editor and not (value == 'NULL' or value == ''):
-                    cName = editor.metaObject().className()
-                    if (cName == "QLineEdit" or cName == "QDateEdit") and editor.isReadOnly():
-                        pass
-                    else:
-                        editor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(editor.metaObject().className()))
-                        self.editorsEdited.append(editor)
-
         self.mapper.setCurrentIndex(row)
+
+        # Mapper Edits
+
 
         self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
         self.uiFlightDate.setDate(flightDate)
@@ -908,15 +633,15 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         self.initalLoad = False
 
-    def removeNewFilm(self):
+    def removeNewSite(self):
         self.initalLoad = True
         row = self.mapper.currentIndex()
         self.model.removeRow(row)
         self.model.submitAll()
-        while (self.model.canFetchMore()):
-            self.model.fetchMore()
-        self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
-        self.mapper.toLast()
+        #while (self.model.canFetchMore()):
+        #    self.model.fetchMore()
+        #self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
+        #self.mapper.toLast()
         self.initalLoad = False
 
     def saveEdits(self):
@@ -949,25 +674,36 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             return False
 
         #saveToModel
-        currIdxPnt = self.mapperPnt.currentIndex()
-        currIdxPol = self.mapperPnt.currentIndex()
+        currIdx = self.mapper.currentIndex()
         now = QDate.currentDate()
         self.uiLastChangesDate.setDate(now)
-        self.mapperPnt.submit()
-        self.mapperPol.submit()
+        self.mapper.submit()
+        # Add "hidden" Values with Query
+        #sqlQry = "UPDATE fundort "
 
-        self.mapperPnt.setCurrentIndex(currIdxPnt)
-        self.mapperPol.setCurrentIndex(currIdxPol)
+        self.mapper.setCurrentIndex(currIdx)
         self.endEditMode()
+
+        #
+        if not self.isGeometryEditingSaved:
+            self.isGeometryEditingSaved = True
         return True
 
     def cancelEdit(self):
-        currIdxPnt = self.mapperPnt.currentIndex()
-        currIdxPol = self.mapperPnt.currentIndex()
+        currIdx = self.mapper.currentIndex()
         if self.editMode:
+            if self.addMode:
+                header = self.tr(u"Neuer Fundort wurden hinzugefügt!")
+                question = self.tr(u"Möchten Sie den neuen Fundort speichern?")
+            elif self.geometryEditing:
+                header = self.tr(u"Änderungen an der Fundort Geometrie wurden vorgenommen!")
+                question = self.tr(u"Möchten Sie die Änerungen der Geometrie und Attribute speichern?")
+            else:
+                header = self.tr(u"Änderungen wurden vorgenommen!")
+                question = self.tr(u"Möchten Sie die Änerungen der Attribute speichern?")
             result = QMessageBox.question(None,
-                                          self.tr(u"Änderungen wurden vorgenommen!"),
-                                          self.tr(u"Möchten Sie die Änerungen speichern?"),
+                                          header,
+                                          question,
                                           QMessageBox.Yes | QMessageBox.No ,
                                           QMessageBox.Yes)
 
@@ -979,13 +715,16 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 else:
                     return False
             elif result == QMessageBox.No:
+                self.geometryEditing = False
                 if self.addMode:
-                    self.removeNewFilm()
-
-                self.mapperPnt.setCurrentIndex(currIdxPnt)
-                self.mapperPol.setCurrentIndex(currIdxPol)
-                self.endEditMode()
-                return True
+                    self.removeNewSite()
+                    self.endEditMode()
+                    self.close()
+                    return True
+                else:
+                    self.mapper.setCurrentIndex(currIdx)
+                    self.endEditMode()
+                    return True
 
     def startEditMode(self):
         self.editMode = True
@@ -1011,6 +750,9 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             else:
                 editor.setStyleSheet("")
         self.editorsEdited = []
+
+    def isGeometrySaved(self):
+        return self.isGeometryEditingSaved and self.geometryEditing
 
     def showEvent(self, evnt):
         pass
@@ -1042,7 +784,7 @@ class SiteDelegate(QSqlRelationalDelegate):
             editor.setText(value)
 
         elif editor.metaObject().className() == 'QComboBox':
-            if index.column() == 23: #sicherheit
+            if index.column() == 25: #sicherheit
                 if value == '':
                     editor.setCurrentIndex(-1)
                 else:
@@ -1090,7 +832,7 @@ class SiteDelegate(QSqlRelationalDelegate):
         #elif (editor.metaObject().className() == 'QLineEdit' and editor.text()==''):
         #    model.setData(model.createIndex(index.row(), 0), None)
         elif editor.metaObject().className() == 'QComboBox':
-            if index.column() == 23: #sicherheit
+            if index.column() == 25: #sicherheit
                 model.setData(index, editor.currentIndex()+1)
             else:
                 model.setData(index, editor.currentText())

@@ -26,6 +26,7 @@
         "UPDATE fundstelle_pol SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = fundstelle_pol.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
         "UPDATE begehung SET fundortnummer = (SELECT fundort_pnt.fundortnummer FROM fundort_pnt WHERE fundort_pnt.fundortnummer_legacy = begehung.fundortnummer) WHERE fundortnummer IN (SELECT fundortnummer_legacy FROM fundort_pnt)",
         "UPDATE katastralgemeinden SET katastralgemeindenummer = (SELECT '0'|| kgs.katastralgemeindenummer FROM katastralgemeinden as kgs WHERE katastralgemeinden.katastralgemeindenummer = kgs.katastralgemeindenummer) WHERE length(katastralgemeindenummer) < 5",
-        "UPDATE fundstelle_pnt SET fundart = fundart_detail, fundart_detail = fundart WHERE datum_ersteintrag > '2013-01-01'"
+        "UPDATE fundstelle_pnt SET fundart = fundart_detail, fundart_detail = fundart WHERE datum_ersteintrag > '2013-01-01'",
+        "UPDATE begehung SET begehung = (SELECT COUNT(*) FROM begehung AS t2 WHERE t2.rowid <= begehung.rowid AND begehung.fundortnummer = t2.fundortnummer)"
     ]
 }

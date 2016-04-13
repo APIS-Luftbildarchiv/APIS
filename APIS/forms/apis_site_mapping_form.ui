@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>316</width>
-    <height>816</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,13 @@
           <widget class="QRadioButton" name="uiNewSiteNoRBtn">
            <property name="text">
             <string>nein</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="uiEditGeometryRBtn">
+           <property name="text">
+            <string>Geometrie Editieren</string>
            </property>
           </widget>
          </item>
@@ -74,20 +81,10 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QComboBox" name="comboBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="editable">
-            <bool>true</bool>
-           </property>
-          </widget>
+          <widget class="QLineEdit" name="uiFilmOrProjectEdit"/>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="uiCheckIfFilmBtn">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -111,9 +108,15 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="uiImageNumberEdit">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <property name="placeholderText">
+            <string/>
            </property>
           </widget>
          </item>
@@ -131,7 +134,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="uiMapPointAndSquareBtn">
            <property name="text">
             <string/>
            </property>
@@ -141,7 +144,7 @@
            </property>
            <property name="iconSize">
             <size>
-             <width>24</width>
+             <width>20</width>
              <height>24</height>
             </size>
            </property>
@@ -155,9 +158,15 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2">
-           <property name="text">
-            <string>200</string>
+          <widget class="QSpinBox" name="uiDiagonalSpn">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>9999</number>
+           </property>
+           <property name="value">
+            <number>200</number>
            </property>
           </widget>
          </item>
@@ -179,7 +188,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="uiMapPolygonAndPointBtn">
            <property name="text">
             <string/>
            </property>
@@ -189,7 +198,7 @@
            </property>
            <property name="iconSize">
             <size>
-             <width>24</width>
+             <width>20</width>
              <height>24</height>
             </size>
            </property>
@@ -225,6 +234,9 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
       <property name="title">
        <string>Fundort Manuell Angeben</string>
       </property>
@@ -239,21 +251,28 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="uiProvidedSiteNumberEdit">
+           <property name="text">
+            <string>AUT.</string>
+           </property>
+           <property name="placeholderText">
+            <string>AUT.</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="uiReplaceProvidedSiteBtn">
            <property name="text">
-            <string>Hinzufügen</string>
+            <string>Ersetzen</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_8">
+          <widget class="QPushButton" name="uiCancelManuallyEditingBtn">
            <property name="text">
             <string>Abbrechen</string>
            </property>
@@ -267,7 +286,7 @@
     <item>
      <widget class="QGroupBox" name="uiAddToSiteByIntersectionGrp">
       <property name="title">
-       <string>Besehende Fundorte im kartierten Bereich</string>
+       <string>Bestehende Fundorte im kartierten Bereich</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -280,34 +299,61 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_2"/>
+          <widget class="QComboBox" name="uiIntersectingSitesCombo"/>
          </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="uiAddToSelectedSiteBtn">
            <property name="text">
             <string>Hinzufügen</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_6">
+          <widget class="QPushButton" name="uiReplaceSelectedSiteBtn">
+           <property name="text">
+            <string>Ersetzen</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QPushButton" name="uiProvideSiteManuallyBtn">
            <property name="text">
             <string>Manuelle Eingabe</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_7">
+          <widget class="QPushButton" name="uiCancelSelectedEditingBtn">
            <property name="text">
             <string>Abbrechen</string>
            </property>
           </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="uiEditGeometryGrp">
+      <property name="title">
+       <string>Geometrie Editieren</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

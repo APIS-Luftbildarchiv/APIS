@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_image_selection_list_form.ui'
 #
-# Created: Fri Jan 08 10:53:53 2016
+# Created: Fri Mar 25 18:15:50 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,8 @@ class Ui_apisImageSelectionListDialog(object):
     def setupUi(self, apisImageSelectionListDialog):
         apisImageSelectionListDialog.setObjectName(_fromUtf8("apisImageSelectionListDialog"))
         apisImageSelectionListDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        apisImageSelectionListDialog.resize(841, 580)
+        apisImageSelectionListDialog.resize(829, 584)
+        apisImageSelectionListDialog.setModal(False)
         self.verticalLayout_2 = QtGui.QVBoxLayout(apisImageSelectionListDialog)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.horizontalLayout = QtGui.QHBoxLayout()

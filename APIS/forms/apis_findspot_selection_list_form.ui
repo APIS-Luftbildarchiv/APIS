@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>apisSiteSelectionListDialog</class>
- <widget class="QDialog" name="apisSiteSelectionListDialog">
+ <class>apisFindSpotSelectionListDialog</class>
+ <widget class="QDialog" name="apisFindSpotSelectionListDialog">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>764</width>
-    <height>508</height>
+    <width>800</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,7 +28,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>Fundorte Anzeigen</string>
+        <string>Fundstellen in QGIS laden</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
@@ -51,7 +51,7 @@
         <bool>true</bool>
        </property>
        <property name="text">
-        <string>Fundorte Export</string>
+        <string>Fundstellen Export</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">

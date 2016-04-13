@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>apisShardingDialog</class>
+ <widget class="QDialog" name="apisShardingDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>537</height>
+    <width>750</width>
+    <height>430</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,67 +19,6 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="3" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="uiInitalEntryLbl">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ersteintrag:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="uiInitalEntryDate">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(218, 218, 218);</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="displayFormat">
-        <string>dd.MM.yyyy</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="uiLastChangesLbl">
-       <property name="text">
-        <string>Letzte Bearbeitung:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="uiLastChangesDate">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(218, 218, 218);</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="displayFormat">
-        <string>dd.MM.yyyy</string>
-       </property>
-      </widget>
-     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -131,7 +73,7 @@
    <item row="2" column="0">
     <layout class="QHBoxLayout" name="uiBottomHorizontalLayout">
      <item>
-      <widget class="QPushButton" name="uiListSitesOfFilmBtn">
+      <widget class="QPushButton" name="uiPicturesBtn">
        <property name="text">
         <string>Fotos Anzeigen</string>
        </property>
@@ -141,8 +83,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>24</width>
+         <height>24</height>
         </size>
        </property>
        <property name="autoDefault">
@@ -151,7 +93,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="uiListImagesOfFilmBtn">
+      <widget class="QPushButton" name="uiSketchesBtn">
        <property name="text">
         <string>Skizzen Anzeigen</string>
        </property>
@@ -161,8 +103,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>24</width>
+         <height>24</height>
         </size>
        </property>
        <property name="autoDefault">
@@ -171,65 +113,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Zustand</string>
-     </property>
-     <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>Bewuchs:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>Licht:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_2"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>Boden:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_3"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>Feuchtigkeit:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="comboBox_4"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string>Abgeregnet:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QComboBox" name="comboBox_5"/>
-      </item>
-     </layout>
-    </widget>
    </item>
    <item row="0" column="1" rowspan="3">
     <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -241,7 +124,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+      <widget class="QPlainTextEdit" name="uiFindsPTxt"/>
      </item>
      <item>
       <widget class="QLabel" name="label_9">
@@ -251,7 +134,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit_3"/>
+      <widget class="QPlainTextEdit" name="uiMorphologyPTxt"/>
      </item>
      <item>
       <widget class="QLabel" name="label_10">
@@ -261,83 +144,127 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <widget class="QPlainTextEdit" name="uiMiscellaneousPTxt"/>
      </item>
     </layout>
    </item>
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <widget class="QDateEdit" name="dateEdit"/>
+     <item row="2" column="1">
+      <widget class="QDateEdit" name="uiShardingDate">
+       <property name="currentSection">
+        <enum>QDateTimeEdit::DaySection</enum>
+       </property>
+       <property name="displayFormat">
+        <string>dd.MM.yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Datum der Begehung:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QComboBox" name="comboBox_6"/>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="uiShardingTypeCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <item>
+        <property name="text">
+         <string>unsystematisch</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>intensiver Survey</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>extensiver Survey</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>keine Angabe</string>
+        </property>
+       </item>
+      </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Fundort:</string>
+        <string>Fundort Nummer:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QPlainTextEdit" name="plainTextEdit_4"/>
+     <item row="4" column="1">
+      <widget class="QPlainTextEdit" name="uiPlotPTxt"/>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>Name BearbeiterIn:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0" alignment="Qt::AlignTop">
+     <item row="4" column="0" alignment="Qt::AlignTop">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Parzelle:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="lineEdit_4"/>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="uiWhereaboutsEdit"/>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="uiSiteNumberEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(218, 218, 218);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>Verbleib:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Sichtbarkeit:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
         <string>Begehtyp:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="lineEdit_3"/>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="uiVisibilityEdit"/>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_2"/>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="uiNameEdit"/>
      </item>
-     <item row="1" column="2">
+     <item row="2" column="2">
       <widget class="QLabel" name="label_16">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 55, 55);</string>
@@ -346,6 +273,54 @@
         <string>*</string>
        </property>
       </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>Begehung:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="uiShardingNumberEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(218, 218, 218);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="uiConditionBtn">
+         <property name="text">
+          <string>Zustand:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPlainTextEdit" name="uiConditionPTxt"/>
      </item>
     </layout>
    </item>
