@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>870</width>
-    <height>490</height>
+    <height>520</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -793,10 +793,10 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="uiLeftGridLayout">
-    <item row="6" column="1">
+    <item row="7" column="1">
      <widget class="QLineEdit" name="uiMilitaryNumberEdit"/>
     </item>
-    <item row="4" column="2">
+    <item row="5" column="2">
      <widget class="QLabel" name="label_5">
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 55, 55);</string>
@@ -822,7 +822,7 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
+    <item row="4" column="2">
      <widget class="QLabel" name="label_3">
       <property name="styleSheet">
        <string notr="true">color: rgb(255, 55, 55);</string>
@@ -832,7 +832,7 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
+    <item row="5" column="1">
      <widget class="QComboBox" name="uiFilmModeCombo">
       <property name="enabled">
        <bool>false</bool>
@@ -861,17 +861,17 @@
       </item>
      </widget>
     </item>
-    <item row="7" column="1">
+    <item row="8" column="1">
      <widget class="QLineEdit" name="uiOldMilitaryNumberEdit"/>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QLabel" name="uiImageCountLbl">
       <property name="text">
        <string>Bildanzahl:</string>
       </property>
      </widget>
     </item>
-    <item row="7" column="0">
+    <item row="8" column="0">
      <widget class="QLabel" name="uiOldMilitaryNumberLbl">
       <property name="text">
        <string>Alte Mil. Nr.:</string>
@@ -885,14 +885,14 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <widget class="QLabel" name="uiFilmModeLbl">
       <property name="text">
        <string>Weise:</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="2">
+    <item row="3" column="0" colspan="2">
      <widget class="Line" name="line_2">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -906,49 +906,49 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0" colspan="2">
+    <item row="6" column="0" colspan="2">
      <widget class="Line" name="line_3">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="8" column="0" colspan="2">
+    <item row="9" column="0" colspan="2">
      <widget class="Line" name="line_4">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </item>
-    <item row="9" column="1">
+    <item row="10" column="1">
      <widget class="QComboBox" name="uiCopyrightCombo">
       <property name="editable">
        <bool>true</bool>
       </property>
      </widget>
     </item>
-    <item row="6" column="0">
+    <item row="7" column="0">
      <widget class="QLabel" name="uiMilitaryNumberLbl">
       <property name="text">
        <string>Militär Nr.:</string>
       </property>
      </widget>
     </item>
-    <item row="9" column="0">
+    <item row="10" column="0">
      <widget class="QLabel" name="uiCopyrightLbl">
       <property name="text">
        <string>Copyright:</string>
       </property>
      </widget>
     </item>
-    <item row="10" column="0">
+    <item row="11" column="0">
      <widget class="QLabel" name="uiProjectLbl">
       <property name="text">
        <string>Projekt(e):</string>
       </property>
      </widget>
     </item>
-    <item row="10" column="1">
+    <item row="11" column="1">
      <widget class="QComboBox" name="uiProjectSelectionCombo">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -961,7 +961,7 @@
       </property>
      </widget>
     </item>
-    <item row="10" column="2">
+    <item row="11" column="2">
      <widget class="QPushButton" name="uiAddProjectBtn">
       <property name="enabled">
        <bool>true</bool>
@@ -975,7 +975,7 @@
       </property>
      </widget>
     </item>
-    <item row="12" column="2">
+    <item row="13" column="2">
      <widget class="QPushButton" name="uiRemoveProjectBtn">
       <property name="enabled">
        <bool>true</bool>
@@ -1002,10 +1002,10 @@
       </property>
      </widget>
     </item>
-    <item row="12" column="0" rowspan="2" colspan="2">
+    <item row="13" column="0" rowspan="2" colspan="2">
      <widget class="QListWidget" name="uiProjectList"/>
     </item>
-    <item row="3" column="1">
+    <item row="4" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QLineEdit" name="uiImageCountEdit">
@@ -1027,6 +1027,20 @@
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="uiArchiveLbl">
+      <property name="text">
+       <string>Archiv:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="uiArchiveCombo">
+      <property name="editable">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

@@ -37,7 +37,7 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
         self.siteDlg = None
 
-    def loadSiteListBySpatialQuery(self, query=None):
+    def loadSiteListBySpatialQuery(self, query=None, info=None):
         if self.query == None:
             self.query = query
         self.model = QStandardItemModel()
@@ -64,6 +64,8 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         self.setupTable()
 
         self.uiImageCountLbl.setText(unicode(self.model.rowCount()))
+        if info != None:
+            self.uiInfoLbl.setText(info)
 
         return True
 

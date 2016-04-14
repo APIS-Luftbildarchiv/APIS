@@ -27,7 +27,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_9">
        <attribute name="title">
@@ -193,7 +193,7 @@
         <item>
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>Land:</string>
+           <string>Land (englisch):</string>
           </property>
          </widget>
         </item>

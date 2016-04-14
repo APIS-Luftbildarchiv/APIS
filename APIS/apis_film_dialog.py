@@ -883,10 +883,10 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             #FIXME Introduce Error System
             sys.exit()
         query = QSqlQuery(self.dbm.db)
-        query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, {0} WHERE fo.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = {0}.geometry))".format(fromTable, self.uiCurrentFilmNumberEdit.text()))
+        query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, {0} WHERE fo.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = {0}.geometry)) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(fromTable, self.uiCurrentFilmNumberEdit.text()))
         query.exec_()
-
-        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
+        info = u"gefunden, die vom Film {0} abgedeckt/geschnitten werden.".format(self.uiCurrentFilmNumberEdit.text())
+        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
             self.siteSelectionListDlg.show()
             if self.siteSelectionListDlg.exec_():

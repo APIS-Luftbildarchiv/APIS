@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_selection_list_form.ui'
 #
-# Created: Wed Apr 13 14:46:24 2016
+# Created: Thu Apr 14 19:47:52 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -68,19 +68,23 @@ class Ui_apisSiteSelectionListDialog(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.uiSiteListTableV = QtGui.QTableView(apisSiteSelectionListDialog)
         self.uiSiteListTableV.setGridStyle(QtCore.Qt.DotLine)
-        self.uiSiteListTableV.setSortingEnabled(True)
+        self.uiSiteListTableV.setSortingEnabled(False)
         self.uiSiteListTableV.setObjectName(_fromUtf8("uiSiteListTableV"))
         self.verticalLayout.addWidget(self.uiSiteListTableV)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.label = QtGui.QLabel(apisSiteSelectionListDialog)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName(_fromUtf8("label"))
-        self.horizontalLayout_2.addWidget(self.label)
         self.uiImageCountLbl = QtGui.QLabel(apisSiteSelectionListDialog)
         self.uiImageCountLbl.setAlignment(QtCore.Qt.AlignCenter)
         self.uiImageCountLbl.setObjectName(_fromUtf8("uiImageCountLbl"))
         self.horizontalLayout_2.addWidget(self.uiImageCountLbl)
+        self.label = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout_2.addWidget(self.label)
+        self.uiInfoLbl = QtGui.QLabel(apisSiteSelectionListDialog)
+        self.uiInfoLbl.setText(_fromUtf8(""))
+        self.uiInfoLbl.setObjectName(_fromUtf8("uiInfoLbl"))
+        self.horizontalLayout_2.addWidget(self.uiInfoLbl)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -94,7 +98,7 @@ class Ui_apisSiteSelectionListDialog(object):
         self.uiViewInterpretationBtn.setText(_translate("apisSiteSelectionListDialog", "Interpretation in QGIS laden", None))
         self.uiExportSitesBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte Export", None))
         self.uiExportListAsPdfBtn.setText(_translate("apisSiteSelectionListDialog", "PDF Export", None))
-        self.label.setText(_translate("apisSiteSelectionListDialog", "Fundorte:", None))
         self.uiImageCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
+        self.label.setText(_translate("apisSiteSelectionListDialog", "Fundorte", None))
 
 import resource_rc

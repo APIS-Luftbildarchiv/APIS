@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_form.ui'
 #
-# Created: Wed Mar 30 18:24:50 2016
+# Created: Thu Apr 14 21:52:44 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -512,7 +512,7 @@ class Ui_apisSearchDialog(object):
         apisSearchDialog.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(apisSearchDialog)
-        self.tabWidget_6.setCurrentIndex(1)
+        self.tabWidget_6.setCurrentIndex(0)
         self.tabWidget.setCurrentIndex(1)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(apisSearchDialog)
@@ -525,7 +525,7 @@ class Ui_apisSearchDialog(object):
         self.label_13.setText(_translate("apisSearchDialog", "Suche (Rechteck oder Punkt)", None))
         self.label.setText(_translate("apisSearchDialog", "Suche mit Vektor Feature (Selektion) aus Layer:", None))
         self.label_7.setText(_translate("apisSearchDialog", "KG-Name oder KG-Nummer (Österreich):", None))
-        self.label_8.setText(_translate("apisSearchDialog", "Land:", None))
+        self.label_8.setText(_translate("apisSearchDialog", "Land (englisch):", None))
         self.tabWidget_6.setTabText(self.tabWidget_6.indexOf(self.tab_9), _translate("apisSearchDialog", "Räumliche Suche", None))
         self.uiSearchDate.setDisplayFormat(_translate("apisSearchDialog", "dd.MM.yyyy", None))
         self.uiYearOnlyRBtn.setText(_translate("apisSearchDialog", "nur Jahr", None))
