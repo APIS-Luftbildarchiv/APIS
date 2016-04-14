@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>apisFindSpotDialog</class>
  <widget class="QDialog" name="apisFindSpotDialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +15,9 @@
   </property>
   <property name="windowTitle">
    <string>APIS Funstelle</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
@@ -29,7 +35,7 @@
      <item row="18" column="0">
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>Datierungsbasis:</string>
+        <string>Datierung Quelle:</string>
        </property>
       </widget>
      </item>
@@ -287,25 +293,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" colspan="4">
-      <widget class="QLineEdit" name="uiFindSpotNumberEdit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(218, 218, 218);</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="21" column="1" colspan="4">
       <widget class="QComboBox" name="uiCultureCombo">
        <property name="editable">
@@ -447,7 +434,7 @@
       </widget>
      </item>
      <item row="5" column="1" colspan="4">
-      <widget class="QLineEdit" name="uiFirstReportYearEdit_2">
+      <widget class="QLineEdit" name="uiFirstReportYearEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -574,6 +561,25 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="0" column="1" colspan="4">
+      <widget class="QLineEdit" name="uiFindSpotNumberEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(218, 218, 218);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

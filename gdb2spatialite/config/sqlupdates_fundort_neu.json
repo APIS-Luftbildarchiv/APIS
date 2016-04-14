@@ -5,6 +5,9 @@
         "SELECT CreateSpatialIndex('fundort', 'geometry')",
         "INSERT INTO fundstelle(fundortnummer, fundstellenummer, sicherheit, datierung, phase, datierungsbasis, kultur, fundart_detail, fundart, fundgewinnung_quelle, sonstiges, erstmeldung_jahr, datum_ersteintrag, datum_aenderung, bdanummer, erhaltung, bearbeiter, datum_abs_1, datum_abs_2, parzellennummern, gkx, gky, meridian, longitude, latitude, flaeche, aktion, aktionsdatum, aktionsuser, befund, literatur, kommentar_lage, fundverbleib, fundgeschichte, fundbeschreibung, geometry) SELECT fs_pnt.fundortnummer, fs_pnt.fundstellenummer, fs_pnt.sicherheit, fs_pnt.datierung, fs_pnt.phase, fs_pnt.datierungsbasis, fs_pnt.kultur, fs_pnt.fundart_detail, fs_pnt.fundart, fs_pnt.fundgewinnung_quelle, fs_pnt.sonstiges, fs_pnt.erstmeldung_jahr, fs_pnt.datum_ersteintrag, fs_pnt.datum_aenderung, fs_pnt.bdanummer, fs_pnt.erhaltung, fs_pnt.bearbeiter, fs_pnt.datum_abs_1, fs_pnt.datum_abs_2, fs_pnt.parzellennummern, fs_pnt.gkx, fs_pnt.gky, fs_pnt.meridian, fs_pnt.longitude, fs_pnt.latitude, fs_pnt.flaeche, fs_pnt.aktion, fs_pnt.aktionsdatum, fs_pnt.aktionsuser, fs_pnt.befund, fs_pnt.literatur, fs_pnt.kommentar_lage, fs_pnt.fundverbleib, fs_pnt.fundgeschichte, fs_pnt.fundbeschreibung, fs_pol.geometry FROM fundstelle_pnt fs_pnt, fundstelle_pol fs_pol WHERE fs_pol.fundortnummer = fs_pnt.fundortnummer AND fs_pol.fundstellenummer = fs_pnt.fundstellenummer",
         "SELECT RecoverGeometryColumn('fundstelle', 'geometry', 4312, 'POLYGON', 'XY')",
-        "SELECT CreateSpatialIndex('fundstelle', 'geometry')"
+        "SELECT CreateSpatialIndex('fundstelle', 'geometry')",
+        "UPDATE fundstelle SET phase_von = (SELECT substr(phase, 1, pos-1) FROM (SELECT *, instr(phase,'-') AS pos FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET phase_bis = (SELECT substr(phase, pos+1) FROM (SELECT *, instr(phase,'-') AS pos FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET geometry = (SELECT fundort.geometry FROM fundort WHERE fundort.fundortnummer = fundstelle.fundortnummer AND Area(fundort.geometry) <> Area(fundstelle.geometry))"
     ]
 }

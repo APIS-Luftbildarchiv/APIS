@@ -20,7 +20,6 @@ from apis_image_selection_list_dialog import *
 from apis_site_selection_list_dialog import *
 from apis_text_editor_dialog import *
 from apis_sharding_selection_list_dialog import *
-from apis_findspot_dialog import *
 
 from functools import partial
 import subprocess
@@ -36,12 +35,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/composer")
 # --------------------------------------------------------
 # Fundort - Eingabe, Pflege
 # --------------------------------------------------------
-from apis_site_form import *
+from apis_findspot_form import *
 
-class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
+class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
     #FIRST, PREV, NEXT, LAST = range(4)
-    siteEditsSaved = pyqtSignal(bool)
+    findSpotEditsSaved = pyqtSignal(bool)
 
     def __init__(self, iface, dbm):
         QDialog.__init__(self)
@@ -92,11 +91,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         #self.uiButtonBox.button(QDialogButtonBox.Cancel).setAutoDefault(False)
 
         # Setup Sub-Dialogs
-        self.findSpotDlg = None
         self.shardingDlg = None
-
-
-
 
 
         #self.setupComboBox(self.uiProjectSelectionCombo, "projekt", 0, None)
@@ -106,19 +101,22 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         self.initalLoad = False
 
-    def openInViewMode(self, siteNumber):
+    def openInViewMode(self, siteNumber, findSpotNumber):
         self.initalLoad = True
         self.siteNumber = siteNumber
+        self.findSpotNumber = findSpotNumber
 
         # Setup site model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
-        self.model.setTable("fundort")
-        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+        self.model.setTable("fundstelle")
+        self.model.setFilter("fundortnummer='{0}' AND fundstellenummer={1}".format(self.siteNumber, self.findSpotNumber))
         res = self.model.select()
+
+        #QMessageBox.warning(None, "Funstellen Row Count", u"{0}".format(self.model.rowCount()))
         self.setupMapper()
         self.mapper.toFirst()
 
-        self.setupFindSpotList()
+        #self.setupFindSpotList()
 
         self.initalLoad = False
 
@@ -171,67 +169,72 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     def setupMapper(self):
         self.mapper = QDataWidgetMapper(self)
         self.mapper.setSubmitPolicy(QDataWidgetMapper.ManualSubmit)
-        self.mapper.setItemDelegate(SiteDelegate())
+        self.mapper.setItemDelegate(FindSpotDelegate())
 
         self.mapper.setModel(self.model)
 
-        self.mandatoryEditors = [self.uiSiteDiscoveryCombo, self.uiSiteCreationCombo, self.uiSiteReliabilityCombo]
+        self.mandatoryEditors = [self.uiCaseWorkerEdit, self.uiFindSpotCreationCombo, self.uiSiteReliabilityCombo, self.uiDatingCombo, self.uiFindingTypeCombo]
 
         # LineEdits & PlainTextEdits
         self.intValidator = QIntValidator()
         self.doubleValidator = QDoubleValidator()
 
+        self.uiFindSpotNumberEdit.setText("{0}.{1}".format(self.siteNumber, self.findSpotNumber))
+        # From fundort: KG Nummer, KG Name, Flurname
+        self.uiCadastralCommunityNumberEdit.setText("")
+        self.uiCadastralCommunityEdit.setText("")
+        self.uiFieldNameEdit.setText("")
+
         self.lineEditMaps = {
-            "fundortnummer": {
-                "editor": self.uiSiteNumberEdit
+            "bearbeiter": {
+                "editor": self.uiCaseWorkerEdit
             },
-            "filmnummer_projekt": {
-                "editor": self.uiProjectOrFilmEdit
-            },
-            "katastralgemeindenummer":{
-                "editor": self.uiCadastralCommunityNumberEdit
-            },
-            "land":{
-                "editor": self.uiCountryEdit
-            },
-            "katastralgemeinde":{
-                "editor": self.uiCadastralCommunityEdit
-            },
-            "flurname":{
-                "editor": self.uiFieldNameEdit
-            },
-            "parzellennummern":{
-                "editor": self.uiPlotNumberEdit
-            },
-            "kommentar_lage":{
-                "editor": self.uiCommentEdit
-            },
-            "erstmeldung_jahr":{
+            "erstmeldung_jahr": {
                 "editor": self.uiFirstReportYearEdit,
                 "validator": self.intValidator
             },
-            "bildnummer": {
-                "editor": self.uiImagesEdit
+            "erhaltung": {
+                "editor": self.uiPreservationStateEdit
             },
-            "raster": {
-                "editor": self.uiRasterEdit
+            "parzellennummern": {
+                "editor": self.uiPlotNumberEdit
             },
-            "ortshoehe":{
-                "editor": self.uiElevationEdit,
-                "validator": self.doubleValidator
+            "bdanummer": {
+                "editor": self.uiBdaNumberEdit
             },
-            "flaeche":{
+            "kommentar_lage": {
+                "editor": self.uiCommentEdit
+            },
+            "flaeche": {
                 "editor": self.uiAreaEdit,
                 "validator": self.doubleValidator
+            },
+            "datum_abs_1": {
+               "editor": self.uiAbsoluteDatingFromEdit
+            },
+            "datum_abs_2": {
+                "editor": self.uiAbsoluteDatingToEdit
             },
             "literatur":{
                 "editor": self.uiLiteraturePTxt
             },
-            "detailinterpretation":{
-                "editor": self.uiDetailinterpretationPTxt
-            },
-            "befund": {
+            "fundbeschreibung":{
                 "editor": self.uiFindingsPTxt
+            },
+            "fundverbleib": {
+                "editor": self.uiFindingsPTxt
+            },
+
+            "sonstiges": {
+                "editor": self.uiFindingsPTxt
+            },
+
+            "fundgeschichte": {
+                "editor": self.uiFindingsPTxt
+            },
+
+            "befund": {
+                "editor": self.uiFindingsInterpretationPTxt
             }
         }
         for key, item in self.lineEditMaps.items():
@@ -253,15 +256,46 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         # ComboBox with Model
         self.comboBoxMaps = {
-            "fundgewinnung": {
-                "editor": self.uiSiteDiscoveryCombo,
-                "table": "fundgewinnung",
+            "fundgewinnung_quelle": {
+                "editor": self.uiFindSpotCreationCombo,
+                "table": "fundgewinnung_quelle",
                 "modelcolumn": 0,
                 "depend": None
             },
-            "fundgewinnung_quelle": {
-                "editor": self.uiSiteCreationCombo,
-                "table": "fundgewinnung_quelle",
+            "datierung": {
+                "editor": self.uiDatingCombo,
+                "table": "zeit",
+                "modelcolumn": 0,
+                "joincols": [0,1,2],
+                "depend": None
+            },
+            "phase_von": {
+                "editor": self.uiFineDatingFromCombo,
+                "table": "phase",
+                "modelcolumn": 1,
+                "depend": None
+            },
+            "phase_bis": {
+                 "editor": self.uiFineDatingToCombo,
+                 "table": "phase",
+                 "modelcolumn": 1,
+                 "depend": None
+            },
+            "kultur": {
+                "editor": self.uiCultureCombo,
+                "table": "kultur",
+                "modelcolumn": 0,
+                "depend": None
+            },
+            "fundart": {
+                "editor": self.uiFindingTypeCombo,
+                "table": "fundart",
+                "modelcolumn": 0,
+                "depend": None
+            },
+            "fundart_detail": {
+                "editor": self.uiFindingTypeDetailCombo,
+                "table": "fundart",
                 "modelcolumn": 0,
                 "depend": None
             }
@@ -346,24 +380,6 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.uiFindSpotListTableV.resizeColumnsToContents()
         self.uiFindSpotListTableV.resizeRowsToContents()
         self.uiFindSpotListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
-
-        self.uiFindSpotListTableV.doubleClicked.connect(self.openFindSpotDialog)
-
-    def openFindSpotDialog(self, idx):
-        findSpotNumber = self.uiFindSpotListTableV.model().item(idx.row(), 0).text()
-        siteNumber = self.uiSiteNumberEdit.text()
-        if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm)
-            #self.siteDlg.siteEditsSaved.connect(self.reloadTable)
-        self.findSpotDlg.openInViewMode(siteNumber, findSpotNumber)
-        self.findSpotDlg.show()
-        # Run the dialog event loop
-
-        if self.findSpotDlg.exec_():
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
-            # QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"For Site: {0}".format(siteNumber)))
 
 
     def enableItemsInLayout(self, layout, enable):
@@ -753,7 +769,6 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     def startEditMode(self):
         self.editMode = True
-        self.uiFindSpotGrp.setEnabled(False)
         self.enableItemsInLayout(self.uiBottomHorizontalLayout, False)
         self.uiOkBtn.setEnabled(False)
         self.uiSaveBtn.setEnabled(True)
@@ -763,7 +778,6 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     def endEditMode(self):
         self.editMode = False
         self.addMode = False
-        self.uiFindSpotGrp.setEnabled(True)
         self.enableItemsInLayout(self.uiBottomHorizontalLayout, True)
         self.uiOkBtn.setEnabled(True)
         self.uiSaveBtn.setEnabled(False)
@@ -785,7 +799,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         #while (self.model.canFetchMore()):
         #    self.model.fetchMore()
 
-class SiteDelegate(QSqlRelationalDelegate):
+class FindSpotDelegate(QSqlRelationalDelegate):
     def __init__(self):
        QSqlRelationalDelegate.__init__(self)
 
@@ -809,7 +823,7 @@ class SiteDelegate(QSqlRelationalDelegate):
             editor.setText(value)
 
         elif editor.metaObject().className() == 'QComboBox':
-            if index.column() == 25: #sicherheit
+            if index.column() == 2: #sicherheit
                 if value == '':
                     editor.setCurrentIndex(-1)
                 else:
@@ -857,7 +871,7 @@ class SiteDelegate(QSqlRelationalDelegate):
         #elif (editor.metaObject().className() == 'QLineEdit' and editor.text()==''):
         #    model.setData(model.createIndex(index.row(), 0), None)
         elif editor.metaObject().className() == 'QComboBox':
-            if index.column() == 25: #sicherheit
+            if index.column() == 2: #sicherheit
                 model.setData(index, editor.currentIndex()+1)
             else:
                 model.setData(index, editor.currentText())

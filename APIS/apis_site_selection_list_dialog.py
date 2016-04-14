@@ -31,12 +31,15 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
+        self.query = None
+
         self.uiSiteListTableV.doubleClicked.connect(self.openSiteDialog)
 
         self.siteDlg = None
 
     def loadSiteListBySpatialQuery(self, query=None):
-
+        if self.query == None:
+            self.query = query
         self.model = QStandardItemModel()
         while query.next():
             newRow = []
@@ -60,12 +63,14 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
         self.setupTable()
 
+        self.uiImageCountLbl.setText(unicode(self.model.rowCount()))
+
         return True
 
     def setupTable(self):
-        proxy = SiteNumberSortModel()
-        proxy.setSourceModel(self.model)
-        self.model.sort(0, Qt.AscendingOrder)
+        #proxy = SiteNumberSortModel()
+        #proxy.setSourceModel(self.model)
+        #self.model.sort(0, Qt.AscendingOrder)
         self.uiSiteListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.uiSiteListTableV.setModel(self.model)
         self.uiSiteListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -78,6 +83,7 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
         siteNumber = self.model.item(idx.row(), 0).text()
         if self.siteDlg == None:
             self.siteDlg = ApisSiteDialog(self.iface, self.dbm)
+            self.siteDlg.siteEditsSaved.connect(self.reloadTable)
         self.siteDlg.openInViewMode(siteNumber)
         self.siteDlg.show()
         # Run the dialog event loop
@@ -87,6 +93,11 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
             # substitute with your code.
             pass
         #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"For Site: {0}".format(siteNumber)))
+
+    def reloadTable(self, editsSaved):
+        self.query.exec_()
+        self.loadSiteListBySpatialQuery(self.query)
+        #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"Reload Table Now"))
 
 class SiteNumberSortModel(QSortFilterProxyModel):
 

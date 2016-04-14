@@ -26,6 +26,14 @@
             "type": "String"
         },
         {
+            "targetname": "phase_von",
+            "type": "String"
+        },
+        {
+            "targetname": "phase_bis",
+            "type": "String"
+        },
+        {
             "targetname": "datierungsbasis",
             "type": "String"
         },

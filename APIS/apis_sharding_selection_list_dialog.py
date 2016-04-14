@@ -20,11 +20,10 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 from apis_sharding_selection_list_form import *
 
 class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
-        self.imageRegistry = imageRegistry
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
@@ -77,7 +76,7 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
 
     def openShardingDialog(self, idx):
         shardingNumber = self.model.item(idx.row(), 0).text()
-        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm, self.imageRegistry)
+        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm)
         self.shardingDlg.openSharding(self.siteNumber, shardingNumber)
         # Run the dialog event loop
         res = self.shardingDlg.exec_()
@@ -87,7 +86,7 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
         QMessageBox.warning(None, "test", u"{0}".format(res))
 
     def addNewSharding(self):
-        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm, self.imageRegistry)
+        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm)
         # Run the dialog event loop
         self.shardingDlg.addNewSharding(self.siteNumber)
         res = self.shardingDlg.exec_()

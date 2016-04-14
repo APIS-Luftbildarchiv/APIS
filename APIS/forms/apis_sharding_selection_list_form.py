@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_sharding_selection_list_form.ui'
 #
-# Created: Sat Mar 26 20:47:22 2016
+# Created: Wed Apr 13 14:46:24 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,6 +52,19 @@ class Ui_apisShardingSelectionListDialog(object):
         self.uiShardingListTableV = QtGui.QTableView(apisShardingSelectionListDialog)
         self.uiShardingListTableV.setObjectName(_fromUtf8("uiShardingListTableV"))
         self.verticalLayout.addWidget(self.uiShardingListTableV)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.label_2 = QtGui.QLabel(apisShardingSelectionListDialog)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.horizontalLayout_2.addWidget(self.label_2)
+        self.uiShardingCountLbl = QtGui.QLabel(apisShardingSelectionListDialog)
+        self.uiShardingCountLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.uiShardingCountLbl.setObjectName(_fromUtf8("uiShardingCountLbl"))
+        self.horizontalLayout_2.addWidget(self.uiShardingCountLbl)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.retranslateUi(apisShardingSelectionListDialog)
         QtCore.QMetaObject.connectSlotsByName(apisShardingSelectionListDialog)
@@ -61,5 +74,7 @@ class Ui_apisShardingSelectionListDialog(object):
         self.label.setText(_translate("apisShardingSelectionListDialog", "Fundort Nummer: ", None))
         self.uiSiteNumberLbl.setText(_translate("apisShardingSelectionListDialog", "---", None))
         self.uiNewShardingBtn.setText(_translate("apisShardingSelectionListDialog", "Neue Begehung", None))
+        self.label_2.setText(_translate("apisShardingSelectionListDialog", "Begehungen:", None))
+        self.uiShardingCountLbl.setText(_translate("apisShardingSelectionListDialog", "0", None))
 
 import resource_rc

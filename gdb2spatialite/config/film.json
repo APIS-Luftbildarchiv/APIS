@@ -28,6 +28,10 @@
         },
         {
             "targetname": "hersteller",
+            "type": "String"
+        },
+        {
+            "targetname": "archiv",
             "sourcename": "NEG_AUF",
             "type": "String"
         },
