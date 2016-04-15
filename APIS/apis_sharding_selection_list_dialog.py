@@ -27,16 +27,19 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
+        self.siteNumber = None
+
         self.uiShardingListTableV.doubleClicked.connect(self.openShardingDialog)
         self.uiNewShardingBtn.clicked.connect(self.addNewSharding)
 
     def loadShardingListBySiteNumber(self, siteNumber=None):
-        self.siteNumber = siteNumber
+        if self.siteNumber == None:
+            self.siteNumber = siteNumber
         self.uiSiteNumberLbl.setText(self.siteNumber)
         if self.siteNumber:
             query = QSqlQuery(self.dbm.db)
-            qryStr = "SELECT begehung, jahr, datum, jahreszeit, name, begehtyp, parzelle, funde FROM begehung WHERE fundortnummer = '{0}' ORDER BY rowid".format(self.siteNumber)
-            query.exec_(qryStr)
+            query.prepare("SELECT begehung, jahr, datum, jahreszeit, name, begehtyp, parzelle, funde FROM begehung WHERE fundortnummer = '{0}' ORDER BY rowid".format(self.siteNumber))
+            query.exec_()
 
             self.model = QStandardItemModel()
             while query.next():
@@ -83,7 +86,7 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
         if res:
             # reload the table after closing
             self.loadShardingListBySiteNumber(self.siteNumber)
-        QMessageBox.warning(None, "test", u"{0}".format(res))
+        #MessageBox.warning(None, "test", u"{0}".format(res))
 
     def addNewSharding(self):
         self.shardingDlg = ApisShardingDialog(self.iface, self.dbm)
@@ -93,4 +96,4 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
         if res:
             # reload the table after closing
             self.loadShardingListBySiteNumber(self.siteNumber)
-        QMessageBox.warning(None, "test", u"{0}".format(res))
+        #QMessageBox.warning(None, "test", u"{0}".format(res))

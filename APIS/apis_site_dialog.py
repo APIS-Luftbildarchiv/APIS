@@ -95,8 +95,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.findSpotDlg = None
         self.shardingDlg = None
 
-
-
+        self.uiLoadSiteInQGisBtn.clicked.connect(self.loadSiteInQGis)
 
 
         #self.setupComboBox(self.uiProjectSelectionCombo, "projekt", 0, None)
@@ -784,6 +783,17 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         #self.model.select()
         #while (self.model.canFetchMore()):
         #    self.model.fetchMore()
+
+    def loadSiteInQGis(self):
+        siteNumber = self.uiSiteNumberEdit.text()
+        uri = QgsDataSourceURI()
+        uri.setDatabase(self.dbm.db.databaseName())
+        uri.setDataSource('', 'fundort', 'geometry')
+
+        siteLayer = QgsVectorLayer(uri.uri(), 'fundort {0}'.format(siteNumber), 'spatialite')
+        siteLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
+
+        QgsMapLayerRegistry.instance().addMapLayer(siteLayer)
 
 class SiteDelegate(QSqlRelationalDelegate):
     def __init__(self):

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_selection_list_form.ui'
 #
-# Created: Thu Apr 14 19:47:52 2016
+# Created: Fri Apr 15 10:41:28 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,7 +33,7 @@ class Ui_apisSiteSelectionListDialog(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.uiViewSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiViewSitesBtn.setEnabled(True)
+        self.uiViewSitesBtn.setEnabled(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiViewSitesBtn.setIcon(icon)
@@ -42,7 +42,7 @@ class Ui_apisSiteSelectionListDialog(object):
         self.uiViewSitesBtn.setObjectName(_fromUtf8("uiViewSitesBtn"))
         self.horizontalLayout.addWidget(self.uiViewSitesBtn)
         self.uiViewInterpretationBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiViewInterpretationBtn.setEnabled(True)
+        self.uiViewInterpretationBtn.setEnabled(False)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/extractgps.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiViewInterpretationBtn.setIcon(icon1)
@@ -51,13 +51,14 @@ class Ui_apisSiteSelectionListDialog(object):
         self.uiViewInterpretationBtn.setObjectName(_fromUtf8("uiViewInterpretationBtn"))
         self.horizontalLayout.addWidget(self.uiViewInterpretationBtn)
         self.uiExportSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiExportSitesBtn.setEnabled(True)
+        self.uiExportSitesBtn.setEnabled(False)
         self.uiExportSitesBtn.setIcon(icon1)
         self.uiExportSitesBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiExportSitesBtn.setAutoDefault(False)
         self.uiExportSitesBtn.setObjectName(_fromUtf8("uiExportSitesBtn"))
         self.horizontalLayout.addWidget(self.uiExportSitesBtn)
         self.uiExportListAsPdfBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
+        self.uiExportListAsPdfBtn.setEnabled(False)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/print.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiExportListAsPdfBtn.setIcon(icon2)

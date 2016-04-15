@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_form.ui'
 #
-# Created: Wed Apr 13 14:46:24 2016
+# Created: Fri Apr 15 10:51:40 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -203,6 +203,7 @@ class Ui_apisSiteDialog(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.uiAddNewFindSpotBtn = QtGui.QPushButton(self.uiFindSpotGrp)
+        self.uiAddNewFindSpotBtn.setEnabled(False)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/add.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiAddNewFindSpotBtn.setIcon(icon)
@@ -248,13 +249,13 @@ class Ui_apisSiteDialog(object):
         self.uiShowInterpretationBtn.setAutoDefault(False)
         self.uiShowInterpretationBtn.setObjectName(_fromUtf8("uiShowInterpretationBtn"))
         self.uiBottomHorizontalLayout.addWidget(self.uiShowInterpretationBtn)
-        self.pushButton = QtGui.QPushButton(apisSiteDialog)
+        self.uiLoadSiteInQGisBtn = QtGui.QPushButton(apisSiteDialog)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/sites.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon2)
-        self.pushButton.setIconSize(QtCore.QSize(30, 30))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.uiBottomHorizontalLayout.addWidget(self.pushButton)
+        self.uiLoadSiteInQGisBtn.setIcon(icon2)
+        self.uiLoadSiteInQGisBtn.setIconSize(QtCore.QSize(30, 30))
+        self.uiLoadSiteInQGisBtn.setObjectName(_fromUtf8("uiLoadSiteInQGisBtn"))
+        self.uiBottomHorizontalLayout.addWidget(self.uiLoadSiteInQGisBtn)
         self.uiListImagesOfSiteBtn = QtGui.QPushButton(apisSiteDialog)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -372,7 +373,7 @@ class Ui_apisSiteDialog(object):
         self.label_16.setText(_translate("apisSiteDialog", "Repräsentatives Luftbild:", None))
         self.uiShowInterpretationBtn.setToolTip(_translate("apisSiteDialog", "Flugweg des Filmes in QGIS anzeigen", None))
         self.uiShowInterpretationBtn.setText(_translate("apisSiteDialog", "Interpretation in QGIS laden", None))
-        self.pushButton.setText(_translate("apisSiteDialog", "Fundort in QGIS laden", None))
+        self.uiLoadSiteInQGisBtn.setText(_translate("apisSiteDialog", "Fundort in QGIS laden", None))
         self.uiListImagesOfSiteBtn.setText(_translate("apisSiteDialog", "Luftbilder", None))
         self.uiListShardingsOfSiteBtn.setText(_translate("apisSiteDialog", "Begehung", None))
         self.uiExportPdfBtn.setText(_translate("apisSiteDialog", "PDF exportieren", None))

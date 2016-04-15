@@ -181,9 +181,14 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         self.uiFindSpotNumberEdit.setText("{0}.{1}".format(self.siteNumber, self.findSpotNumber))
         # From fundort: KG Nummer, KG Name, Flurname
-        self.uiCadastralCommunityNumberEdit.setText("")
-        self.uiCadastralCommunityEdit.setText("")
-        self.uiFieldNameEdit.setText("")
+        query = QSqlQuery(self.dbm.db)
+        query.prepare("SELECT katastralgemeindenummer, katastralgemeinde, flurname FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber))
+        query.exec_()
+        query.first()
+
+        self.uiCadastralCommunityNumberEdit.setText(unicode(query.value(0)))
+        self.uiCadastralCommunityEdit.setText(unicode(query.value(1)))
+        self.uiFieldNameEdit.setText(unicode(query.value(2)))
 
         self.lineEditMaps = {
             "bearbeiter": {
@@ -280,6 +285,12 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                  "table": "phase",
                  "modelcolumn": 1,
                  "depend": None
+            },
+            "datierungsbasis": {
+                "editor": self.uiDatingSourceCombo,
+                "table": "datierung_quelle",
+                "modelcolumn": 0,
+                "depend": None
             },
             "kultur": {
                 "editor": self.uiCultureCombo,
@@ -438,8 +449,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
     def openShardingSelectionListDialog(self):
         #if self.shardingDlg == None:
         self.shardingDlg = ApisShardingSelectionListDialog(self.iface, self.dbm)
-        siteNumber = self.uiSiteNumberEdit.text()
-        self.shardingDlg.loadShardingListBySiteNumber(siteNumber)
+        self.shardingDlg.loadShardingListBySiteNumber(self.siteNumber)
         if self.shardingDlg.exec_():
             pass
             #self.shardingDlg = None

@@ -132,6 +132,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
                     self.imageSelectionListDlg.show()
                     if self.imageSelectionListDlg.exec_():
                         pass
+
             elif self.uiSearchSiteRBtn.isChecked():
                 # Fundortsuche
                 # old query (pnt/pol)
@@ -147,17 +148,18 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
                     self.siteSelectionListDlg.show()
                     if self.siteSelectionListDlg.exec_():
                         pass
+
             elif self.uiSearchFindspotRBtn.isChecked():
                 #Fundstellensuche
-                pass
-                query.prepare("SELECT fundrotnummer, fundstellenummer, datierung, fundart, fundart_detail, sicherheit, kultur FROM fundstelle WHERE fundortnummer || '.' || fundstellenummer as id1 IN (SELECT DISTINCT fs.fundortnummer || '.' || fs.fundstellenummer as id2 FROM fundstelle fs WHERE NOT IsEmpty(fs.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fs.geometry) AND fs.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}',{1}) ) )".format(searchGeometry.exportToWkt(), epsg))
+                query.prepare("SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst WHERE NOT IsEmpty(fst.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}', {1}), fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}', {1}))) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(searchGeometry.exportToWkt(), epsg))
+                #query.prepare("SELECT fundortnummer, fundstellenummer, datierung, fundart, fundart_detail, sicherheit, kultur FROM fundstelle WHERE (fundortnummer || '.' || fundstellenummer) as id1 IN (SELECT DISTINCT (fs.fundortnummer || '.' || fs.fundstellenummer) as id2 FROM fundstelle fs WHERE NOT IsEmpty(fs.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fs.geometry) AND fs.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}',{1}) ) )".format(searchGeometry.exportToWkt(), epsg))
                 query.exec_()
-                #self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm)
-                #res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
-                #if res:
-                #    self.findSpotSelectionListDlg.show()
-                #    if self.findSpotSelectionListDlg.exec_():
-                #        pass
+                self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm)
+                res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
+                if res:
+                    self.findSpotSelectionListDlg.show()
+                    if self.findSpotSelectionListDlg.exec_():
+                        pass
 
             #QMessageBox.warning(None, "Query", "Query finished")
 
@@ -186,9 +188,9 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         query = QSqlQuery(self.dbm.db)
 
         if likeSearch:
-            ccSearchStr = u"SELECT Transform(geometry, {1}) as geometry FROM katastralgemeinden WHERE katastralgemeindenummer LIKE '{0}' OR katastralgemeindename LIKE '{0}' AND NOT IsEmpty(geometry)".format(searchValuesStr.replace("'", "%"), epsg)
+            ccSearchStr = u"SELECT Transform(kg.geometry, {1}) as geometry FROM katastralgemeinden kg WHERE kg.katastralgemeindenummer LIKE '{0}' OR kg.katastralgemeindename LIKE '{0}' AND NOT IsEmpty(kg.geometry)".format(searchValuesStr.replace("'", "%"), epsg)
         else:
-            ccSearchStr = u"SELECT Transform(geometry, {1}) as geometry FROM katastralgemeinden WHERE katastralgemeindenummer IN ({0}) OR katastralgemeindename IN ({0}) AND NOT IsEmpty(geometry)".format(searchValuesStr, epsg)
+            ccSearchStr = u"SELECT Transform(kg.geometry, {1}) as geometry FROM katastralgemeinden kg WHERE kg.katastralgemeindenummer IN ({0}) OR kg.katastralgemeindename IN ({0}) AND NOT IsEmpty(kg.geometry)".format(searchValuesStr, epsg)
 
         #QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(ccSearchStr))
 
@@ -208,13 +210,23 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             # qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol WHERE NOT IsEmpty(fundort_pol.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY SUBSTR(fundortnummer, 0, 3), CAST(SUBSTR(fundortnummer, 5) AS INTEGER)".format(searchGeometry.exportToWkt(), epsg)
             query.prepare(u"SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, ({0}) cc WHERE NOT IsEmpty(fo.geometry) AND Intersects(cc.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = cc.geometry ) ) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(ccSearchStr))
             query.exec_()
-
             self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm)
             #info = u"gefunden, die von den selektierten Features aus dem Layer '{0}' abgedeckt/geschnitten werden.".format(vlayer.name())
             res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
             if res:
                 self.siteSelectionListDlg.show()
                 if self.siteSelectionListDlg.exec_():
+                    pass
+
+        elif self.uiSearchFindspotRBtn.isChecked():
+            #Fundstellen
+            query.prepare(u"SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst, ({0}) cc WHERE NOT IsEmpty(fst.geometry) AND Intersects(cc.geometry, fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = cc.geometry)) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(ccSearchStr))
+            query.exec_()
+            self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm)
+            res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
+            if res:
+                self.findSpotSelectionListDlg.show()
+                if self.findSpotSelectionListDlg.exec_():
                     pass
 
 

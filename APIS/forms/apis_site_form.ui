@@ -375,6 +375,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="uiAddNewFindSpotBtn">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Neue Fundstelle</string>
           </property>
@@ -468,7 +471,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="uiLoadSiteInQGisBtn">
        <property name="text">
         <string>Fundort in QGIS laden</string>
        </property>

@@ -10,7 +10,7 @@ from PyQt4.QtXml import *
 from qgis.core import *
 
 from apis_db_manager import *
-from apis_site_dialog import *
+from apis_findspot_dialog import *
 from functools import partial
 
 import sys
@@ -19,11 +19,11 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 # --------------------------------------------------------
 # Film - Eingabe, Pflege
 # --------------------------------------------------------
-from apis_site_selection_list_form import *
+from apis_findspot_selection_list_form import *
 from functools import partial
 import subprocess
 
-class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
+class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialog):
     def __init__(self, iface, dbm):
         QDialog.__init__(self)
         self.iface = iface
@@ -33,11 +33,11 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
         self.query = None
 
-        self.uiSiteListTableV.doubleClicked.connect(self.openSiteDialog)
+        self.uiFindSpotListTableV.doubleClicked.connect(self.openFindSpotDialog)
 
-        self.siteDlg = None
+        self.findSpotDlg = None
 
-    def loadSiteListBySpatialQuery(self, query=None, info=None):
+    def loadFindSpotListBySpatialQuery(self, query=None, info=None):
         if self.query == None:
             self.query = query
         self.model = QStandardItemModel()
@@ -49,13 +49,13 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
                     value = ''
                 else:
                     value = rec.value(col)
-                newCol = QStandardItem(value)
+                newCol = QStandardItem(unicode(value))
                 newRow.append(newCol)
 
             self.model.appendRow(newRow)
 
         if self.model.rowCount() < 1:
-            QMessageBox.warning(None, "Fundort Auswahl", u"Es wurden keine Fundorte gefunden!")
+            QMessageBox.warning(None, "Fundstellen Auswahl", u"Es wurden keine Fundstellen gefunden!")
             return False
 
         for col in range(rec.count()):
@@ -63,31 +63,32 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
         self.setupTable()
 
-        self.uiImageCountLbl.setText(unicode(self.model.rowCount()))
+        self.uiFindSpotCountLbl.setText(unicode(self.model.rowCount()))
         if info != None:
             self.uiInfoLbl.setText(info)
 
         return True
 
     def setupTable(self):
-        self.uiSiteListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.uiSiteListTableV.setModel(self.model)
-        self.uiSiteListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.uiSiteListTableV.resizeColumnsToContents()
-        self.uiSiteListTableV.resizeRowsToContents()
-        self.uiSiteListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        self.uiFindSpotListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.uiFindSpotListTableV.setModel(self.model)
+        self.uiFindSpotListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.uiFindSpotListTableV.resizeColumnsToContents()
+        self.uiFindSpotListTableV.resizeRowsToContents()
+        self.uiFindSpotListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
 
-    def openSiteDialog(self, idx):
+    def openFindSpotDialog(self, idx):
+        findSpotNumber = self.model.item(idx.row(), 1).text()
         siteNumber = self.model.item(idx.row(), 0).text()
-        if self.siteDlg == None:
-            self.siteDlg = ApisSiteDialog(self.iface, self.dbm)
-            self.siteDlg.siteEditsSaved.connect(self.reloadTable)
-        self.siteDlg.openInViewMode(siteNumber)
-        self.siteDlg.show()
+        if self.findSpotDlg == None:
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm)
+            self.findSpotDlg.findSpotEditsSaved.connect(self.reloadTable)
+        self.findSpotDlg.openInViewMode(siteNumber, findSpotNumber)
+        self.findSpotDlg.show()
         # Run the dialog event loop
 
-        if self.siteDlg.exec_():
+        if self.findSpotDlg.exec_():
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
@@ -95,5 +96,5 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
     def reloadTable(self, editsSaved):
         self.query.exec_()
-        self.loadSiteListBySpatialQuery(self.query)
+        self.loadFindSpotListBySpatialQuery(self.query)
         #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"Reload Table Now"))

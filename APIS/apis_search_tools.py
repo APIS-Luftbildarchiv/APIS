@@ -8,6 +8,7 @@ from qgis.gui import *
 from apis_image_selection_list_dialog import *
 from apis_site_selection_list_dialog import *
 from apis_image_registry import *
+from apis_findspot_selection_list_dialog import *
 
 import traceback
 import time
@@ -33,6 +34,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
 
         self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
         self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm)
+        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm)
 
         self.worker = None
 
@@ -102,10 +104,20 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         self.rubberBand.hide()
 
     def openSiteSelectionListDialogByLocation(self, query):
-        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
+        info = u"gefunden für den ausgewählten Bereich."
+        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
             self.siteSelectionListDlg.show()
             if self.siteSelectionListDlg.exec_():
+                pass
+
+        self.rubberBand.hide()
+
+    def openFindSpotSelectionListDialogByLocation(self, query):
+        res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
+        if res:
+            self.findSpotSelectionListDlg.show()
+            if self.findSpotSelectionListDlg.exec_():
                 pass
 
         self.rubberBand.hide()
@@ -198,7 +210,7 @@ class RectangleMapTool(QgsMapToolEmitPoint):
                 elif topic == 'site':
                     self.openSiteSelectionListDialogByLocation(query)
                 elif topic == 'findspot':
-                    pass
+                    self.openFindSpotSelectionListDialogByLocation(query)
             else:
                 self.rubberBand.hide()
             #self.iface.messageBar().pushMessage('Result')
@@ -230,9 +242,9 @@ class Worker(QtCore.QObject):
                 query.prepare("select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(self.geometryWkt, epsg))
             elif self.topic == 'site':
                 query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo WHERE NOT IsEmpty(fo.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(self.geometryWkt, epsg))
-            elif self.topic == "findspot":
-                query.prepare("")
-                self.kill()
+            elif self.topic == 'findspot':
+                query.prepare("SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst WHERE NOT IsEmpty(fst.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}', {1}), fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}', {1}))) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(self.geometryWkt, epsg))
+                #self.kill()
             query.exec_()
         except Exception, e:
             # forward the exception upstream
