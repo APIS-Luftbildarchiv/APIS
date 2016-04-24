@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_form.ui'
 #
-# Created: Fri Apr 15 10:51:40 2016
+# Created: Tue Apr 19 08:45:43 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -220,15 +220,20 @@ class Ui_apisSiteDialog(object):
         self.uiFindSpotListTableV.verticalHeader().setVisible(False)
         self.verticalLayout_4.addWidget(self.uiFindSpotListTableV)
         self.gridLayout_2.addWidget(self.uiFindSpotGrp, 1, 0, 1, 2)
-        self.verticalLayout_5 = QtGui.QVBoxLayout()
-        self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
+        self.uiMapCanvasVLayout = QtGui.QVBoxLayout()
+        self.uiMapCanvasVLayout.setObjectName(_fromUtf8("uiMapCanvasVLayout"))
         self.label_15 = QtGui.QLabel(apisSiteDialog)
         self.label_15.setObjectName(_fromUtf8("label_15"))
-        self.verticalLayout_5.addWidget(self.label_15)
-        self.uiSiteMapView = QtGui.QGraphicsView(apisSiteDialog)
-        self.uiSiteMapView.setObjectName(_fromUtf8("uiSiteMapView"))
-        self.verticalLayout_5.addWidget(self.uiSiteMapView)
-        self.gridLayout_2.addLayout(self.verticalLayout_5, 1, 2, 1, 1)
+        self.uiMapCanvasVLayout.addWidget(self.label_15)
+        self.uiSiteMapCanvas = QgsMapCanvas(apisSiteDialog)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.uiSiteMapCanvas.sizePolicy().hasHeightForWidth())
+        self.uiSiteMapCanvas.setSizePolicy(sizePolicy)
+        self.uiSiteMapCanvas.setObjectName(_fromUtf8("uiSiteMapCanvas"))
+        self.uiMapCanvasVLayout.addWidget(self.uiSiteMapCanvas)
+        self.gridLayout_2.addLayout(self.uiMapCanvasVLayout, 1, 2, 1, 1)
         self.verticalLayout_6 = QtGui.QVBoxLayout()
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.label_16 = QtGui.QLabel(apisSiteDialog)
@@ -338,6 +343,40 @@ class Ui_apisSiteDialog(object):
         self.retranslateUi(apisSiteDialog)
         self.uiSiteReliabilityCombo.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(apisSiteDialog)
+        apisSiteDialog.setTabOrder(self.uiSiteNumberEdit, self.uiCountryEdit)
+        apisSiteDialog.setTabOrder(self.uiCountryEdit, self.uiCadastralCommunityEdit)
+        apisSiteDialog.setTabOrder(self.uiCadastralCommunityEdit, self.uiCadastralCommunityNumberEdit)
+        apisSiteDialog.setTabOrder(self.uiCadastralCommunityNumberEdit, self.uiProjectOrFilmEdit)
+        apisSiteDialog.setTabOrder(self.uiProjectOrFilmEdit, self.uiSiteDiscoveryCombo)
+        apisSiteDialog.setTabOrder(self.uiSiteDiscoveryCombo, self.uiSiteCreationCombo)
+        apisSiteDialog.setTabOrder(self.uiSiteCreationCombo, self.uiFirstReportYearEdit)
+        apisSiteDialog.setTabOrder(self.uiFirstReportYearEdit, self.uiImagesEdit)
+        apisSiteDialog.setTabOrder(self.uiImagesEdit, self.uiRasterEdit)
+        apisSiteDialog.setTabOrder(self.uiRasterEdit, self.uiAreaEdit)
+        apisSiteDialog.setTabOrder(self.uiAreaEdit, self.uiSiteReliabilityCombo)
+        apisSiteDialog.setTabOrder(self.uiSiteReliabilityCombo, self.uiFieldNameEdit)
+        apisSiteDialog.setTabOrder(self.uiFieldNameEdit, self.uiPlotNumberBtn)
+        apisSiteDialog.setTabOrder(self.uiPlotNumberBtn, self.uiPlotNumberEdit)
+        apisSiteDialog.setTabOrder(self.uiPlotNumberEdit, self.uiCommentBtn)
+        apisSiteDialog.setTabOrder(self.uiCommentBtn, self.uiCommentEdit)
+        apisSiteDialog.setTabOrder(self.uiCommentEdit, self.uiElevationEdit)
+        apisSiteDialog.setTabOrder(self.uiElevationEdit, self.uiDetailinterpretationPTxt)
+        apisSiteDialog.setTabOrder(self.uiDetailinterpretationPTxt, self.uiFindingsPTxt)
+        apisSiteDialog.setTabOrder(self.uiFindingsPTxt, self.uiLiteraturePTxt)
+        apisSiteDialog.setTabOrder(self.uiLiteraturePTxt, self.uiAddNewFindSpotBtn)
+        apisSiteDialog.setTabOrder(self.uiAddNewFindSpotBtn, self.uiFindSpotListTableV)
+        apisSiteDialog.setTabOrder(self.uiFindSpotListTableV, self.uiSiteImageView)
+        apisSiteDialog.setTabOrder(self.uiSiteImageView, self.uiShowInterpretationBtn)
+        apisSiteDialog.setTabOrder(self.uiShowInterpretationBtn, self.uiLoadSiteInQGisBtn)
+        apisSiteDialog.setTabOrder(self.uiLoadSiteInQGisBtn, self.uiListImagesOfSiteBtn)
+        apisSiteDialog.setTabOrder(self.uiListImagesOfSiteBtn, self.uiListShardingsOfSiteBtn)
+        apisSiteDialog.setTabOrder(self.uiListShardingsOfSiteBtn, self.uiExportPdfBtn)
+        apisSiteDialog.setTabOrder(self.uiExportPdfBtn, self.uiDeleteSiteBtn)
+        apisSiteDialog.setTabOrder(self.uiDeleteSiteBtn, self.uiInitalEntryDate)
+        apisSiteDialog.setTabOrder(self.uiInitalEntryDate, self.uiLastChangesDate)
+        apisSiteDialog.setTabOrder(self.uiLastChangesDate, self.uiSaveBtn)
+        apisSiteDialog.setTabOrder(self.uiSaveBtn, self.uiCancelBtn)
+        apisSiteDialog.setTabOrder(self.uiCancelBtn, self.uiOkBtn)
 
     def retranslateUi(self, apisSiteDialog):
         apisSiteDialog.setWindowTitle(_translate("apisSiteDialog", "APIS Fundort", None))
@@ -386,4 +425,5 @@ class Ui_apisSiteDialog(object):
         self.uiCancelBtn.setText(_translate("apisSiteDialog", "Abbrechen", None))
         self.uiOkBtn.setText(_translate("apisSiteDialog", "OK", None))
 
+from qgis.gui import QgsMapCanvas
 import resource_rc

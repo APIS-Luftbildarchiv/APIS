@@ -169,6 +169,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>uiSiteListTableV</tabstop>
+  <tabstop>uiViewSitesBtn</tabstop>
+  <tabstop>uiViewInterpretationBtn</tabstop>
+  <tabstop>uiExportSitesBtn</tabstop>
+  <tabstop>uiExportListAsPdfBtn</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>

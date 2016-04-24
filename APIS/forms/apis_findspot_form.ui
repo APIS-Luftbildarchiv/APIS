@@ -295,8 +295,17 @@
      </item>
      <item row="21" column="1" colspan="4">
       <widget class="QComboBox" name="uiCultureCombo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="editable">
         <bool>true</bool>
+       </property>
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToContents</enum>
        </property>
       </widget>
      </item>
@@ -924,6 +933,50 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>uiFindSpotNumberEdit</tabstop>
+  <tabstop>uiCadastralCommunityEdit</tabstop>
+  <tabstop>uiCadastralCommunityNumberEdit</tabstop>
+  <tabstop>uiFieldNameEdit</tabstop>
+  <tabstop>uiCaseWorkerEdit</tabstop>
+  <tabstop>uiFirstReportYearEdit</tabstop>
+  <tabstop>uiPreservationStateEdit</tabstop>
+  <tabstop>uiSiteReliabilityCombo</tabstop>
+  <tabstop>uiPlotNumberBtn</tabstop>
+  <tabstop>uiPlotNumberEdit</tabstop>
+  <tabstop>uiBdaNumberEdit</tabstop>
+  <tabstop>uiFindSpotCreationCombo</tabstop>
+  <tabstop>uiCommentBtn</tabstop>
+  <tabstop>uiCommentEdit</tabstop>
+  <tabstop>uiAreaEdit</tabstop>
+  <tabstop>uiDatingCombo</tabstop>
+  <tabstop>uiFineDatingFromCombo</tabstop>
+  <tabstop>uiFineDatingToCombo</tabstop>
+  <tabstop>uiDatingSourceCombo</tabstop>
+  <tabstop>uiAbsoluteDatingFromEdit</tabstop>
+  <tabstop>uiAbsoluteDatingToEdit</tabstop>
+  <tabstop>uiCultureCombo</tabstop>
+  <tabstop>uiFindingTypeCombo</tabstop>
+  <tabstop>uiFindingTypeDetailCombo</tabstop>
+  <tabstop>uiLiteraturePTxt</tabstop>
+  <tabstop>uiFindingsPTxt</tabstop>
+  <tabstop>uiFindingsStoragePTxt</tabstop>
+  <tabstop>uiMiscellaneousPTxt</tabstop>
+  <tabstop>uiFindingsHistoryPTxt</tabstop>
+  <tabstop>uiFindingsInterpretationPTxt</tabstop>
+  <tabstop>uiViewFindSpotBtn</tabstop>
+  <tabstop>uiChangeGeometryBtn</tabstop>
+  <tabstop>uiViewSiteBtn</tabstop>
+  <tabstop>uiListShardingsOfSiteBtn</tabstop>
+  <tabstop>uiExportPdfBtn</tabstop>
+  <tabstop>uiCloneFindSpotBtn</tabstop>
+  <tabstop>uiDeleteFindSpotBtn</tabstop>
+  <tabstop>uiInitalEntryDate</tabstop>
+  <tabstop>uiLastChangesDate</tabstop>
+  <tabstop>uiSaveBtn</tabstop>
+  <tabstop>uiCancelBtn</tabstop>
+  <tabstop>uiOkBtn</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>

@@ -158,8 +158,8 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
                 res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
                 if res:
                     self.findSpotSelectionListDlg.show()
-                    if self.findSpotSelectionListDlg.exec_():
-                        pass
+                    #if self.findSpotSelectionListDlg.exec_():
+                    #    pass
 
             #QMessageBox.warning(None, "Query", "Query finished")
 
@@ -226,8 +226,8 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
             if res:
                 self.findSpotSelectionListDlg.show()
-                if self.findSpotSelectionListDlg.exec_():
-                    pass
+                #if self.findSpotSelectionListDlg.exec_():
+                #    pass
 
 
     def attributeSearchSiteBySiteNumber(self):

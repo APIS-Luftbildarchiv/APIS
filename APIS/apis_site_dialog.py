@@ -103,6 +103,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         # self.setupNavigation()
 
+        self.uiSiteMapCanvas.useImageToRender(False)
+        self.uiSiteMapCanvas.setCanvasColor(Qt.white)
+
+
         self.initalLoad = False
 
     def openInViewMode(self, siteNumber):
@@ -118,6 +122,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.mapper.toFirst()
 
         self.setupFindSpotList()
+
+        self.loadSiteInSiteMapCanvas()
 
         self.initalLoad = False
 
@@ -322,18 +328,11 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             newRow = []
             rec = query.record()
             for col in range(rec.count()):
-                #if rec.value(col) == None:
-                #    value = ''
-                #else:
                 value = rec.value(col)
                 newCol = QStandardItem(unicode(value))
                 newRow.append(newCol)
 
             model.appendRow(newRow)
-
-        #if model.rowCount() < 1:
-            #QMessageBox.warning(None, "Fundort Auswahl", u"Es wurden keine Fundorte gefunden!")
-            #return False
 
         rec = query.record()
         for col in range(rec.count()):
@@ -352,7 +351,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         findSpotNumber = self.uiFindSpotListTableV.model().item(idx.row(), 0).text()
         siteNumber = self.uiSiteNumberEdit.text()
         if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm)
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self)
             #self.siteDlg.siteEditsSaved.connect(self.reloadTable)
         self.findSpotDlg.openInViewMode(siteNumber, findSpotNumber)
         self.findSpotDlg.show()
@@ -794,6 +793,22 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         siteLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
 
         QgsMapLayerRegistry.instance().addMapLayer(siteLayer)
+
+    def loadSiteInSiteMapCanvas(self):
+        siteNumber = self.uiSiteNumberEdit.text()
+        uri = QgsDataSourceURI()
+        uri.setDatabase(self.dbm.db.databaseName())
+        uri.setDataSource('', 'fundort', 'geometry')
+
+        siteLayer = QgsVectorLayer(uri.uri(), 'fundort {0}'.format(siteNumber), 'spatialite')
+        siteLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
+
+        extent = siteLayer.extent()
+        extent.scale(1.1)
+        QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)
+        canvasLayer = QgsMapCanvasLayer(siteLayer)
+        self.uiSiteMapCanvas.setLayerSet([canvasLayer])
+        self.uiSiteMapCanvas.setExtent(extent)
 
 class SiteDelegate(QSqlRelationalDelegate):
     def __init__(self):

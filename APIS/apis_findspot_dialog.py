@@ -10,14 +10,8 @@ from qgis.core import *
 from qgis.gui import QgsMapCanvas, QgsMapCanvasLayer
 
 from apis_db_manager import *
-from apis_film_number_selection_dialog import *
-from apis_new_film_dialog import *
-from apis_edit_weather_dialog import *
-from apis_search_film_dialog import *
-from apis_film_selection_list_dialog import *
 from apis_view_flight_path_dialog import *
-from apis_image_selection_list_dialog import *
-from apis_site_selection_list_dialog import *
+from apis_site_dialog import *
 from apis_text_editor_dialog import *
 from apis_sharding_selection_list_dialog import *
 
@@ -42,8 +36,8 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
     #FIRST, PREV, NEXT, LAST = range(4)
     findSpotEditsSaved = pyqtSignal(bool)
 
-    def __init__(self, iface, dbm):
-        QDialog.__init__(self)
+    def __init__(self, iface, dbm, parent=None):
+        QDialog.__init__(self, parent)
         self.iface = iface
         self.dbm = dbm
 
@@ -68,36 +62,10 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         self.uiListShardingsOfSiteBtn.clicked.connect(self.openShardingSelectionListDialog)
 
-        #self.uiFilmSelectionBtn.clicked.connect(self.openFilmSelectionDialog)
-
-        #self.uiNewFilmBtn.clicked.connect(self.openNewFilmDialog)
-        #self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
-        #self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
-        #self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
-        #self.uiShowFlightPathBtn.clicked.connect(partial(self.openViewFlightPathDialog, [self.uiCurrentFilmNumberEdit.text()]))
-        #self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
-        #self.uiListSitesOfFilmBtn.clicked.connect(self.openSiteSelectionListDialog)
-        #self.uiListImagesOfFilmBtn.clicked.connect(self.openImageSelectionListDialog)
-        #self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsFromImages)
-
-        #self.uiWeatherCodeEdit.textChanged.connect(self.generateWeatherCode)
-
-        # init Project Btn
-        #self.uiAddProjectBtn.clicked.connect(self.addProject)
-        #self.uiRemoveProjectBtn.clicked.connect(self.removeProject)
-        #self.uiButtonBox.button(QDialogButtonBox.Ok).setDefault(False)
-        #self.uiButtonBox.button(QDialogButtonBox.Ok).setAutoDefault(False)
-        #self.uiButtonBox.button(QDialogButtonBox.Cancel).setDefault(False)
-        #self.uiButtonBox.button(QDialogButtonBox.Cancel).setAutoDefault(False)
+        self.uiViewSiteBtn.clicked.connect(self.openSiteDialog)
 
         # Setup Sub-Dialogs
         self.shardingDlg = None
-
-
-        #self.setupComboBox(self.uiProjectSelectionCombo, "projekt", 0, None)
-        #self.setupComboBox(self.newFilmDlg.uiProducerCombo, "hersteller", 2, None)
-
-        # self.setupNavigation()
 
         self.initalLoad = False
 
@@ -146,11 +114,9 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             self.uiAreaEdit.setText(unicode(siteArea))
 
 
-
     def openInAddMode(self, siteNumber):
         self.initalLoad = True
         self.siteNumber = siteNumber
-
 
         # Setup site model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -188,7 +154,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         self.uiCadastralCommunityNumberEdit.setText(unicode(query.value(0)))
         self.uiCadastralCommunityEdit.setText(unicode(query.value(1)))
-        self.uiFieldNameEdit.setText(unicode(query.value(2)))
+        self.uiFieldNameEdit.setText(unicode(query.value(2) if query.value(2) == 'NULL' else '' ))
 
         self.lineEditMaps = {
             "bearbeiter": {
@@ -233,11 +199,9 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             "sonstiges": {
                 "editor": self.uiFindingsPTxt
             },
-
             "fundgeschichte": {
                 "editor": self.uiFindingsPTxt
             },
-
             "befund": {
                 "editor": self.uiFindingsInterpretationPTxt
             }
@@ -265,59 +229,118 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 "editor": self.uiFindSpotCreationCombo,
                 "table": "fundgewinnung_quelle",
                 "modelcolumn": 0,
+                "justshowcolumn": True,
                 "depend": None
             },
             "datierung": {
                 "editor": self.uiDatingCombo,
                 "table": "zeit",
                 "modelcolumn": 0,
-                "joincols": [0,1,2],
+                "justshowcolumn": False,
                 "depend": None
             },
             "phase_von": {
                 "editor": self.uiFineDatingFromCombo,
                 "table": "phase",
                 "modelcolumn": 1,
+                "justshowcolumn": True,
                 "depend": None
             },
             "phase_bis": {
                  "editor": self.uiFineDatingToCombo,
                  "table": "phase",
                  "modelcolumn": 1,
+                 "justshowcolumn": True,
                  "depend": None
             },
             "datierungsbasis": {
                 "editor": self.uiDatingSourceCombo,
                 "table": "datierung_quelle",
                 "modelcolumn": 0,
+                "justshowcolumn": True,
                 "depend": None
             },
             "kultur": {
                 "editor": self.uiCultureCombo,
                 "table": "kultur",
                 "modelcolumn": 0,
+                "justshowcolumn": False,
                 "depend": None
             },
-            "fundart": {
-                "editor": self.uiFindingTypeCombo,
-                "table": "fundart",
-                "modelcolumn": 0,
-                "depend": None
-            },
+            # "fundart": {
+            #     "editor": self.uiFindingTypeCombo,
+            #     "table": "fundart",
+            #     "modelcolumn": 0,
+            #     "justshowcolumn": True,
+            #     "depend": None
+            # },
             "fundart_detail": {
                 "editor": self.uiFindingTypeDetailCombo,
                 "table": "fundart",
                 "modelcolumn": 0,
+                "justshowcolumn": False,
                 "depend": None
             }
         }
         for key, item in self.comboBoxMaps.items():
             self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
-            self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["depend"])
+            self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["justshowcolumn"], item["depend"])
             item["editor"].editTextChanged.connect(self.onLineEditChanged)
 
 
-    def setupComboBox(self, editor, table, modelColumn, depend):
+        #fundart
+        self.mapper.addMapping(self.uiFindingTypeCombo, self.model.fieldIndex("fundart"))
+        #self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["justshowcolumn"], item["depend"])
+        query = u"SELECT DISTINCT {0} FROM {0}".format("fundart")
+        self.setupComboBoxByQuery(self.uiFindingTypeCombo, query)
+
+        self.uiFindingTypeCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiFindingTypeCombo.currentIndexChanged.connect(self.setupFindingTypeDetail)
+
+        self.uiDatingCombo.currentIndexChanged.connect(self.joinRowValues)
+
+
+    def setupFindingTypeDetail(self, row):
+        editor = self.sender()
+        # QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(editor))
+        record = editor.model().record(row)
+        findingType = record.value(0)
+        query = u"SELECT fundart_detail FROM fundart WHERE fundart = '{0}'".format(findingType)
+        self.setupComboBoxByQuery(self.uiFindingTypeDetailCombo, query)
+
+    #def setupComboBoxByQuery(self, editor, query):
+    def setupComboBoxByQuery(self, editor, query, modelcolumn=0):
+        model = QSqlQueryModel(self)
+        #model.setQuery("SELECT DISTINCT {0} FROM {1} ORDER BY {2}".format(column, table, order), self.dbm.db)
+        model.setQuery(query, self.dbm.db)
+
+        tv = QTableView()
+        editor.setView(tv)
+
+        tv.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        tv.setSelectionMode(QAbstractItemView.SingleSelection)
+        tv.setSelectionBehavior(QAbstractItemView.SelectRows)
+        tv.setAutoScroll(False)
+        tv.setWordWrap(True)
+
+        editor.setModel(model)
+
+        editor.setModelColumn(modelcolumn)
+        editor.setInsertPolicy(QComboBox.NoInsert)
+
+        tv.resizeColumnsToContents()
+        tv.resizeRowsToContents()
+        tv.verticalHeader().setVisible(False)
+        tv.horizontalHeader().setVisible(True)
+        tv.setMinimumWidth(tv.horizontalHeader().length()+100)
+        tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+
+        editor.setAutoCompletion(True)
+        editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), None, self))
+
+        #editor.setCurrentIndex(-1)
+
+    def setupComboBox(self, editor, table, modelColumn, justShowColumn, depend):
         model = QSqlRelationalTableModel(self, self.dbm.db)
         model.setTable(table)
         model.select()
@@ -329,8 +352,14 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
         tv.setAutoScroll(False)
+        tv.setWordWrap(True)
 
         editor.setModel(model)
+        if justShowColumn:
+            cCount = model.columnCount()
+            for i in range(cCount):
+                if i != modelColumn:
+                    tv.hideColumn(i)
 
         editor.setModelColumn(modelColumn)
         editor.setInsertPolicy(QComboBox.NoInsert)
@@ -339,7 +368,10 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         tv.resizeRowsToContents()
         tv.verticalHeader().setVisible(False)
         tv.horizontalHeader().setVisible(True)
-        #tv.setMinimumWidth(tv.horizontalHeader().length())
+
+        #tv.setMinimumWidth(500)
+
+        tv.setMinimumWidth(tv.horizontalHeader().length()+100)
         tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
         editor.setAutoCompletion(True)
@@ -356,6 +388,14 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 value.setText(unicode(editor.model().data(idx)))
                 #QMessageBox.warning(None, "Test", str(idx))
 
+    def joinRowValues(self, row):
+        editor = self.sender()
+        #QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(editor))
+        record = editor.model().record(row)
+        values = []
+        for i in range(record.count()):
+            values.append(record.value(i))
+        editor.lineEdit().setText(", ".join(values))
 
     def setupFindSpotList(self):
 
@@ -511,9 +551,6 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
                 filmDict[m.headerData(c, Qt.Horizontal)] = val
 
-
-
-
                 #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
 
             filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
@@ -562,133 +599,28 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         if self.newFilmDlg.exec_():
             self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry(), self.newFilmDlg.producer(), self.newFilmDlg.producerCode())
 
-    def openEditWeatherDialog(self):
-        self.editWeatherDlg.setWeatherCode(self.uiWeatherCodeEdit.text())
-        self.editWeatherDlg.show()
 
-        if self.editWeatherDlg.exec_():
-            self.uiWeatherCodeEdit.setText(self.editWeatherDlg.weatherCode())
-            #self.uiWeatherPTxt.setPlainText(self.editWeatherDlg.weatherDescription())
-
-    def generateWeatherCode(self):
-        weatherDescription = self._generateWeatherCode(self.uiWeatherCodeEdit.text())
-        self.uiWeatherPTxt.setPlainText(weatherDescription)
-
-    def _generateWeatherCode(self, weatherCode):
-        categories = ["Low Cloud Amount", "Visibility Kilometres", "Low Cloud Height", "Weather", "Remarks Mission", "Remarks Weather"]
-        query = QSqlQuery(self.dbm.db)
-        pos = 0
-        help = 0
-        weatherDescription = ""
-        for c in weatherCode:
-            qryStr = "select description from wetter where category = '{0}' and code = '{1}' limit 1".format(categories[pos-help], c)
-            query.exec_(qryStr)
-            query.first()
-            fn = query.value(0)
-            if pos <= 5:
-                weatherDescription += categories[pos] + ': ' + fn
-                if pos < 5:
-                   weatherDescription += '\n'
-            else:
-                weatherDescription += '; ' + fn
-
-            if pos >= 5:
-                help += 1
-            pos += 1
-        return weatherDescription
-
-    def openViewFlightPathDialog(self, filmList, toClose=None):
-        self.viewFlightPathDlg.viewFilms(filmList)
-        self.viewFlightPathDlg.show()
-
-        if self.viewFlightPathDlg.exec_():
-            #TODO load Data in TOC, Close Windows
-            if toClose:
-                toClose.close()
+    def openSiteDialog(self):
+        from apis_site_dialog import ApisSiteDialog
+        # if parent is instance of ApisSiteDialog then just close
+        # if parent is ApisFindSpotSelectionListDialog then open ApisSiteDialog and close ApisFindSpotDialog
+        if isinstance(self.parentWidget(), ApisSiteDialog):
+            #QMessageBox.warning(None, "Test", u"{0}".format(self.parentWidget()))
             self.close()
-
-    def openSiteSelectionListDialog(self):
-        if self.uiFilmModeCombo.currentText() == u"senk.":
-            fromTable = "luftbild_senk_fp"
-        elif self.uiFilmModeCombo.currentText() == u"schräg":
-            fromTable = "luftbild_schraeg_fp"
         else:
-            #FIXME Introduce Error System
-            sys.exit()
-        query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol, {0} WHERE fundort_pol.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = {0}.geometry))".format(fromTable, self.uiCurrentFilmNumberEdit.text())
-        query.exec_(qryStr)
-
-        res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
-        if res:
-            self.siteSelectionListDlg.show()
-            if self.siteSelectionListDlg.exec_():
+            siteDlg = ApisSiteDialog(self.iface, self.dbm)
+            siteDlg.openInViewMode(self.siteNumber)
+            self.close()
+            siteDlg.show()
+            if siteDlg.exec_():
                 pass
 
-    def openImageSelectionListDialog(self):
-        res = self.imageSelectionListDlg.loadImageListByFilm(self.uiCurrentFilmNumberEdit.text(), self.uiFilmModeCombo.lineEdit().text())
-        if res:
-            self.imageSelectionListDlg.show()
-            if self.imageSelectionListDlg.exec_():
-                pass
 
-    def addNewSite(self, sitePoint, sitePolygon, filmNumberOrProject, imageNumber):
-        self.initalLoad = True
-        self.addMode = True
-        self.startEditMode()
-
-        row = self.model.rowCount()
-        self.mapper.submit()
-        while (self.model.canFetchMore()):
-            self.model.fetchMore()
-
-        self.model.insertRow(row)
-
-        self.mapper.setCurrentIndex(row)
-
-        # Mapper Edits
-
-
-        self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
-        self.uiFlightDate.setDate(flightDate)
-        self.uiProducerEdit.setText(producer)
-        if not useLastEntry:
-            self.uiWeatherCodeEdit.setText("9990X")
-
-        now = QDate.currentDate()
-        self.uiInitalEntryDate.setDate(now)
-        self.uiLastChangesDate.setDate(now)
-        self.uiFilmModeCombo.setEnabled(True)
-
-
-        #Filmnummer
-        hh = producerCode
-        yyyy = flightDate.toString("yyyy")
-        mm = flightDate.toString("MM")
-
-        query = QSqlQuery(self.dbm.db)
-        qryStr = "select max(filmnummer_nn) from film where filmnummer_hh_jjjj_mm = '{0}{1}{2}' limit 1".format(hh, yyyy, mm)
-        query.exec_(qryStr)
-        query.first()
-        fn = query.value(0)
-
-        if isinstance(fn, long):
-            nn = str(fn + 1).zfill(2)
-        else:
-            nn = "01"
-        self.uiCurrentFilmNumberEdit.setText("{0}{1}{2}{3}".format(hh, yyyy, mm, nn))
-
-        self.initalLoad = False
-
-    def removeNewSite(self):
+    def removeNewFindSpot(self):
         self.initalLoad = True
         row = self.mapper.currentIndex()
         self.model.removeRow(row)
         self.model.submitAll()
-        #while (self.model.canFetchMore()):
-        #    self.model.fetchMore()
-        #self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
-        #self.mapper.toLast()
         self.initalLoad = False
 
     def saveEdits(self):
@@ -727,7 +659,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         self.mapper.submit()
 
         #emit signal
-        self.siteEditsSaved.emit(True)
+        self.findSpotEditsSaved.emit(True)
 
         # Add "hidden" Values with Query
         #sqlQry = "UPDATE fundort "
@@ -744,14 +676,14 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         currIdx = self.mapper.currentIndex()
         if self.editMode:
             if self.addMode:
-                header = self.tr(u"Neuer Fundort wurden hinzugefügt!")
-                question = self.tr(u"Möchten Sie den neuen Fundort speichern?")
+                header = self.tr(u"Neue Fundstelle wurden hinzugefügt!")
+                question = self.tr(u"Möchten Sie die neue Fundstelle speichern?")
             elif self.geometryEditing:
-                header = self.tr(u"Änderungen an der Fundort Geometrie wurden vorgenommen!")
-                question = self.tr(u"Möchten Sie die Änerungen der Geometrie und Attribute speichern?")
+                header = self.tr(u"Änderungen an der Fundstellen Geometrie wurden vorgenommen!")
+                question = self.tr(u"Möchten Sie die Änderungen der Geometrie und Attribute speichern?")
             else:
                 header = self.tr(u"Änderungen wurden vorgenommen!")
-                question = self.tr(u"Möchten Sie die Änerungen der Attribute speichern?")
+                question = self.tr(u"Möchten Sie die Änderungen der Attribute speichern?")
             result = QMessageBox.question(None,
                                           header,
                                           question,
@@ -768,24 +700,30 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             elif result == QMessageBox.No:
                 self.geometryEditing = False
                 if self.addMode:
-                    self.removeNewSite()
-                    self.endEditMode()
+                    self.removeNewFindSpot()
+                    self.endEditMode(False)
                     self.close()
                     return True
                 else:
                     self.mapper.setCurrentIndex(currIdx)
-                    self.endEditMode()
+                    self.endEditMode(False)
                     return True
 
     def startEditMode(self):
         self.editMode = True
+        #self.setWindowModality(Qt.ApplicationModal)
+        #self.setModal(True)
+        #geomHelper = self.saveGeometry()
+        #self.hide()
+        #self.show()
+        #self.restoreGeometry(geomHelper)
         self.enableItemsInLayout(self.uiBottomHorizontalLayout, False)
         self.uiOkBtn.setEnabled(False)
         self.uiSaveBtn.setEnabled(True)
         self.uiCancelBtn.setEnabled(True)
         self.editorsEdited = []
 
-    def endEditMode(self):
+    def endEditMode(self, modalityFlag=True):
         self.editMode = False
         self.addMode = False
         self.enableItemsInLayout(self.uiBottomHorizontalLayout, True)
@@ -800,14 +738,16 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 editor.setStyleSheet("")
         self.editorsEdited = []
 
+
+        #self.setWindowModality(Qt.NonModal)
+        #self.setModal(False)
+        #if modalityFlag:
+        #    self.hide()
+        #    self.show()
+
     def isGeometrySaved(self):
         return self.isGeometryEditingSaved and self.geometryEditing
 
-    def showEvent(self, evnt):
-        pass
-        #self.model.select()
-        #while (self.model.canFetchMore()):
-        #    self.model.fetchMore()
 
 class FindSpotDelegate(QSqlRelationalDelegate):
     def __init__(self):
@@ -827,7 +767,6 @@ class FindSpotDelegate(QSqlRelationalDelegate):
             editor.setTime(QTime(0,0,0))
             #if value == '':
                 #value ="00:00:00"
-                #QMessageBox.warning(None, "Test", unicode(index.model().data(index, Qt.EditRole)))
 
         elif editor.metaObject().className() == 'QLineEdit':
             editor.setText(value)

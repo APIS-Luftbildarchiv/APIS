@@ -116,10 +116,22 @@ class APIS:
             self.initDialogs()
             if self.openDialogButtons is not None:
                 self.activateDialogs(True)
+
+            #Connect
+            self.iface.actionSaveActiveLayerEdits().triggered.connect(self.isApisLayer)
+            self.iface.actionSaveEdits().triggered.connect(self.isApisLayer)
+            self.iface.actionSaveAllEdits().triggered.connect(self.isApisLayer)
         else:
             QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
             if self.openDialogButtons is not None:
                 self.activateDialogs(False)
+
+            self.iface.actionSaveActiveLayerEdits().triggered.disconnect(self.isApisLayer)
+            self.iface.actionSaveEdits().triggered.disconnect(self.isApisLayer)
+            self.iface.actionSaveAllEdits().triggered.disconnect(self.isApisLayer)
+
+    def isApisLayer(self):
+        QMessageBox.warning(None, self.tr(u"IsApisLayer"), u"Save Layers")
 
     def addApisAction(
         self,

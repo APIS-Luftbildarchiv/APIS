@@ -225,12 +225,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         # ComboBox with Model
         self.comboBoxMaps = {
-            # "hersteller": {
-            #     "editor": self.uiProducerCombo,
-            #     "table": "hersteller",
-            #     "modelcolumn": 2,
-            #     "depend": None
-            # },
+            "archiv": {
+                "editor": self.uiArchiveCombo,
+                "table": "hersteller",
+                "modelcolumn": 2,
+                "depend": None
+            },
             "kamera": {
                 "editor": self.uiCameraCombo,
                 "table": "kamera",
@@ -930,6 +930,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
         self.uiFlightDate.setDate(flightDate)
         self.uiProducerEdit.setText(producer)
+        self.uiArchiveCombo.lineEdit().setText(producer)
         if not useLastEntry:
             self.uiWeatherCodeEdit.setText("9990X")
 

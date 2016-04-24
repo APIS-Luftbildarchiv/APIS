@@ -164,7 +164,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             return True
         else:
             # Film does not exist
-            QMessageBox.warning(None, "Film Nummer", unicode("Der Film mit der Nummer {0} existiert nicht!".format(filmNumber)))
+            QMessageBox.warning(None, u"Film Nummer", u"Der Film mit der Nummer {0} existiert nicht!".format(filmNumber))
             return False
 
     def getFilmInfo(self):
@@ -185,8 +185,11 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             else:
                 self.orientation = "senk"
                 self.isOblique = False
+                if not self.currentFilmInfoDict["kammerkonstante"] > 0:
+                    QMessageBox.warning(None, u"Film Nummer", u"Der senkrecht Film mit der Nummer {0} hat eine Kammerkonstante (={1}), die für die Berechnung des Bildmaßstabs und in Folge des Footprints ungeeignet ist! Geben Sie im Film Dialog die Kammerkonstante an, um korrekte Footprints zu erhalten. Falls Bildmittelpunkte bereits gesetzt sind (mit einem Maßstab = 0) müssen auch diese neu kartiert werden!".format(self.currentFilmNumber, self.currentFilmInfoDict["kammerkonstante"]))
         else:
             QMessageBox.warning(None, u"Film Nummer", u"Der Film mit der Nummer {0} existiert nicht!".format(self.currentFilmNumber))
+
 
     def getMappingStats(self):
         self.imageStatsDict = {}
@@ -395,7 +398,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
             else:
                 h = self.uiFlightHeightVerticalSpn.value()
                 feat.setAttribute('fokus', self.currentFilmInfoDict["kammerkonstante"])
-                if not self.currentFilmInfoDict["kammerkonstante"] or self.currentFilmInfoDict["kammerkonstante"] < 1:
+                if not self.currentFilmInfoDict["kammerkonstante"] or not self.currentFilmInfoDict["kammerkonstante"] > 0:
                     feat.setAttribute('massstab', 0)
                 else:
                     feat.setAttribute('massstab', h/self.currentFilmInfoDict["kammerkonstante"]*1000)

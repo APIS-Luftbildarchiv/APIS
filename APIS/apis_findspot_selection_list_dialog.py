@@ -82,7 +82,7 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
         findSpotNumber = self.model.item(idx.row(), 1).text()
         siteNumber = self.model.item(idx.row(), 0).text()
         if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm)
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self)
             self.findSpotDlg.findSpotEditsSaved.connect(self.reloadTable)
         self.findSpotDlg.openInViewMode(siteNumber, findSpotNumber)
         self.findSpotDlg.show()

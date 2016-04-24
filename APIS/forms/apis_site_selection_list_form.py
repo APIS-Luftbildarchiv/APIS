@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_selection_list_form.ui'
 #
-# Created: Fri Apr 15 10:41:28 2016
+# Created: Fri Apr 15 22:56:31 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -92,6 +92,10 @@ class Ui_apisSiteSelectionListDialog(object):
 
         self.retranslateUi(apisSiteSelectionListDialog)
         QtCore.QMetaObject.connectSlotsByName(apisSiteSelectionListDialog)
+        apisSiteSelectionListDialog.setTabOrder(self.uiSiteListTableV, self.uiViewSitesBtn)
+        apisSiteSelectionListDialog.setTabOrder(self.uiViewSitesBtn, self.uiViewInterpretationBtn)
+        apisSiteSelectionListDialog.setTabOrder(self.uiViewInterpretationBtn, self.uiExportSitesBtn)
+        apisSiteSelectionListDialog.setTabOrder(self.uiExportSitesBtn, self.uiExportListAsPdfBtn)
 
     def retranslateUi(self, apisSiteSelectionListDialog):
         apisSiteSelectionListDialog.setWindowTitle(_translate("apisSiteSelectionListDialog", "APIS Fundorte Auswahl", None))

@@ -117,8 +117,8 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
         if res:
             self.findSpotSelectionListDlg.show()
-            if self.findSpotSelectionListDlg.exec_():
-                pass
+            #if self.findSpotSelectionListDlg.exec_():
+            #    pass
 
         self.rubberBand.hide()
 

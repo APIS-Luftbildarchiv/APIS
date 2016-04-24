@@ -415,7 +415,7 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <layout class="QVBoxLayout" name="verticalLayout_5">
+    <layout class="QVBoxLayout" name="uiMapCanvasVLayout">
      <item>
       <widget class="QLabel" name="label_15">
        <property name="text">
@@ -424,7 +424,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QGraphicsView" name="uiSiteMapView"/>
+      <widget class="QgsMapCanvas" name="uiSiteMapCanvas" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -685,6 +692,51 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsMapCanvas</class>
+   <extends>QWidget</extends>
+   <header>qgis.gui</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>uiSiteNumberEdit</tabstop>
+  <tabstop>uiCountryEdit</tabstop>
+  <tabstop>uiCadastralCommunityEdit</tabstop>
+  <tabstop>uiCadastralCommunityNumberEdit</tabstop>
+  <tabstop>uiProjectOrFilmEdit</tabstop>
+  <tabstop>uiSiteDiscoveryCombo</tabstop>
+  <tabstop>uiSiteCreationCombo</tabstop>
+  <tabstop>uiFirstReportYearEdit</tabstop>
+  <tabstop>uiImagesEdit</tabstop>
+  <tabstop>uiRasterEdit</tabstop>
+  <tabstop>uiAreaEdit</tabstop>
+  <tabstop>uiSiteReliabilityCombo</tabstop>
+  <tabstop>uiFieldNameEdit</tabstop>
+  <tabstop>uiPlotNumberBtn</tabstop>
+  <tabstop>uiPlotNumberEdit</tabstop>
+  <tabstop>uiCommentBtn</tabstop>
+  <tabstop>uiCommentEdit</tabstop>
+  <tabstop>uiElevationEdit</tabstop>
+  <tabstop>uiDetailinterpretationPTxt</tabstop>
+  <tabstop>uiFindingsPTxt</tabstop>
+  <tabstop>uiLiteraturePTxt</tabstop>
+  <tabstop>uiAddNewFindSpotBtn</tabstop>
+  <tabstop>uiFindSpotListTableV</tabstop>
+  <tabstop>uiSiteImageView</tabstop>
+  <tabstop>uiShowInterpretationBtn</tabstop>
+  <tabstop>uiLoadSiteInQGisBtn</tabstop>
+  <tabstop>uiListImagesOfSiteBtn</tabstop>
+  <tabstop>uiListShardingsOfSiteBtn</tabstop>
+  <tabstop>uiExportPdfBtn</tabstop>
+  <tabstop>uiDeleteSiteBtn</tabstop>
+  <tabstop>uiInitalEntryDate</tabstop>
+  <tabstop>uiLastChangesDate</tabstop>
+  <tabstop>uiSaveBtn</tabstop>
+  <tabstop>uiCancelBtn</tabstop>
+  <tabstop>uiOkBtn</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>
