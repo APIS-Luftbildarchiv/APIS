@@ -10,11 +10,15 @@
     <x>0</x>
     <y>0</y>
     <width>750</width>
-    <height>430</height>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>APIS Begehung</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="3" column="0" colspan="2">
@@ -79,7 +83,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+         <normaloff>:/plugins/APIS/icons/image.png</normaloff>:/plugins/APIS/icons/image.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -99,7 +103,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/sketch.png</normaloff>:/plugins/APIS/icons/sketch.png</iconset>
        </property>
        <property name="iconSize">
         <size>

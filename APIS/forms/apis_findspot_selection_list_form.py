@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_findspot_selection_list_form.ui'
 #
-# Created: Sat Apr 16 09:36:59 2016
+# Created: Wed Apr 27 09:52:17 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,9 @@ class Ui_apisFindSpotSelectionListDialog(object):
         apisFindSpotSelectionListDialog.setObjectName(_fromUtf8("apisFindSpotSelectionListDialog"))
         apisFindSpotSelectionListDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         apisFindSpotSelectionListDialog.resize(800, 500)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisFindSpotSelectionListDialog.setWindowIcon(icon)
         apisFindSpotSelectionListDialog.setModal(True)
         self.verticalLayout = QtGui.QVBoxLayout(apisFindSpotSelectionListDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -35,27 +38,27 @@ class Ui_apisFindSpotSelectionListDialog(object):
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.uiViewFindSpotsBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         self.uiViewFindSpotsBtn.setEnabled(False)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiViewFindSpotsBtn.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/layer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiViewFindSpotsBtn.setIcon(icon1)
         self.uiViewFindSpotsBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiViewFindSpotsBtn.setAutoDefault(False)
         self.uiViewFindSpotsBtn.setObjectName(_fromUtf8("uiViewFindSpotsBtn"))
         self.horizontalLayout.addWidget(self.uiViewFindSpotsBtn)
         self.uiExportFindSpotsBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         self.uiExportFindSpotsBtn.setEnabled(False)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/extractgps.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiExportFindSpotsBtn.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/shp_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportFindSpotsBtn.setIcon(icon2)
         self.uiExportFindSpotsBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiExportFindSpotsBtn.setAutoDefault(False)
         self.uiExportFindSpotsBtn.setObjectName(_fromUtf8("uiExportFindSpotsBtn"))
         self.horizontalLayout.addWidget(self.uiExportFindSpotsBtn)
         self.uiExportListAsPdfBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         self.uiExportListAsPdfBtn.setEnabled(False)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/print.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiExportListAsPdfBtn.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/pdf_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportListAsPdfBtn.setIcon(icon3)
         self.uiExportListAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiExportListAsPdfBtn.setAutoDefault(False)
         self.uiExportListAsPdfBtn.setObjectName(_fromUtf8("uiExportListAsPdfBtn"))

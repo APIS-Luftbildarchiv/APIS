@@ -34,6 +34,10 @@
   <property name="windowTitle">
    <string>APIS Einstellungen</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="locale">
    <locale language="German" country="Austria"/>
   </property>
@@ -88,19 +92,25 @@
      <property name="title">
       <string>APIS Image Registry</string>
      </property>
-     <widget class="QPushButton" name="uiUpdateImageRegistryBtn">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>30</y>
-        <width>75</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Update</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QPushButton" name="uiUpdateImageRegistryBtn">
+        <property name="text">
+         <string>Update</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/plugins/APIS/icons/update.png</normaloff>:/plugins/APIS/icons/update.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>

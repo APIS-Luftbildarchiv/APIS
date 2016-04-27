@@ -2,10 +2,11 @@
     <qresource prefix="/plugins/APIS" >
         <file>icon.png</file>
         <file>icons/icon.png</file>
+        <file>icons/apis.png</file>
         <file>icons/film.png</file>
         <file>icons/settings.png</file>
         <file>icons/settings_alert.png</file>
         <file>icons/search.png</file>
-        <file>icons/mapping.png</file>
+        <file>icons/site.png</file>
     </qresource>
 </RCC>

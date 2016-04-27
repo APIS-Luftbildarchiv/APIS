@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>APIS Text Editor</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="locale">
    <locale language="German" country="Austria"/>
   </property>
@@ -35,6 +39,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

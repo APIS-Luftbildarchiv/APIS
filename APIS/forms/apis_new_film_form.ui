@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>APIS Neuer Film</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="locale">
    <locale language="German" country="Austria"/>
   </property>
@@ -113,7 +117,9 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>uiButtonBox</sender>

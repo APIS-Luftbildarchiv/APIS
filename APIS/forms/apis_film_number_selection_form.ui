@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>Film Nummer Auswahl</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -72,7 +76,9 @@
   <tabstop>uiFilmNumberEdit</tabstop>
   <tabstop>uiButtonBox</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>uiButtonBox</sender>

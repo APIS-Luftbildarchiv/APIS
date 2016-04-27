@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>APIS Flugwege anzeigen</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -182,7 +186,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

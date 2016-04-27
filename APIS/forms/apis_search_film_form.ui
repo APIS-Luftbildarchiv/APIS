@@ -28,6 +28,10 @@
   <property name="windowTitle">
    <string>APIS Film Suche</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -66,7 +70,7 @@
     <enum>QFrame::Plain</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <property name="tabSpacing">
     <number>0</number>
@@ -362,7 +366,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

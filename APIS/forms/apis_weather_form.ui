@@ -28,6 +28,10 @@
   <property name="windowTitle">
    <string>APIS Wetter Auswahl</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>

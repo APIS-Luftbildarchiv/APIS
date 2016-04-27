@@ -34,6 +34,10 @@
   <property name="windowTitle">
    <string>APIS Film</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="locale">
    <locale language="German" country="Austria"/>
   </property>
@@ -57,12 +61,12 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/filmselection.png</normaloff>:/plugins/APIS/icons/filmselection.png</iconset>
+        <normaloff>:/plugins/APIS/icons/film_selection.png</normaloff>:/plugins/APIS/icons/film_selection.png</iconset>
       </property>
       <property name="iconSize">
        <size>
-        <width>24</width>
-        <height>24</height>
+        <width>30</width>
+        <height>30</height>
        </size>
       </property>
       <property name="autoDefault">
@@ -209,7 +213,7 @@
       </property>
       <property name="iconSize">
        <size>
-        <width>24</width>
+        <width>30</width>
         <height>30</height>
        </size>
       </property>
@@ -303,7 +307,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+        <normaloff>:/plugins/APIS/icons/gps_import.png</normaloff>:/plugins/APIS/icons/gps_import.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -323,7 +327,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+        <normaloff>:/plugins/APIS/icons/site.png</normaloff>:/plugins/APIS/icons/site.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -343,7 +347,7 @@
       </property>
       <property name="icon">
        <iconset resource="resource.qrc">
-        <normaloff>:/plugins/APIS/icons/print.png</normaloff>:/plugins/APIS/icons/print.png</iconset>
+        <normaloff>:/plugins/APIS/icons/pdf_export.png</normaloff>:/plugins/APIS/icons/pdf_export.png</iconset>
       </property>
       <property name="iconSize">
        <size>
@@ -580,7 +584,7 @@
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+          <normaloff>:/plugins/APIS/icons/sketch.png</normaloff>:/plugins/APIS/icons/sketch.png</iconset>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -1076,7 +1080,7 @@
      <x>10</x>
      <y>490</y>
      <width>851</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -1162,6 +1166,16 @@
       <property name="text">
        <string>Speichern</string>
       </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>11</width>
+        <height>11</height>
+       </size>
+      </property>
       <property name="autoDefault">
        <bool>false</bool>
       </property>
@@ -1175,6 +1189,19 @@
       <property name="text">
        <string>Abbrechen</string>
       </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>11</width>
+        <height>11</height>
+       </size>
+      </property>
+      <property name="shortcut">
+       <string>Enter</string>
+      </property>
       <property name="autoDefault">
        <bool>false</bool>
       </property>
@@ -1184,6 +1211,16 @@
      <widget class="QPushButton" name="uiOkBtn">
       <property name="text">
        <string>OK</string>
+      </property>
+      <property name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>11</width>
+        <height>11</height>
+       </size>
       </property>
       <property name="autoDefault">
        <bool>false</bool>

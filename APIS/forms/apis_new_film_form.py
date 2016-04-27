@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_new_film_form.ui'
 #
-# Created: Fri Dec 18 09:53:39 2015
+# Created: Wed Apr 27 09:52:15 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,6 +29,9 @@ class Ui_apisNewFilmDialog(object):
         apisNewFilmDialog.resize(320, 90)
         apisNewFilmDialog.setMinimumSize(QtCore.QSize(320, 90))
         apisNewFilmDialog.setMaximumSize(QtCore.QSize(320, 90))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisNewFilmDialog.setWindowIcon(icon)
         apisNewFilmDialog.setLocale(QtCore.QLocale(QtCore.QLocale.German, QtCore.QLocale.Austria))
         apisNewFilmDialog.setModal(True)
         self.uiButtonBox = QtGui.QDialogButtonBox(apisNewFilmDialog)
@@ -80,3 +83,4 @@ class Ui_apisNewFilmDialog(object):
         self.uiUseLastEntryChk.setText(_translate("apisNewFilmDialog", "Daten von letztem Eintrag übernehmen", None))
         self.uiProducerLbl.setText(_translate("apisNewFilmDialog", "Hersteller:", None))
 
+import resource_rc

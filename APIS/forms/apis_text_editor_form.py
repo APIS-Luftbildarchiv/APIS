@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_text_editor_form.ui'
 #
-# Created: Wed Jan 06 19:27:25 2016
+# Created: Wed Apr 27 09:52:17 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,9 @@ class Ui_apisTextEditorDialog(object):
         apisTextEditorDialog.setObjectName(_fromUtf8("apisTextEditorDialog"))
         apisTextEditorDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         apisTextEditorDialog.resize(400, 300)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisTextEditorDialog.setWindowIcon(icon)
         apisTextEditorDialog.setLocale(QtCore.QLocale(QtCore.QLocale.German, QtCore.QLocale.Austria))
         apisTextEditorDialog.setModal(True)
         self.verticalLayout = QtGui.QVBoxLayout(apisTextEditorDialog)
@@ -46,3 +49,4 @@ class Ui_apisTextEditorDialog(object):
     def retranslateUi(self, apisTextEditorDialog):
         apisTextEditorDialog.setWindowTitle(_translate("apisTextEditorDialog", "APIS Text Editor", None))
 
+import resource_rc

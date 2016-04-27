@@ -10,6 +10,10 @@
     <height>557</height>
    </rect>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="windowTitle">
    <string>APIS Suche</string>
   </property>
@@ -27,7 +31,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_9">
        <attribute name="title">
@@ -266,7 +270,7 @@
            </sizepolicy>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="uiFilmTab">
            <attribute name="title">
@@ -779,9 +783,9 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QGroupBox" name="groupBox">
+             <widget class="QGroupBox" name="uiDatingGrp">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Datierung</string>
@@ -791,28 +795,28 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="2" column="0">
-                <widget class="QCheckBox" name="checkBox_3">
+                <widget class="QCheckBox" name="uiPeriodDetailChk">
                  <property name="text">
-                  <string>Pperiode:</string>
+                  <string>Periode Detail:</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
-                <widget class="QCheckBox" name="checkBox_2">
+                <widget class="QCheckBox" name="uiPeriodChk">
                  <property name="text">
                   <string>Periode:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox">
+                <widget class="QCheckBox" name="uiTimeChk">
                  <property name="text">
                   <string>Zeit:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox_5">
+                <widget class="QComboBox" name="uiTimeCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -822,7 +826,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QComboBox" name="comboBox_6">
+                <widget class="QComboBox" name="uiPeriodCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -832,7 +836,7 @@
                 </widget>
                </item>
                <item row="2" column="1">
-                <widget class="QComboBox" name="comboBox_7">
+                <widget class="QComboBox" name="uiPeriodDetailsCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -845,9 +849,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="groupBox_2">
+             <widget class="QGroupBox" name="uiCultureGrp">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Kultur</string>
@@ -857,7 +861,7 @@
               </property>
               <layout class="QGridLayout" name="gridLayout_4">
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox_8">
+                <widget class="QComboBox" name="uiCultureCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -877,9 +881,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="groupBox_3">
+             <widget class="QGroupBox" name="uiFindTypeGrp">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Fundart</string>
@@ -903,7 +907,7 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox_9">
+                <widget class="QComboBox" name="uiFindTypeCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -913,7 +917,7 @@
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QComboBox" name="comboBox_10">
+                <widget class="QComboBox" name="uiFindTypeDetailsCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -926,9 +930,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QGroupBox" name="groupBox_4">
+             <widget class="QGroupBox" name="uiSpatialFilterGrp">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="title">
                <string>Räumlicher Filter</string>
@@ -948,7 +952,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QgsMapLayerComboBox" name="mMapLayerComboBox_4">
+                <widget class="QgsMapLayerComboBox" name="uiFilterByMapLayerCombo">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -976,7 +980,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_14">
+               <widget class="QPushButton" name="uiSearchFindSpotBtn">
                 <property name="enabled">
                  <bool>false</bool>
                 </property>

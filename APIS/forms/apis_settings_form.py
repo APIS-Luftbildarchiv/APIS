@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_settings_form.ui'
 #
-# Created: Sun Dec 20 14:11:06 2015
+# Created: Wed Apr 27 09:52:14 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,6 +35,9 @@ class Ui_apisSettingsDialog(object):
         apisSettingsDialog.setSizePolicy(sizePolicy)
         apisSettingsDialog.setMinimumSize(QtCore.QSize(300, 120))
         apisSettingsDialog.setMaximumSize(QtCore.QSize(300, 300))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisSettingsDialog.setWindowIcon(icon)
         apisSettingsDialog.setLocale(QtCore.QLocale(QtCore.QLocale.German, QtCore.QLocale.Austria))
         apisSettingsDialog.setSizeGripEnabled(False)
         apisSettingsDialog.setModal(True)
@@ -59,9 +62,15 @@ class Ui_apisSettingsDialog(object):
         self.verticalLayout.addWidget(self.groupBox_2)
         self.groupBox = QtGui.QGroupBox(apisSettingsDialog)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.uiUpdateImageRegistryBtn = QtGui.QPushButton(self.groupBox)
-        self.uiUpdateImageRegistryBtn.setGeometry(QtCore.QRect(20, 30, 75, 23))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/update.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiUpdateImageRegistryBtn.setIcon(icon1)
+        self.uiUpdateImageRegistryBtn.setIconSize(QtCore.QSize(30, 30))
         self.uiUpdateImageRegistryBtn.setObjectName(_fromUtf8("uiUpdateImageRegistryBtn"))
+        self.verticalLayout_2.addWidget(self.uiUpdateImageRegistryBtn)
         self.verticalLayout.addWidget(self.groupBox)
         self.buttonBox = QtGui.QDialogButtonBox(apisSettingsDialog)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok|QtGui.QDialogButtonBox.Reset)

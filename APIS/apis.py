@@ -253,7 +253,7 @@ class APIS:
         )
 
         #Kartieren Dialog
-        iconPath = ':/plugins/APIS/icons/mapping.png'
+        iconPath = ':/plugins/APIS/icons/mapping_vertical.png'
         self.mappingActionBtn = self.addApisAction(
             iconPath,
             text=self.tr(u'Bilder kartieren'),
@@ -265,7 +265,7 @@ class APIS:
         self.openDialogButtons.append(self.mappingActionBtn)
 
         #Fundortkartierung
-        iconPath = ':/plugins/APIS/icons/sites.png'
+        iconPath = ':/plugins/APIS/icons/site.png'
         self.siteMappingActionBtn = self.addApisAction(
             iconPath,
             text=self.tr(u'Fundorte kartieren'),

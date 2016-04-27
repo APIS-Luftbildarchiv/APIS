@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_sharding_selection_list_form.ui'
 #
-# Created: Wed Apr 13 14:46:24 2016
+# Created: Wed Apr 27 09:52:17 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,9 @@ class Ui_apisShardingSelectionListDialog(object):
         apisShardingSelectionListDialog.setObjectName(_fromUtf8("apisShardingSelectionListDialog"))
         apisShardingSelectionListDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         apisShardingSelectionListDialog.resize(800, 500)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisShardingSelectionListDialog.setWindowIcon(icon)
         self.verticalLayout = QtGui.QVBoxLayout(apisShardingSelectionListDialog)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -41,9 +44,9 @@ class Ui_apisShardingSelectionListDialog(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.uiNewShardingBtn = QtGui.QPushButton(apisShardingSelectionListDialog)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/add.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiNewShardingBtn.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/add.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiNewShardingBtn.setIcon(icon1)
         self.uiNewShardingBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiNewShardingBtn.setAutoDefault(False)
         self.uiNewShardingBtn.setObjectName(_fromUtf8("uiNewShardingBtn"))

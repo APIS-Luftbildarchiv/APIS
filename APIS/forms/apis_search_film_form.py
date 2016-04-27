@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_film_form.ui'
 #
-# Created: Fri Jan 08 11:44:43 2016
+# Created: Wed Apr 27 09:52:15 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,6 +30,9 @@ class Ui_apisSearchFilmDialog(object):
         apisSearchFilmDialog.resize(470, 160)
         apisSearchFilmDialog.setMinimumSize(QtCore.QSize(470, 160))
         apisSearchFilmDialog.setMaximumSize(QtCore.QSize(470, 160))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisSearchFilmDialog.setWindowIcon(icon)
         apisSearchFilmDialog.setModal(True)
         self.buttonBox = QtGui.QDialogButtonBox(apisSearchFilmDialog)
         self.buttonBox.setGeometry(QtCore.QRect(380, 100, 81, 52))
@@ -147,7 +150,7 @@ class Ui_apisSearchFilmDialog(object):
         self.uiFilmModeLbl.setObjectName(_fromUtf8("uiFilmModeLbl"))
 
         self.retranslateUi(apisSearchFilmDialog)
-        self.uiSearchModeTBox.setCurrentIndex(1)
+        self.uiSearchModeTBox.setCurrentIndex(0)
         self.uiSearchModeTBox.layout().setSpacing(0)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), apisSearchFilmDialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), apisSearchFilmDialog.reject)
@@ -172,3 +175,4 @@ class Ui_apisSearchFilmDialog(object):
         self.uiObliqueChk.setText(_translate("apisSearchFilmDialog", "schräg", None))
         self.uiFilmModeLbl.setText(_translate("apisSearchFilmDialog", "Weise:", None))
 
+import resource_rc

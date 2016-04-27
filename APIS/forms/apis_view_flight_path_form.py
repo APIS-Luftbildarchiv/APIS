@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_view_flight_path_form.ui'
 #
-# Created: Fri Dec 18 09:53:41 2015
+# Created: Wed Apr 27 09:52:15 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,9 @@ class Ui_apisViewFlightPathDialog(object):
         apisViewFlightPathDialog.setObjectName(_fromUtf8("apisViewFlightPathDialog"))
         apisViewFlightPathDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         apisViewFlightPathDialog.resize(635, 333)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisViewFlightPathDialog.setWindowIcon(icon)
         apisViewFlightPathDialog.setModal(True)
         self.buttonBox = QtGui.QDialogButtonBox(apisViewFlightPathDialog)
         self.buttonBox.setGeometry(QtCore.QRect(460, 300, 156, 23))
@@ -127,3 +130,4 @@ class Ui_apisViewFlightPathDialog(object):
         self.uiMappingLineChk.setText(_translate("apisViewFlightPathDialog", "Linie(n)", None))
         self.label.setText(_translate("apisViewFlightPathDialog", "Verfügbarkeit:", None))
 
+import resource_rc

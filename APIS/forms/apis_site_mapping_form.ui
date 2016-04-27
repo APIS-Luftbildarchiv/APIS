@@ -10,6 +10,10 @@
     <height>701</height>
    </rect>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="windowTitle">
    <string>APIS Fundort Kartierung</string>
   </property>
@@ -94,6 +98,16 @@
            <property name="text">
             <string>Check</string>
            </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
+           </property>
           </widget>
          </item>
         </layout>
@@ -140,7 +154,7 @@
            </property>
            <property name="icon">
             <iconset resource="resource.qrc">
-             <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+             <normaloff>:/plugins/APIS/icons/edit_geometry_square.png</normaloff>:/plugins/APIS/icons/edit_geometry_square.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -194,7 +208,7 @@
            </property>
            <property name="icon">
             <iconset resource="resource.qrc">
-             <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+             <normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -269,12 +283,32 @@
            <property name="text">
             <string>Ersetzen</string>
            </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/replace.png</normaloff>:/plugins/APIS/icons/replace.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="uiCancelManuallyEditingBtn">
            <property name="text">
             <string>Abbrechen</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -310,12 +344,32 @@
            <property name="text">
             <string>Hinzufügen</string>
            </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="uiReplaceSelectedSiteBtn">
            <property name="text">
             <string>Ersetzen</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/replace.png</normaloff>:/plugins/APIS/icons/replace.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -328,12 +382,32 @@
            <property name="text">
             <string>Manuelle Eingabe</string>
            </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="uiCancelSelectedEditingBtn">
            <property name="text">
             <string>Abbrechen</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>11</width>
+             <height>11</height>
+            </size>
            </property>
           </widget>
          </item>

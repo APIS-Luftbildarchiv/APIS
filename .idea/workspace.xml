@@ -5,23 +5,111 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/apis.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/cancel.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/center_point.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/edit_geometry_polygon.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/edit_geometry_square.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/exif_export.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/film_selection.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot_clone.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot_delete.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/footprints.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/gps_import.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/image.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/layer.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/mapping_oblique.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/mapping_vertical.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/monoplot.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/ok.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/pdf_export.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/replace.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/settings.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/settings_alert.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/shp_export.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/site.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/site_delete.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/sketch.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/update.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/apis.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/mapping_vertical.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/site.png" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/extractgps.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/filmselection.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/footprints_fehlend.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/footprints_film.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/kartierung_schraeg.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/kartierung_senkrecht.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/print.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/selection.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/sites.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/icons/mapping.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/icons/sites.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/add.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/add.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/film.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/film.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/first.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/first.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/flightpath.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/flightpath.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/icon.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/images.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/images.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/last.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/last.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/next.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/next.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/previous.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/previous.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/remove.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/remove.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/search.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/search.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icon.png" afterPath="$PROJECT_DIR$/APIS/icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/film.png" afterPath="$PROJECT_DIR$/APIS/icons/film.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/icon.png" afterPath="$PROJECT_DIR$/APIS/icons/icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/search.png" afterPath="$PROJECT_DIR$/APIS/icons/search.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/settings.png" afterPath="$PROJECT_DIR$/APIS/icons/settings.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/settings_alert.png" afterPath="$PROJECT_DIR$/APIS/icons/settings_alert.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_tools.py" afterPath="$PROJECT_DIR$/APIS/apis_search_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_apis.ini" afterPath="$PROJECT_DIR$/config_apis.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource.qrc" afterPath="$PROJECT_DIR$/APIS/forms/resource.qrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource_rc.py" afterPath="$PROJECT_DIR$/APIS/forms/resource_rc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/resources.qrc" afterPath="$PROJECT_DIR$/APIS/resources.qrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/resources_rc.py" afterPath="$PROJECT_DIR$/APIS/resources_rc.py" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -109,30 +197,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_film_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4131">
-              <caret line="275" column="38" selection-start-line="275" selection-start-column="34" selection-end-line="275" selection-end-column="38" />
-              <folding>
-                <marker date="1460728795648" expanded="true" signature="14324:14839" placeholder="SELECT (SELE... film" />
-                <marker date="1460728795648" expanded="true" signature="14355:14468" placeholder="SELECT COUNT... film" />
-                <marker date="1460728795648" expanded="true" signature="14532:14672" placeholder="SELECT COUNT... film" />
-                <marker date="1460728795648" expanded="true" signature="35984:36062" placeholder="select descr... wetter" />
-                <marker date="1460728795648" expanded="true" signature="37248:37656" placeholder="SELECT fundo... fundort" />
-                <marker date="1460728795648" expanded="true" signature="37248:37713" placeholder="SELECT fundo... fundort" />
-                <marker date="1460728795648" expanded="true" signature="37362:37655" placeholder="SELECT DISTI... fundort" />
-                <marker date="1460728795648" expanded="true" signature="37561:37654" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460728795648" expanded="true" signature="40267:40352" placeholder="select max(f... film" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="apis_findspot_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
+            <state relative-caret-position="4607">
               <caret line="293" column="17" selection-start-line="293" selection-start-column="17" selection-end-line="293" selection-end-column="17" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
@@ -148,33 +216,71 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="133" column="72" selection-start-line="133" selection-start-column="72" selection-end-line="133" selection-end-column="72" />
+            <state relative-caret-position="4879">
+              <caret line="288" column="0" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_findspot_selection_list_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py">
+      <file leaf-file-name="resources.qrc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1207">
-              <caret line="84" column="49" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="49" />
-              <folding>
-                <element signature="e#24#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_site_selection_list_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
+      <file leaf-file-name="apis_monoplot_import_form.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="92" column="16" selection-start-line="81" selection-start-column="8" selection-end-line="92" selection-end-column="16" />
+            <state relative-caret-position="610">
+              <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_search_form.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="610">
+              <caret line="584" column="13" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_site_mapping_form.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3249">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_image_mapping_form.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4524">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="resource.qrc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/forms/resource.qrc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -214,9 +320,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_image_search_tool.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_printer.py" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/begehung.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_interpretation.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" />
@@ -252,7 +355,6 @@
         <option value="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json" />
         <option value="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-        <option value="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
         <option value="$PROJECT_DIR$/APIS/apis_sharding_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/metadata.txt" />
         <option value="$PROJECT_DIR$/config_apis.ini" />
@@ -264,7 +366,11 @@
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/forms/resource.qrc" />
+        <option value="$PROJECT_DIR$/APIS/resources.qrc" />
         <option value="$PROJECT_DIR$/APIS/apis.py" />
+        <option value="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" />
+        <option value="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
       </list>
     </option>
   </component>
@@ -275,10 +381,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="876" />
+    <option name="x" value="-1928" />
+    <option name="y" value="-188" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -306,7 +412,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -339,8 +444,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -601,13 +725,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Update">
-      <created>1431001604639</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1431001604639</updated>
     </task>
     <task id="LOCAL-00007" summary="Update">
       <created>1431320092882</created>
@@ -945,7 +1062,14 @@
       <option name="project" value="LOCAL" />
       <updated>1460712350345</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Update">
+      <created>1461499266128</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1461499266169</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TodoView">
@@ -958,17 +1082,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <frame x="-1928" y="-188" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20057307" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15351813" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22841226" sideWeight="0.63108885" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748401" sideWeight="0.6348614" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2863436" sideWeight="0.44743276" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24520256" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22841226" sideWeight="0.36891118" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748401" sideWeight="0.3651386" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1019,41 +1143,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/run_convertion.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/projekt.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_senk_fp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/test_missing_pols.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="134" column="49" selection-start-line="134" selection-start-column="32" selection-end-line="134" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1289,13 +1378,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="583" column="0" selection-start-line="583" selection-start-column="0" selection-end-line="583" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config_apis.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1449,7 +1531,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
+        <state relative-caret-position="4607">
           <caret line="293" column="17" selection-start-line="293" selection-start-column="17" selection-end-line="293" selection-end-column="17" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
@@ -1464,10 +1546,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/resource.qrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3249">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4524">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="133" column="72" selection-start-line="133" selection-start-column="72" selection-end-line="133" selection-end-column="72" />
+        <state relative-caret-position="4879">
+          <caret line="288" column="0" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="584" column="13" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
           <folding />
         </state>
       </provider>

@@ -16,8 +16,12 @@
   <property name="windowTitle">
    <string>APIS Bild Auswahl</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -55,7 +59,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/layer.png</normaloff>:/plugins/APIS/icons/layer.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -78,7 +82,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+         <normaloff>:/plugins/APIS/icons/shp_export.png</normaloff>:/plugins/APIS/icons/shp_export.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -101,7 +105,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -124,7 +128,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+         <normaloff>:/plugins/APIS/icons/exif_export.png</normaloff>:/plugins/APIS/icons/exif_export.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -141,7 +145,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/print.png</normaloff>:/plugins/APIS/icons/print.png</iconset>
+         <normaloff>:/plugins/APIS/icons/pdf_export.png</normaloff>:/plugins/APIS/icons/pdf_export.png</iconset>
        </property>
        <property name="iconSize">
         <size>

@@ -7,8 +7,12 @@
     <x>0</x>
     <y>0</y>
     <width>285</width>
-    <height>638</height>
+    <height>642</height>
    </rect>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
   </property>
   <property name="windowTitle">
    <string>Bilder kartieren</string>
@@ -31,7 +35,7 @@
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/plugins/APIS/icons/filmselection.png</normaloff>:/plugins/APIS/icons/filmselection.png</iconset>
+          <normaloff>:/plugins/APIS/icons/film_selection.png</normaloff>:/plugins/APIS/icons/film_selection.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -68,33 +72,6 @@
     </item>
     <item>
      <layout class="QGridLayout" name="uiMappingGridLayout">
-      <item row="2" column="1">
-       <widget class="QLabel" name="label_3">
-        <property name="maximumSize">
-         <size>
-          <width>10</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Y:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="uiXCoordinateLbl">
-        <property name="text">
-         <string>---</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="uiYCoordinateLbl">
-        <property name="text">
-         <string>---</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
        <widget class="QLabel" name="label">
         <property name="maximumSize">
@@ -108,20 +85,17 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="3">
-       <widget class="QPushButton" name="uiGenerateFootprintsBtn">
+      <item row="2" column="2">
+       <widget class="QLabel" name="uiYCoordinateLbl">
         <property name="text">
-         <string>Footprints erstellen</string>
+         <string>---</string>
         </property>
-        <property name="icon">
-         <iconset resource="resource.qrc">
-          <normaloff>:/plugins/APIS/icons/footprints_fehlend.png</normaloff>:/plugins/APIS/icons/footprints_fehlend.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="uiXCoordinateLbl">
+        <property name="text">
+         <string>---</string>
         </property>
        </widget>
       </item>
@@ -138,7 +112,7 @@
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+          <normaloff>:/plugins/APIS/icons/center_point.png</normaloff>:/plugins/APIS/icons/center_point.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -157,7 +131,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="3">
+      <item row="4" column="0" colspan="3">
        <widget class="QLabel" name="label_15">
         <property name="text">
          <string>3. Footprints erstellen</string>
@@ -171,20 +145,44 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3" rowspan="2">
-       <widget class="QPushButton" name="uiAddCenterPointBtn">
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_3">
         <property name="maximumSize">
          <size>
-          <width>32</width>
-          <height>32</height>
+          <width>10</width>
+          <height>16777215</height>
          </size>
         </property>
         <property name="text">
-         <string/>
+         <string>Y:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="3">
+       <widget class="QPushButton" name="uiAddCenterPointBtn">
+        <property name="text">
+         <string>Hinzufügen</string>
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
           <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="3">
+       <widget class="QPushButton" name="uiGenerateFootprintsBtn">
+        <property name="text">
+         <string>Footprints erstellen</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/plugins/APIS/icons/footprints.png</normaloff>:/plugins/APIS/icons/footprints.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -205,17 +203,37 @@
     </item>
     <item>
      <layout class="QGridLayout" name="uiMappingDetailsGridLayout">
+      <item row="1" column="1">
+       <widget class="QPushButton" name="uiCancelCenterPointBtn">
+        <property name="text">
+         <string>Abbrechen</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>11</width>
+          <height>11</height>
+         </size>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="uiSaveCenterPointBtn">
         <property name="text">
          <string>Hinzufügen</string>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="uiCancelCenterPointBtn">
-        <property name="text">
-         <string>Abbrechen</string>
+        <property name="icon">
+         <iconset resource="resource.qrc">
+          <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>11</width>
+          <height>11</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -233,11 +251,11 @@
            <x>0</x>
            <y>0</y>
            <width>265</width>
-           <height>265</height>
+           <height>231</height>
           </rect>
          </property>
          <attribute name="icon">
-          <iconset resource="resource.qrc">
+          <iconset>
            <normaloff>:/plugins/APIS/icons/kartierung_schraeg.png</normaloff>:/plugins/APIS/icons/kartierung_schraeg.png</iconset>
          </attribute>
          <attribute name="label">
@@ -385,11 +403,11 @@
            <x>0</x>
            <y>0</y>
            <width>265</width>
-           <height>265</height>
+           <height>231</height>
           </rect>
          </property>
          <attribute name="icon">
-          <iconset resource="resource.qrc">
+          <iconset>
            <normaloff>:/plugins/APIS/icons/kartierung_senkrecht.png</normaloff>:/plugins/APIS/icons/kartierung_senkrecht.png</iconset>
          </attribute>
          <attribute name="label">
@@ -495,31 +513,24 @@
      <layout class="QHBoxLayout" name="uiMonoplotHorizontalLayout">
       <item>
        <widget class="QPushButton" name="uiMonoplotImportBtn">
-        <property name="maximumSize">
-         <size>
-          <width>32</width>
-          <height>16777215</height>
-         </size>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
         <property name="text">
-         <string/>
+         <string>Import von MONOPLOT Daten</string>
         </property>
         <property name="icon">
          <iconset resource="resource.qrc">
-          <normaloff>:/plugins/APIS/icons/add.png</normaloff>:/plugins/APIS/icons/add.png</iconset>
+          <normaloff>:/plugins/APIS/icons/monoplot.png</normaloff>:/plugins/APIS/icons/monoplot.png</iconset>
         </property>
         <property name="iconSize">
          <size>
           <width>24</width>
           <height>24</height>
          </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Alternative: Import von MONOPLOT</string>
         </property>
        </widget>
       </item>

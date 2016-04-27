@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_weather_form.ui'
 #
-# Created: Fri Dec 18 09:53:40 2015
+# Created: Wed Apr 27 09:52:15 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,6 +30,9 @@ class Ui_apisWeatherDialog(object):
         apisWeatherDialog.resize(610, 310)
         apisWeatherDialog.setMinimumSize(QtCore.QSize(610, 290))
         apisWeatherDialog.setMaximumSize(QtCore.QSize(800, 500))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisWeatherDialog.setWindowIcon(icon)
         apisWeatherDialog.setModal(True)
         self.gridLayout_2 = QtGui.QGridLayout(apisWeatherDialog)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_sharding_form.ui'
 #
-# Created: Mon Mar 28 15:31:12 2016
+# Created: Wed Apr 27 09:52:17 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,10 @@ class Ui_apisShardingDialog(object):
     def setupUi(self, apisShardingDialog):
         apisShardingDialog.setObjectName(_fromUtf8("apisShardingDialog"))
         apisShardingDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        apisShardingDialog.resize(750, 430)
+        apisShardingDialog.resize(750, 454)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisShardingDialog.setWindowIcon(icon)
         self.gridLayout_2 = QtGui.QGridLayout(apisShardingDialog)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.horizontalLayout = QtGui.QHBoxLayout()
@@ -52,17 +55,17 @@ class Ui_apisShardingDialog(object):
         self.uiBottomHorizontalLayout = QtGui.QHBoxLayout()
         self.uiBottomHorizontalLayout.setObjectName(_fromUtf8("uiBottomHorizontalLayout"))
         self.uiPicturesBtn = QtGui.QPushButton(apisShardingDialog)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/sites.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiPicturesBtn.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/image.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiPicturesBtn.setIcon(icon1)
         self.uiPicturesBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiPicturesBtn.setAutoDefault(False)
         self.uiPicturesBtn.setObjectName(_fromUtf8("uiPicturesBtn"))
         self.uiBottomHorizontalLayout.addWidget(self.uiPicturesBtn)
         self.uiSketchesBtn = QtGui.QPushButton(apisShardingDialog)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/images.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiSketchesBtn.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/sketch.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiSketchesBtn.setIcon(icon2)
         self.uiSketchesBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiSketchesBtn.setAutoDefault(False)
         self.uiSketchesBtn.setObjectName(_fromUtf8("uiSketchesBtn"))

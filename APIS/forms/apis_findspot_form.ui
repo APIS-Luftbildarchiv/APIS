@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>APIS Funstelle</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
@@ -682,7 +686,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/layer.png</normaloff>:/plugins/APIS/icons/layer.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -702,7 +706,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -722,7 +726,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/site.png</normaloff>:/plugins/APIS/icons/site.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -742,7 +746,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/images.png</normaloff>:/plugins/APIS/icons/images.png</iconset>
+         <normaloff>:/plugins/APIS/icons/footprints.png</normaloff>:/plugins/APIS/icons/footprints.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -762,7 +766,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/print.png</normaloff>:/plugins/APIS/icons/print.png</iconset>
+         <normaloff>:/plugins/APIS/icons/pdf_export.png</normaloff>:/plugins/APIS/icons/pdf_export.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -782,7 +786,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/sites.png</normaloff>:/plugins/APIS/icons/sites.png</iconset>
+         <normaloff>:/plugins/APIS/icons/findspot_clone.png</normaloff>:/plugins/APIS/icons/findspot_clone.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -802,7 +806,7 @@
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/extractgps.png</normaloff>:/plugins/APIS/icons/extractgps.png</iconset>
+         <normaloff>:/plugins/APIS/icons/findspot_delete.png</normaloff>:/plugins/APIS/icons/findspot_delete.png</iconset>
        </property>
        <property name="iconSize">
         <size>
@@ -901,6 +905,16 @@
        <property name="text">
         <string>Speichern</string>
        </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -914,6 +928,16 @@
        <property name="text">
         <string>Abbrechen</string>
        </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -923,6 +947,16 @@
       <widget class="QPushButton" name="uiOkBtn">
        <property name="text">
         <string>OK</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

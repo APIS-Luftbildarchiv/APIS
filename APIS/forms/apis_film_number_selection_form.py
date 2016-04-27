@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_number_selection_form.ui'
 #
-# Created: Fri Dec 18 09:53:39 2015
+# Created: Wed Apr 27 09:52:14 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -29,6 +29,9 @@ class Ui_apisFilmNumberSelectionDialog(object):
         apisFilmNumberSelectionDialog.setWindowModality(QtCore.Qt.ApplicationModal)
         apisFilmNumberSelectionDialog.resize(300, 70)
         apisFilmNumberSelectionDialog.setFocusPolicy(QtCore.Qt.TabFocus)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        apisFilmNumberSelectionDialog.setWindowIcon(icon)
         apisFilmNumberSelectionDialog.setModal(True)
         self.uiButtonBox = QtGui.QDialogButtonBox(apisFilmNumberSelectionDialog)
         self.uiButtonBox.setGeometry(QtCore.QRect(220, 10, 75, 52))
@@ -60,3 +63,4 @@ class Ui_apisFilmNumberSelectionDialog(object):
         apisFilmNumberSelectionDialog.setWindowTitle(_translate("apisFilmNumberSelectionDialog", "Film Nummer Auswahl", None))
         self.uiFilmNumberLbl.setText(_translate("apisFilmNumberSelectionDialog", "Filmnummer:", None))
 
+import resource_rc
