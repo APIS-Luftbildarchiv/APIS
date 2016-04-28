@@ -71,10 +71,80 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         self.uiSearchYearBtn.clicked.connect(self.attributeSearchSiteByFilmsOfYear)
         self.uiSearchYearDate.lineEdit().returnPressed.connect(self.attributeSearchSiteByFilmsOfYear)
 
-        self.uiSearchProjectNameBtn.clicked.connect(self.attributeSearchByProjectName)
-        self.uiSearchProjectNameCombo.lineEdit().returnPressed.connect(self.attributeSearchByProjectName)
+        self.uiSearchProjectNameBtn.clicked.connect(self.attributeSearchSiteByProjectName)
+        self.uiSearchProjectNameCombo.lineEdit().returnPressed.connect(self.attributeSearchSiteByProjectName)
 
         # Fundstelle
+
+        self.uiSearchFindSpotBtn.setEnabled(True)
+        self.uiSearchFindSpotBtn.clicked.connect(self.attributeSearchFindSpot)
+
+        # Datierung
+
+        self.uiPeriodChk.setCheckState(Qt.Unchecked)
+        self.uiPeriodDetailsChk.setCheckState(Qt.Unchecked)
+
+        self.uiPeriodDetailsChk.setEnabled(False)
+
+        self.uiPeriodCombo.setEnabled(False)
+        self.uiPeriodDetailsCombo.setEnabled(False)
+
+        self.uiPeriodChk.stateChanged.connect(self.onPeriodChkChanged)
+        self.uiPeriodDetailsChk.stateChanged.connect(self.onPeriodDetailsChkChanged)
+
+        self.uiTimeCombo.currentIndexChanged.connect(self.loadPeriodContent)
+        self.uiPeriodCombo.currentIndexChanged.connect(self.loadPeriodDetailsContent)
+        #self.uiPeriodDetailsCombo.currentIndexChanged.connect(False)
+
+        self.setupSearchComboBox(self.uiTimeCombo, "zeit", "zeit", "zeit")
+
+        # Kultur
+
+        self.setupSearchComboBox(self.uiCultureCombo, "kultur", "name", "name")
+
+        # Fundart
+        self.setupSearchComboBox(self.uiFindTypeCombo, "fundart", "fundart", "fundart")
+        self.uiFindTypeCombo.currentIndexChanged.connect(self.loadFindTypeDtailsContent)
+
+        self.uiFindTypeDetailsChk.setCheckState(Qt.Unchecked)
+        self.uiFindTypeDetailsCombo.setEnabled(False)
+        self.uiFindTypeDetailsChk.stateChanged.connect(self.onFindTypeDetailsChkChanged)
+
+
+
+    def loadPeriodContent(self, idx):
+        time = self.uiTimeCombo.currentText()
+        self.setupSearchComboBoxByQuery(self.uiPeriodCombo, u"SELECT DISTINCT periode FROM zeit WHERE zeit ='{0}'".format(time))
+
+    def loadPeriodDetailsContent(self, idx):
+        time = self.uiTimeCombo.currentText()
+        period = self.uiPeriodCombo.currentText()
+        self.setupSearchComboBoxByQuery(self.uiPeriodDetailsCombo, u"SELECT DISTINCT periode_detail FROM zeit WHERE zeit = '{0}' AND periode = '{1}'".format(time, period))
+
+    def loadFindTypeDtailsContent(self, idx):
+        findType = self.uiFindTypeCombo.currentText()
+        self.setupSearchComboBoxByQuery(self.uiFindTypeDetailsCombo, u"SELECT DISTINCT fundart_detail FROM fundart WHERE fundart ='{0}'".format(findType))
+
+    def onPeriodChkChanged(self, state):
+        if state:
+            self.uiPeriodCombo.setEnabled(True)
+            self.uiPeriodDetailsChk.setEnabled(True)
+        else:
+            self.uiPeriodCombo.setEnabled(False)
+            self.uiPeriodDetailsChk.setCheckState(Qt.Unchecked)
+            self.uiPeriodDetailsChk.setEnabled(False)
+
+    def onPeriodDetailsChkChanged(self, state):
+        if state:
+            self.uiPeriodDetailsCombo.setEnabled(True)
+        else:
+            self.uiPeriodDetailsCombo.setEnabled(False)
+
+    def onFindTypeDetailsChkChanged(self, state):
+        if state:
+            self.uiFindTypeDetailsCombo.setEnabled(True)
+        else:
+            self.uiFindTypeDetailsCombo.setEnabled(False)
 
     def setSearchTopic(self):
         if self.uiSearchImageRBtn.isChecked():
@@ -284,7 +354,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             if self.siteSelectionListDlg.exec_():
                 pass
 
-    def attributeSearchByProjectName(self):
+    def attributeSearchSiteByProjectName(self):
         # Fundortsuche
         projectNameSearchValue = self.uiSearchProjectNameCombo.lineEdit().text()
         query = QSqlQuery(self.dbm.db)
@@ -297,6 +367,45 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             self.siteSelectionListDlg.show()
             if self.siteSelectionListDlg.exec_():
                 pass
+
+    def attributeSearchFindSpot(self):
+        query = QSqlQuery(self.dbm.db)
+        #query.prepare("SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst WHERE NOT IsEmpty(fst.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}', {1}), fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}', {1}))) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(searchGeometry.exportToWkt(), epsg))
+        # query.prepare("SELECT fundortnummer, fundstellenummer, datierung, fundart, fundart_detail, sicherheit, kultur FROM fundstelle WHERE (fundortnummer || '.' || fundstellenummer) as id1 IN (SELECT DISTINCT (fs.fundortnummer || '.' || fs.fundstellenummer) as id2 FROM fundstelle fs WHERE NOT IsEmpty(fs.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fs.geometry) AND fs.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}',{1}) ) )".format(searchGeometry.exportToWkt(), epsg))
+
+
+        whereClause = []
+        if self.uiDatingGrp.isChecked():
+            whereClause.append(u"substr(datierung, 1, pos1-1) = '{0}'".format(self.uiTimeCombo.currentText()))  # zeit
+            if self.uiPeriodChk.isChecked():
+                whereClause.append(u"substr(datierung, pos1+1, pos2-1) = '{0}'".format(self.uiPeriodCombo.currentText()))  # periode
+                if self.uiPeriodDetailsChk.isChecked():
+                    whereClause.append(u"substr(datierung, pos1+pos2+1, pos3-1) = '{0}'".format(self.uiPeriodDetailsCombo.currentText()))  # periode_detail
+        if self.uiCultureGrp.isChecked():
+            whereClause.append(u"kultur = '{0}'".format(self.uiCultureCombo.currentText()))  # kultur
+        if self.uiFindTypeGrp.isChecked():
+            whereClause.append(u"fundart = '{0}'".format(self.uiFindTypeCombo.currentText()))  # fundart
+            if self.uiFindTypeDetailsChk.isChecked():
+                whereClause.append(u"instr(fundart_detail, '{0}')".format(self.uiFindTypeDetailsCombo.currentText()))  # fundart_detail; je fundart_detail
+        #whereClause.append("")  # spatial
+
+        whereStr = u" AND ".join(whereClause)
+
+        qryStr = u"SELECT fundortnummer, fundstellenummer, datierung, fundart, fundart_detail, sicherheit, kultur FROM (SELECT *, instr(datierung,',') AS pos1, instr(substr(datierung, instr(datierung,',')+1), ',') AS pos2, instr(substr(datierung, instr(datierung,',')+instr(substr(datierung, instr(datierung,',')+1), ',')+1),  ',') AS pos3 FROM fundstelle) WHERE {0}".format(whereStr)
+
+        QMessageBox.warning(None, self.tr(u"findspot search"), u"{0}".format(qryStr))
+
+
+        #return
+        query.prepare(qryStr)
+        query.exec_()
+        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm)
+        res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
+        if res:
+            self.findSpotSelectionListDlg.show()
+            # if self.findSpotSelectionListDlg.exec_():
+            #    pass
+
 
     def isFilm(self, filmNumber):
         # check if filmNumber is a filmNumber in film Table
@@ -314,6 +423,34 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         editor.setView(tv)
 
         tv.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        tv.setSelectionMode(QAbstractItemView.SingleSelection)
+        tv.setSelectionBehavior(QAbstractItemView.SelectRows)
+        tv.setAutoScroll(False)
+
+        editor.setModel(model)
+
+        editor.setModelColumn(modelcolumn)
+        editor.setInsertPolicy(QComboBox.NoInsert)
+
+        tv.resizeColumnsToContents()
+        tv.resizeRowsToContents()
+        tv.verticalHeader().setVisible(False)
+        tv.horizontalHeader().setVisible(True)
+        # tv.setMinimumWidth(tv.horizontalHeader().length())
+        tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+
+        editor.setAutoCompletion(True)
+        editor.setCurrentIndex(-1)
+
+    def setupSearchComboBoxByQuery(self, editor, query, modelcolumn=0):
+        model = QSqlQueryModel(self)
+        model.setQuery(query, self.dbm.db)
+
+        tv = QTableView()
+        editor.setView(tv)
+
+        tv.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        #tv.setSelectionMode(QAbstractItemView.MultiSelection)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
         tv.setAutoScroll(False)

@@ -5,111 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/apis.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/cancel.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/center_point.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/edit_geometry_polygon.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/edit_geometry_square.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/exif_export.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/film_selection.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot_clone.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/findspot_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/footprints.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/gps_import.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/image.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/layer.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/mapping_oblique.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/mapping_vertical.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/monoplot.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/ok.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/pdf_export.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/replace.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/settings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/settings_alert.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/shp_export.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/site.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/site_delete.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/sketch.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/icons/update.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/apis.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/mapping_vertical.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/icons/site.png" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/extractgps.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/filmselection.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/footprints_fehlend.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/footprints_film.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/kartierung_schraeg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/kartierung_senkrecht.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/print.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/selection.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/forms/icons/sites.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/icons/mapping.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/APIS/icons/sites.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/add.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/add.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/film.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/film.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/first.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/first.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/flightpath.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/flightpath.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/icon.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/images.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/images.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/last.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/last.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/next.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/next.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/previous.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/previous.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/remove.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/remove.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/icons/search.png" afterPath="$PROJECT_DIR$/APIS/forms/icons/search.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icon.png" afterPath="$PROJECT_DIR$/APIS/icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/film.png" afterPath="$PROJECT_DIR$/APIS/icons/film.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/icon.png" afterPath="$PROJECT_DIR$/APIS/icons/icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/search.png" afterPath="$PROJECT_DIR$/APIS/icons/search.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/settings.png" afterPath="$PROJECT_DIR$/APIS/icons/settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/icons/settings_alert.png" afterPath="$PROJECT_DIR$/APIS/icons/settings_alert.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_new_film_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_film_form.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_text_editor_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_view_flight_path_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource.qrc" afterPath="$PROJECT_DIR$/APIS/forms/resource.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource_rc.py" afterPath="$PROJECT_DIR$/APIS/forms/resource_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/resources.qrc" afterPath="$PROJECT_DIR$/APIS/resources.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/resources_rc.py" afterPath="$PROJECT_DIR$/APIS/resources_rc.py" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -131,67 +30,147 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apis_search_dialog.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apis_search_dialog.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_search_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5457">
-              <caret line="333" column="34" selection-start-line="308" selection-start-column="4" selection-end-line="333" selection-end-column="34" />
+            <state relative-caret-position="377">
+              <caret line="473" column="9" selection-start-line="473" selection-start-column="9" selection-end-line="473" selection-end-column="124" />
               <folding>
-                <marker date="1460789070101" expanded="true" signature="5850:6352" placeholder="select cp.bi... film" />
-                <marker date="1460789070101" expanded="true" signature="5850:6890" placeholder="select cp.bi... " />
-                <marker date="1460789070101" expanded="true" signature="6083:6351" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
-                <marker date="1460789070101" expanded="true" signature="6233:6349" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="6363:6858" placeholder="SELECT cp_s.... film" />
-                <marker date="1460789070101" expanded="true" signature="6586:6856" placeholder="SELECT fp_s.... luftbild_senk_fp" />
-                <marker date="1460789070101" expanded="true" signature="6741:6854" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="8107:8577" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="8221:8518" placeholder="SELECT DISTI... fundort" />
-                <marker date="1460789070101" expanded="true" signature="8412:8516" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="10393:11086" placeholder="SELECT fs.fu... fundstelle" />
-                <marker date="1460789070101" expanded="true" signature="10649:10998" placeholder="SELECT DISTI... fundstelle" />
-                <marker date="1460789070101" expanded="true" signature="10889:10997" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="11164:11679" placeholder="SELECT fundr... fundstelle" />
-                <marker date="1460789070101" expanded="true" signature="13284:13440" placeholder="SELECT * FRO... katastralgemeinden" />
-                <marker date="1460789070101" expanded="true" signature="13284:13469" placeholder="SELECT Trans... katastralgemeinden" />
-                <marker date="1460789070101" expanded="true" signature="13561:13713" placeholder="SELECT Trans... " />
-                <marker date="1460789070101" expanded="true" signature="13561:13742" placeholder="SELECT Trans... katastralgemeinden" />
-                <marker date="1460789070101" expanded="true" signature="13973:14975" placeholder="SELECT cp.bi... " />
-                <marker date="1460789070101" expanded="true" signature="13979:14455" placeholder="select cp.bi... film" />
-                <marker date="1460789070101" expanded="true" signature="13979:14975" placeholder="select cp.bi... " />
-                <marker date="1460789070101" expanded="true" signature="14200:14454" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
-                <marker date="1460789070101" expanded="true" signature="14348:14441" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="14348:14452" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="14466:14625" placeholder="SELECT cp_s.... film" />
-                <marker date="1460789070101" expanded="true" signature="14466:14943" placeholder="SELECT cp_s.... film" />
-                <marker date="1460789070101" expanded="true" signature="14683:14941" placeholder="SELECT fp_s.... luftbild_senk_fp" />
-                <marker date="1460789070101" expanded="true" signature="14838:14928" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="14838:14939" placeholder="SELECT rowid... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="16122:16537" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="16236:16478" placeholder="SELECT DISTI... fundort" />
-                <marker date="1460789070101" expanded="true" signature="16384:16465" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="16384:16476" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="17147:17783" placeholder="SELECT fs.fu... fundstelle" />
-                <marker date="1460789070101" expanded="true" signature="17403:17695" placeholder="SELECT DISTI... fundstelle" />
-                <marker date="1460789070101" expanded="true" signature="17599:17683" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="17599:17694" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="18387:18509" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="18387:18518" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="18387:18566" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="20693:21101" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="20693:21158" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="20807:21100" placeholder="SELECT DISTI... fundort" />
-                <marker date="1460789070101" expanded="true" signature="21006:21099" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="21778:22522" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="21778:22537" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="21892:22464" placeholder="SELECT DISTI... fundort" />
-                <marker date="1460789070101" expanded="true" signature="21943:22100" placeholder="SELECT filmn... luftbild_schraeg_fp" />
-                <marker date="1460789070101" expanded="true" signature="22111:22259" placeholder="SELECT filmn... luftbild_senk_fp" />
-                <marker date="1460789070101" expanded="true" signature="22365:22463" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1460789070101" expanded="true" signature="23173:23357" placeholder="SELECT fundo... fundort" />
-                <marker date="1460789070101" expanded="true" signature="23977:24024" placeholder="SELECT COUNT... film" />
-                <marker date="1460789070101" expanded="true" signature="24262:24287" placeholder="SELECT DISTI... missing_value" />
-                <marker date="1460789070101" expanded="true" signature="24262:24299" placeholder="SELECT DISTI... missing_value" />
-                <marker date="1460789070101" expanded="true" signature="24262:24300" placeholder="SELECT DISTI... missing_value" />
+                <marker date="1461775435136" expanded="true" signature="5238:5289" placeholder="SELECT DISTI... zeit" />
+                <marker date="1461775435136" expanded="true" signature="5516:5575" placeholder="SELECT DISTI... zeit" />
+                <marker date="1461775435136" expanded="true" signature="5516:5595" placeholder="SELECT DISTI... zeit" />
+                <marker date="1461775435136" expanded="true" signature="5791:5855" placeholder="SELECT DISTI... zeit" />
+                <marker date="1461775435136" expanded="true" signature="8758:9260" placeholder="select cp.bi... film" />
+                <marker date="1461775435136" expanded="true" signature="8758:9798" placeholder="select cp.bi... " />
+                <marker date="1461775435136" expanded="true" signature="8991:9259" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
+                <marker date="1461775435136" expanded="true" signature="9141:9257" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="9271:9766" placeholder="SELECT cp_s.... film" />
+                <marker date="1461775435136" expanded="true" signature="9494:9764" placeholder="SELECT fp_s.... luftbild_senk_fp" />
+                <marker date="1461775435136" expanded="true" signature="9649:9762" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="11015:11485" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="11129:11426" placeholder="SELECT DISTI... fundort" />
+                <marker date="1461775435136" expanded="true" signature="11320:11424" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="13301:13994" placeholder="SELECT fs.fu... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="13557:13906" placeholder="SELECT DISTI... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="13797:13905" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="14072:14587" placeholder="SELECT fundr... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="16192:16348" placeholder="SELECT * FRO... katastralgemeinden" />
+                <marker date="1461775435136" expanded="true" signature="16192:16377" placeholder="SELECT Trans... katastralgemeinden" />
+                <marker date="1461775435136" expanded="true" signature="16469:16621" placeholder="SELECT Trans... " />
+                <marker date="1461775435136" expanded="true" signature="16469:16650" placeholder="SELECT Trans... katastralgemeinden" />
+                <marker date="1461775435136" expanded="true" signature="16881:17883" placeholder="SELECT cp.bi... " />
+                <marker date="1461775435136" expanded="true" signature="16887:17363" placeholder="select cp.bi... film" />
+                <marker date="1461775435136" expanded="true" signature="16887:17883" placeholder="select cp.bi... " />
+                <marker date="1461775435136" expanded="true" signature="17108:17362" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
+                <marker date="1461775435136" expanded="true" signature="17256:17349" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="17256:17360" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="17374:17533" placeholder="SELECT cp_s.... film" />
+                <marker date="1461775435136" expanded="true" signature="17374:17851" placeholder="SELECT cp_s.... film" />
+                <marker date="1461775435136" expanded="true" signature="17591:17849" placeholder="SELECT fp_s.... luftbild_senk_fp" />
+                <marker date="1461775435136" expanded="true" signature="17746:17836" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="17746:17847" placeholder="SELECT rowid... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="19030:19445" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="19144:19386" placeholder="SELECT DISTI... fundort" />
+                <marker date="1461775435136" expanded="true" signature="19292:19373" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="19292:19384" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="20055:20691" placeholder="SELECT fs.fu... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="20311:20603" placeholder="SELECT DISTI... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="20507:20591" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="20507:20602" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="21295:21417" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="21295:21426" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="21295:21474" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="23601:24009" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="23601:24066" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="23715:24008" placeholder="SELECT DISTI... fundort" />
+                <marker date="1461775435136" expanded="true" signature="23914:24007" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="24686:25430" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="24686:25445" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="24800:25372" placeholder="SELECT DISTI... fundort" />
+                <marker date="1461775435136" expanded="true" signature="24851:25008" placeholder="SELECT filmn... luftbild_schraeg_fp" />
+                <marker date="1461775435136" expanded="true" signature="25019:25167" placeholder="SELECT filmn... luftbild_senk_fp" />
+                <marker date="1461775435136" expanded="true" signature="25273:25371" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="26085:26269" placeholder="SELECT fundo... fundort" />
+                <marker date="1461775435136" expanded="true" signature="26835:27528" placeholder="SELECT fs.fu... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="27091:27440" placeholder="SELECT DISTI... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="27331:27439" placeholder="SELECT ROWID... SpatialIndex" />
+                <marker date="1461775435136" expanded="true" signature="29348:29692" placeholder="SELECT * FRO... *" />
+                <marker date="1461775435136" expanded="true" signature="29449:29684" placeholder="SELECT *, in... fundstelle" />
+                <marker date="1461775435136" expanded="true" signature="30348:30395" placeholder="SELECT COUNT... film" />
+                <marker date="1461775435136" expanded="true" signature="30633:30658" placeholder="SELECT DISTI... missing_value" />
+                <marker date="1461775435136" expanded="true" signature="30633:30670" placeholder="SELECT DISTI... missing_value" />
+                <marker date="1461775435136" expanded="true" signature="30633:30671" placeholder="SELECT DISTI... missing_value" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_image_selection_list_dialog.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4794">
+              <caret line="80" column="65" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
+              <folding>
+                <marker date="1452246521889" expanded="true" signature="3199:3248" placeholder="select count... missing_value" />
+                <marker date="1452246521889" expanded="true" signature="3583:3741" placeholder="select cp.bi... missing_value" />
+                <marker date="1452246521889" expanded="true" signature="25766:25894" placeholder="select filmn... luftbild_senk_fp" />
+                <marker date="1452246521889" expanded="true" signature="25766:26056" placeholder="select filmn... " />
+                <marker date="1452246521889" expanded="true" signature="25905:26036" placeholder="select filmn... luftbild_schraeg_fp" />
+                <marker date="1452246521889" expanded="true" signature="37237:37373" placeholder="select bildn... luftbild_senk_cp" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apis_db_manager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="28" column="37" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="37" />
+              <folding>
+                <element signature="e#1163#1189#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config_apis.ini" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config_apis.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tv_chk_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tv_chk_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1514">
+              <caret line="98" column="34" selection-start-line="98" selection-start-column="12" selection-end-line="98" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="combo_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/combo_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7123">
+              <caret line="419" column="19" selection-start-line="419" selection-start-column="19" selection-end-line="419" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test2.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="287">
+              <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -200,8 +179,8 @@
       <file leaf-file-name="apis_findspot_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4607">
-              <caret line="293" column="17" selection-start-line="293" selection-start-column="17" selection-end-line="293" selection-end-column="17" />
+            <state relative-caret-position="3213">
+              <caret line="321" column="61" selection-start-line="321" selection-start-column="61" selection-end-line="321" selection-end-column="61" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
                 <element signature="e#18109#22206#0" expanded="false" />
@@ -216,90 +195,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4879">
-              <caret line="288" column="0" selection-start-line="288" selection-start-column="0" selection-end-line="288" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resources.qrc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_monoplot_import_form.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_search_form.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="apis_search_form.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="610">
               <caret line="584" column="13" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_site_mapping_form.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3249">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_image_mapping_form.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4524">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="resource.qrc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/forms/resource.qrc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_site_dialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="45" column="27" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="27" />
-              <folding>
-                <marker date="1461095739552" expanded="true" signature="1202:1281" placeholder="..." />
-                <marker date="1461095739552" expanded="true" signature="11877:12040" placeholder="SELECT funds... fundstelle" />
-                <marker date="1461095739552" expanded="true" signature="21332:21410" placeholder="select descr... wetter" />
-                <marker date="1461095739552" expanded="true" signature="22591:23041" placeholder="SELECT fundo... fundort_pnt" />
-                <marker date="1461095739552" expanded="true" signature="22706:23040" placeholder="SELECT DISTI... fundort_pol" />
-                <marker date="1461095739552" expanded="true" signature="22942:23039" placeholder="SELECT ROWID... SpatialIndex" />
-                <marker date="1461095739552" expanded="true" signature="24673:24758" placeholder="select max(f... film" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -320,10 +221,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/begehung.json" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_interpretation.json" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" />
-        <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_pnt.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pnt.json" />
         <option value="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates_test.json" />
@@ -360,7 +257,6 @@
         <option value="$PROJECT_DIR$/config_apis.ini" />
         <option value="$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_search_tools.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_site_form.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
@@ -371,6 +267,11 @@
         <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
+        <option value="$PROJECT_DIR$/test2.py" />
+        <option value="$PROJECT_DIR$/tv_chk_test.py" />
+        <option value="$PROJECT_DIR$/combo_test.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
       </list>
     </option>
   </component>
@@ -441,24 +342,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -725,13 +608,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update">
-      <created>1431320092882</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1431320092882</updated>
     </task>
     <task id="LOCAL-00008" summary="Update">
       <created>1432896550905</created>
@@ -1069,7 +945,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461499266169</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Update">
+      <created>1461748705961</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1461748705992</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1083,7 +966,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-188" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15351813" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1092,7 +975,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2863436" sideWeight="0.44743276" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24520256" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748401" sideWeight="0.3651386" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748401" sideWeight="0.3651386" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1143,41 +1026,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundgewinnung_quelle.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_fp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="31" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="62" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1378,13 +1226,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config_apis.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="81" selection-start-line="6" selection-start-column="81" selection-end-line="6" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
@@ -1419,7 +1260,7 @@
         <state relative-caret-position="1207">
           <caret line="84" column="49" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="49" />
           <folding>
-            <element signature="e#24#39#0" expanded="true" />
+            <element signature="e#24#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1449,70 +1290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_search_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5457">
-          <caret line="333" column="34" selection-start-line="308" selection-start-column="4" selection-end-line="333" selection-end-column="34" />
-          <folding>
-            <marker date="1460789070101" expanded="true" signature="5850:6352" placeholder="select cp.bi... film" />
-            <marker date="1460789070101" expanded="true" signature="5850:6890" placeholder="select cp.bi... " />
-            <marker date="1460789070101" expanded="true" signature="6083:6351" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
-            <marker date="1460789070101" expanded="true" signature="6233:6349" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="6363:6858" placeholder="SELECT cp_s.... film" />
-            <marker date="1460789070101" expanded="true" signature="6586:6856" placeholder="SELECT fp_s.... luftbild_senk_fp" />
-            <marker date="1460789070101" expanded="true" signature="6741:6854" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="8107:8577" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="8221:8518" placeholder="SELECT DISTI... fundort" />
-            <marker date="1460789070101" expanded="true" signature="8412:8516" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="10393:11086" placeholder="SELECT fs.fu... fundstelle" />
-            <marker date="1460789070101" expanded="true" signature="10649:10998" placeholder="SELECT DISTI... fundstelle" />
-            <marker date="1460789070101" expanded="true" signature="10889:10997" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="11164:11679" placeholder="SELECT fundr... fundstelle" />
-            <marker date="1460789070101" expanded="true" signature="13284:13440" placeholder="SELECT * FRO... katastralgemeinden" />
-            <marker date="1460789070101" expanded="true" signature="13284:13469" placeholder="SELECT Trans... katastralgemeinden" />
-            <marker date="1460789070101" expanded="true" signature="13561:13713" placeholder="SELECT Trans... " />
-            <marker date="1460789070101" expanded="true" signature="13561:13742" placeholder="SELECT Trans... katastralgemeinden" />
-            <marker date="1460789070101" expanded="true" signature="13973:14975" placeholder="SELECT cp.bi... " />
-            <marker date="1460789070101" expanded="true" signature="13979:14455" placeholder="select cp.bi... film" />
-            <marker date="1460789070101" expanded="true" signature="13979:14975" placeholder="select cp.bi... " />
-            <marker date="1460789070101" expanded="true" signature="14200:14454" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
-            <marker date="1460789070101" expanded="true" signature="14348:14441" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="14348:14452" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="14466:14625" placeholder="SELECT cp_s.... film" />
-            <marker date="1460789070101" expanded="true" signature="14466:14943" placeholder="SELECT cp_s.... film" />
-            <marker date="1460789070101" expanded="true" signature="14683:14941" placeholder="SELECT fp_s.... luftbild_senk_fp" />
-            <marker date="1460789070101" expanded="true" signature="14838:14928" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="14838:14939" placeholder="SELECT rowid... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="16122:16537" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="16236:16478" placeholder="SELECT DISTI... fundort" />
-            <marker date="1460789070101" expanded="true" signature="16384:16465" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="16384:16476" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="17147:17783" placeholder="SELECT fs.fu... fundstelle" />
-            <marker date="1460789070101" expanded="true" signature="17403:17695" placeholder="SELECT DISTI... fundstelle" />
-            <marker date="1460789070101" expanded="true" signature="17599:17683" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="17599:17694" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="18387:18509" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="18387:18518" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="18387:18566" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="20693:21101" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="20693:21158" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="20807:21100" placeholder="SELECT DISTI... fundort" />
-            <marker date="1460789070101" expanded="true" signature="21006:21099" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="21778:22522" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="21778:22537" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="21892:22464" placeholder="SELECT DISTI... fundort" />
-            <marker date="1460789070101" expanded="true" signature="21943:22100" placeholder="SELECT filmn... luftbild_schraeg_fp" />
-            <marker date="1460789070101" expanded="true" signature="22111:22259" placeholder="SELECT filmn... luftbild_senk_fp" />
-            <marker date="1460789070101" expanded="true" signature="22365:22463" placeholder="SELECT ROWID... SpatialIndex" />
-            <marker date="1460789070101" expanded="true" signature="23173:23357" placeholder="SELECT fundo... fundort" />
-            <marker date="1460789070101" expanded="true" signature="23977:24024" placeholder="SELECT COUNT... film" />
-            <marker date="1460789070101" expanded="true" signature="24262:24287" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1460789070101" expanded="true" signature="24262:24299" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1460789070101" expanded="true" signature="24262:24300" placeholder="SELECT DISTI... missing_value" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1525,23 +1302,6 @@
             <marker date="1461095739552" expanded="true" signature="22706:23040" placeholder="SELECT DISTI... fundort_pol" />
             <marker date="1461095739552" expanded="true" signature="22942:23039" placeholder="SELECT ROWID... SpatialIndex" />
             <marker date="1461095739552" expanded="true" signature="24673:24758" placeholder="select max(f... film" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4607">
-          <caret line="293" column="17" selection-start-line="293" selection-start-column="17" selection-end-line="293" selection-end-column="17" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-            <element signature="e#18109#22206#0" expanded="false" />
-            <marker date="1461171786832" expanded="true" signature="5056:5156" placeholder="SELECT katas... fundort" />
-            <marker date="1461171786832" expanded="true" signature="10713:10738" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1461171786832" expanded="true" signature="10713:10741" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1461171786832" expanded="true" signature="11339:11395" placeholder="SELECT funda... fundart" />
-            <marker date="1461171786832" expanded="true" signature="11670:11708" placeholder="SELECT DISTI... missing_value" />
-            <marker date="1461171786832" expanded="true" signature="14968:15131" placeholder="SELECT funds... fundstelle" />
           </folding>
         </state>
       </provider>
@@ -1570,6 +1330,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1586,10 +1354,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
+    <entry file="file://$PROJECT_DIR$/test2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="13" />
+        <state relative-caret-position="287">
+          <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/combo_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7123">
+          <caret line="419" column="19" selection-start-line="419" selection-start-column="19" selection-end-line="419" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tv_chk_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1514">
+          <caret line="98" column="34" selection-start-line="98" selection-start-column="12" selection-end-line="98" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_apis.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="81" />
           <folding />
         </state>
       </provider>
@@ -1599,6 +1393,121 @@
         <state relative-caret-position="610">
           <caret line="584" column="13" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="37" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="37" />
+          <folding>
+            <element signature="e#1163#1189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4794">
+          <caret line="80" column="65" selection-start-line="80" selection-start-column="65" selection-end-line="80" selection-end-column="65" />
+          <folding>
+            <marker date="1452246521889" expanded="true" signature="3199:3248" placeholder="select count... missing_value" />
+            <marker date="1452246521889" expanded="true" signature="3583:3741" placeholder="select cp.bi... missing_value" />
+            <marker date="1452246521889" expanded="true" signature="25766:25894" placeholder="select filmn... luftbild_senk_fp" />
+            <marker date="1452246521889" expanded="true" signature="25766:26056" placeholder="select filmn... " />
+            <marker date="1452246521889" expanded="true" signature="25905:26036" placeholder="select filmn... luftbild_schraeg_fp" />
+            <marker date="1452246521889" expanded="true" signature="37237:37373" placeholder="select bildn... luftbild_senk_cp" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3213">
+          <caret line="321" column="61" selection-start-line="321" selection-start-column="61" selection-end-line="321" selection-end-column="61" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+            <element signature="e#18109#22206#0" expanded="false" />
+            <marker date="1461171786832" expanded="true" signature="5056:5156" placeholder="SELECT katas... fundort" />
+            <marker date="1461171786832" expanded="true" signature="10713:10738" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1461171786832" expanded="true" signature="10713:10741" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1461171786832" expanded="true" signature="11339:11395" placeholder="SELECT funda... fundart" />
+            <marker date="1461171786832" expanded="true" signature="11670:11708" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1461171786832" expanded="true" signature="14968:15131" placeholder="SELECT funds... fundstelle" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_search_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="473" column="9" selection-start-line="473" selection-start-column="9" selection-end-line="473" selection-end-column="124" />
+          <folding>
+            <marker date="1461775435136" expanded="true" signature="5238:5289" placeholder="SELECT DISTI... zeit" />
+            <marker date="1461775435136" expanded="true" signature="5516:5575" placeholder="SELECT DISTI... zeit" />
+            <marker date="1461775435136" expanded="true" signature="5516:5595" placeholder="SELECT DISTI... zeit" />
+            <marker date="1461775435136" expanded="true" signature="5791:5855" placeholder="SELECT DISTI... zeit" />
+            <marker date="1461775435136" expanded="true" signature="8758:9260" placeholder="select cp.bi... film" />
+            <marker date="1461775435136" expanded="true" signature="8758:9798" placeholder="select cp.bi... " />
+            <marker date="1461775435136" expanded="true" signature="8991:9259" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
+            <marker date="1461775435136" expanded="true" signature="9141:9257" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="9271:9766" placeholder="SELECT cp_s.... film" />
+            <marker date="1461775435136" expanded="true" signature="9494:9764" placeholder="SELECT fp_s.... luftbild_senk_fp" />
+            <marker date="1461775435136" expanded="true" signature="9649:9762" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="11015:11485" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="11129:11426" placeholder="SELECT DISTI... fundort" />
+            <marker date="1461775435136" expanded="true" signature="11320:11424" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="13301:13994" placeholder="SELECT fs.fu... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="13557:13906" placeholder="SELECT DISTI... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="13797:13905" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="14072:14587" placeholder="SELECT fundr... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="16192:16348" placeholder="SELECT * FRO... katastralgemeinden" />
+            <marker date="1461775435136" expanded="true" signature="16192:16377" placeholder="SELECT Trans... katastralgemeinden" />
+            <marker date="1461775435136" expanded="true" signature="16469:16621" placeholder="SELECT Trans... " />
+            <marker date="1461775435136" expanded="true" signature="16469:16650" placeholder="SELECT Trans... katastralgemeinden" />
+            <marker date="1461775435136" expanded="true" signature="16881:17883" placeholder="SELECT cp.bi... " />
+            <marker date="1461775435136" expanded="true" signature="16887:17363" placeholder="select cp.bi... film" />
+            <marker date="1461775435136" expanded="true" signature="16887:17883" placeholder="select cp.bi... " />
+            <marker date="1461775435136" expanded="true" signature="17108:17362" placeholder="SELECT fp.bi... luftbild_schraeg_fp" />
+            <marker date="1461775435136" expanded="true" signature="17256:17349" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="17256:17360" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="17374:17533" placeholder="SELECT cp_s.... film" />
+            <marker date="1461775435136" expanded="true" signature="17374:17851" placeholder="SELECT cp_s.... film" />
+            <marker date="1461775435136" expanded="true" signature="17591:17849" placeholder="SELECT fp_s.... luftbild_senk_fp" />
+            <marker date="1461775435136" expanded="true" signature="17746:17836" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="17746:17847" placeholder="SELECT rowid... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="19030:19445" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="19144:19386" placeholder="SELECT DISTI... fundort" />
+            <marker date="1461775435136" expanded="true" signature="19292:19373" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="19292:19384" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="20055:20691" placeholder="SELECT fs.fu... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="20311:20603" placeholder="SELECT DISTI... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="20507:20591" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="20507:20602" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="21295:21417" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="21295:21426" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="21295:21474" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="23601:24009" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="23601:24066" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="23715:24008" placeholder="SELECT DISTI... fundort" />
+            <marker date="1461775435136" expanded="true" signature="23914:24007" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="24686:25430" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="24686:25445" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="24800:25372" placeholder="SELECT DISTI... fundort" />
+            <marker date="1461775435136" expanded="true" signature="24851:25008" placeholder="SELECT filmn... luftbild_schraeg_fp" />
+            <marker date="1461775435136" expanded="true" signature="25019:25167" placeholder="SELECT filmn... luftbild_senk_fp" />
+            <marker date="1461775435136" expanded="true" signature="25273:25371" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="26085:26269" placeholder="SELECT fundo... fundort" />
+            <marker date="1461775435136" expanded="true" signature="26835:27528" placeholder="SELECT fs.fu... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="27091:27440" placeholder="SELECT DISTI... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="27331:27439" placeholder="SELECT ROWID... SpatialIndex" />
+            <marker date="1461775435136" expanded="true" signature="29348:29692" placeholder="SELECT * FRO... *" />
+            <marker date="1461775435136" expanded="true" signature="29449:29684" placeholder="SELECT *, in... fundstelle" />
+            <marker date="1461775435136" expanded="true" signature="30348:30395" placeholder="SELECT COUNT... film" />
+            <marker date="1461775435136" expanded="true" signature="30633:30658" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1461775435136" expanded="true" signature="30633:30670" placeholder="SELECT DISTI... missing_value" />
+            <marker date="1461775435136" expanded="true" signature="30633:30671" placeholder="SELECT DISTI... missing_value" />
+          </folding>
         </state>
       </provider>
     </entry>
