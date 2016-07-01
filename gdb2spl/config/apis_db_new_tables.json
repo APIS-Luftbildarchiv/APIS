@@ -1,0 +1,774 @@
+[
+    {
+        "fields": [
+            {
+                "name": "category",
+                "type": "String"
+            },
+            {
+                "name": "target",
+                "type": "String"
+            }
+        ],
+        "data": [
+            {
+                "category": "Cat 01",
+                "target": "AIRFIELDS"
+            },
+            {
+                "category": "Cat 02",
+                "target": "ANTI-AIRCRAFT ARTILLERY and MISSILE SYSTEMS"
+            },
+            {
+                "category": "Cat 03",
+                "target": "ELECTRONIC INSTALLATIONS"
+            },
+            {
+                "category": "Cat 04",
+                "target": "HEADQUARTERS and BARRACKS"
+            },
+            {
+                "category": "Cat 05",
+                "target": "STORAGE and REPAIR INSTALLATIONS"
+            },
+            {
+                "category": "Cat 06",
+                "target": "GROUND ACTIVITY"
+            },
+            {
+                "category": "Cat 07",
+                "target": "OBSTACLE CROSSING"
+            },
+            {
+                "category": "Cat 08",
+                "target": "SHIPPING"
+            },
+            {
+                "category": "Cat 09",
+                "target": "ROUTE RECONNAISSANCE"
+            },
+            {
+                "category": "Cat 10",
+                "target": "TERRAIN RECONNAISSANCE"
+            },
+            {
+                "category": "Cat 11",
+                "target": "COASTAL RECONNAISSANCE"
+            },
+            {
+                "category": "Cat 12",
+                "target": "BRIDGES and TUNNELS"
+            },
+            {
+                "category": "Cat 13",
+                "target": "WATER CONTROL INSTALLATIONS"
+            },
+            {
+                "category": "Cat 14",
+                "target": "PORT INSTALLATIONS"
+            },
+            {
+                "category": "Cat 15",
+                "target": "RAIL INSTALLATIONS"
+            },
+            {
+                "category": "Cat 16",
+                "target": "INDUSTRIAL INSTALLATIONS"
+            },
+            {
+                "category": "Cat 17",
+                "target": "POWER INSTALLATIONS"
+            },
+            {
+                "category": "Cat 18",
+                "target": "URBAN AREAS / HABITATION"
+            },
+            {
+                "category": "Cat 19",
+                "target": "SPECIFIC STRUCTURE"
+            }
+        ],
+        "name": "target",
+        "type": 100,
+        "typeName": "None"
+    },
+    {
+        "fields": [
+            {
+                "name": "category",
+                "type": "String"
+            },
+            {
+                "name": "code",
+                "type": "String"
+            },
+            {
+                "name": "description",
+                "type": "String"
+            }
+        ],
+        "data": [
+            {
+                "category": "Low Cloud Amount",
+                "code": "0",
+                "description": "No Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "1",
+                "description": "1/8 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "2",
+                "description": "1/4 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "3",
+                "description": "3/8 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "4",
+                "description": "1/2 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "5",
+                "description": "5/8 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "6",
+                "description": "3/4 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "7",
+                "description": "7/8 Low Cloud"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "8",
+                "description": "Overcast"
+            },
+            {
+                "category": "Low Cloud Amount",
+                "code": "9",
+                "description": "not observed"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "0",
+                "description": "0 to less than 1"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "1",
+                "description": "1 to less than 2"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "2",
+                "description": "2 to less than 3"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "3",
+                "description": "3 to less than 4"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "4",
+                "description": "4 to less than 5"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "5",
+                "description": "5 to less than 6"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "6",
+                "description": "6 to less than 7"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "7",
+                "description": "7 to less than 8"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "8",
+                "description": "8 or greater"
+            },
+            {
+                "category": "Visibility Kilometres",
+                "code": "9",
+                "description": "not reported"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "0",
+                "description": "No Low Cloud"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "1",
+                "description": "500ft AGL or less"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "2",
+                "description": "1000ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "3",
+                "description": "1500ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "4",
+                "description": "2000ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "5",
+                "description": "2500ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "6",
+                "description": "3000ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "7",
+                "description": "3500ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "8",
+                "description": "4000ft AGL"
+            },
+            {
+                "category": "Low Cloud Height",
+                "code": "9",
+                "description": "not observed"
+            },
+            {
+                "category": "Weather",
+                "code": "0",
+                "description": "not observed"
+            },
+            {
+                "category": "Weather",
+                "code": "1",
+                "description": "no significant weather"
+            },
+            {
+                "category": "Weather",
+                "code": "2",
+                "description": "sleet"
+            },
+            {
+                "category": "Weather",
+                "code": "3",
+                "description": "dust or smoke"
+            },
+            {
+                "category": "Weather",
+                "code": "4",
+                "description": "fog or haze"
+            },
+            {
+                "category": "Weather",
+                "code": "5",
+                "description": "drizzle"
+            },
+            {
+                "category": "Weather",
+                "code": "6",
+                "description": "rain"
+            },
+            {
+                "category": "Weather",
+                "code": "7",
+                "description": "snow"
+            },
+            {
+                "category": "Weather",
+                "code": "8",
+                "description": "showers"
+            },
+            {
+                "category": "Weather",
+                "code": "9",
+                "description": "thunder"
+            },
+            {
+                "category": "Remarks Mission",
+                "code": "X",
+                "description": "Wx suitable for mission"
+            },
+            {
+                "category": "Remarks Mission",
+                "code": "Y",
+                "description": "Wx marginal for mission"
+            },
+            {
+                "category": "Remarks Mission",
+                "code": "Z",
+                "description": "Wx unsuitable for mission"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "A",
+                "description": "encoded weather is simulated (for exercise purposes)"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "B",
+                "description": "multiply cloud ht x 10"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "C",
+                "description": "no medium or scattered medium cloud"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "D",
+                "description": "scattered, variable broken medium cloud"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "E",
+                "description": "broken variable overcast medium cloud"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "F",
+                "description": "contrails at flight level"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "G",
+                "description": "en route Wx predominantly IMC"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "H",
+                "description": "en route Wx predominantly VMC"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "I",
+                "description": "gusty winds at surface"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "J",
+                "description": "fog in valley"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "K",
+                "description": "higher terrain obscured"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "L",
+                "description": "surface conditions variable due to showers"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "M",
+                "description": "thunderstorms occurring"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "N",
+                "description": "thunderstorms en route"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "O",
+                "description": "icing at flight level or freezing rain"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "P",
+                "description": "surface wind NE quadrant"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "Q",
+                "description": "surface wind SE quadrant"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "R",
+                "description": "surface wind SW quadrant"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "S",
+                "description": "surface wind NW quadrant"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "T",
+                "description": "Wx better to North"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "U",
+                "description": "Wx better to East"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "V",
+                "description": "Wx better to South"
+            },
+            {
+                "category": "Remarks Weather",
+                "code": "W",
+                "description": "Wx better to West"
+            }
+
+        ],
+        "name": "wetter",
+        "type": 100,
+        "typeName": "None"
+    },
+    {
+    	"fields": [
+            {
+                "name": "bezeichnung",
+                "type": "String"
+            }
+        ],
+        "populate": [
+    		{
+    			"from": "film",
+    			"bezeichnung": {"table": "film", "attr": "projekt"}
+    		}
+        ],
+        "populatemode": "unique",
+        "name": "projekt",
+        "type": 100,
+        "typeName": "None"
+    },
+    {
+    	"fields": [
+            {
+                "name": "bezeichnung",
+                "type": "String"
+            }
+        ],
+        "populate": [
+    		{
+    			"bezeichnung": {"table": "film", "attr": "copyright"}
+    		}
+        ],
+        "populatemode": "unique",
+        "name": "copyright",
+        "type": 100,
+        "typeName": "None"
+    },
+    {
+    	"fields": [
+    		{
+    			"name": "fundart",
+    			"type": "String"
+    		},
+    		{
+    			"name": "fundart_detail",
+    			"type": "String"
+    		},
+    		{
+    			"name": "befestigung",
+    			"type": "String"
+    		}
+    		
+    	],
+    	"populate": [
+			{			
+				"fundart": "?",
+				"fundart_detail": {"table": "fragez", "attr": "Bezeichnun"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Siedlung",
+				"fundart_detail": {"table": "siedlung", "attr": "BEZEICHN"},
+				"befestigung": {"table": "siedlung", "attr": "BEFEST"}
+			},
+			{
+				"fundart": "Bestattung",
+				"fundart_detail": {"table": "bestatt", "attr": "Bezeichnun"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Depot",
+				"fundart_detail": {"table": "depot", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Einzelfund",
+				"fundart_detail": "None",
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Umwelt",
+				"fundart_detail": {"table": "landsch", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Verkehr",
+				"fundart_detail": {"table": "verkehr", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Militär",
+				"fundart_detail": {"table": "mili", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Kult",
+				"fundart_detail": {"table": "kultisch", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Industrie",
+				"fundart_detail": {"table": "industri", "attr": "BEZEICHN"},
+				"befestigung": "None"
+			},
+			{
+				"fundart": "Fake",
+				"fundart_detail": {"table": "fake", "attr": "Bezeichnun"},
+				"befestigung": "None"
+			}
+    	],
+    	"populatemode": "aggregate",
+    	"name": "fundart",
+    	"type": 100,
+    	"typeName": "None"
+    },
+    {
+    	"fields": [
+    		{
+    			"name": "quelle",
+    			"type": "String"
+    		}
+    	],
+    	"data": [
+    		{
+    			"quelle": "Luftbild"
+    		},
+    		{
+    			"quelle": "Vermessung"
+    		},
+    		{
+    			"quelle": "MM auf ÖK"
+    		},
+    		{
+    			"quelle": "Parzellennummer"
+    		},
+    		{
+    			"quelle": "Flurname"
+    		}
+    	],
+    	"name": "fundgewinnung_quelle",
+    	"type": 100,
+    	"typeName": "None"
+    },
+    {
+    	"fields": [
+    		{
+    			"name": "quelle",
+    			"type": "String"
+    		}
+    	],
+    	"data": [
+    		{
+    			"quelle": "Prospektion"
+    		},
+    		{
+    			"quelle": "Typologie"
+    		},
+    		{
+    			"quelle": "Naturwiss."
+    		},
+    		{
+    			"quelle": "Stratigrafie"
+    		},
+    		{
+    			"quelle": "unbekannt"
+    		}
+    	],
+    	"name": "datierung_quelle",
+    	"type": 100,
+    	"typeName": "None"
+    },
+    {
+    	"fields": [
+    		{
+    			"name": "kategorie",
+    			"type": "String"
+    		},
+    		{
+    			"name": "zustand",
+    			"type": "String"
+    		}
+    	],
+    	"data": [
+    		{
+    			"kategorie": "Bewuchs",
+    			"zustand": "kein Bewuchs"
+    		},
+    		{
+    			"kategorie": "Bewuchs",
+    			"zustand": "wenig Bewuchs"
+    		},
+    		{
+    			"kategorie": "Bewuchs",
+    			"zustand": "dichter Bewuchs"
+    		},
+    		{
+    			"kategorie": "Licht",
+    			"zustand": "Sonne"
+    		},
+    		{
+    			"kategorie": "Licht",
+    			"zustand": "Schatten"
+    		},
+    		{
+    			"kategorie": "Licht",
+    			"zustand": "wechselndes Licht"
+    		},
+    		{
+    			"kategorie": "Boden",
+    			"zustand": "Boden geeggt"
+    		},
+    		{
+    			"kategorie": "Boden",
+    			"zustand": "Boden gepflügt"
+    		},
+    		{
+    			"kategorie": "Boden",
+    			"zustand": "Boden ungepflügt"
+    		},
+    		{
+    			"kategorie": "Feuchtigkeit",
+    			"zustand": "feucht"
+    		},
+    		{
+    			"kategorie": "Feuchtigkeit",
+    			"zustand": "trocken"
+    		},
+    		{
+    			"kategorie": "Feuchtigkeit",
+    			"zustand": "staubig"
+    		},
+    		{
+    			"kategorie": "abgeregnet",
+    			"zustand": "gut abgeregnet"
+    		},
+    		{
+    			"kategorie": "abgeregnet",
+    			"zustand": "mittel abgeregnet"
+    		},
+    		{
+    			"kategorie": "abgeregnet",
+    			"zustand": "schlecht abgeregnet"
+    		}
+    	],
+    	"name": "begehung_zustand",
+    	"type": 100,
+    	"typeName": "None"
+    },
+    {
+    	"fields": [
+    		{
+    			"name": "begehtyp",
+    			"type": "String"
+    		}
+    	],
+    	"data": [
+    		{
+    			"begehtyp": "unsystematisch"
+    		},
+    		{
+    			"begehtyp": "intensiver Survey"
+    		},
+    		{
+    			"begehtyp": "extensiver Survey"
+    		},
+    		{
+    			"begehtyp": "keine Angabe"
+    		}
+    	],
+    	"name": "begehung_begehtyp",
+    	"type": 100,
+    	"typeName": "None"
+    },
+    {
+        "fields": [
+            {
+                "name": "id",
+                "type": "String"
+            },
+            {
+                "name": "name",
+                "type": "String"
+            },
+            {
+                "name": "kurz",
+                "type": "String"
+            }
+        ],
+        "data": [
+            {
+                "id": "99",
+                "name": "unbekannt",
+                "kurz": "unbek."
+            },
+            {
+                "id": "01",
+                "name": "Luftbildarchiv",
+                "kurz": "IUHA"
+            },
+            {
+                "id": "02",
+                "name": "Langenlebarn",
+                "kurz": "Lale"
+            },
+            {
+                "id": "03",
+                "name": "Hoersching",
+                "kurz": "Hoer"
+            },
+            {
+                "id": "04",
+                "name": "Bundesdenkmalamt",
+                "kurz": "BDA"
+            },
+            {
+                "id": "05",
+                "name": "Bundesamt Eich-Vermw",
+                "kurz": "BEV"
+            },
+            {
+                "id": "06",
+                "name": "Royal Commission on the Historical Monuments of England; RAF",
+                "kurz": "RCHMEK"
+            }
+        ],
+        "name": "hersteller",
+        "type": 100,
+        "typeName": "None"
+    }
+]

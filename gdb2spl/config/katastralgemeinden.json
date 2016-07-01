@@ -1,0 +1,100 @@
+{
+    "targetname": "katastralgemeinden",
+    "source": "esrishp",
+    "esrishp": "shp/VGD-Oesterreich_gen_50/BEV_VGD_50_LAM_mitAttribute_shp_2015_04_02.shp",
+    "epsg": 31287,
+    "type": 3,
+    "primary": ["katastralgemeindenummer"],
+    "fields": [
+        {
+            "targetname": "katastralgemeindenummer",
+            "sourcename": "KG_NR",
+            "type": "String"
+        },
+        {
+            "targetname": "katastralgemeindename",
+            "sourcename": "KG",
+            "type": "String"
+        },
+        {
+            "targetname": "katastralgemeinde_flaeche",
+            "sourcename": "FL",
+            "type": "Real"
+        },
+        {
+            "targetname": "meridian",
+            "sourcename": "MERIDIAN",
+            "type": "String"
+        },
+        {
+            "targetname": "gemeindekennziffer",
+            "sourcename": "GKZ",
+            "type": "Integer"
+        },
+        {
+            "targetname": "politische_gemeinde",
+            "sourcename": "PG",
+            "type": "String"
+        },
+        {
+            "targetname": "bezirkskennziffer",
+            "sourcename": "BKZ",
+            "type": "Integer"
+        },
+        {
+            "targetname": "politischer_bezirk",
+            "sourcename": "PB",
+            "type": "String"
+        },
+        {
+            "targetname": "finanzamtsbereichkennung",
+            "sourcename": "FA_NR",
+            "type": "Integer"
+        },
+        {
+            "targetname": "finanzamt",
+            "sourcename": "FA",
+            "type": "String"
+        },
+        {
+            "targetname": "gerichtsbezirkskennziffer",
+            "sourcename": "GB_KZ",
+            "type": "Integer"
+        },
+        {
+            "targetname": "gerichtsbezirk",
+            "sourcename": "GB",
+            "type": "String"
+        },
+        {
+            "targetname": "vermessungsamtsnummer",
+            "sourcename": "VA_NR",
+            "type": "Integer"
+        },
+        {
+            "targetname": "vermessungsamt",
+            "sourcename": "VA",
+            "type": "String"
+        },
+                {
+            "targetname": "bundeslandkennziffer",
+            "sourcename": "BL_KZ",
+            "type": "Integer"
+        },
+        {
+            "targetname": "bundesland",
+            "sourcename": "BL",
+            "type": "String"
+        },
+        {
+            "targetname": "staatkennziffer",
+            "sourcename": "ST_KZ",
+            "type": "Integer"
+        },
+        {
+            "targetname": "staat",
+            "sourcename": "ST",
+            "type": "String"
+        }
+    ]
+}

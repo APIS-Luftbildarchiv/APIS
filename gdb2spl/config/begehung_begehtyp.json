@@ -1,0 +1,26 @@
+{
+    "targetname": "begehung_begehtyp",
+    "source": "data",
+    "type": 100,
+    "primary": ["begehtyp"],
+    "fields": [
+        {
+            "targetname": "begehtyp",
+            "type": "String"
+        }
+    ],
+    "data": [
+        {
+            "begehtyp": "unsystematisch"
+        },
+        {
+            "begehtyp": "intensiver Survey"
+        },
+        {
+            "begehtyp": "extensiver Survey"
+        },
+        {
+            "begehtyp": "keine Angabe"
+        }
+    ]
+}

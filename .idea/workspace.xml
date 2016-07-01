@@ -5,104 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spatialite.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/apis_gdb2spl.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_config_default.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_fields.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_new_tables.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_future.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_fields_now.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_obsolet_tables.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/apis_db_update_tables_and_fields.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/begehung.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/begehung_begehtyp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/begehung_zustand.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/copyright.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/datierung_quelle.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/film.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/film_fabrikat.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundart.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundgewinnung.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundgewinnung_quelle.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_interpretation.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pnt.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_log_pol.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pnt.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundort_pol.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pnt.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_log_pol.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pnt.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/fundstelle_pol.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/hersteller.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/kamera.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/katastralgemeinden.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/kultur.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_cp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_schraeg_fp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_senk_cp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/luftbild_senk_fp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/oek50geo.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/osm_boundaries.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/phase.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/projekt.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates_fundort_neu.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/sqlupdates_mit_fo_land_check.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/target.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/wetter.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/config/zeit.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/gdb2spatialite.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spatialite.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/run_apis_gdb2spl.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/run_convertion.bat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gdb2spatialite/test_missing_pols.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_condition_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_findingtype_detail_form.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_representative_image_form.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/images/representative_image_blank.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_findingtype_detail_dialog.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_representative_image_dialog.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_findingtype_detail_form.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_representative_image_form.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/apis_gdb2spl.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_config.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_config_default.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_new_fields.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_new_tables.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_obsolet_fields_future.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_obsolet_fields_now.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_obsolet_tables.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/apis_db_update_tables_and_fields.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/begehung.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/begehung_begehtyp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/begehung_zustand.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/copyright.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/datierung_quelle.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/film.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/film_fabrikat.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundart.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundgewinnung.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundgewinnung_quelle.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_interpretation.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_log.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_log_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_log_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundort_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle_log.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle_log_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle_log_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle_pnt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/fundstelle_pol.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/hersteller.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/kamera.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/katastralgemeinden.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/kultur.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/luftbild_schraeg_cp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/luftbild_schraeg_fp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/luftbild_senk_cp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/luftbild_senk_fp.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/oek50geo.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/osm_boundaries.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/phase.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/projekt.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/sqlupdates.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/sqlupdates_fundort_neu.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/sqlupdates_mit_fo_land_check.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/target.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/wetter.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/config/zeit.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gdb2spl/run_apis_gdb2spl.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis.py" afterPath="$PROJECT_DIR$/APIS/apis.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_registry.py" afterPath="$PROJECT_DIR$/APIS/apis_image_registry.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_map_tools.py" afterPath="$PROJECT_DIR$/APIS/apis_map_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_printer.py" afterPath="$PROJECT_DIR$/APIS/apis_printer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_search_tools.py" afterPath="$PROJECT_DIR$/APIS/apis_search_tools.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_settings_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_sharding_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_sharding_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_sharding_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_sharding_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_thumb_viewer.py" afterPath="$PROJECT_DIR$/APIS/apis_thumb_viewer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/composer/templates/FilmDetails.qpt" afterPath="$PROJECT_DIR$/APIS/composer/templates/FilmDetails.qpt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_findspot_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_image_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_sharding_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_selection_list_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_weather_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/resource_rc.py" afterPath="$PROJECT_DIR$/APIS/forms/resource_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/py_tiled_layer/tilelayer.py" afterPath="$PROJECT_DIR$/APIS/py_tiled_layer/tilelayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_apis.ini" afterPath="$PROJECT_DIR$/config_apis.ini" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,7 +88,7 @@
       <file leaf-file-name="apis_site_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15011">
+            <state relative-caret-position="0">
               <caret line="929" column="72" selection-start-line="929" selection-start-column="72" selection-end-line="929" selection-end-column="72" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
@@ -217,7 +178,7 @@
       <file leaf-file-name="apis_image_selection_list_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13311">
+            <state relative-caret-position="484">
               <caret line="800" column="20" selection-start-line="800" selection-start-column="20" selection-end-line="800" selection-end-column="20" />
               <folding>
                 <element signature="e#24#39#0" expanded="true" />
@@ -247,32 +208,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sqlupdates_mit_fo_land_check.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_mit_fo_land_check.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="89" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sqlupdates_fundort_neu.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_fundort_neu.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="apis_gdb2spl.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apis_gdb2spl.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gdb2spl/apis_gdb2spl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13379">
+            <state relative-caret-position="494">
               <caret line="796" column="52" selection-start-line="796" selection-start-column="52" selection-end-line="796" selection-end-column="52" />
-              <folding />
+              <folding>
+                <marker date="1465235491766" expanded="true" signature="2781:2802" ph="DROP TABLE I... " />
+                <marker date="1465235491766" expanded="true" signature="5276:5304" ph="INSERT INTO missing_value... " />
+                <marker date="1465235491766" expanded="true" signature="7376:7409" ph="INSERT INTO missing_value... " />
+                <marker date="1465235491766" expanded="true" signature="14189:14222" ph="INSERT INTO missing_value... " />
+                <marker date="1465235491766" expanded="true" signature="20742:20770" ph="INSERT INTO missing_value... " />
+                <marker date="1465235491766" expanded="true" signature="28640:28892" ph="SELECT fundo... fundort_pnt" />
+                <marker date="1465235491766" expanded="true" signature="28798:28891" ph="SELECT fundo... fundort_pol" />
+                <marker date="1465235491766" expanded="true" signature="29297:29441" ph="INSERT INTO fundort_pol... " />
+                <marker date="1465235491766" expanded="true" signature="29664:29932" ph="SELECT fundo... fundstelle_pnt" />
+                <marker date="1465235491766" expanded="true" signature="29829:29931" ph="SELECT funds... fundstelle_pol" />
+                <marker date="1465235491766" expanded="true" signature="30332:30463" ph="INSERT INTO fundstelle_pol... " />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -488,11 +441,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gdb2spl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
+              <option name="myItemId" value="APIS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -507,6 +456,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="APIS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -540,13 +493,13 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\apis\APIS\APIS\" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\apis\APIS\gdb2spl\config" />
       <recent name="C:\apis\APIS\APIS" />
       <recent name="C:\apis\APIS" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\apis\APIS\APIS\" />
     </key>
   </component>
   <component name="RunManager">
@@ -773,13 +726,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Update">
-      <created>1433087812024</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1433087812024</updated>
     </task>
     <task id="LOCAL-00010" summary="Update">
       <created>1433105817018</created>
@@ -1117,7 +1063,14 @@
       <option name="project" value="LOCAL" />
       <updated>1461831741733</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Update">
+      <created>1467397468459</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1467397468459</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1133,7 +1086,7 @@
     <frame x="1432" y="-188" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15724947" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15724947" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287234" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17385258" sideWeight="0.64111745" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1141,7 +1094,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24520256" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16151386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15671642" sideWeight="0.35888252" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15671642" sideWeight="0.35888252" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1498,7 +1451,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15011">
+        <state relative-caret-position="0">
           <caret line="929" column="72" selection-start-line="929" selection-start-column="72" selection-end-line="929" selection-end-column="72" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
@@ -1576,9 +1529,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_fundort_neu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_mit_fo_land_check.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="89" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13311">
+        <state relative-caret-position="484">
           <caret line="800" column="20" selection-start-line="800" selection-start-column="20" selection-end-line="800" selection-end-column="20" />
           <folding>
             <element signature="e#24#39#0" expanded="true" />
@@ -1607,27 +1576,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_mit_fo_land_check.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="89" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/apis_gdb2spl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13379">
+        <state relative-caret-position="494">
           <caret line="796" column="52" selection-start-line="796" selection-start-column="52" selection-end-line="796" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_fundort_neu.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="68" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
-          <folding />
+          <folding>
+            <marker date="1465235491766" expanded="true" signature="2781:2802" ph="DROP TABLE I... " />
+            <marker date="1465235491766" expanded="true" signature="5276:5304" ph="INSERT INTO missing_value... " />
+            <marker date="1465235491766" expanded="true" signature="7376:7409" ph="INSERT INTO missing_value... " />
+            <marker date="1465235491766" expanded="true" signature="14189:14222" ph="INSERT INTO missing_value... " />
+            <marker date="1465235491766" expanded="true" signature="20742:20770" ph="INSERT INTO missing_value... " />
+            <marker date="1465235491766" expanded="true" signature="28640:28892" ph="SELECT fundo... fundort_pnt" />
+            <marker date="1465235491766" expanded="true" signature="28798:28891" ph="SELECT fundo... fundort_pol" />
+            <marker date="1465235491766" expanded="true" signature="29297:29441" ph="INSERT INTO fundort_pol... " />
+            <marker date="1465235491766" expanded="true" signature="29664:29932" ph="SELECT fundo... fundstelle_pnt" />
+            <marker date="1465235491766" expanded="true" signature="29829:29931" ph="SELECT funds... fundstelle_pol" />
+            <marker date="1465235491766" expanded="true" signature="30332:30463" ph="INSERT INTO fundstelle_pol... " />
+          </folding>
         </state>
       </provider>
     </entry>

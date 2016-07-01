@@ -1,0 +1,20 @@
+{
+    "targetname": "phase",
+    "source": "esrigdb",
+    "esrigdb": "gdb/APIS.gdb",
+    "sourcename": "phase",
+    "type": 100,
+    "primary": ["id"],
+    "fields": [
+        {
+            "targetname": "id",
+            "incrementByFieldRow": 1,
+            "type": "Integer"
+        },
+        {
+            "targetname": "bezeichnung",
+            "sourcename": "BEZ",
+            "type": "String"
+        }
+    ]
+}

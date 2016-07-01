@@ -1,0 +1,41 @@
+{
+    "film": [
+        "SC",
+        "KART",
+        "STATUS",
+        "ULAPP"
+    ],
+    "luftbild_senk_cp": [
+        "OKARTE",
+        "BMNETZ",
+        "FREI",
+        "SUD",
+        "WEST",
+        "FO",
+        "KGSS",
+        "AUFNUM",
+        "AUFNUMN",
+        "RADIUS",
+        "KWD",
+        "DESCR",
+        "WEISE"
+    ],
+    "luftbild_schraeg_cp": [
+        "OKARTE",
+        "BMNETZ",
+        "FREI",
+        "SUD",
+        "WEST",
+        "FO",
+        "KGSS",
+        "AUFNUM",
+        "AUFNUMN",
+        "WEISE"
+    ],
+    "luftbild_senk_fp": [
+        "WEISE"
+    ],
+    "luftbild_schraeg_fp": [
+        "WEISE"
+    ]
+}

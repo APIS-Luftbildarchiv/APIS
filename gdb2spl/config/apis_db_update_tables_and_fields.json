@@ -1,0 +1,600 @@
+[
+    {
+        "fields": [
+            {
+                "name": "FILMNR",
+                "rename": "filmnummer_hh_jj_mm"
+            },
+            {
+                "name": "LFDNR",
+                "rename": "filmnummer_nn"
+            },
+            {
+                "name": "FILM",
+                "rename": "filmnummer_legacy"
+            },
+            {
+                "name": "MILNR",
+                "rename": "militaernummer"
+            },
+            {
+                "name": "ALTNR",
+                "rename": "militaernummer_alt"
+            },
+            {
+                "name": "BILBANZ",
+                "rename": "anzahl_bilder"
+            },
+            {
+                "name": "NEG_AUF",
+                "rename": "hersteller",
+                "contentconversion": [
+                    {
+                        "old": "IfUFG", 
+                        "new": "IUHA"
+                    },
+                    {
+                        "old": "IfUFGW",
+                        "new": "IUHA"
+                    },
+                    {
+                        "old": "StAKA",
+                        "new": "unbek."
+                    },
+                    {
+                        "old": " ",
+                        "new": "unbek."
+                    }
+
+                ],
+                "contentdefault": "current"
+            },
+            {
+                "name": "FORM1",
+                "rename": "form1"
+            },
+            {
+                "name": "FORM2",
+                "rename": "form2"
+            },
+            {
+                "name": "ART",
+                "rename": "art_ausarbeitung"
+            },
+            {
+                "name": "WEISE",
+                "rename": "weise"
+            },
+            {
+                "name": "KAMERA",
+                "rename": "kamera"
+            },
+            {
+                "name": "KAMNR",
+                "rename": "kalibrierungsnummer"
+            },
+            {
+                "name": "KKON",
+                "rename": "kammerkonstante"
+            },
+            {
+                "name": "FILMFAB",
+                "rename": "filmfabrikat"
+            },
+            {
+                "name": "KASNR",
+                "rename": "kassettennummer"
+            },
+            {
+                "name": "PILOT",
+                "rename": "pilot"
+            },
+            {
+                "name": "PHOTOGR",
+                "rename": "fotograf"
+            },
+            {
+                "name": "AUFTRNR",
+                "rename": "auftragsnummer"
+            },
+            {
+                "name": "AAUFTRNR",
+                "rename": "auftragsnummer_int"
+            },
+            {
+                "name": "ERSDAT",
+                "rename": "datum_ersteintrag"
+            },
+            {
+                "name": "LEZDAT",
+                "rename": "datum_aenderung"
+            },
+            {
+                "name": "AUFDAT",
+                "rename": "flugdatum"
+            },
+            {
+                "name": "FLUGZEUG",
+                "rename": "flugzeug"
+            },
+            {
+                "name": "ABZEIT",
+                "rename": "abflug_zeit",
+                "type": "String",
+                "typecast": "DateTime"
+            },
+            {
+                "name": "ANZEIT",
+                "rename": "ankunft_zeit",
+                "type": "String",
+                "typecast": "DateTime"
+            },
+            {
+                "name": "ABPLATZ",
+                "rename": "abflug_flughafen"
+            },
+            {
+                "name": "ANPLATZ",
+                "rename": "ankunft_flughafen"
+            },
+            {
+                "name": "FLUGZEIT",
+                "rename": "flugzeit"
+            },
+            {
+                "name": "FKOM",
+                "rename": "kommentar"
+            },
+            {
+                "name": "PROJEKT",
+                "rename": "projekt"
+            },
+            {
+                "name": "WETTER",
+                "rename": "wetter",
+                "contentconversion": [
+                    {
+                        "old": "leicht bewölkt",
+                        "new": "2991X"
+                    },
+                    {
+                        "old": "stark bewölkt",
+                        "new": "8991X"
+                    },
+                    {
+                        "old": "Nebel",
+                        "new": "9994X"
+                    },
+                    {
+                        "old": "sonnig",
+                        "new": "0991X"
+                    }
+
+                ],
+                "contentdefault": "9990X"
+
+            },
+            {
+                "name": "COPYRIGHT",
+                "rename": "copyright"
+            }
+        ],
+        "name": "film"
+    },
+    {
+        "fields": [
+            {
+                "name": "FABRIKAT",
+                "rename": "fabrikat"
+            },
+            {
+                "name": "FORM1",
+                "rename": "form1"
+            },
+            {
+                "name": "FORM2",
+                "rename": "form2"
+            }
+        ],
+        "name": "kam",
+        "rename": "kamera"
+    },
+    {
+        "fields": [
+            {
+                "name": "FABRIKAT",
+                "rename": "fabrikat"
+            },
+            {
+                "name": "ART",
+                "rename": "art"
+            }
+        ],
+        "name": "film_fab",
+        "rename": "film_fabrikat"
+    },
+        {
+        "fields": [
+            {
+                "name": "FONR",
+                "rename": "fundortnummer"
+            },
+            {
+                "name": "JAHR",
+                "rename": "jahr"
+            },
+            {
+                "name": "JAHRESZEIT",
+                "rename": "jahreszeit"
+            },
+            {
+                "name": "NAME",
+                "rename": "name"
+            },
+            {
+                "name": "PARZELLE",
+                "rename": "parzelle"
+            },
+            {
+                "name": "BEGEHTYP",
+                "rename": "begehtyp"
+            },
+            {
+                "name": "SICHTBARK",
+                "rename": "sichtbarkeit"
+            },
+            {
+                "name": "FUNDE",
+                "rename": "funde"
+            },
+            {
+                "name": "VERBLEIB",
+                "rename": "verbleib"
+            },
+            {
+                "name": "SONST",
+                "rename": "sonstiges"
+            },
+            {
+                "name": "DATUM",
+                "rename": "datum"
+            },
+            {
+                "name": "MORPHOLOGIE",
+                "rename": "morphologie"
+            },
+            {
+                "name": "FOTO",
+                "rename": "foto"
+            },
+            {
+                "name": "SKIZZE",
+                "rename": "skizze"
+            },
+            {
+                "name": "ZUSTAND",
+                "rename": "zustand"
+            }
+        ],
+        "name": "begehung"
+    },
+    {
+        "fields": [
+            {
+                "name": "FUNDGEW",
+                "rename": "fundgewinnung"
+            }
+        ],
+        "name": "fundgewinnung"
+    },
+    {
+        "fields": [
+            {
+                "name": "NAM",
+                "rename": "name"
+            },
+            {
+                "name": "ZEIT",
+                "rename": "zeit"
+            },
+            {
+                "name": "PERIODE",
+                "rename": "periode"
+            },
+            {
+                "name": "STUFE1",
+                "rename": "stufe1"
+            },
+            {
+                "name": "STUFE2",
+                "rename": "stufe2"
+            }
+        ],
+        "name": "kult",
+        "rename": "kultur"
+    },
+    {
+        "fields": [
+            {
+                "name": "BEZ",
+                "rename": "bezeichnung"
+            }
+        ],
+        "name": "phase"
+    },
+    {
+        "fields": [
+            {
+                "name": "Zeit",
+                "rename": "zeit"
+            },
+            {
+                "name": "Periode",
+                "rename": "periode"
+            },
+            {
+                "name": "Pperiode",
+                "rename": "periode_detail"
+            }
+        ],
+        "name": "zeit"
+    },
+    {
+        "name": "flugwege_schraeg_ln",
+        "rename": "flugweg_schraeg_ln"
+    },
+    {
+        "name": "flugwege_schraeg_pnt",
+        "rename": "flugweg_schraeg_pnt"
+    },
+    {
+        "name": "flugwege_senk_pnt",
+        "rename": "flugweg_senk_pnt"
+    },
+    {
+        "name": "fo_interpretation",
+        "rename": "fundort_interpretation"
+    },
+    {
+        "name": "fo_log_pnt",
+        "rename": "fundort_log_pnt"
+    },
+    {
+        "name": "fo_log_pol",
+        "rename": "fundort_log_pol"
+    },
+    {
+        "name": "fo_pnt",
+        "rename": "fundort_pnt"
+    },
+    {
+        "name": "fo_pol",
+        "rename": "fundort_pol"
+    },
+    {
+        "name": "sub_fs_log_pnt",
+        "rename": "fundstelle_log_pnt"
+    },
+    {
+        "name": "sub_fs_log_pol",
+        "rename": "fundstelle_log_pol"
+    },
+    {
+        "name": "sub_fs_pnt",
+        "rename": "fundstelle_pnt"
+    },
+    {
+        "name": "sub_fs_pol",
+        "rename": "fundstelle_pol"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILMNR",
+                "rename": "filmnummer_hh_jj_mm"
+            },
+            {
+                "name": "LFDNR",
+                "rename": "filmnummer_nn"
+            },
+            {
+                "name": "BILDNR",
+                "rename": "bildnummer_nn"
+            },
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            },
+            {
+                "name": "HOCH",
+                "rename": "hoehe"
+            },
+            {
+                "name": "ETT",
+                "rename": "etikett"
+            },
+            {
+                "name": "GKX",
+                "rename": "gkx"
+            },
+            {
+                "name": "GKY",
+                "rename": "gky"
+            },
+            {
+                "name": "KAPPA",
+                "rename": "kappa"
+            },
+            {
+                "name": "ELLL",
+                "rename": "longitude"
+            },
+            {
+                "name": "ELLB",
+                "rename": "latitude"
+            },
+            {
+                "name": "MASS",
+                "rename": "massstab"
+            },
+            {
+                "name": "NEUDAT",
+                "rename": "datum_ersteintrag"
+            },
+            {
+                "name": "LETZTDAT",
+                "rename": "datum_aenderung"
+            },
+            {
+                "name": "PROJEKT",
+                "rename": "projekt"
+            },
+            {
+                "name": "FOKUS",
+                "rename": "fokus"
+            },
+            {
+                "name": "MERIDIAN",
+                "rename": "meridian"
+            },
+            {
+                "name": "COPYRIGHT",
+                "rename": "copyright"
+            }
+
+        ],
+        "name": "luftbild_senk_cp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILMNR",
+                "rename": "filmnummer_hh_jj_mm"
+            },
+            {
+                "name": "LFDNR",
+                "rename": "filmnummer_nn"
+            },
+            {
+                "name": "BILDNR",
+                "rename": "bildnummer_nn"
+            },
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            },
+            {
+                "name": "HOCH",
+                "rename": "hoehe"
+            },
+            {
+                "name": "ETT",
+                "rename": "etikett"
+            },
+            {
+                "name": "GKX",
+                "rename": "gkx"
+            },
+            {
+                "name": "GKY",
+                "rename": "gky"
+            },
+            {
+                "name": "KAPPA",
+                "rename": "kappa"
+            },
+            {
+                "name": "ELLL",
+                "rename": "longitude"
+            },
+            {
+                "name": "ELLB",
+                "rename": "latitude"
+            },
+            {
+                "name": "MASS",
+                "rename": "massstab"
+            },
+            {
+                "name": "NEUDAT",
+                "rename": "datum_ersteintrag"
+            },
+            {
+                "name": "LETZTDAT",
+                "rename": "datum_aenderung"
+            },
+            {
+                "name": "RADIUS",
+                "rename": "radius"
+            },
+            {
+                "name": "KWD",
+                "rename": "keyword"
+            },
+            {
+                "name": "DESCR",
+                "rename": "description"
+            },
+            {
+                "name": "PROJEKT",
+                "rename": "projekt"
+            },
+            {
+                "name": "FOKUS",
+                "rename": "fokus"
+            },
+            {
+                "name": "MERIDIAN",
+                "rename": "meridian"
+            },
+            {
+                "name": "COPYRIGHT",
+                "rename": "copyright"
+            },
+            {
+                "name": "GPSL",
+                "rename": "gps_longitude"
+            },
+            {
+                "name": "GPSB",
+                "rename": "gps_latitude"
+            }
+
+        ],
+        "name": "luftbild_schraeg_cp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            }
+        ],
+        "name": "luftbild_senk_fp"
+    },
+    {
+        "fields": [
+            {
+                "name": "FILM",
+                "rename": "filmnummer"
+            },
+            {
+                "name": "BILD",
+                "rename": "bildnummer"
+            }
+        ],
+        "name": "luftbild_schraeg_fp"
+    }
+]

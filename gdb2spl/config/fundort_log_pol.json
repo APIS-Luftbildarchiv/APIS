@@ -1,0 +1,56 @@
+{
+    "targetname": "fundort_log_pol",
+    "source": "esrigdb",
+    "esrigdb": "gdb/APIS.gdb",
+    "sourcename": "fo_log_pol",
+    "epsg": 4312,
+    "type": 3,
+    "primary": [],
+    "fields": [
+        {
+            "targetname": "fundortnummer",
+            "sourcename": "FUNDORT",
+            "type": "String"
+        },
+        {
+            "targetname": "filmnummer_projekt",
+            "sourcename": "FILM",
+            "type": "String"
+        },
+        {
+            "targetname": "aktion",
+            "sourcename": "AKTION",
+            "type": "String"
+        },
+        {
+            "targetname": "aktionsdatum",
+            "sourcename": "AKTIONSDATUM",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "aktionsuser",
+            "sourcename": "AKTIONSUSER",
+            "type": "String"
+        },
+        {
+            "targetname": "raster",
+            "sourcename": "RASTER",
+            "type": "String"
+        },
+        {
+            "targetname": "bildnummer",
+            "sourcename": "BILDNR",
+            "type": "String"
+        },
+        {
+            "targetname": "shape_length",
+            "sourcename": "Shape_Length",
+            "type": "Real"
+        },
+        {
+            "targetname": "shape_area",
+            "sourcename": "Shape_Area",
+            "type": "Real"
+        }
+    ]
+}

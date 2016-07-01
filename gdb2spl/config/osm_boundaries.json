@@ -1,0 +1,30 @@
+{
+    "targetname": "osm_boundaries",
+    "source": "esrishp",
+    "esrishp": "shp/osm_boundaries/osm_borders.shp",
+    "epsg": 4326,
+    "type": 6,
+    "primary": ["id"],
+    "fields": [
+        {
+            "targetname": "id",
+            "sourcename": "ID",
+            "type": "Real"
+        },
+        {
+            "targetname": "code",
+            "sourcename": "ISO3166",
+            "type": "String"
+        },
+        {
+            "targetname": "name",
+            "sourcename": "NAME",
+            "type": "String"
+        },
+        {
+            "targetname": "localname",
+            "sourcename": "LOCALNAME",
+            "type": "String"
+        }
+    ]
+}

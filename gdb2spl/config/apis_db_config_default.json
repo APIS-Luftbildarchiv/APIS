@@ -1,0 +1,48 @@
+[
+	{
+		"type": "sytem",
+		"name": "kamera",
+		"name_apis0": "kam",
+		"attributes": [
+			{
+				"name": "fieldname",
+				"type": "fieldtype",
+				"name_apis0": "previfieldname",
+				"type_apis0": "prevfieldtype"
+			},
+			{
+				"name": "fieldname",
+				"type": "fieldtype",
+				"name_apis0": "previfieldname",
+				"type_apis0": "prevfieldtype"
+			}
+
+		]
+
+	},
+	{
+		"type": "data",
+		"name": "film",
+		"name_apis0": "film",
+		"attributes": [
+			{
+				"name": "fieldname",
+				"type": "fieldtype",
+				"name_apis0": "previfieldname",
+				"type_apis0": "prevfieldtype"
+			},
+			{
+				"name": "fieldname",
+				"type": "fieldtype",
+				"name_apis0": "previfieldname",
+				"type_apis0": "prevfieldtype"
+			}
+
+		]
+	},
+	{
+		"type": "geodata",
+	}
+	
+
+]

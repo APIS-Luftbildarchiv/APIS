@@ -1,0 +1,115 @@
+{
+    "targetname": "begehung",
+    "source": "esrigdb",
+    "esrigdb": "gdb/APIS.gdb",
+    "sourcename": "begehung",
+    "type": 100,
+    "primary": ["fundortnummer","begehung"],
+    "fields": [
+        {
+            "targetname": "fundortnummer",
+            "sourcename": "FONR",
+            "type": "String"
+        },
+        {
+            "targetname": "begehung",
+            "incrementByFieldRow": 1,
+            "type": "Integer"
+        },
+        {
+            "targetname": "fundortnummer_legacy",
+            "sourcename": "FONR",
+            "type": "String"
+        },
+        {
+            "targetname": "jahr",
+            "sourcename": "JAHR",
+            "type": "String"
+        },
+        {
+            "targetname": "jahreszeit",
+            "sourcename": "JAHRESZEIT",
+            "type": "String"
+        },
+        {
+            "targetname": "name",
+            "sourcename": "NAME",
+            "type": "String"
+        },
+        {
+            "targetname": "parzelle",
+            "sourcename": "PARZELLE",
+            "type": "String"
+        },
+        {
+            "targetname": "begehtyp",
+            "sourcename": "BEGEHTYP",
+            "type": "String"
+        },
+        {
+            "targetname": "sichtbarkeit",
+            "sourcename": "SICHTBARK",
+            "type": "String"
+        },
+        {
+            "targetname": "funde",
+            "sourcename": "FUNDE",
+            "type": "String"
+        },
+        {
+            "targetname": "verbleib",
+            "sourcename": "VERBLEIB",
+            "type": "String"
+        },
+        {
+            "targetname": "sonstiges",
+            "sourcename": "SONST",
+            "type": "String"
+        },
+        {
+            "targetname": "datum",
+            "sourcename": "DATUM",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "morphologie",
+            "sourcename": "MORPHOLOGIE",
+            "type": "String"
+        },
+        {
+            "targetname": "foto",
+            "sourcename": "FOTO",
+            "type": "String"
+        },
+        {
+            "targetname": "skizze",
+            "sourcename": "SKIZZE",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand",
+            "sourcename": "ZUSTAND",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand_bewuchs",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand_licht",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand_boden",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand_feuchtigkeit",
+            "type": "String"
+        },
+        {
+            "targetname": "zustand_abgeregnet",
+            "type": "String"
+        }
+    ]
+}

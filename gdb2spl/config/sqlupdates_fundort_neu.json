@@ -1,0 +1,31 @@
+{
+    "sqlupdates":[
+        "INSERT INTO fundort (fundortnummer, fundortnummer_nn, fundortnummer_legacy, fundortnummer_nn_legacy, filmnummer_projekt, raster, bildnummer, katastralgemeindenummer, katastralgemeinde, flurname, parzellennummern, kommentar_lage, erstmeldung_jahr, datum_ersteintrag, datum_aenderung, fundgewinnung, fundgewinnung_quelle, land, gkx, gky, meridian, longitude, latitude, ortshoehe, flaeche, sicherheit, aktion, aktionsdatum, aktionsuser, repraesentatives_luftbild, literatur, detailinterpretation, befund, OBS_DATI, OBS_PHAS, OBS_SIEDL, OBS_NACHWEIS, OBS_VERBLEIB, OBS_FUNDGESCH, geometry) SELECT fo_pnt.fundortnummer, fo_pnt.fundortnummer_nn, fo_pnt.fundortnummer_legacy, fo_pnt.fundortnummer_nn_legacy, fo_pnt.filmnummer_projekt, fo_pol.raster, fo_pol.bildnummer, fo_pnt.katastralgemeindenummer, fo_pnt.katastralgemeinde, fo_pnt.flurname, fo_pnt.parzellennummern, fo_pnt.kommentar_lage, fo_pnt.erstmeldung_jahr, fo_pnt.datum_ersteintrag, fo_pnt.datum_aenderung, fo_pnt.fundgewinnung, fo_pnt.fundgewinnung_quelle, fo_pnt.land, fo_pnt.gkx, fo_pnt.gky, fo_pnt.meridian, fo_pnt.longitude, fo_pnt.latitude, fo_pnt.ortshoehe, fo_pnt.flaeche, fo_pnt.sicherheit, fo_pnt.aktion, fo_pnt.aktionsdatum, fo_pnt.aktionsuser, fo_pnt.repraesentatives_luftbild, fo_pnt.literatur, fo_pnt.detailinterpretation, fo_pnt.befund, fo_pnt.OBS_DATI, fo_pnt.OBS_PHAS, fo_pnt.OBS_SIEDL, fo_pnt.OBS_NACHWEIS, fo_pnt.OBS_VERBLEIB, fo_pnt.OBS_FUNDGESCH, fo_pol.geometry FROM fundort_pnt fo_pnt, fundort_pol fo_pol WHERE fo_pol.fundortnummer = fo_pnt.fundortnummer",
+        "SELECT RecoverGeometryColumn('fundort', 'geometry', 4312, 'POLYGON', 'XY')",
+        "SELECT CreateSpatialIndex('fundort', 'geometry')",
+        "UPDATE fundort SET flaeche = area(geometry,1)/10000",
+        "UPDATE fundort SET meridian = CASE WHEN longitude < 11.8333333333 THEN 28  WHEN longitude > 14.8333333333 THEN 34 ELSE 31 END WHERE land = 'AUT'",
+        "INSERT INTO fundstelle(fundortnummer, fundstellenummer, sicherheit, datierung, phase, datierungsbasis, kultur, fundart_detail, fundart, fundgewinnung_quelle, sonstiges, erstmeldung_jahr, datum_ersteintrag, datum_aenderung, bdanummer, erhaltung, bearbeiter, datum_abs_1, datum_abs_2, parzellennummern, gkx, gky, meridian, longitude, latitude, flaeche, aktion, aktionsdatum, aktionsuser, befund, literatur, kommentar_lage, fundverbleib, fundgeschichte, fundbeschreibung, geometry) SELECT fs_pnt.fundortnummer, fs_pnt.fundstellenummer, fs_pnt.sicherheit, fs_pnt.datierung, fs_pnt.phase, fs_pnt.datierungsbasis, fs_pnt.kultur, fs_pnt.fundart_detail, fs_pnt.fundart, fs_pnt.fundgewinnung_quelle, fs_pnt.sonstiges, fs_pnt.erstmeldung_jahr, fs_pnt.datum_ersteintrag, fs_pnt.datum_aenderung, fs_pnt.bdanummer, fs_pnt.erhaltung, fs_pnt.bearbeiter, fs_pnt.datum_abs_1, fs_pnt.datum_abs_2, fs_pnt.parzellennummern, fs_pnt.gkx, fs_pnt.gky, fs_pnt.meridian, fs_pnt.longitude, fs_pnt.latitude, fs_pnt.flaeche, fs_pnt.aktion, fs_pnt.aktionsdatum, fs_pnt.aktionsuser, fs_pnt.befund, fs_pnt.literatur, fs_pnt.kommentar_lage, fs_pnt.fundverbleib, fs_pnt.fundgeschichte, fs_pnt.fundbeschreibung, fs_pol.geometry FROM fundstelle_pnt fs_pnt, fundstelle_pol fs_pol WHERE fs_pol.fundortnummer = fs_pnt.fundortnummer AND fs_pol.fundstellenummer = fs_pnt.fundstellenummer",
+        "SELECT RecoverGeometryColumn('fundstelle', 'geometry', 4312, 'POLYGON', 'XY')",
+        "SELECT CreateSpatialIndex('fundstelle', 'geometry')",
+        "UPDATE fundstelle SET datierung_zeit = (SELECT substr(datierung, 1, pos1-1) FROM (SELECT *, instr(datierung,',') AS pos1 FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET datierung_periode = (SELECT substr(datierung, pos1+1, pos2-1) FROM (SELECT *, instr(datierung,',') AS pos1, instr(substr(datierung, instr(datierung,',')+1), ',') AS pos2 FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET datierung_periode_detail = (SELECT substr(datierung, pos1+pos2+1, pos3-1) FROM (SELECT *, instr(datierung,',') AS pos1, instr(substr(datierung, instr(datierung,',')+1), ',') AS pos2, instr(substr(datierung, instr(datierung,',')+instr(substr(datierung, instr(datierung,',')+1), ',')+1),  ',') AS pos3 FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET phase_von = (SELECT substr(phase, 1, pos-1) FROM (SELECT *, instr(phase,'-') AS pos FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET phase_bis = (SELECT substr(phase, pos+1) FROM (SELECT *, instr(phase,'-') AS pos FROM fundstelle f2 WHERE fundstelle.ROWID = f2.ROWID))",
+        "UPDATE fundstelle SET geometry = (SELECT fundort.geometry FROM fundort WHERE fundort.fundortnummer = fundstelle.fundortnummer)",
+        "UPDATE fundstelle SET flaeche = (SELECT fundort.flaeche FROM fundort WHERE fundort.fundortnummer = fundstelle.fundortnummer)",
+        "UPDATE fundstelle SET meridian = (SELECT fundort.meridian FROM fundort WHERE fundort.fundortnummer = fundstelle.fundortnummer)",
+        "ALTER TABLE fundort_pnt RENAME TO obsolete_fundort_pnt",
+        "ALTER TABLE fundort_pol RENAME TO obsolete_fundort_pol",
+        "ALTER TABLE fundstelle_pnt RENAME TO obsolete_fundstelle_pnt",
+        "ALTER TABLE fundstelle_pol RENAME TO obsolete_fundstelle_pol",
+        "ALTER TABLE fundort_log_pnt RENAME TO obsolete_fundort_log_pnt",
+        "ALTER TABLE fundort_log_pol RENAME TO obsolete_fundort_log_pol",
+        "ALTER TABLE fundstelle_log_pnt RENAME TO obsolete_fundstelle_log_pnt",
+        "ALTER TABLE fundstelle_log_pol RENAME TO obsolete_fundstelle_log_pol"
+    ]
+}
+
+
+

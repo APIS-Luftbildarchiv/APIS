@@ -1,0 +1,203 @@
+{
+    "targetname": "fundort_pnt",
+    "source": "esrigdb",
+    "esrigdb": "gdb/APIS.gdb",
+    "sourcename": "fo_pnt",
+    "epsg": "4312",
+    "type": 1,
+    "primary": ["fundortnummer"],
+    "fields": [
+        {
+            "targetname": "fundortnummer",
+            "sourcename": "FUNDORT",
+            "type": "String"
+        },
+        {
+            "targetname": "fundortnummer_nn",
+            "sourcename": "FONUM",
+            "type": "Real",
+            "typecast": "Integer"
+        },
+        {
+            "targetname": "fundortnummer_legacy",
+            "sourcename": "FUNDORT",
+            "type": "String"
+        },
+        {
+            "targetname": "fundortnummer_nn_legacy",
+            "sourcename": "FONUM",
+            "type": "Real",
+            "typecast": "Integer"
+        },
+        {
+            "targetname": "filmnummer_projekt",
+            "sourcename": "FILM",
+            "type": "String"
+        },
+        {
+            "targetname": "katastralgemeindenummer",
+            "sourcename": "KGNUM",
+            "type": "String"
+        },
+        {
+            "targetname": "katastralgemeinde",
+            "sourcename": "KATASTRALG",
+            "type": "String"
+        },
+        {
+            "targetname": "flurname",
+            "sourcename": "FLURNAM",
+            "type": "String"
+        },
+        {
+            "targetname": "parzellennummern",
+            "sourcename": "PARZNUM",
+            "type": "String"
+        },
+        {
+            "targetname": "kommentar_lage",
+            "sourcename": "PBEM",
+            "type": "String"
+        },
+        {
+            "targetname": "erstmeldung_jahr",
+            "sourcename": "ERSTMELD",
+            "type": "Real",
+            "typecast": "Integer"
+        },
+        {
+            "targetname": "datum_ersteintrag",
+            "sourcename": "ERSTEIN",
+            "type": "String",
+            "typecast": "Date"
+        },
+        {
+            "targetname": "datum_aenderung",
+            "sourcename": "LEZTEIN",
+            "type": "String",
+            "typecast": "Date"
+        },
+        {
+            "targetname": "fundgewinnung",
+            "sourcename": "FUNDGEW",
+            "type": "String"
+        },
+        {
+            "targetname": "fundgewinnung_quelle",
+            "sourcename": "ERSTELL",
+            "type": "String"
+        },
+        {
+            "targetname": "land",
+            "type": "String",
+            "sqlupdate": "UPDATE fundort_pnt SET land = (SELECT osm_borders.ISO3166 FROM osm_borders where intersects(luftbild_schraeg_cp.geom, osm_borders.Geometry))",
+            "sqlupdate2": "UPDATE luftbild_schraeg_cp SET land = (SELECT osm_borders.ISO3166 FROM osm_borders where Contains(osm_borders.Geometry, Transform(luftbild_schraeg_cp.geom, 4326) ))"
+        },
+        {
+            "targetname": "gkx",
+            "sourcename": "X",
+            "type": "Real"
+        },
+        {
+            "targetname": "gky",
+            "sourcename": "Y",
+            "type": "Real"
+        },
+        {
+            "targetname": "meridian",
+            "sourcename": "MERIDIAN",
+            "type": "Integer"
+        },
+        {
+            "targetname": "longitude",
+            "sourcename": "ELLL",
+            "type": "Real"
+        },
+        {
+            "targetname": "latitude",
+            "sourcename": "ELLB",
+            "type": "Real"
+        },
+        {
+            "targetname": "ortshoehe",
+            "sourcename": "ORTSHOEHE",
+            "type": "Real"
+        },
+        {
+            "targetname": "flaeche",
+            "sourcename": "FLAECHE",
+            "type": "Real"
+        },
+        {
+            "targetname": "sicherheit",
+            "sourcename": "SICHER",
+            "type": "String"
+        },
+        {
+            "targetname": "aktion",
+            "sourcename": "AKTION",
+            "type": "String"
+        },
+        {
+            "targetname": "aktionsdatum",
+            "sourcename": "AKTIONSDATUM",
+            "type": "DateTime"
+        },
+        {
+            "targetname": "aktionsuser",
+            "sourcename": "AKTIONSUSER",
+            "type": "String"
+        },
+        {
+            "targetname": "repraesentatives_luftbild",
+            "sourcename": "REPRIMAGE",
+            "type": "String"
+        },
+        {
+            "targetname": "literatur",
+            "sourcename": "LITERATUR",
+            "type": "String"
+        },
+        {
+            "targetname": "detailinterpretation",
+            "sourcename": "DETAIL",
+            "type": "String"
+        },
+        {
+            "targetname": "befund",
+            "sourcename": "BEFUND",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_DATI",
+            "sourcename": "DATI",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_PHAS",
+            "type": "String",
+            "sourcename": "PHAS"
+        },
+        {
+            "targetname": "OBS_SIEDL",
+            "type": "String",
+            "sourcename": "SIEDL"
+        },
+        {
+            "targetname": "OBS_NACHWEIS",
+            "sourcename": "NACHWEIS",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_VERBLEIB",
+            "sourcename": "VERBLEIB",
+            "type": "String"
+        },
+        {
+            "targetname": "OBS_FUNDGESCH",
+            "sourcename": "FUNDGESCH",
+            "type": "String"
+        }
+
+    ]
+}
