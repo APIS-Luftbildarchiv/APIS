@@ -158,7 +158,7 @@ class QdThumbnailView(QtGui.QGraphicsView):
 
     def imageLoaded(self, path, image):
         self._progressCurrent += 1
-        self._pixmaps[str(path)].setImage(image)
+        self._pixmaps[unicode(path)].setImage(image)
         self.emit(SIGNAL('loading(int)'), self._progressCurrent)
 
     def finished(self):

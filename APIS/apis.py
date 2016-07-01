@@ -22,7 +22,7 @@
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-
+from qgis.core import QgsPluginLayerRegistry
 # Initialize Qt resources from file resources.py
 import resources_rc
 # Import the code for the dialogs
@@ -33,6 +33,8 @@ from apis_image_mapping_dialog import *
 from apis_site_mapping_dialog import *
 from apis_search_dialog import *
 from apis_image_registry import *
+
+from py_tiled_layer.tilelayer import TileLayer, TileLayerType
 
 from apis_utils import *
 from apis_db_manager import *
@@ -131,7 +133,8 @@ class APIS:
             self.iface.actionSaveAllEdits().triggered.disconnect(self.isApisLayer)
 
     def isApisLayer(self):
-        QMessageBox.warning(None, self.tr(u"IsApisLayer"), u"Save Layers")
+        pass
+        #QMessageBox.warning(None, self.tr(u"IsApisLayer"), u"Save APIS Layers")
 
     def addApisAction(
         self,
@@ -287,6 +290,10 @@ class APIS:
 
         self.openDialogButtons.append(self.searchActionBtn)
 
+        # Register plugin layer type
+        self.tileLayerType = TileLayerType()
+        QgsPluginLayerRegistry.instance().addPluginLayerType(self.tileLayerType)
+
     def openFilmDialog(self):
         """Run method that performs all the real work"""
         # show the dialog
@@ -317,7 +324,7 @@ class APIS:
 
     def toggleSiteMappingDialog(self):
         if not self.siteMappingDlg:
-            self.siteMappingDlg = ApisSiteMappingDialog(self.iface, self.dbm)
+            self.siteMappingDlg = ApisSiteMappingDialog(self.iface, self.dbm, self.imageRegistry)
             self.siteMappingDlg.visibilityChanged.connect(self.siteMappingActionBtn.setChecked)
 
         if self.siteMappingActionBtn.isChecked():
@@ -426,5 +433,7 @@ class APIS:
                 self.tr(u'&APIS'),
                 action)
             self.iface.removeToolBarIcon(action)
+        # unregister plugin layer type
+        QgsPluginLayerRegistry.instance().removePluginLayerType(TileLayer.LAYER_TYPE)
         # remove the toolbar
         del self.toolbar

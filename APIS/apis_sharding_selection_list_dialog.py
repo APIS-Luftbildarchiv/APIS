@@ -32,13 +32,12 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
         self.uiShardingListTableV.doubleClicked.connect(self.openShardingDialog)
         self.uiNewShardingBtn.clicked.connect(self.addNewSharding)
 
-    def loadShardingListBySiteNumber(self, siteNumber=None):
-        if self.siteNumber == None:
-            self.siteNumber = siteNumber
+    def loadShardingListBySiteNumber(self, siteNumber):
+        self.siteNumber = siteNumber
         self.uiSiteNumberLbl.setText(self.siteNumber)
         if self.siteNumber:
             query = QSqlQuery(self.dbm.db)
-            query.prepare("SELECT begehung, jahr, datum, jahreszeit, name, begehtyp, parzelle, funde FROM begehung WHERE fundortnummer = '{0}' ORDER BY rowid".format(self.siteNumber))
+            query.prepare("SELECT begehung, datum, name, begehtyp, parzelle, funde FROM begehung WHERE fundortnummer = '{0}' ORDER BY date(datum)".format(self.siteNumber))
             query.exec_()
 
             self.model = QStandardItemModel()
@@ -57,14 +56,15 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
                 self.model.appendRow(newRow)
 
             if self.model.rowCount() < 1:
-                return False
+                self.uiShardingCountLbl.setText("0")
+                return
 
+            self.uiShardingCountLbl.setText(u"{0}".format(self.model.rowCount()))
             for col in range(rec.count()):
                 self.model.setHeaderData(col, Qt.Horizontal, rec.fieldName(col))
 
             self.setupTable()
 
-            return True
 
     def setupTable(self):
         self.uiShardingListTableV.setModel(self.model)
@@ -79,21 +79,27 @@ class ApisShardingSelectionListDialog(QDialog, Ui_apisShardingSelectionListDialo
 
     def openShardingDialog(self, idx):
         shardingNumber = self.model.item(idx.row(), 0).text()
-        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm)
-        self.shardingDlg.openSharding(self.siteNumber, shardingNumber)
+        shardingDlg = ApisShardingDialog(self.iface, self.dbm)
+        shardingDlg.shardingEditsSaved.connect(self.reloadShardingList)
+        shardingDlg.openSharding(self.siteNumber, shardingNumber)
         # Run the dialog event loop
-        res = self.shardingDlg.exec_()
-        if res:
+        res = shardingDlg.exec_()
+        #if res:
             # reload the table after closing
-            self.loadShardingListBySiteNumber(self.siteNumber)
+            #self.loadShardingListBySiteNumber(self.siteNumber)
         #MessageBox.warning(None, "test", u"{0}".format(res))
 
     def addNewSharding(self):
-        self.shardingDlg = ApisShardingDialog(self.iface, self.dbm)
+        shardingDlg = ApisShardingDialog(self.iface, self.dbm)
+        shardingDlg.shardingEditsSaved.connect(self.reloadShardingList)
         # Run the dialog event loop
-        self.shardingDlg.addNewSharding(self.siteNumber)
-        res = self.shardingDlg.exec_()
-        if res:
+        shardingDlg.addNewSharding(self.siteNumber)
+
+        res = shardingDlg.exec_()
+        #if res:
             # reload the table after closing
-            self.loadShardingListBySiteNumber(self.siteNumber)
+            #self.loadShardingListBySiteNumber(self.siteNumber)
         #QMessageBox.warning(None, "test", u"{0}".format(res))
+
+    def reloadShardingList(self):
+        self.loadShardingListBySiteNumber(self.siteNumber)

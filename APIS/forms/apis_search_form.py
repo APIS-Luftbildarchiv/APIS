@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_form.ui'
 #
-# Created: Wed Apr 27 11:31:11 2016
+# Created: Fri May 20 16:28:03 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -406,6 +406,7 @@ class Ui_apisSearchDialog(object):
         self.uiDatingGrp = QtGui.QGroupBox(self.uiFindspotTab)
         self.uiDatingGrp.setEnabled(True)
         self.uiDatingGrp.setCheckable(True)
+        self.uiDatingGrp.setChecked(False)
         self.uiDatingGrp.setObjectName(_fromUtf8("uiDatingGrp"))
         self.gridLayout_3 = QtGui.QGridLayout(self.uiDatingGrp)
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
@@ -446,6 +447,7 @@ class Ui_apisSearchDialog(object):
         self.uiCultureGrp = QtGui.QGroupBox(self.uiFindspotTab)
         self.uiCultureGrp.setEnabled(True)
         self.uiCultureGrp.setCheckable(True)
+        self.uiCultureGrp.setChecked(False)
         self.uiCultureGrp.setObjectName(_fromUtf8("uiCultureGrp"))
         self.gridLayout_4 = QtGui.QGridLayout(self.uiCultureGrp)
         self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
@@ -464,6 +466,7 @@ class Ui_apisSearchDialog(object):
         self.uiFindTypeGrp = QtGui.QGroupBox(self.uiFindspotTab)
         self.uiFindTypeGrp.setEnabled(True)
         self.uiFindTypeGrp.setCheckable(True)
+        self.uiFindTypeGrp.setChecked(False)
         self.uiFindTypeGrp.setObjectName(_fromUtf8("uiFindTypeGrp"))
         self.gridLayout_5 = QtGui.QGridLayout(self.uiFindTypeGrp)
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
@@ -494,6 +497,7 @@ class Ui_apisSearchDialog(object):
         self.uiSpatialFilterGrp.setEnabled(True)
         self.uiSpatialFilterGrp.setFlat(False)
         self.uiSpatialFilterGrp.setCheckable(True)
+        self.uiSpatialFilterGrp.setChecked(False)
         self.uiSpatialFilterGrp.setObjectName(_fromUtf8("uiSpatialFilterGrp"))
         self.verticalLayout_14 = QtGui.QVBoxLayout(self.uiSpatialFilterGrp)
         self.verticalLayout_14.setObjectName(_fromUtf8("verticalLayout_14"))
@@ -501,11 +505,6 @@ class Ui_apisSearchDialog(object):
         self.label_12.setObjectName(_fromUtf8("label_12"))
         self.verticalLayout_14.addWidget(self.label_12)
         self.uiFilterByMapLayerCombo = QgsMapLayerComboBox(self.uiSpatialFilterGrp)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.uiFilterByMapLayerCombo.sizePolicy().hasHeightForWidth())
-        self.uiFilterByMapLayerCombo.setSizePolicy(sizePolicy)
         self.uiFilterByMapLayerCombo.setObjectName(_fromUtf8("uiFilterByMapLayerCombo"))
         self.verticalLayout_14.addWidget(self.uiFilterByMapLayerCombo)
         self.verticalLayout_5.addWidget(self.uiSpatialFilterGrp)

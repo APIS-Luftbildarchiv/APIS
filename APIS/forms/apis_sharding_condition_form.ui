@@ -63,6 +63,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QComboBox" name="uiConditionPlantCoverCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>-1</number>
        </property>
@@ -85,6 +88,9 @@
      </item>
      <item row="1" column="1">
       <widget class="QComboBox" name="uiConditionLightCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>-1</number>
        </property>
@@ -107,6 +113,9 @@
      </item>
      <item row="2" column="1">
       <widget class="QComboBox" name="uiConditionSoilCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>-1</number>
        </property>
@@ -129,6 +138,9 @@
      </item>
      <item row="3" column="1">
       <widget class="QComboBox" name="uiConditionMoistureCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>-1</number>
        </property>
@@ -151,6 +163,9 @@
      </item>
      <item row="4" column="1">
       <widget class="QComboBox" name="uiConditionRainCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
        <property name="currentIndex">
         <number>-1</number>
        </property>

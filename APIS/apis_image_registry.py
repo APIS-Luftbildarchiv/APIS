@@ -163,6 +163,14 @@ class ApisImageRegistry(QObject):
         r = filter(r.match, self.__orthoRegistry)
         return len(r)
 
+    #filmNumber = OLD Film Number
+    def getImageRegistryForFilm(self, filmNumber):
+        imagesForFilm = []
+        for imageNumber in self.__imageRegistryNE:
+            if filmNumber in imageNumber:
+                imagesForFilm.append(imageNumber)
+        return imagesForFilm
+
     def startWorker(self):
         # create a new worker instance
 

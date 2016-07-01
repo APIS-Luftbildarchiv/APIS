@@ -13,6 +13,7 @@ from apis_db_manager import *
 from apis_thumb_viewer import *
 from apis_image_registry import *
 from apis_image2exif import *
+from apis_printer import *
 
 from functools import partial
 
@@ -43,7 +44,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         self.uiLoadOrthoBtn.clicked.connect(self.loadOrthos)
         self.uiCopyImagesBtn.clicked.connect(self.copyImages)
         self.uiImage2ExifBtn.clicked.connect(self.image2Exif)
-        self.uiExportListAsPdfBtn.clicked.connect(self.exportListAsPdf)
+        self.uiExportListAsPdfBtn.clicked.connect(self.DEVexportListAsPdf)
+        self.uiExportLabelsAsPdfBtn.clicked.connect(self.exportLabelsAsPdf)
         self.accepted.connect(self.onAccepted)
 
         self.uiImageListTableV.doubleClicked.connect(self.viewImage)
@@ -739,6 +741,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 QMessageBox.warning(None, "Bilder kopieren", u"Das Ziel Verzeichnis {0} konnte in {1} nicht erstellt werden".format(newDirName, selectedDirName))
 
     def image2Exif(self):
+
         if self.uiImageListTableV.selectionModel().hasSelection():
             #Abfrage Footprints der selektierten Bilder Exportieren oder alle
             msgBox = QMessageBox()
@@ -758,41 +761,86 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         else:
             imageList = self.getImageList(True)
 
-        imageString = ""
-       #for image in imageList:
-       #     imageString += "'" + image + "',"
-
-        iamgeString = "'" + "','".join(imageList) + "'"
-
-        # use: imageString[:-1]
-        #QMessageBox.warning(None, "BildNumber", "{0}".format(imageString))
+        imageString = "'" + "','".join(imageList) + "'"
 
         query = QSqlQuery(self.dbm.db)
-        qryStr = "select bildnummer, hoehe, longitude, latitude, projekt, copyright, land from luftbild_senk_cp as lb, film as f where bildnummer in ({0})".format(imageString)
-               #  "union all select filmnummer, bildnummer, AsWKT(geometry) as fpGeom, Area(geometry) as area from luftbild_schraeg_fp where bildnummer in ({0}) order by bildnummer".format(imageString[:-1])
-        query.exec_(qryStr)
+        qryStr = u"SELECT * FROM (SELECT bildnummer, hoehe, longitude, latitude,  (SELECT group_concat(fundortnummer, ';' ) FROM fundort, luftbild_senk_fp WHERE luftbild_senk_fp.bildnummer = lb.bildnummer AND Intersects(fundort.geometry, luftbild_senk_fp.geometry) AND fundort.rowid IN (SELECT rowid FROM spatialindex WHERE f_table_name='fundort' AND search_frame=luftbild_senk_fp.geometry) ORDER BY fundortnummer_nn) AS fundorte, NULL AS keyword, NULL AS description, lb.projekt, lb.copyright, land, militaernummer, militaernummer_alt, archiv, kamera, kalibrierungsnummer, kammerkonstante, fokus, fotograf, flugdatum, flugzeug FROM luftbild_senk_cp AS lb, film AS f WHERE lb.filmnummer = f.filmnummer AND lb.bildnummer IN ({0}) UNION ALL SELECT bildnummer, hoehe, longitude, latitude, (SELECT group_concat(fundortnummer, ';' ) FROM fundort, luftbild_schraeg_fp WHERE luftbild_schraeg_fp.bildnummer = lb.bildnummer AND Intersects(fundort.geometry, luftbild_schraeg_fp.geometry) AND fundort.rowid IN (SELECT rowid FROM spatialindex WHERE f_table_name='fundort' AND search_frame=luftbild_schraeg_fp.geometry) ORDER BY fundortnummer_nn) as fundorte, keyword, description, lb.projekt, lb.copyright, land, militaernummer, militaernummer_alt, archiv, kamera, kalibrierungsnummer, kammerkonstante, fokus, fotograf, flugdatum, flugzeug FROM luftbild_schraeg_cp AS lb, film AS f WHERE lb.filmnummer = f.filmnummer AND lb.bildnummer IN ({0})) ORDER BY bildnummer".format(imageString)
+        query.prepare(qryStr)
+        query.exec_()
 
-        self.metadataDict = {}
-        # self.metadataDict['bildnummer'] = u"0120140301.001"
-        # self.metadataDict['hoehe'] = 1200
-        # self.metadataDict['longitude'] = 16.12345
-        # self.metadataDict['latitude'] = 48.12345
-        # #self.metadataDict['fundorte'] = u"AUT.120;AUT.232;AUT.12"
-        # self.metadataDict['keyword'] = u"Schlüsselwort"
-        # self.metadataDict['description'] = u"Beschreibung"
-        # self.metadataDict['projekt'] = u"Projekt A;ProjektB"
-        # self.metadataDict['copyright'] = u"IUHA"
-        # self.metadataDict['militaernummer'] = u"ABC/1254"
-        # self.metadataDict['militaernummer_alt'] = u"ABC 458"
-        # self.metadataDict['hersteller'] = u"IUHA"
-        # self.metadataDict['kamera'] = u"IUHA"
-        # self.metadataDict['kalibrierungsnummer'] = u"IUHA"
-        # self.metadataDict['kammerkonstante'] = 150.0
-        # self.metadataDict['fotograf'] = u"Doneus"
-        # self.metadataDict['flugdatum'] = u"2014-03-22"
-        # self.metadataDict['flugzeug'] = u"C172"
-        imagePath = self.settings.value("APIS/image_dir") + "\\02140301\\02140301_003.jpg"
-        Image2Exif(self.metadataDict, imagePath)
+        imageDir = self.settings.value("APIS/image_dir")
+
+        query.seek(-1)
+        count = 0
+        while query.next():
+            count += 1
+
+        progressDlg = QProgressDialog("XMP Metadaten werden geschrieben...", "Abbrechen", 0, count, self)
+        progressDlg.setWindowModality(Qt.WindowModal)
+        progressDlg.show()
+        query.seek(-1)
+        i = 0
+        while query.next():
+            progressDlg.setValue(i)
+            if progressDlg.wasCanceled():
+                break
+
+            rec = query.record()
+            metadataDict = {}
+            for i in range(rec.count()):
+                val = u"{0}".format(rec.value(i))
+                if val.replace(" ", "") == '' or val == 'NULL':
+                    val = u"---"
+                metadataDict["APIS_" + rec.fieldName(i)] = val
+
+            if self.imageRegistry.hasImage(self.imageToImageLegacy(metadataDict["APIS_bildnummer"])):
+                imagePath = imageDir + "\\" + self.filmToFilmLegacy(metadataDict["APIS_bildnummer"][:10]) + "\\" + self.imageToImageLegacy(metadataDict["APIS_bildnummer"]).replace('.','_') + ".jpg"
+                if os.path.isfile(imagePath):
+                    pass
+                    # QMessageBox.information(None, "Image", u"{0}".format(imagePath))
+                    Image2Exif(metadataDict, imagePath)
+                else:
+                    QMessageBox.information(None, "Image", u"Die Bilddatei für {0} wurde nicht gefunden (FileSystem: {1}).".format(metadataDict["APIS_bildnummer"], imagePath))
+            else:
+                QMessageBox.information(None, "Image", u"Die Bilddatei für {0} wurde nicht gefunden (ImageRegistry).".format(metadataDict["APIS_bildnummer"]))
+            #imagePath = self.settings.value("APIS/image_dir") + "\\02140301\\02140301_003.jpg"
+        progressDlg.setValue(count)
+
+    def DEVexportListAsPdf(self):
+        if self.uiImageListTableV.selectionModel().hasSelection():
+            #Abfrage Footprints der selektierten Bilder Exportieren oder alle
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Bildliste als PDF speichern')
+            msgBox.setText(u'Wollen Sie die ausgewählten Bilder oder die gesamte Liste als PDF speichern?')
+            msgBox.addButton(QPushButton(u'Auswahl'), QMessageBox.YesRole)
+            msgBox.addButton(QPushButton(u'Gesamte Liste'), QMessageBox.NoRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+
+            if ret == 0:
+                imageList = self.getImageList(False)
+                scanCount = len(self.getImageList(False,5,"ja"))
+                hiResCount = len(self.getImageList(False,7,"ja"))
+                orthoCount = len(self.getImageList(False,6,"ja"))
+            elif ret == 1:
+                imageList = self.getImageList(True)
+                scanCount = len(self.getImageList(True,5,"ja"))
+                hiResCount = len(self.getImageList(True,7,"ja"))
+                orthoCount = len(self.getImageList(True,6,"ja"))
+            else:
+                return
+        else:
+            imageList = self.getImageList(True)
+            scanCount = len(self.getImageList(True,5,"ja"))
+            hiResCount = len(self.getImageList(True,7,"ja"))
+            orthoCount = len(self.getImageList(True,6,"ja"))
+
+        #qryStr = u"SELECT filmnummer AS Filmnummer, strftime('%d.%m.%Y', flugdatum) AS Flugdatum, anzahl_bilder AS Bildanzahl, weise AS Weise, art_ausarbeitung AS Art, militaernummer AS Militärnummer, militaernummer_alt AS 'Militärnummer Alt', CASE WHEN weise = 'senk.' THEN (SELECT count(*) from luftbild_senk_cp WHERE film.filmnummer = luftbild_senk_cp.filmnummer) ELSE (SELECT count(*) from luftbild_schraeg_cp WHERE film.filmnummer = luftbild_schraeg_cp.filmnummer) END AS Kartiert, 0 AS Gescannt FROM film WHERE filmnummer IN ({0}) ORDER BY filmnummer".format(u",".join(u"'{0}'".format(image) for image in imageList))
+        qryStr = u"SELECT bildnummer AS Bildnummer, weise AS Weise, radius AS 'Radius/Maßstab', art_ausarbeitung AS Art, 'nein' AS Gescannt, 'nein' AS Ortho, 'nein' AS HiRes FROM luftbild_schraeg_cp oI, film f WHERE oI.filmnummer = f.filmnummer AND bildnummer IN ({0}) UNION ALL SELECT bildnummer AS Bildnummer, weise AS Weise, CAST(massstab AS INT) AS 'Radius/Maßstab', art_ausarbeitung AS Art, 'nein' AS Gescannt, 'nein' AS Ortho, 'nein' AS HiRes FROM luftbild_senk_cp vI, film f WHERE vI.filmnummer = f.filmnummer AND bildnummer IN ({0}) ORDER BY bildnummer".format(u",".join(u"'{0}'".format(image) for image in imageList))
+        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, 0)
+        printer.setupInfo(u"Bildliste", u"Bildliste speichern", u"Bildliste", 14)
+        printer.setQuery(qryStr)
+        printer.printList(u"Gescannt", u"Ortho", u"HiRes")
 
     def exportListAsPdf(self):
 
@@ -977,6 +1025,135 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                     os.startfile(fileName)
             except Exception, e:
                 pass
+
+
+    def exportLabelsAsPdf(self):
+
+        if self.uiImageListTableV.selectionModel().hasSelection():
+            #Abfrage Footprints der selektierten Bilder Exportieren oder alle
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Etiketten als PDF speichern')
+            msgBox.setText(u'Wollen Sie für die ausgewählten Bilder oder für die gesamte Liste Etiketten als PDF speichern?')
+            msgBox.addButton(QPushButton(u'Auswahl'), QMessageBox.YesRole)
+            msgBox.addButton(QPushButton(u'Gesamte Liste'), QMessageBox.NoRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+
+            if ret == 0:
+                imageListOblique = self.getImageList(False, 3, u"schräg")
+                imageListVertical = self.getImageList(False, 3, u"senk.")
+            elif ret == 1:
+                imageListOblique = self.getImageList(True, 3, u"schräg")
+                imageListVertical = self.getImageList(True, 3, u"senk.")
+            else:
+                return
+        else:
+            imageListOblique = self.getImageList(True, 3, u"schräg")
+            imageListVertical = self.getImageList(True, 3, u"senk.")
+
+        query = QSqlQuery(self.dbm.db)
+
+        if len(imageListOblique) > 0:
+            title = u"Uni Wien - IUHA - Luftbildarchiv"
+            qryStrOblique = u"SELECT luftbild_schraeg_fp.bildnummer AS bildnummer, '[' || fundortnummer || '][' || katastralgemeindenummer  || ' ' || katastralgemeinde || ']' AS fundort_kg FROM fundort, luftbild_schraeg_fp WHERE luftbild_schraeg_fp.bildnummer IN ({0}) AND Intersects(fundort.geometry, luftbild_schraeg_fp.geometry)AND fundort.rowid IN (SELECT rowid FROM spatialindex WHERE f_table_name='fundort' AND search_frame=luftbild_schraeg_fp.geometry) ORDER BY luftbild_schraeg_fp.bildnummer, katastralgemeindenummer, fundortnummer_nn".format(u",".join(u"'{0}'".format(image) for image in imageListOblique))
+            query.prepare(qryStrOblique)
+            query.exec_()
+            labelsData = []
+
+            for imageNumber in imageListOblique:
+                labelData = {
+                    'title': [title],
+                    'bildnummer': [imageNumber],
+                    'fundort_kg': []
+                }
+                query.seek(-1)
+                while query.next():
+                    rec = query.record()
+                    if rec.value("bildnummer") == imageNumber:
+                        labelData['fundort_kg'].append(rec.value("fundort_kg"))
+
+                labelsData.append(labelData)
+
+            pageSettings = {}
+            labelSettings = {'width': 42.0, 'height': 10.0}
+            labelItemOrder = ['title', 'bildnummer', 'fundort_kg']
+            labelLayout = {
+                'title': {'width': 1.0, 'height': 1.0/3.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'bildnummer': {'width': 1.0, 'height': 1.0/3.0, 'font': QFont("Arial", 6, QFont.Bold), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'fundort_kg': {'width': 1.0, 'height': 1.0/3.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+            }
+
+
+            labelPrinterOblique = ApisLabelPrinter(self, u"Schräg", pageSettings, labelSettings, labelLayout, labelItemOrder, labelsData)
+
+        if len(imageListVertical) > 0:
+            title = u"Uni Wien - IUHA - Luftbildarchiv"
+            qryStrOblique = u"SELECT luftbild_senk_fp.bildnummer AS bildnummer, film.kamera, luftbild_senk_cp.fokus, luftbild_senk_cp.hoehe, luftbild_senk_cp.massstab, film.militaernummer AS mil_num, film.flugdatum, '[' || fundortnummer || '][' || katastralgemeindenummer  || ' ' || katastralgemeinde || ']' AS fundort_kg FROM film, fundort, luftbild_senk_cp, luftbild_senk_fp WHERE luftbild_senk_fp.filmnummer = film.filmnummer AND luftbild_senk_cp.bildnummer = luftbild_senk_fp.bildnummer AND luftbild_senk_fp.bildnummer IN ({0}) AND Intersects(fundort.geometry, luftbild_senk_fp.geometry)AND fundort.rowid IN (SELECT rowid FROM spatialindex WHERE f_table_name='fundort' AND search_frame=luftbild_senk_fp.geometry) ORDER BY luftbild_senk_fp.bildnummer, katastralgemeindenummer, fundortnummer_nn".format(u",".join(u"'{0}'".format(image) for image in imageListVertical))
+            query.prepare(qryStrOblique)
+            query.exec_()
+            labelsData = []
+            query.seek(-1)
+            count = 0
+            while query.next():
+                count += 1
+
+            #Keine FOs
+            if count == 0:
+                qryStrOblique = u"SELECT luftbild_senk_cp.bildnummer AS bildnummer, film.kamera, luftbild_senk_cp.fokus, luftbild_senk_cp.hoehe, luftbild_senk_cp.massstab, film.militaernummer AS mil_num, film.flugdatum FROM film, luftbild_senk_cp WHERE luftbild_senk_cp.filmnummer = film.filmnummer AND luftbild_senk_cp.bildnummer IN ({0}) ORDER BY luftbild_senk_cp.bildnummer".format(u",".join(u"'{0}'".format(image) for image in imageListVertical))
+                query.prepare(qryStrOblique)
+                query.exec_()
+
+            for imageNumber in imageListVertical:
+                labelData = {
+                    'title': [title],
+                    'bildnummer': [imageNumber],
+                    'mil_nummer': [],
+                    'flugdatum': [],
+                    'kamera': [],
+                    'fokus': [],
+                    'massstab': [],
+                    'hoehe': [],
+                    'fundort_kg': []
+                }
+
+                query.seek(-1)
+                while query.next():
+                    rec = query.record()
+                    if rec.value("bildnummer") == imageNumber:
+                        if len(labelData['mil_nummer']) < 1:
+                            labelData['mil_nummer'].append(u"Mil#: {0}".format(rec.value("mil_num")))
+                        if len(labelData['flugdatum']) < 1:
+                            labelData['flugdatum'].append(u"Flug vom {0}".format(datetime.datetime.strptime(rec.value("flugdatum"), '%Y-%m-%d').strftime('%d.%m.%Y')))
+                        if len(labelData['kamera']) < 1:
+                            labelData['kamera'].append(u"Kamera: {0}".format(rec.value("kamera")))
+                        if len(labelData['fokus']) < 1:
+                            labelData['fokus'].append(u"Fokus: {0:.2f}".format(rec.value("fokus")))
+                        if len(labelData['massstab']) < 1:
+                            labelData['massstab'].append(u"Mst. 1:{0}".format(int(rec.value("massstab"))))
+                        if len(labelData['hoehe']) < 1:
+                            labelData['hoehe'].append(u"Höhe: {0}m".format(rec.value("hoehe")))
+
+                        if count > 0:
+                            labelData['fundort_kg'].append(rec.value("fundort_kg"))
+
+                labelsData.append(labelData)
+
+            pageSettings = {}
+            labelSettings = {'width': 70.0, 'height': 35.0}
+            labelItemOrder = ['title', 'bildnummer', 'mil_nummer', 'flugdatum', 'kamera','fokus', 'massstab', 'hoehe', 'fundort_kg']
+            labelLayout = {
+                'title': {'width': 1.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'bildnummer': {'width': 1.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 6, QFont.Bold), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'mil_nummer': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'flugdatum': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'kamera': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'fokus': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'massstab': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'hoehe': {'width': 1.0 / 2.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+                'fundort_kg': {'width': 1.0, 'height': 1.0 / 6.0, 'font': QFont("Arial", 5), 'halign': Qt.AlignCenter, 'valign': Qt.AlignVCenter},
+            }
+
+            labelPrinterVertical = ApisLabelPrinter(self, u"Senkrecht", pageSettings, labelSettings, labelLayout, labelItemOrder, labelsData)
 
 
     def onSelectionChanged(self, current, previous):

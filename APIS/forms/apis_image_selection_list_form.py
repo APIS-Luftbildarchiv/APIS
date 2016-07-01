@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_image_selection_list_form.ui'
 #
-# Created: Wed Apr 27 09:52:16 2016
+# Created: Thu Jun 09 20:55:53 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_apisImageSelectionListDialog(object):
     def setupUi(self, apisImageSelectionListDialog):
         apisImageSelectionListDialog.setObjectName(_fromUtf8("apisImageSelectionListDialog"))
         apisImageSelectionListDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        apisImageSelectionListDialog.resize(829, 584)
+        apisImageSelectionListDialog.resize(866, 584)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         apisImageSelectionListDialog.setWindowIcon(icon)
@@ -71,16 +71,22 @@ class Ui_apisImageSelectionListDialog(object):
         self.uiCopyImagesBtn.setObjectName(_fromUtf8("uiCopyImagesBtn"))
         self.horizontalLayout.addWidget(self.uiCopyImagesBtn)
         self.uiImage2ExifBtn = QtGui.QPushButton(apisImageSelectionListDialog)
-        self.uiImage2ExifBtn.setEnabled(False)
+        self.uiImage2ExifBtn.setEnabled(True)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/exif_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiImage2ExifBtn.setIcon(icon4)
         self.uiImage2ExifBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiImage2ExifBtn.setObjectName(_fromUtf8("uiImage2ExifBtn"))
         self.horizontalLayout.addWidget(self.uiImage2ExifBtn)
-        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisImageSelectionListDialog)
+        self.uiExportLabelsAsPdfBtn = QtGui.QPushButton(apisImageSelectionListDialog)
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/pdf_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportLabelsAsPdfBtn.setIcon(icon5)
+        self.uiExportLabelsAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportLabelsAsPdfBtn.setAutoDefault(False)
+        self.uiExportLabelsAsPdfBtn.setObjectName(_fromUtf8("uiExportLabelsAsPdfBtn"))
+        self.horizontalLayout.addWidget(self.uiExportLabelsAsPdfBtn)
+        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisImageSelectionListDialog)
         self.uiExportListAsPdfBtn.setIcon(icon5)
         self.uiExportListAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiExportListAsPdfBtn.setAutoDefault(False)
@@ -232,6 +238,7 @@ class Ui_apisImageSelectionListDialog(object):
         self.uiExportFootprintsBtn.setText(_translate("apisImageSelectionListDialog", "Footprints Export", None))
         self.uiCopyImagesBtn.setText(_translate("apisImageSelectionListDialog", "Bilder Kopieren", None))
         self.uiImage2ExifBtn.setText(_translate("apisImageSelectionListDialog", "EXIF/IPTC Export", None))
+        self.uiExportLabelsAsPdfBtn.setText(_translate("apisImageSelectionListDialog", "Etiketten Export", None))
         self.uiExportListAsPdfBtn.setText(_translate("apisImageSelectionListDialog", "PDF Export", None))
         self.label.setText(_translate("apisImageSelectionListDialog", "Kartiert:", None))
         self.uiImageCountLbl.setText(_translate("apisImageSelectionListDialog", "0", None))

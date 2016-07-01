@@ -14,11 +14,12 @@ from apis_view_flight_path_dialog import *
 from apis_site_dialog import *
 from apis_text_editor_dialog import *
 from apis_sharding_selection_list_dialog import *
+from apis_findingtype_detail_dialog import *
 
 from functools import partial
 import subprocess
 import string
-
+import math
 from apis_exif2points import Exif2Points
 
 
@@ -35,11 +36,13 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
     #FIRST, PREV, NEXT, LAST = range(4)
     findSpotEditsSaved = pyqtSignal(bool)
+    findSpotDeleted = pyqtSignal(bool)
 
-    def __init__(self, iface, dbm, parent=None):
+    def __init__(self, iface, dbm, imageRegistry, parent=None):
         QDialog.__init__(self, parent)
         self.iface = iface
         self.dbm = dbm
+        self.imageRegistry = imageRegistry
 
         self.setupUi(self)
 
@@ -59,13 +62,24 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         self.uiPlotNumberBtn.clicked.connect(lambda: self.openTextEditor("Parzellennummer", self.uiPlotNumberEdit))
         self.uiCommentBtn.clicked.connect(lambda: self.openTextEditor("Bemerkung zur Lage", self.uiCommentEdit))
+        self.uiFindingTypeDetailBtn.clicked.connect(self.openFindingTypeDetailDialog)
 
+        self.uiLoadFindSpotInQGisBtn.clicked.connect(self.loadFindSpotInQGis)
         self.uiListShardingsOfSiteBtn.clicked.connect(self.openShardingSelectionListDialog)
+        self.uiCloneFindSpotBtn.clicked.connect(self.cloneFindSpot)
+        self.uiDeleteFindSpotBtn.clicked.connect(self.deleteFindSpot)
+        self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
+
 
         self.uiViewSiteBtn.clicked.connect(self.openSiteDialog)
 
+        self.uiDatingTimeCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiDatingPeriodCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiDatingPeriodDetailCombo.editTextChanged.connect(self.onLineEditChanged)
+
+
+
         # Setup Sub-Dialogs
-        self.shardingDlg = None
 
         self.initalLoad = False
 
@@ -84,52 +98,93 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         self.setupMapper()
         self.mapper.toFirst()
 
+        #QMessageBox.warning(None, "Mapper", u"period detail: {0}".format(self.uiDatingPeriodDetailCombo.lineEdit().text()))
+
+        query = u"SELECT DISTINCT {0} FROM {0}".format("zeit")
+        self.setupComboBoxByQuery(self.uiDatingTimeCombo, query)
+        self.loadPeriodContent(0)
+        self.loadPeriodDetailsContent(0)
+        self.uiDatingTimeCombo.currentIndexChanged.connect(self.loadPeriodContent)
+        self.uiDatingPeriodCombo.currentIndexChanged.connect(self.loadPeriodDetailsContent)
+
+        self.initalLoad = False
+
+
+
+
         #self.setupFindSpotList()
 
-        self.initalLoad = False
-
-
-    def openInEditMode(self, siteNumber, kgCode, kgName, siteArea):
+    def openInAddMode(self, siteNumber, findSpotNumber):
         self.initalLoad = True
         self.siteNumber = siteNumber
-        self.geometryEditing = True
+        self.findSpotNumber = findSpotNumber
 
         # Setup site model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
-        self.model.setTable("fundort")
-        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+        self.model.setTable("fundstelle")
+        self.model.setFilter("fundortnummer='{0}' AND fundstellenummer={1}".format(self.siteNumber, self.findSpotNumber))
         res = self.model.select()
+
+        #QMessageBox.warning(None, "Funstellen Row Count", u"{0}".format(self.model.rowCount()))
         self.setupMapper()
         self.mapper.toFirst()
 
-        self.startEditMode()
-        self.initalLoad = False
+        #QMessageBox.warning(None, "Mapper", u"period detail: {0}".format(self.uiDatingPeriodDetailCombo.lineEdit().text()))
 
-        #update Editors
-        if self.uiCadastralCommunityNumberEdit.text() != kgCode:
-            self.uiCadastralCommunityNumberEdit.setText(kgCode)
-        if self.uiCadastralCommunityEdit.text() != kgName:
-            self.uiCadastralCommunityEdit.setText(kgName)
-        if self.uiAreaEdit.text() != siteArea:
-            self.uiAreaEdit.setText(unicode(siteArea))
-
-
-    def openInAddMode(self, siteNumber):
-        self.initalLoad = True
-        self.siteNumber = siteNumber
-
-        # Setup site model
-        self.model = QSqlRelationalTableModel(self, self.dbm.db)
-        self.model.setTable("fundort")
-        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
-        res = self.model.select()
-        self.setupMapper()
-        self.mapper.toFirst()
+        query = u"SELECT DISTINCT {0} FROM {0}".format("zeit")
+        self.setupComboBoxByQuery(self.uiDatingTimeCombo, query)
+        self.loadPeriodContent(0)
+        self.loadPeriodDetailsContent(0)
+        self.uiDatingTimeCombo.currentIndexChanged.connect(self.loadPeriodContent)
+        self.uiDatingPeriodCombo.currentIndexChanged.connect(self.loadPeriodDetailsContent)
 
         self.addMode = True
         self.startEditMode()
 
         self.initalLoad = False
+
+    # def openInEditMode(self, siteNumber, kgCode, kgName, siteArea):
+    #     self.initalLoad = True
+    #     self.siteNumber = siteNumber
+    #     self.geometryEditing = True
+    #
+    #     # Setup site model
+    #     self.model = QSqlRelationalTableModel(self, self.dbm.db)
+    #     self.model.setTable("fundort")
+    #     self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+    #     res = self.model.select()
+    #     self.setupMapper()
+    #     self.mapper.toFirst()
+    #
+    #     self.startEditMode()
+    #     self.initalLoad = False
+    #
+    #     #update Editors
+    #     if self.uiCadastralCommunityNumberEdit.text() != kgCode:
+    #         self.uiCadastralCommunityNumberEdit.setText(kgCode)
+    #     if self.uiCadastralCommunityEdit.text() != kgName:
+    #         self.uiCadastralCommunityEdit.setText(kgName)
+    #     if self.uiAreaEdit.text() != siteArea:
+    #         self.uiAreaEdit.setText(unicode(siteArea))
+
+
+    # def openInAddMode(self, siteNumber):
+    #     self.initalLoad = True
+    #     self.siteNumber = siteNumber
+    #
+    #     # Setup site model
+    #     self.model = QSqlRelationalTableModel(self, self.dbm.db)
+    #     self.model.setTable("fundort")
+    #     self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
+    #     res = self.model.select()
+    #     self.setupMapper()
+    #     self.mapper.toFirst()
+    #
+    #     self.addMode = True
+    #     self.startEditMode()
+    #
+    #     self.initalLoad = False
+
 
 
     def setupMapper(self):
@@ -139,7 +194,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         self.mapper.setModel(self.model)
 
-        self.mandatoryEditors = [self.uiCaseWorkerEdit, self.uiFindSpotCreationCombo, self.uiSiteReliabilityCombo, self.uiDatingCombo, self.uiFindingTypeCombo]
+        self.mandatoryEditors = [self.uiCaseWorkerEdit, self.uiFindSpotCreationCombo, self.uiSiteReliabilityCombo, self.uiDatingTimeCombo, self.uiDatingPeriodCombo, self.uiDatingPeriodDetailCombo, self.uiFindingTypeCombo]
 
         # LineEdits & PlainTextEdits
         self.intValidator = QIntValidator()
@@ -186,6 +241,9 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             "datum_abs_2": {
                 "editor": self.uiAbsoluteDatingToEdit
             },
+            "fundart_detail":{
+                "editor": self.uiFindingTypeDetailEdit
+            },
             "literatur":{
                 "editor": self.uiLiteraturePTxt
             },
@@ -193,14 +251,13 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 "editor": self.uiFindingsPTxt
             },
             "fundverbleib": {
-                "editor": self.uiFindingsPTxt
+                "editor": self.uiFindingsStoragePTxt
             },
-
             "sonstiges": {
-                "editor": self.uiFindingsPTxt
+                "editor": self.uiMiscellaneousPTxt
             },
             "fundgeschichte": {
-                "editor": self.uiFindingsPTxt
+                "editor": self.uiFindingsHistoryPTxt
             },
             "befund": {
                 "editor": self.uiFindingsInterpretationPTxt
@@ -232,13 +289,27 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 "justshowcolumn": True,
                 "depend": None
             },
-            "datierung": {
-                "editor": self.uiDatingCombo,
-                "table": "zeit",
-                "modelcolumn": 0,
-                "justshowcolumn": False,
-                "depend": None
-            },
+            # "datierung_zeit": {
+            #     "editor": self.uiDatingTimeCombo,
+            #     "table": "zeit",
+            #     "modelcolumn": 0,
+            #     "justshowcolumn": True,
+            #     "depend": None
+            # },
+            # "datierung_periode": {
+            #     "editor": self.uiDatingPeriodCombo,
+            #     "table": "zeit",
+            #     "modelcolumn": 1,
+            #     "justshowcolumn": True,
+            #     "depend": None
+            # },
+            # "datierung_periode_detail": {
+            #     "editor": self.uiDatingPeriodDetailCombo,
+            #     "table": "zeit",
+            #     "modelcolumn": 2,
+            #     "justshowcolumn": True,
+            #     "depend": None
+            # },
             "phase_von": {
                 "editor": self.uiFineDatingFromCombo,
                 "table": "phase",
@@ -266,7 +337,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 "modelcolumn": 0,
                 "justshowcolumn": False,
                 "depend": None
-            },
+            }#,
             # "fundart": {
             #     "editor": self.uiFindingTypeCombo,
             #     "table": "fundart",
@@ -274,13 +345,13 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             #     "justshowcolumn": True,
             #     "depend": None
             # },
-            "fundart_detail": {
-                "editor": self.uiFindingTypeDetailCombo,
-                "table": "fundart",
-                "modelcolumn": 0,
-                "justshowcolumn": False,
-                "depend": None
-            }
+            # "fundart_detail": {
+            #     "editor": self.uiFindingTypeDetailCombo,
+            #     "table": "fundart",
+            #     "modelcolumn": 0,
+            #     "justshowcolumn": False,
+            #     "depend": None
+            # }
         }
         for key, item in self.comboBoxMaps.items():
             self.mapper.addMapping(item["editor"], self.model.fieldIndex(key))
@@ -290,26 +361,78 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         #fundart
         self.mapper.addMapping(self.uiFindingTypeCombo, self.model.fieldIndex("fundart"))
-        #self.setupComboBox(item["editor"], item["table"], item["modelcolumn"], item["justshowcolumn"], item["depend"])
         query = u"SELECT DISTINCT {0} FROM {0}".format("fundart")
         self.setupComboBoxByQuery(self.uiFindingTypeCombo, query)
-
         self.uiFindingTypeCombo.editTextChanged.connect(self.onLineEditChanged)
-        self.uiFindingTypeCombo.currentIndexChanged.connect(self.setupFindingTypeDetail)
-
-        self.uiDatingCombo.currentIndexChanged.connect(self.joinRowValues)
+        self.uiFindingTypeCombo.currentIndexChanged.connect(self.resetFindingTypeDetail)
 
 
-    def setupFindingTypeDetail(self, row):
-        editor = self.sender()
-        # QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(editor))
-        record = editor.model().record(row)
-        findingType = record.value(0)
-        query = u"SELECT fundart_detail FROM fundart WHERE fundart = '{0}'".format(findingType)
-        self.setupComboBoxByQuery(self.uiFindingTypeDetailCombo, query)
+        #datierung
+        self.mapper.addMapping(self.uiDatingTimeCombo, self.model.fieldIndex("datierung_zeit"))
+        self.mapper.addMapping(self.uiDatingPeriodCombo, self.model.fieldIndex("datierung_periode"))
+        self.mapper.addMapping(self.uiDatingPeriodDetailCombo, self.model.fieldIndex("datierung_periode_detail"))
+
+
+
+        #query = u"SELECT DISTINCT {0} FROM {0}".format("zeit")
+        #self.setupComboBoxByQuery(self.uiDatingTimeCombo, query)
+        #self.uiDatingTimeCombo.setCurrentIndex(-1)
+
+        #txt = self.uiDatingTimeCombo.lineEdit().text()
+        #idx = self.uiDatingTimeCombo.findText(txt)
+        #QMessageBox.warning(None, self.tr(u"Datierung"), u"{0}, {1}".format(txt, idx))
+        #self.loadPeriodContent(0)
+        #self.loadPeriodDetailsContent(0)
+
+        #self.uiDatingTimeCombo.editTextChanged.connect(self.onLineEditChanged)
+        #self.uiDatingPeriodCombo.editTextChanged.connect(self.onLineEditChanged)
+        #self.uiDatingPeriodDetailCombo.editTextChanged.connect(self.onLineEditChanged)
+        #self.uiDatingTimeCombo.currentIndexChanged.connect(self.loadPeriodContent)
+        #self.uiDatingPeriodCombo.currentIndexChanged.connect(self.loadPeriodDetailsContent)
+        # self.uiDatingCombo.currentIndexChanged.connect(self.joinRowValues)
+
+    def loadPeriodContent(self, row):
+        #QMessageBox.warning(None, self.tr(u"Datierung Sender"), u"TimeCombo Chagned: {0}".format(row))
+        #pass
+        #QMessageBox.warning(None, self.tr(u"Datierung Sender"), u"P: {0}".format(self.sender()))
+
+        time = self.uiDatingTimeCombo.lineEdit().text()
+        period = self.uiDatingPeriodCombo.lineEdit().text()
+        #QMessageBox.warning(None, self.tr(u"Datierung"), u"{0}, {1}".format(time, period))
+        #if time != "":
+        #time = self.uiDatingTimeCombo.lineEdit().text()
+        #period = self.uiDatingPeriodCombo.lineEdit().text()
+        #QMessageBox.warning(None, self.tr(u"Datierung"), u"{0}".format(time))
+        self.setupComboBoxByQuery(self.uiDatingPeriodCombo, u"SELECT DISTINCT periode FROM zeit WHERE zeit ='{0}'".format(time))
+
+        index = self.uiDatingPeriodCombo.findText(period)
+        if index < 0 and self.uiDatingPeriodCombo.count() == 1:
+            self.uiDatingPeriodCombo.setCurrentIndex(0)
+        #else:
+        #    self.uiDatingPeriodCombo.setCurrentIndex(index)
+
+
+    def loadPeriodDetailsContent(self, row):
+        #QMessageBox.warning(None, self.tr(u"Datierung Sender"), u"PD: {0}".format(self.sender()))
+        time = self.uiDatingTimeCombo.lineEdit().text()
+        period = self.uiDatingPeriodCombo.lineEdit().text()
+        periodDetail = self.uiDatingPeriodDetailCombo.lineEdit().text()
+
+            #QMessageBox.warning(None, self.tr(u"Datierung"), u"{0}".format(periodDetail))
+        self.setupComboBoxByQuery(self.uiDatingPeriodDetailCombo, u"SELECT DISTINCT periode_detail FROM zeit WHERE zeit = '{0}' AND periode = '{1}'".format(time, period))
+
+        index = self.uiDatingPeriodDetailCombo.findText(periodDetail)
+        if index < 0 and self.uiDatingPeriodDetailCombo.count() == 1:
+            self.uiDatingPeriodDetailCombo.setCurrentIndex(0)
+        #else:
+        #        self.uiDatingPeriodDetailCombo.setCurrentIndex(index)
+
+    def resetFindingTypeDetail(self, row):
+        self.uiFindingTypeDetailEdit.clear()
 
     #def setupComboBoxByQuery(self, editor, query):
     def setupComboBoxByQuery(self, editor, query, modelcolumn=0):
+        currentText = editor.lineEdit().text()
         model = QSqlQueryModel(self)
         #model.setQuery("SELECT DISTINCT {0} FROM {1} ORDER BY {2}".format(column, table, order), self.dbm.db)
         model.setQuery(query, self.dbm.db)
@@ -338,6 +461,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         editor.setAutoCompletion(True)
         editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), None, self))
 
+        editor.setCurrentIndex(editor.findText(currentText))
         #editor.setCurrentIndex(-1)
 
     def setupComboBox(self, editor, table, modelColumn, justShowColumn, depend):
@@ -388,49 +512,49 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                 value.setText(unicode(editor.model().data(idx)))
                 #QMessageBox.warning(None, "Test", str(idx))
 
-    def joinRowValues(self, row):
-        editor = self.sender()
-        #QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(editor))
-        record = editor.model().record(row)
-        values = []
-        for i in range(record.count()):
-            values.append(record.value(i))
-        editor.lineEdit().setText(", ".join(values))
+    # def joinRowValues(self, row):
+    #     editor = self.sender()
+    #     #QMessageBox.warning(None, self.tr(u"Katastralgemeinde"), u"{0}".format(editor))
+    #     record = editor.model().record(row)
+    #     values = []
+    #     for i in range(record.count()):
+    #         values.append(record.value(i))
+    #     editor.lineEdit().setText(", ".join(values))
 
-    def setupFindSpotList(self):
-
-        query = QSqlQuery(self.dbm.db)
-        query.prepare("SELECT fundstellenummer AS 'Nummer', datierung AS 'Datierung', fundart AS 'Fundart', fundart_detail AS 'Fundart Detail' FROM fundstelle WHERE fundortnummer = '{0}'".format(self.siteNumber))
-        query.exec_()
-
-        model = QStandardItemModel()
-        while query.next():
-            newRow = []
-            rec = query.record()
-            for col in range(rec.count()):
-                #if rec.value(col) == None:
-                #    value = ''
-                #else:
-                value = rec.value(col)
-                newCol = QStandardItem(unicode(value))
-                newRow.append(newCol)
-
-            model.appendRow(newRow)
-
-        #if model.rowCount() < 1:
-            #QMessageBox.warning(None, "Fundort Auswahl", u"Es wurden keine Fundorte gefunden!")
-            #return False
-
-        rec = query.record()
-        for col in range(rec.count()):
-            model.setHeaderData(col, Qt.Horizontal, rec.fieldName(col))
-
-        self.uiFindSpotListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.uiFindSpotListTableV.setModel(model)
-        self.uiFindSpotListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.uiFindSpotListTableV.resizeColumnsToContents()
-        self.uiFindSpotListTableV.resizeRowsToContents()
-        self.uiFindSpotListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+    # def setupFindSpotList(self):
+    #
+    #     query = QSqlQuery(self.dbm.db)
+    #     query.prepare("SELECT fundstellenummer AS 'Nummer', datierung AS 'Datierung', fundart AS 'Fundart', fundart_detail AS 'Fundart Detail' FROM fundstelle WHERE fundortnummer = '{0}'".format(self.siteNumber))
+    #     query.exec_()
+    #
+    #     model = QStandardItemModel()
+    #     while query.next():
+    #         newRow = []
+    #         rec = query.record()
+    #         for col in range(rec.count()):
+    #             #if rec.value(col) == None:
+    #             #    value = ''
+    #             #else:
+    #             value = rec.value(col)
+    #             newCol = QStandardItem(unicode(value))
+    #             newRow.append(newCol)
+    #
+    #         model.appendRow(newRow)
+    #
+    #     #if model.rowCount() < 1:
+    #         #QMessageBox.warning(None, "Fundort Auswahl", u"Es wurden keine Fundorte gefunden!")
+    #         #return False
+    #
+    #     rec = query.record()
+    #     for col in range(rec.count()):
+    #         model.setHeaderData(col, Qt.Horizontal, rec.fieldName(col))
+    #
+    #     self.uiFindSpotListTableV.setSelectionBehavior(QAbstractItemView.SelectRows)
+    #     self.uiFindSpotListTableV.setModel(model)
+    #     self.uiFindSpotListTableV.setEditTriggers(QAbstractItemView.NoEditTriggers)
+    #     self.uiFindSpotListTableV.resizeColumnsToContents()
+    #     self.uiFindSpotListTableV.resizeRowsToContents()
+    #     self.uiFindSpotListTableV.horizontalHeader().setResizeMode(QHeaderView.Stretch)
 
 
     def enableItemsInLayout(self, layout, enable):
@@ -448,9 +572,6 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             self.editorsEdited.append(sender)
 
 
-    def onComboBoxChanged(self, editor):
-        pass
-
 
     def openTextEditor(self, title, editor):
         textEditorDlg = ApisTextEditorDialog()
@@ -458,6 +579,12 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         textEditorDlg.setText(editor.text())
         if textEditorDlg.exec_():
             editor.setText(textEditorDlg.getText())
+
+    def openFindingTypeDetailDialog(self):
+        findingTypeDetailDlg = ApisFindingTypeDetailDialog(self.iface, self.dbm)
+        res = findingTypeDetailDlg.loadList(self.uiFindingTypeCombo.currentText(), self.uiFindingTypeDetailEdit.text())
+        if res and findingTypeDetailDlg.exec_():
+            self.uiFindingTypeDetailEdit.setText(findingTypeDetailDlg.getFindingTypeDetailText())
 
     def onAccept(self):
         '''
@@ -478,127 +605,333 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         if self.editMode:
             res = self.cancelEdit()
             if res:
-               self.close()
-               return "ABC"
+                self.close()
+                return "ABC"
             else:
                 self.show()
         else:
             self.close()
 
 
+    def loadFindSpotInQGis(self):
+
+        polygon, point = self.askForGeometryType()
+        if polygon or point:
+            # get PolygonLayer
+            findSpotNumber = self.uiFindSpotNumberEdit.text()
+            subsetString = u'"fundortnummer"  || \'.\' || "fundstellenummer" = "{0}"'.format(findSpotNumber)
+            findSpotLayer = self.getSpatialiteLayer(u"fundstelle", subsetString, u"fundstelle polygon {0}".format(findSpotNumber))
+
+            if polygon:
+                # load PolygonLayer
+                QgsMapLayerRegistry.instance().addMapLayer(findSpotLayer)
+
+            if point:
+                # generate PointLayer
+                centerPointLayer = self.generateCenterPointLayer(findSpotLayer, u"fundstelle punkt {0}".format(findSpotNumber))
+                # load PointLayer
+                QgsMapLayerRegistry.instance().addMapLayer(centerPointLayer)
+
+    def askForGeometryType(self):
+        # Abfrage ob Fundstellen der selektierten Bilder Exportieren oder alle
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle(u'Fundstellen')
+        msgBox.setText(u'Wollen Sie für die Fundstelle Polygone, Punkte oder beide Layer verwenden?')
+        msgBox.addButton(QPushButton(u'Polygon'), QMessageBox.ActionRole)
+        msgBox.addButton(QPushButton(u'Punkt'), QMessageBox.ActionRole)
+        msgBox.addButton(QPushButton(u'Polygon und Punkt'), QMessageBox.ActionRole)
+        msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+        ret = msgBox.exec_()
+
+        if ret == 0:
+            polygon = True
+            point = False
+        elif ret == 1:
+            polygon = False
+            point = True
+        elif ret == 2:
+            polygon = True
+            point = True
+        else:
+            return None, None
+
+        return polygon, point
+
+    def getSpatialiteLayer(self, layerName, subsetString=None, displayName=None):
+        if not displayName:
+            displayName = layerName
+        uri = QgsDataSourceURI()
+        uri.setDatabase(self.dbm.db.databaseName())
+        uri.setDataSource('', layerName, 'geometry')
+        layer = QgsVectorLayer(uri.uri(), displayName, 'spatialite')
+        if subsetString:
+            layer.setSubsetString(subsetString)
+
+        return layer
+
+    def generateCenterPointLayer(self, polygonLayer, displayName=None):
+        if not displayName:
+            displayName = polygonLayer.name()
+        epsg = polygonLayer.crs().authid()
+        # QMessageBox.warning(None, "EPSG", u"{0}".format(epsg))
+        layer = QgsVectorLayer("Point?crs={0}".format(epsg), displayName, "memory")
+        layer.setCrs(polygonLayer.crs())
+        provider = layer.dataProvider()
+        provider.addAttributes(polygonLayer.dataProvider().fields())
+
+        layer.updateFields()
+
+        pointFeatures = []
+        for polygonFeature in polygonLayer.getFeatures():
+            polygonGeom = polygonFeature.geometry()
+            pointGeom = polygonGeom.centroid()
+            # if center point is not on polygon get the nearest Point
+            if not polygonGeom.contains(pointGeom):
+                pointGeom = polygonGeom.pointOnSurface()
+
+            pointFeature = QgsFeature()
+            pointFeature.setGeometry(pointGeom)
+            pointFeature.setAttributes(polygonFeature.attributes())
+            pointFeatures.append(pointFeature)
+
+        provider.addFeatures(pointFeatures)
+
+        layer.updateExtents()
+
+        return layer
+
     def openShardingSelectionListDialog(self):
         #if self.shardingDlg == None:
-        self.shardingDlg = ApisShardingSelectionListDialog(self.iface, self.dbm)
-        self.shardingDlg.loadShardingListBySiteNumber(self.siteNumber)
-        if self.shardingDlg.exec_():
+        shardingDlg = ApisShardingSelectionListDialog(self.iface, self.dbm)
+        shardingDlg.loadShardingListBySiteNumber(self.siteNumber)
+        if shardingDlg.exec_():
             pass
             #self.shardingDlg = None
 
 
+    def cloneFindSpot(self):
+        self.initalLoad = True
+        currentRecord = QSqlRecord(self.model.record(self.mapper.currentIndex()))
+        siteNumber = currentRecord.value('fundortnummer')
+        findSpotNumberSource = currentRecord.value('fundstellenummer')
+        findSpotNumber = self.getNextFindSpotNumber(siteNumber)
+        currentRecord.setValue('fundstellenummer', findSpotNumber)
+        now = QDate.currentDate()
+        currentRecord.setValue('datum_ersteintrag', now.toString("yyyy-MM-dd"))
+        currentRecord.setValue('datum_aenderung', now.toString("yyyy-MM-dd"))
+
+        import getpass
+        currentRecord.setValue('aktion','clone')
+        currentRecord.setValue('aktionsdatum', now.toString("yyyy-MM-dd"))
+        currentRecord.setValue('aktionsuser', getpass.getuser())
+
+        self.model.insertRowIntoTable(currentRecord)
+        self.model.setFilter("fundortnummer='{0}' AND fundstellenummer={1}".format(siteNumber, findSpotNumber))
+        res = self.model.select()
+        #self.mapper.setModel(self.model)
+        self.mapper.toFirst()
+        self.uiFindSpotNumberEdit.setText("{0}.{1}".format(siteNumber, findSpotNumber))
+
+        self.findSpotNumber = findSpotNumber
+        self.siteNumber = siteNumber
+
+        self.findSpotEditsSaved.emit(True)
+
+        #in log eintragen
+        self.apisLogger(u"clone", u"fundstelle", u"fundortnummer = '{0}' AND fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber))
+
+        QMessageBox.information(None, u"Fundstelle Klonen", u"Die Fundstelle {0}.{1} wurde geklont und gespeichert: {0}.{2}".format(siteNumber, findSpotNumberSource, findSpotNumber))
+        self.initalLoad = False
+
+    def deleteFindSpot(self):
+        # Abfrage wirklich löschen
+        header = u"Fundstelle löschen"
+        question = u"Möchten Sie die Fundstelle wirklich aus der Datenbank löschen?"
+        result = QMessageBox.question(None,
+                                      header,
+                                      question,
+                                      QMessageBox.Yes | QMessageBox.No,
+                                      QMessageBox.Yes)
+
+        # save or not save
+
+        if result == QMessageBox.Yes:
+            # TODO: in log eintragen
+            self.apisLogger(u"delete", u"fundstelle", u"fundortnummer = '{0}' AND fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber))
+
+            # löschen
+            self.model.deleteRowFromTable(self.mapper.currentIndex())
+
+            self.findSpotDeleted.emit(True)
+            self.iface.mapCanvas().refreshAllLayers()
+            self.done(1)
+
+    def apisLogger(self, action, fromTable, primaryKeysWhere):
+        toTable = fromTable + u"_log"
+        query = QSqlQuery(self.dbm.db)
+        query.prepare(u"INSERT INTO {0} SELECT * FROM {1} WHERE {2}".format(toTable, fromTable, primaryKeysWhere))
+
+        res = query.exec_()
+        #QMessageBox.information(None, "SqlQuery", query.executedQuery())
+        if not res:
+            QMessageBox.information(None, "SqlError", query.lastError().text())
+        import getpass
+        query.prepare(u"UPDATE {0} SET aktion = '{1}', aktionsdatum = '{2}', aktionsuser = '{3}' WHERE rowid = (SELECT max(rowid) FROM {0})".format(toTable, action, QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss"), getpass.getuser(), primaryKeysWhere))
+        res = query.exec_()
+        #QMessageBox.information(None, "SqlQuery", query.executedQuery())
+        if not res:
+            QMessageBox.information(None, "SqlError", query.lastError().text())
+
+    def getNextFindSpotNumber(self, siteNumber):
+        query = QSqlQuery(self.dbm.db)
+        query.prepare(u"SELECT CASE WHEN max(fundstellenummer) IS NULL THEN 1 ELSE max(fundstellenummer)+1 END AS nextFindSpot FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber))
+        res = query.exec_()
+        query.first()
+        return query.value(0)
+
     def exportDetailsPdf(self):
-        filmId = self.uiCurrentFilmNumberEdit.text()
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
-        #fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
-        fileName = QFileDialog.getSaveFileName(self, 'Film Details', saveDir + "\\" + 'Filmdetails_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+        fileName = QFileDialog.getSaveFileName(self, 'Fundstelle Details', saveDir + "\\" + 'FundstelleDetails_{0}.{1}_{2}'.format(self.siteNumber, self.findSpotNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
 
         if fileName:
-            #QMessageBox.warning(None, "Save", fileName)
-            #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
-            #template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
-            template = os.path.dirname(__file__) + "/composer/templates/FilmDetails.qpt"
-            #if os.path.isfile(template):
-            templateDOM = QDomDocument()
-            templateDOM.setContent(QFile(template), False)
 
-            #FIXME load correct Flightpath; from Settings
-            printLayers = []
-            flightpathDir = self.settings.value("APIS/flightpath_dir")
-            uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
-            printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
-            #printLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.8'})
-            #printLayer.rendererV2().setSymbol(symbol)
-            QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
-            extent = printLayer.extent()
+            qryStr = u"SELECT katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer = '{0}' AND fundstelle.fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber)
+            query = QSqlQuery(self.dbm.db)
+            query.prepare(qryStr)
+            query.exec_()
 
-            #layerset.append(printLayer.id())
-            printLayers.append(printLayer.id())
+            findSpotDict = {}
+            query.seek(-1)
+            while query.next():
+                rec = query.record()
+                for col in range(rec.count()-1): #-1 geometry wird nicht benötigt!
+                    #val = unicode(rec.value(col))
+                    #QMessageBox.information(None, "type", u"{0}".format(type(rec.value(col))))
+                    val = u"{0}".format(rec.value(col))
+                    if val.replace(" ", "") == '' or val == 'NULL':
+                        val = u"---"
 
-            #urlWithParams = ' '
-            #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
-            #rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
-            #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
-            #printLayers.append(rlayer.id())
+                    findSpotDict[unicode(rec.fieldName(col))] = val
 
-            ms = QgsMapSettings()
-            ms.setExtent(extent)
-            #mr.setLayerSet(layerset)
-
-            #mapRectangle = QgsRectangle(140,-28,155,-15)
-            #mr.setExtent(extent)
-
-            comp = QgsComposition(ms)
-            comp.setPlotStyle(QgsComposition.Print)
-            comp.setPrintResolution(300)
-
-            m = self.mapper.model()
-            r = self.mapper.currentIndex()
-            filmDict = {}
-            for c in range(m.columnCount()):
-                val = unicode(m.data(m.createIndex(r, c)))
-                if val.replace(" ", "")=='' or val=='NULL':
-                    val = u"---"
-
-                filmDict[m.headerData(c, Qt.Horizontal)] = val
-
-                #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
-
-            filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
-            filmDict['datum_druck'] =  QDate.currentDate().toString("yyyy-MM-dd")
-
-            comp.loadFromTemplate(templateDOM, filmDict)
-
-            composerMap = comp.getComposerMapById(0)
-            composerMap.setKeepLayerSet(True)
-            composerMap.setLayerSet(printLayers)
-            #composerMap.renderModeUpdateCachedImage()
-            #ms.setLayers(printLayers)
-
-            #if composerMap:
-                #QMessageBox.warning(None, "Save", composerMap)
-           #composerMap.setKeepLayerSet(True)
-            #composerMap.setLayerSet(layerset)
+                findSpotDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
+                findSpotDict['datum_ersteintrag'] = QDate.fromString(findSpotDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+                findSpotDict['datum_aenderung'] = QDate.fromString(findSpotDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
 
 
+                if findSpotDict['sicherheit'] == u"1":
+                    findSpotDict['sicherheit'] = u"sicher"
+                elif findSpotDict['sicherheit'] == u"2":
+                    findSpotDict['sicherheit'] = u"wahrscheinlich"
+                elif findSpotDict['sicherheit'] == u"3":
+                    findSpotDict['sicherheit'] = u"fraglich"
+                elif findSpotDict['sicherheit'] == u"4":
+                    findSpotDict['sicherheit'] = u"keine Fundstelle"
 
-            comp.exportAsPDF(fileName)
-            #FIXME: Delete all alyers (array) not just one layer
-            QgsMapLayerRegistry.instance().removeMapLayer(printLayer.id())
-            #QgsMapLayerRegistry.instance().removeMapLayer(rlayer.id())
+            # MapSettings
+            mapSettings = QgsMapSettings()
+            mapSettings.setMapUnits(QGis.UnitType(0))
+            mapSettings.setOutputDpi(300)
 
+
+            # Template
+            template = os.path.dirname(__file__) + "/composer/templates/FundstelleDetail.qpt"  # map_print_test.qpt"
+            templateDom = QDomDocument()
+            templateDom.setContent(QFile(template), False)
+
+            # Composition
+            composition = QgsComposition(mapSettings)
+            composition.setPlotStyle(QgsComposition.Print)
+            composition.setPrintResolution(300)
+
+            # Composer Items
+
+            composition.loadFromTemplate(templateDom, findSpotDict)
+            pageCount = 1
+
+            adjustItems = ["kommentar_lage", "fundbeschreibung", "fundverbleib", "befund", "fundgeschichte", "literatur", "sonstiges"]
+            #xShift = 0
+            #yShift = 0
+            bottomBorder = 30.0
+            topBorder = 27.0
+            i = 0
+            for itemId in adjustItems:
+
+                itemTxt = composition.getComposerItemById(itemId + "Txt")
+                itemLbl = composition.getComposerItemById(itemId +"Lbl")
+                itemBox = composition.getComposerItemById(itemId + "Box")
+
+                if itemTxt and itemLbl:
+
+                    #textWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), itemTxt.displayText())
+                    fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
+                    oldHeight = itemTxt.rectWithFrame().height()
+                    displayText = itemTxt.displayText()
+                    boxWidth = itemTxt.rectWithFrame().width() - 2 * itemTxt.marginX()
+                    lineCount = 0
+                    for line in displayText.splitlines():
+                        textWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
+                        lineCount += math.ceil(textWidth / boxWidth)
+
+                    newHeight = fontHeight * (lineCount + 1)
+                    newHeight += 2 * itemTxt.marginY() + 2
+
+                    x = itemTxt.pos().x()
+                    if i == 0:
+                        y = itemTxt.pos().y()
+                    else:
+                        y = newY
+                    w = itemTxt.rectWithFrame().width()
+                    newY = y + newHeight
+                    if newY > composition.paperHeight() - bottomBorder:
+                        pageCount += 1
+                        y = topBorder
+                        newY = y + newHeight
+                        #copy Header
+                        header = 1
+                        while composition.getComposerItemById("header_{0}".format(header)):
+                            self.cloneLabel(composition, composition.getComposerItemById("header_{0}".format(header)), pageCount)
+                            header += 1
+                        #copyFooter
+                        footer = 1
+                        while composition.getComposerItemById("footer_{0}".format(footer)):
+                            self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
+                            footer += 1
+
+                    itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, pageCount)
+                    itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+
+                    i += 1
+
+                    if itemBox:
+                        h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
+                        itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
+
+
+            #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
+
+            composition.setNumPages(pageCount)
+
+            # Create PDF
+            composition.exportAsPDF(fileName)
+
+            # Open PDF
             if sys.platform == 'linux2':
                 subprocess.call(["xdg-open", fileName])
             else:
                 os.startfile(fileName)
-            #else:
-            #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
 
-
-    def openFilmSelectionDialog(self):
-        """Run method that performs all the real work"""
-        self.filmSelectionDlg.show()
-        self.filmSelectionDlg.uiFilmNumberEdit.setFocus()
-        if self.filmSelectionDlg.exec_():
-            if not self.loadRecordByKeyAttribute("filmnummer", self.filmSelectionDlg.filmNumber()):
-                self.openFilmSelectionDialog()
-
-
-    def openNewFilmDialog(self):
-        """Run method that performs all the real work"""
-        self.newFilmDlg.show()
-        if self.newFilmDlg.exec_():
-            self.addNewFilm(self.newFilmDlg.flightDate(), self.newFilmDlg.useLastEntry(), self.newFilmDlg.producer(), self.newFilmDlg.producerCode())
-
+    def cloneLabel(self, comp, l, pageCount):
+        label = QgsComposerLabel(comp)
+        label.setItemPosition(l.pos().x(), l.pos().y(), l.rectWithFrame().width(), l.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+        label.setBackgroundEnabled(True)
+        label.setBackgroundColor(QColor("#CCCCCC"))
+        label.setText(l.text())
+        label.setVAlign(l.vAlign())
+        label.setHAlign(l.hAlign())
+        label.setMarginX(l.marginX())
+        label.setMarginY(l.marginY())
+        label.setFont(l.font())
+        comp.addItem(label)
 
     def openSiteDialog(self):
         from apis_site_dialog import ApisSiteDialog
@@ -608,12 +941,13 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             #QMessageBox.warning(None, "Test", u"{0}".format(self.parentWidget()))
             self.close()
         else:
-            siteDlg = ApisSiteDialog(self.iface, self.dbm)
+            siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.parentWidget())
             siteDlg.openInViewMode(self.siteNumber)
             self.close()
             siteDlg.show()
             if siteDlg.exec_():
                 pass
+            siteDlg.removeSitesFromSiteMapCanvas()
 
 
     def removeNewFindSpot(self):
@@ -656,21 +990,35 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         currIdx = self.mapper.currentIndex()
         now = QDate.currentDate()
         self.uiLastChangesDate.setDate(now)
+
+        if self.addMode:
+            action = u"new"
+        else:
+            action = u"editA"
+            #Update AKTION only in EDIT Mode
+            self.model.setData(self.model.createIndex(currIdx, self.model.fieldIndex("aktion")), u"editAG" if self.geometryEditing else u"editA")
+            self.model.setData(self.model.createIndex(currIdx, self.model.fieldIndex("aktionsdatum")), now.toString("yyyy-MM-dd"))
+            import getpass
+            self.model.setData(self.model.createIndex(currIdx, self.model.fieldIndex("aktionsuser")), getpass.getuser())
+
         self.mapper.submit()
 
         #emit signal
         self.findSpotEditsSaved.emit(True)
 
-        # Add "hidden" Values with Query
-        #sqlQry = "UPDATE fundort "
+        #log
+        self.apisLogger(action, u"fundstelle", u"fundortnummer = '{0}' AND fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber))
 
         self.mapper.setCurrentIndex(currIdx)
         self.endEditMode()
 
+        self.iface.mapCanvas().refreshAllLayers()
         #
         if not self.isGeometryEditingSaved:
             self.isGeometryEditingSaved = True
         return True
+
+
 
     def cancelEdit(self):
         currIdx = self.mapper.currentIndex()
@@ -739,6 +1087,34 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
         self.editorsEdited = []
 
 
+
+        #self.uiDatingTimeCombo.editTextChanged.disconnect(self.onLineEditChanged)
+        #self.uiDatingPeriodCombo.editTextChanged.disconnect(self.onLineEditChanged)
+        #self.uiDatingPeriodDetailCombo.editTextChanged.disconnect(self.onLineEditChanged)
+        self.initalLoad = True
+        self.uiDatingTimeCombo.currentIndexChanged.disconnect(self.loadPeriodContent)
+        self.uiDatingPeriodCombo.currentIndexChanged.disconnect(self.loadPeriodDetailsContent)
+        #self.loadPeriodContent(0)
+        #self.loadPeriodDetailsContent(0)
+        time = self.uiDatingTimeCombo.lineEdit().text()
+        period = self.uiDatingPeriodCombo.lineEdit().text()
+        periodDetail = self.uiDatingPeriodDetailCombo.lineEdit().text()
+        #QMessageBox.warning(None, "Test", u"{0}, {1}, {2}".format(time, period, periodDetail))
+
+        self.uiDatingTimeCombo.setCurrentIndex(self.uiDatingTimeCombo.findText(time))
+        self.loadPeriodContent(0)
+        self.loadPeriodDetailsContent(0)
+        #self.setupComboBoxByQuery(self.uiDatingPeriodCombo, u"SELECT DISTINCT periode FROM zeit WHERE zeit ='{0}'".format(time))
+        #self.uiDatingPeriodCombo.setCurrentIndex(self.uiDatingPeriodCombo.findText(period))
+        #self.setupComboBoxByQuery(self.uiDatingPeriodDetailCombo, u"SELECT DISTINCT periode_detail FROM zeit WHERE zeit = '{0}' AND periode = '{1}'".format(time, period))
+        #self.uiDatingPeriodDetailCombo.setCurrentIndex(self.uiDatingPeriodDetailCombo.findText(periodDetail))
+
+        #self.uiDatingTimeCombo.editTextChanged.connect(self.onLineEditChanged)
+        #self.uiDatingPeriodCombo.editTextChanged.connect(self.onLineEditChanged)
+        #self.uiDatingPeriodDetailCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiDatingTimeCombo.currentIndexChanged.connect(self.loadPeriodContent)
+        self.uiDatingPeriodCombo.currentIndexChanged.connect(self.loadPeriodDetailsContent)
+        self.initalLoad = False
         #self.setWindowModality(Qt.NonModal)
         #self.setModal(False)
         #if modalityFlag:
@@ -747,7 +1123,6 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
     def isGeometrySaved(self):
         return self.isGeometryEditingSaved and self.geometryEditing
-
 
 class FindSpotDelegate(QSqlRelationalDelegate):
     def __init__(self):

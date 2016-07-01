@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_selection_list_form.ui'
 #
-# Created: Wed Apr 27 09:52:16 2016
+# Created: Sun Jun 05 14:29:44 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,7 +36,6 @@ class Ui_apisSiteSelectionListDialog(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.uiViewSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiViewSitesBtn.setEnabled(False)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/layer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiViewSitesBtn.setIcon(icon1)
@@ -45,25 +44,28 @@ class Ui_apisSiteSelectionListDialog(object):
         self.uiViewSitesBtn.setObjectName(_fromUtf8("uiViewSitesBtn"))
         self.horizontalLayout.addWidget(self.uiViewSitesBtn)
         self.uiViewInterpretationBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiViewInterpretationBtn.setEnabled(False)
         self.uiViewInterpretationBtn.setIcon(icon1)
         self.uiViewInterpretationBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiViewInterpretationBtn.setAutoDefault(False)
         self.uiViewInterpretationBtn.setObjectName(_fromUtf8("uiViewInterpretationBtn"))
         self.horizontalLayout.addWidget(self.uiViewInterpretationBtn)
-        self.uiExportSitesBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiExportSitesBtn.setEnabled(False)
+        self.uiExportSitesAsShpBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/shp_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiExportSitesBtn.setIcon(icon2)
-        self.uiExportSitesBtn.setIconSize(QtCore.QSize(24, 24))
-        self.uiExportSitesBtn.setAutoDefault(False)
-        self.uiExportSitesBtn.setObjectName(_fromUtf8("uiExportSitesBtn"))
-        self.horizontalLayout.addWidget(self.uiExportSitesBtn)
-        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
-        self.uiExportListAsPdfBtn.setEnabled(False)
+        self.uiExportSitesAsShpBtn.setIcon(icon2)
+        self.uiExportSitesAsShpBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportSitesAsShpBtn.setAutoDefault(False)
+        self.uiExportSitesAsShpBtn.setObjectName(_fromUtf8("uiExportSitesAsShpBtn"))
+        self.horizontalLayout.addWidget(self.uiExportSitesAsShpBtn)
+        self.uiExportSiteAsPdfBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/pdf_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportSiteAsPdfBtn.setIcon(icon3)
+        self.uiExportSiteAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportSiteAsPdfBtn.setAutoDefault(False)
+        self.uiExportSiteAsPdfBtn.setObjectName(_fromUtf8("uiExportSiteAsPdfBtn"))
+        self.horizontalLayout.addWidget(self.uiExportSiteAsPdfBtn)
+        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisSiteSelectionListDialog)
         self.uiExportListAsPdfBtn.setIcon(icon3)
         self.uiExportListAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
         self.uiExportListAsPdfBtn.setAutoDefault(False)
@@ -97,15 +99,16 @@ class Ui_apisSiteSelectionListDialog(object):
         QtCore.QMetaObject.connectSlotsByName(apisSiteSelectionListDialog)
         apisSiteSelectionListDialog.setTabOrder(self.uiSiteListTableV, self.uiViewSitesBtn)
         apisSiteSelectionListDialog.setTabOrder(self.uiViewSitesBtn, self.uiViewInterpretationBtn)
-        apisSiteSelectionListDialog.setTabOrder(self.uiViewInterpretationBtn, self.uiExportSitesBtn)
-        apisSiteSelectionListDialog.setTabOrder(self.uiExportSitesBtn, self.uiExportListAsPdfBtn)
+        apisSiteSelectionListDialog.setTabOrder(self.uiViewInterpretationBtn, self.uiExportSitesAsShpBtn)
+        apisSiteSelectionListDialog.setTabOrder(self.uiExportSitesAsShpBtn, self.uiExportSiteAsPdfBtn)
 
     def retranslateUi(self, apisSiteSelectionListDialog):
         apisSiteSelectionListDialog.setWindowTitle(_translate("apisSiteSelectionListDialog", "APIS Fundorte Auswahl", None))
         self.uiViewSitesBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte in QGIS laden", None))
         self.uiViewInterpretationBtn.setText(_translate("apisSiteSelectionListDialog", "Interpretation in QGIS laden", None))
-        self.uiExportSitesBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte Export", None))
-        self.uiExportListAsPdfBtn.setText(_translate("apisSiteSelectionListDialog", "PDF Export", None))
+        self.uiExportSitesAsShpBtn.setText(_translate("apisSiteSelectionListDialog", "Fundorte Export", None))
+        self.uiExportSiteAsPdfBtn.setText(_translate("apisSiteSelectionListDialog", "PDF Export Fundort", None))
+        self.uiExportListAsPdfBtn.setText(_translate("apisSiteSelectionListDialog", "PDF Export Liste", None))
         self.uiImageCountLbl.setText(_translate("apisSiteSelectionListDialog", "0", None))
         self.label.setText(_translate("apisSiteSelectionListDialog", "Fundorte", None))
 

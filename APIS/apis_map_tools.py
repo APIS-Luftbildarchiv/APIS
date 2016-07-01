@@ -337,9 +337,11 @@ class ApisMapToolEmitPolygonAndPoint(QgsMapTool, ApisMapToolMixin):
 
             rubGeom = self.rubberBand.asGeometry()
             cpGeom = rubGeom.centroid()
-            nearestCp = rubGeom.nearestPoint(cpGeom)
-            self.vertexMarker.setCenter(nearestCp.asPoint())
-            self.derivedPoint = nearestCp.asPoint()
+            if not rubGeom.contains(cpGeom):
+                cpGeom = rubGeom.pointOnSurface()
+            #nearestCp = rubGeom.nearestPoint(cpGeom)
+            self.vertexMarker.setCenter(cpGeom.asPoint())
+            self.derivedPoint = cpGeom.asPoint()
             self.vertexMarker.show()
 
 
@@ -376,9 +378,11 @@ class ApisMapToolEmitPolygonAndPoint(QgsMapTool, ApisMapToolMixin):
         else:
             rubGeom = self.rubberBand.asGeometry()
             cpGeom = rubGeom.centroid()
-            nearestCp = rubGeom.nearestPoint(cpGeom)
-            self.vertexMarker.setCenter(nearestCp.asPoint())
-            self.derivedPoint = nearestCp.asPoint()
+            if not rubGeom.contains(cpGeom):
+                cpGeom = rubGeom.pointOnSurface()
+            #nearestCp = rubGeom.nearestPoint(cpGeom)
+            self.vertexMarker.setCenter(cpGeom.asPoint())
+            self.derivedPoint = cpGeom.asPoint()
             self.vertexMarker.show()
 
 

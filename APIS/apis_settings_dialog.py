@@ -28,6 +28,9 @@ from PyQt4.QtGui import *
 from PyQt4.QtSql import *
 # from PyQt4 import uic
 
+from qgis.core import *
+from qgis.gui import *
+
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
@@ -106,6 +109,7 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         #     control.clicked.connect(slot)
 
         #Load Settings from QSettings
+
 
     def setImageRegistry(self, imageRegistry):
         self.imageRegistry = imageRegistry
@@ -206,5 +210,4 @@ class ApisSettingsDialog(QDialog, Ui_apisSettingsDialog):
         s = QSettings()
         s.remove("APIS/config_ini")
         self.uiConfigIniFileEdit.clear()
-
 

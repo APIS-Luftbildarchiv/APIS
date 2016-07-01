@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>454</height>
+    <width>800</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,60 @@
     <normaloff>:/plugins/APIS/icons/apis.png</normaloff>:/plugins/APIS/icons/apis.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="3" column="0" colspan="2">
+   <item row="2" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="uiViewPicturesBtn">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Fotos Anzeigen</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/image.png</normaloff>:/plugins/APIS/icons/image.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="uiViewSketchesBtn">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Skizzen Anzeigen</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/sketch.png</normaloff>:/plugins/APIS/icons/sketch.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -44,6 +96,16 @@
        <property name="text">
         <string>Speichern</string>
        </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -57,6 +119,16 @@
        <property name="text">
         <string>Abbrechen</string>
        </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
+       </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
@@ -67,88 +139,20 @@
        <property name="text">
         <string>OK</string>
        </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="0">
-    <layout class="QHBoxLayout" name="uiBottomHorizontalLayout">
-     <item>
-      <widget class="QPushButton" name="uiPicturesBtn">
-       <property name="text">
-        <string>Fotos Anzeigen</string>
-       </property>
        <property name="icon">
         <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/image.png</normaloff>:/plugins/APIS/icons/image.png</iconset>
+         <normaloff>:/plugins/APIS/icons/ok.png</normaloff>:/plugins/APIS/icons/ok.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>24</width>
-         <height>24</height>
+         <width>11</width>
+         <height>11</height>
         </size>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
        </property>
       </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="uiSketchesBtn">
-       <property name="text">
-        <string>Skizzen Anzeigen</string>
-       </property>
-       <property name="icon">
-        <iconset resource="resource.qrc">
-         <normaloff>:/plugins/APIS/icons/sketch.png</normaloff>:/plugins/APIS/icons/sketch.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>24</width>
-         <height>24</height>
-        </size>
-       </property>
-       <property name="autoDefault">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="1" rowspan="3">
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Funde:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPlainTextEdit" name="uiFindsPTxt"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Morphologie:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPlainTextEdit" name="uiMorphologyPTxt"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Sonstiges:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPlainTextEdit" name="uiMiscellaneousPTxt"/>
      </item>
     </layout>
    </item>
@@ -156,6 +160,12 @@
     <layout class="QGridLayout" name="gridLayout">
      <item row="2" column="1">
       <widget class="QDateEdit" name="uiShardingDate">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(218, 218, 218);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
        <property name="currentSection">
         <enum>QDateTimeEdit::DaySection</enum>
        </property>
@@ -295,41 +305,277 @@
        </property>
       </widget>
      </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>Bewuchs:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Licht:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Feuchtigkeit:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QComboBox" name="uiConditionRainCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>gut abgeregnet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>mittel abgeregnet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>schlecht abgeregnet</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="8" column="0" colspan="2">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="12" column="1">
+      <widget class="QComboBox" name="uiConditionSoilCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Boden geeggt</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Boden gepflügt</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Boden ungepflügt</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QComboBox" name="uiConditionMoistureCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>feucht</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>trocken</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>staubig</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="14" column="0">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>Abgeregnet:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QComboBox" name="uiConditionLightCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>Sonne</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Schatten</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>wechselndes Licht</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Boden:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QComboBox" name="uiConditionPlantCoverCombo">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="currentIndex">
+        <number>-1</number>
+       </property>
+       <property name="insertPolicy">
+        <enum>QComboBox::NoInsert</enum>
+       </property>
+       <item>
+        <property name="text">
+         <string>kein Bewuchs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>wenig Bewuchs</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>dichter Bewuchs</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="9" column="0" colspan="2">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Zustand:</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QPushButton" name="uiConditionBtn">
-         <property name="text">
-          <string>Zustand:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+   <item row="0" column="1" rowspan="2">
+    <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>Katastralgemeinde:</string>
+       </property>
+      </widget>
      </item>
-     <item>
-      <widget class="QPlainTextEdit" name="uiConditionPTxt"/>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="uiCadastralCommunityEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(218, 218, 218);</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Funde:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2">
+      <widget class="QPlainTextEdit" name="uiFindsPTxt"/>
+     </item>
+     <item row="3" column="0" colspan="2">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Morphologie:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="2">
+      <widget class="QPlainTextEdit" name="uiMorphologyPTxt"/>
+     </item>
+     <item row="5" column="0" colspan="2">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Sonstiges:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" colspan="2">
+      <widget class="QPlainTextEdit" name="uiMiscellaneousPTxt"/>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>uiShardingDate</tabstop>
+  <tabstop>uiNameEdit</tabstop>
+  <tabstop>uiPlotPTxt</tabstop>
+  <tabstop>uiShardingTypeCombo</tabstop>
+  <tabstop>uiVisibilityEdit</tabstop>
+  <tabstop>uiWhereaboutsEdit</tabstop>
+  <tabstop>uiConditionPlantCoverCombo</tabstop>
+  <tabstop>uiConditionLightCombo</tabstop>
+  <tabstop>uiConditionSoilCombo</tabstop>
+  <tabstop>uiConditionMoistureCombo</tabstop>
+  <tabstop>uiConditionRainCombo</tabstop>
+  <tabstop>uiSaveBtn</tabstop>
+  <tabstop>uiCancelBtn</tabstop>
+  <tabstop>uiOkBtn</tabstop>
+  <tabstop>uiSiteNumberEdit</tabstop>
+  <tabstop>uiShardingNumberEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>

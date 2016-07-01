@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_weather_form.ui'
 #
-# Created: Wed Apr 27 09:52:15 2016
+# Created: Mon May 16 15:18:29 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!

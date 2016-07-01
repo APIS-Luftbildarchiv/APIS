@@ -19,6 +19,7 @@ from apis_view_flight_path_dialog import *
 from apis_image_selection_list_dialog import *
 from apis_site_selection_list_dialog import *
 from apis_text_editor_dialog import *
+from apis_thumb_viewer import *
 
 from functools import partial
 import subprocess
@@ -37,6 +38,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/composer")
 from apis_sharding_form import *
 
 class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
+
+    shardingEditsSaved = pyqtSignal(bool)
 
     def __init__(self, iface, dbm):
         QDialog.__init__(self)
@@ -57,7 +60,8 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.uiCancelBtn.clicked.connect(self.cancelEdit)
         self.uiSaveBtn.clicked.connect(self.saveEdits)
 
-        self.uiConditionBtn.clicked.connect(self.openShardingConditionDialog)
+        self.uiViewPicturesBtn.clicked.connect(self.viewPictures)
+        self.uiViewSketchesBtn.clicked.connect(self.viewSketches)
 
         self.initalLoad = False
 
@@ -66,7 +70,7 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.siteNumber = siteNumber
         self.shardingNumber = shardingNumber
 
-        QMessageBox.warning(None, self.tr(u"Neu"), self.tr(u"{0}, {1}".format(siteNumber, shardingNumber)))
+        #QMessageBox.warning(None, self.tr(u"Neu"), self.tr(u"{0}, {1}".format(siteNumber, shardingNumber)))
 
         # Setup sharding model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -75,8 +79,17 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         res = self.model.select()
         self.setupMapper()
         self.mapper.toFirst()
+        self.setKgNameAndCode()
 
         self.initalLoad = False
+
+    def setKgNameAndCode(self):
+        query = QSqlQuery(self.dbm.db)
+        qryStr = u"select CASE WHEN katastralgemeinde IS NULL AND katastralgemeindenummer IS NULL THEN '--' ELSE katastralgemeindenummer || ' - ' || katastralgemeinde END AS kg FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber)
+        query.exec_(qryStr)
+        query.first()
+        self.uiCadastralCommunityEdit.setText(query.value(0))
+
 
     def setupMapper(self):
         self.mapper = QDataWidgetMapper(self)
@@ -110,9 +123,6 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
             "verbleib":{
                 "editor": self.uiWhereaboutsEdit
             },
-            "zustand":{
-                "editor": self.uiConditionPTxt
-            },
             "funde":{
                 "editor": self.uiFindsPTxt
             },
@@ -139,6 +149,36 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.uiShardingTypeCombo.setAutoCompletion(True)
         self.uiShardingTypeCombo.lineEdit().setValidator(InListValidator([self.uiShardingTypeCombo.itemText(i) for i in range(self.uiShardingTypeCombo.count())], self.uiShardingTypeCombo.lineEdit(), None, self))
 
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiConditionPlantCoverCombo, self.model.fieldIndex("zustand_bewuchs"))
+        self.uiConditionPlantCoverCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiConditionPlantCoverCombo.setAutoCompletion(True)
+        self.uiConditionPlantCoverCombo.lineEdit().setValidator(InListValidator([self.uiConditionPlantCoverCombo.itemText(i) for i in range(self.uiConditionPlantCoverCombo.count())], self.uiConditionPlantCoverCombo.lineEdit(), None, self))
+
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiConditionLightCombo, self.model.fieldIndex("zustand_licht"))
+        self.uiConditionLightCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiConditionLightCombo.setAutoCompletion(True)
+        self.uiConditionLightCombo.lineEdit().setValidator(InListValidator([self.uiConditionLightCombo.itemText(i) for i in range(self.uiConditionLightCombo.count())], self.uiConditionLightCombo.lineEdit(), None, self))
+
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiConditionSoilCombo, self.model.fieldIndex("zustand_boden"))
+        self.uiConditionSoilCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiConditionSoilCombo.setAutoCompletion(True)
+        self.uiConditionSoilCombo.lineEdit().setValidator(InListValidator([self.uiConditionSoilCombo.itemText(i) for i in range(self.uiConditionSoilCombo.count())], self.uiConditionSoilCombo.lineEdit(), None, self))
+
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiConditionMoistureCombo, self.model.fieldIndex("zustand_feuchtigkeit"))
+        self.uiConditionMoistureCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiConditionMoistureCombo.setAutoCompletion(True)
+        self.uiConditionMoistureCombo.lineEdit().setValidator(InListValidator([self.uiConditionMoistureCombo.itemText(i) for i in range(self.uiConditionMoistureCombo.count())], self.uiConditionMoistureCombo.lineEdit(), None, self))
+
+        # ComboBox without Model
+        self.mapper.addMapping(self.uiConditionRainCombo, self.model.fieldIndex("zustand_abgeregnet"))
+        self.uiConditionRainCombo.editTextChanged.connect(self.onLineEditChanged)
+        self.uiConditionRainCombo.setAutoCompletion(True)
+        self.uiConditionRainCombo.lineEdit().setValidator(InListValidator([self.uiConditionRainCombo.itemText(i) for i in range(self.uiConditionRainCombo.count())], self.uiConditionRainCombo.lineEdit(), None, self))
+
     def onLineEditChanged(self):
         sender = self.sender()
         if not self.editMode and not self.initalLoad:
@@ -146,16 +186,6 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         if not self.initalLoad:
             sender.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(sender.metaObject().className()))
             self.editorsEdited.append(sender)
-
-    def openShardingConditionDialog(self):
-        pass
-        #shardingConditionDialog
-
-        #textEditorDlg = ApisTextEditorDialog()
-        #textEditorDlg.setWindowTitle(title)
-        #textEditorDlg.setText(editor.text())
-        #if textEditorDlg.exec_():
-        #    editor.setText(textEditorDlg.getText())
 
     def onAccept(self):
         '''
@@ -182,42 +212,50 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
 
     def addNewSharding(self, siteNumber):
         self.initalLoad = True
+        self.siteNumber = siteNumber
+
+        # get new sharding number
+        query = QSqlQuery(self.dbm.db)
+        qryStr = "SELECT CASE WHEN max(begehung) IS NULL THEN 1 ELSE max(begehung)+1 END begehungNeu FROM begehung WHERE fundortnummer='{0}'".format(self.siteNumber)
+        query.exec_(qryStr)
+        query.first()
+        self.shardingNumber = query.value(0)
 
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
         self.model.setTable("begehung")
-        #self.model.setFilter("begehung='{0}'".format(self.shardingNumber))
+        self.model.setFilter("fundortnummer='{0}'".format(self.siteNumber))
         res = self.model.select()
+        #self.model.submitAll()
+        while (self.model.canFetchMore()):
+            self.model.fetchMore()
+
+        row = self.model.rowCount()
+        #QMessageBox.information(None, "begehung", "{0}".format(row))
+        self.model.insertRow(row)
+
+        #QMessageBox.information(None, "begehung", "{0}".format(self.model.rowCount()))
+
         self.setupMapper()
         self.mapper.toLast()
 
         self.addMode = True
         self.startEditMode()
-        row = self.model.rowCount()
-        self.mapper.submit()
-        while (self.model.canFetchMore()):
-            self.model.fetchMore()
-
-        self.model.insertRow(row)
-        self.mapper.setCurrentIndex(row)
 
 
-        self.uiSiteNumberEdit.setText(siteNumber)
+        #self.mapper.submit()
 
+
+        #self.model.insertRow(row)
+        #self.mapper.setCurrentIndex(row)
+
+
+        self.uiSiteNumberEdit.setText(self.siteNumber)
+        self.uiShardingNumberEdit.setText(unicode(self.shardingNumber))
         now = QDate.currentDate()
         self.uiShardingDate.setDate(now)
 
-        query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT max(begehung) FROM begehung WHERE fundortnummer='{0}'".format(siteNumber)
-        query.exec_(qryStr)
-        query.first()
-        bn = query.value(0)
+        self.setKgNameAndCode()
 
-        if isinstance(bn, long):
-            nn = bn+1
-        else:
-            nn = 1
-        self.newIdx = nn
-        self.uiShardingNumberEdit.setText(unicode(self.newIdx))
         #QMessageBox.warning(None, self.tr(u"Neu"), self.tr(u"{0}, {1}".format(siteNumber,nn)))
 
         self.initalLoad = False
@@ -225,7 +263,7 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
     def removeNewSharding(self):
         self.initalLoad = True
         row = self.mapper.currentIndex()
-        self.model.removeRow(row)
+        self.model.removeRow(row+1)
         self.model.submitAll()
         while (self.model.canFetchMore()):
             self.model.fetchMore()
@@ -233,7 +271,7 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.initalLoad = False
 
     def saveEdits(self):
-        # Check Mandatory fields
+        #Check Mandatory fields
         flag = False
         for mEditor in self.mandatoryEditors:
             cName = mEditor.metaObject().className()
@@ -265,11 +303,16 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
 
         #saveToModel
         currIdx = self.mapper.currentIndex()
+        #QMessageBox.information(None, "begehung", "{0}".format(currIdx))
         #now = QDate.currentDate()
         #self.uiLastChangesDate.setDate(now)
         self.mapper.submit()
 
         self.mapper.setCurrentIndex(currIdx)
+
+        # emit signal
+        self.shardingEditsSaved.emit(True)
+
         self.endEditMode()
         return True
 
@@ -291,12 +334,16 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
                     return False
             elif result == QMessageBox.No:
                 if self.addMode:
+                    #self.close()
+                    self.done(1)
                     self.removeNewSharding()
-                    self.close()
+                    self.endEditMode()
 
-                self.mapper.setCurrentIndex(currIdx)
-                self.endEditMode()
-                return True
+                    return True
+                else:
+                    self.mapper.setCurrentIndex(currIdx)
+                    self.endEditMode()
+                    return True
 
     def startEditMode(self):
         self.editMode = True
@@ -304,6 +351,12 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.uiSaveBtn.setEnabled(True)
         self.uiCancelBtn.setEnabled(True)
         self.editorsEdited = []
+        self.uiShardingDate.setReadOnly(not self.addMode)
+        if self.uiShardingDate.isReadOnly():
+            self.uiShardingDate.setStyleSheet("background-color: rgb(218, 218, 218);")
+        else:
+            self.uiShardingDate.setStyleSheet("")
+
 
     def endEditMode(self):
         self.editMode = False
@@ -311,6 +364,8 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
         self.uiOkBtn.setEnabled(True)
         self.uiSaveBtn.setEnabled(False)
         self.uiCancelBtn.setEnabled(False)
+        self.uiShardingDate.setReadOnly(not self.addMode)
+        self.uiShardingDate.setStyleSheet("background-color: rgb(218, 218, 218);")
         for editor in self.editorsEdited:
             cName = editor.metaObject().className()
             if (cName == "QLineEdit" or cName == "QDateEdit") and editor.isReadOnly():
@@ -318,6 +373,54 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
             else:
                 editor.setStyleSheet("")
         self.editorsEdited = []
+
+    def viewPictures(self):
+        dirName = self.settings.value("APIS/insp_image_dir")
+        folderNameType = self.settings.value("APIS/insp_image_foto_dir")
+        folderNameSite = self.getFolderNameSite(self.siteNumber)
+        path = dirName + u'\\' + folderNameSite + u'\\' + folderNameType
+
+        self.loadInImageViewer(path)
+
+    def viewSketches(self):
+        dirName = self.settings.value("APIS/insp_image_dir")
+        folderNameType = self.settings.value("APIS/insp_image_sketch_dir")
+        folderNameSite = self.getFolderNameSite(self.siteNumber)
+        path = dirName + u'\\' + folderNameSite + u'\\' + folderNameType
+
+        self.loadInImageViewer(path)
+
+    def getFolderNameSite(self, siteNumber):
+        query = QSqlQuery(self.dbm.db)
+        qryStr = u"SELECT trim(katastralgemeinde) || ' ' || trim(katastralgemeindenummer) || '.' || substr('000' || fundortnummer_nn_legacy, -3, 3) AS folderName FROM fundort f WHERE f.fundortnummer='{0}'".format(siteNumber)
+        query.exec_(qryStr)
+        query.first()
+        return query.value(0)
+
+    def loadInImageViewer(self, path):
+        dir = QDir(path)
+        if dir.exists():
+            entryList = dir.entryList(['*.jpg'], QDir.Files)
+            if len(entryList) > 0:
+                # load in thumb viewer
+                # QMessageBox.information(None, u"Begehung", u",".join(entryList))
+                imagePathList = []
+                for image in entryList:
+                    imagePathList.append(path + u'\\' + image)
+
+                widget = QdContactSheet()
+                widget.load(imagePathList)
+                widget.setWindowTitle("Apis Thumb Viewer")
+                widget.setModal(True)
+                widget.resize(1000, 600)
+                widget.show()
+                if widget.exec_():
+                    pass
+                    # app.exec_()
+            else:
+                QMessageBox.information(None, u"Begehung", u"Es wurden keine Dateien [*.jpg] für diesen Fundort gefunden.")
+        else:
+            QMessageBox.information(None, u"Begehung", u"Das Verzeichnis '{0}' wurde nicht gefunden.".format(path))
 
 class ShardingDelegate(QSqlRelationalDelegate):
     def __init__(self):
@@ -389,11 +492,11 @@ class ShardingDelegate(QSqlRelationalDelegate):
             model.setData(index, ";".join([i.text() for i in items]))
         #elif (editor.metaObject().className() == 'QLineEdit' and editor.text()==''):
         #    model.setData(model.createIndex(index.row(), 0), None)
-        elif editor.metaObject().className() == 'QComboBox':
-            if index.column() == 23: #sicherheit
-                model.setData(index, editor.currentIndex()+1)
-            else:
-                model.setData(index, editor.currentText())
+        # elif editor.metaObject().className() == 'QComboBox':
+        #     if index.column() == 23: #sicherheit
+        #         model.setData(index, editor.currentIndex()+1)
+        #     else:
+        #         model.setData(index, editor.currentText())
         else:
             QSqlRelationalDelegate.setModelData(self, editor, model, index)
 

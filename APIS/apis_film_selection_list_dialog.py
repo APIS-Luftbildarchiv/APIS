@@ -15,9 +15,11 @@ from apis_db_manager import *
 from apis_printer import *
 from apis_image_registry import *
 
+from apis_points2path import Points2Path
+
 from functools import partial
 
-import sys
+import sys, math
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
 # --------------------------------------------------------
@@ -38,8 +40,9 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
 
         self.uiDisplayFlightPathBtn.clicked.connect(lambda: parent.openViewFlightPathDialog(self.getFilmList(), self))
-        self.uiExportListAsPdfBtn.clicked.connect(self.exportListAsPdf)
-        self.uiExportDetailsAsPdfBtn.clicked.connect(self.exportDetailsAsPdf)
+        self.uiExportListAsPdfBtn.clicked.connect(self.DEVexportListAsPdf)
+        self.uiExportDetailsAsPdfBtn.setEnabled(False)
+        self.uiExportDetailsAsPdfBtn.clicked.connect(self.DEVexportDetailsAsPdf)
 
         self.accepted.connect(self.onAccepted)
 
@@ -70,7 +73,7 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
         # signals
         self.uiFilmListTableV.doubleClicked.connect(self.viewFilm)
-        #self.uiFilmListTableV.selectionModel().selectionChanged.connect(self.onSelectionChanged)
+        self.uiFilmListTableV.selectionModel().selectionChanged.connect(self.onSelectionChanged)
 
         self.uiFilmListTableV.sortByColumn(0, Qt.AscendingOrder)
 
@@ -114,10 +117,10 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
         #QMessageBox.warning(None, "FilmNumber", unicode(self.model.data(filmIdx)))
 
     def onSelectionChanged(self, current, previous):
-        if self.uiFilmListTableV.selectionModel().hasSelection():
-            self.uiDisplayFlightPathBtn.setEnabled(True)
+        if self.uiFilmListTableV.selectionModel().hasSelection() and len(self.uiFilmListTableV.selectionModel().selectedRows()) == 1:
+            self.uiExportDetailsAsPdfBtn.setEnabled(True)
         else:
-            self.uiDisplayFlightPathBtn.setEnabled(False)
+            self.uiExportDetailsAsPdfBtn.setEnabled(False)
         #QMessageBox.warning(None, "FilmNumber", "selection Changed")
 
     def checkSelection(self):
@@ -221,13 +224,17 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                 printLayers = []
                 flightpathDir = self.settings.value("APIS/flightpath_dir")
                 #uri = flightpathDir + "\\2014\\02140301_lin.shp"
-                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_lin.shp"
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_lin.shp"
                 if not os.path.isfile(uri):
-                    uri = flightpathDir + "\\2014\\02140301_lin.shp"
+                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    if not os.path.isfile(uri):
+                        uri = None  # flightpathDir + "\\2014\\02140301_lin.shp"
+                        # FIXME: Create From GPS; KARTIERUNG
                 printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+                printLayer.setCoordinateSystem()
                 QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
-                printLayer.updateExtents()
-                extent = printLayer.extent()
+                #printLayer.updateExtents()
+                #extent = printLayer.extent()
 
                 #layerset.append(printLayer.id())
                 printLayers.append(printLayer.id())
@@ -238,7 +245,16 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                 #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
                 #printLayers.append(rlayer.id())
 
+
+
                 ms = QgsMapSettings()
+                ms.setCrsTransformEnabled(True)
+                ms.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+                ms.setMapUnits(QGis.UnitType(0))
+                ms.setOutputDpi(300)
+                printLayer.setCoordinateSystem()
+
+                extent = ms.layerExtentToOutputExtent(printLayer, printLayer.extent())
                 ms.setExtent(extent)
                 #mr.setLayerSet(layerset)
 
@@ -302,6 +318,246 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                     os.startfile(fileName)
             except Exception, e:
                 pass
+
+    def DEVexportDetailsAsPdf(self):
+        #selection = self.checkSelection()
+
+        #if selection == 0:
+        #    filmList = self.getFilmList(False)
+        #elif selection == 1:
+        #    filmList = self.getFilmList(True)
+        #else:
+        #    return
+
+        filmList = self.getFilmList(False)
+
+        if len(filmList) <= 1:
+            fn = u"Filmdetails_{0}".format(filmList[0])
+        else:
+            fn = u"Filmdetails_Sammlung"
+
+        saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+        fileName = QFileDialog.getSaveFileName(self, u"Filmdetails speichern", saveDir + "\\" + '{0}_{1}'.format(fn, QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+
+        if fileName:
+            qryStr = "SELECT * FROM film WHERE filmnummer IN ({0})".format(u",".join(u"'{0}'".format(film) for film in filmList))
+            query = QSqlQuery(self.dbm.db)
+            query.prepare(qryStr)
+            query.exec_()
+
+            tempFileNames = []
+
+            query.seek(-1)
+            while query.next():
+
+                # Composer Items
+                filmDict = {}
+
+                # filmDict = {}
+                rec = query.record()
+                for col in range(rec.count()):
+                    val = unicode(rec.value(col))
+                    if val.replace(" ", "") == '' or val == 'NULL':
+                        val = u"---"
+
+                    filmDict[unicode(rec.fieldName(col))] = val
+
+                filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
+                filmDict['datum_druck'] = QDate.currentDate().toString("yyyy-MM-dd")
+
+                layerSet = []
+
+                # MapSettings
+                mapSettings = QgsMapSettings()
+                mapSettings.setCrsTransformEnabled(True)
+                mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+                mapSettings.setMapUnits(QGis.UnitType(0))
+                mapSettings.setOutputDpi(300)
+
+                # Vector Layer
+                flightpathDir = self.settings.value("APIS/flightpath_dir")
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_lin.shp"
+                if not os.path.isfile(uri):
+                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    if not os.path.isfile(uri):
+                        if filmDict["weise"] == u"senk.":
+                            w = u"senk"
+                        else:
+                            w = u"schraeg"
+                        uriDS = QgsDataSourceURI()
+                        uriDS.setDatabase(self.dbm.db.databaseName())
+                        uriDS.setDataSource('', 'luftbild_{0}_cp'.format(w), 'geometry')
+                        mappingPnt = QgsVectorLayer(uriDS.uri(), 'mappingPnt', 'spatialite')
+                        mappingPnt.setSubsetString(u'"filmnummer" = "{0}"'.format(filmDict["filmnummer"]))
+                        if mappingPnt.dataProvider().featureCount() < 1:
+                            uri = None  # flightpathDir + "\\2014\\02140301_lin.shp"
+                        else:
+                            p2p = Points2Path(mappingPnt, 'FlightPath', False, ["bildnummer_nn"])
+                            vectorLayer = p2p.run()
+                            uri = True
+                    else:
+                        gpsPnt = QgsVectorLayer(uri, "FlightPath", "ogr")
+                        p2p = Points2Path(gpsPnt, 'FlightPath', False, ["bildnr"])  # bildnr > in filmnummer_gps.shp in aerloc
+                        vectorLayer = p2p.run()
+                else:
+                    vectorLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+
+                if uri:
+                    #vectorLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+
+                    # GET CRS FROM LAYER !!!!
+
+                    # Sets layer's spatial reference system
+                    vectorLayer.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
+                    # Setup the coordinate system transformation for the layer.
+                    vectorLayer.setCoordinateSystem()
+
+                    lineSymbol = QgsLineSymbolV2.createSimple({'color': 'orange', 'line_width': '0.3'})
+                    vectorLayer.rendererV2().setSymbol(lineSymbol)
+
+
+                    QgsMapLayerRegistry.instance().addMapLayer(vectorLayer, False)  # False = don't add to Layers (TOC)
+
+
+                    layerSet.append(vectorLayer.id())
+
+                    extent = mapSettings.layerExtentToOutputExtent(vectorLayer, vectorLayer.extent())
+                    extent.scale(1.1)
+
+                    mapWidth = 85  # 160
+                    mapHeight = 65  # 120
+                    c = 40075016.6855785
+                    mpW = extent.width() / mapWidth
+                    mpH = extent.height() / mapHeight
+                    zW = math.log(c / mpW, 2) - 8
+                    zH = math.log(c / mpH, 2) - 8
+                    z = math.floor(min(zW, zH)) + 2
+                    # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+
+                    # Tile Layer (Background Map)
+                    ds = {}
+                    ds['type'] = 'TMS'
+                    ds['alias'] = 'Google'
+                    ds['copyright_text'] = 'Google'
+                    ds['copyright_url'] = 'http://www.google.com'
+                    ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+
+                    service_info = TileServiceInfo(ds['alias'], ds['alias'], ds['tms_url'])
+                    service_info.zmin = 0
+                    service_info.zmax = int(z)
+                    # if ds.tms_y_origin_top is not None:
+                    #    service_info.yOriginTop = ds.tms_y_origin_top
+                    service_info.epsg_crs_id = 3857
+                    service_info.postgis_crs_id = None
+                    service_info.custom_proj = None
+                    service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+
+
+
+                    #tileLayer = TileLayer(self, service_info, False)
+                    tileLayer = TileLayer(service_info, False)
+                    tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+
+                    if not tileLayer.isValid():
+                        error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+                        self.iface.messageBar().pushMessage(self.tr('Error'),
+                                                            error_message,
+                                                            level=QgsMessageBar.CRITICAL)
+                        QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+                    else:
+                        # Set Attributes
+                        tileLayer.setAttribution(ds['copyright_text'])
+                        tileLayer.setAttributionUrl(ds['copyright_url'])
+                        QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+                        layerSet.append(tileLayer.id())
+
+                    # Set LayerSet
+                    tileLayer.setExtent(extent)
+                    mapSettings.setExtent(extent)
+
+                    mapSettings.setLayers(layerSet)
+
+                # Template
+                template = os.path.dirname(__file__) + "/composer/templates/FilmDetails.qpt"  # map_print_test.qpt"
+                templateDom = QDomDocument()
+                templateDom.setContent(QFile(template), False)
+
+                # Composition
+                composition = QgsComposition(mapSettings)
+                composition.setPlotStyle(QgsComposition.Print)
+                composition.setPrintResolution(300)
+
+                composition.loadFromTemplate(templateDom, filmDict)
+
+                # Composer Map
+                if uri:
+                    composerMap = composition.getComposerMapById(0)
+                    # self.iface.messageBar().pushMessage(self.tr('WH'), "w: {0}, h: {1}".format(composerMap.rect().width(), composerMap.rect().height()), level=QgsMessageBar.INFO)
+                    composerMap.zoomToExtent(extent)
+
+                if len(filmList) > 1:
+                    tempFileName = fileName + "." + filmDict["filmnummer"] + ".pdf"
+                    composition.exportAsPDF(tempFileName)
+                    tempFileNames.append(tempFileName)
+                else:
+                    composition.exportAsPDF(fileName)
+
+
+                # Remove Layers
+                for layerId in layerSet:
+                    QgsMapLayerRegistry.instance().removeMapLayer(layerId)
+
+
+            if tempFileNames and len(filmList) > 1:
+                merger = PdfFileMerger()
+                for tempFileName in tempFileNames:
+                    merger.append(PdfFileReader(file(fileName, 'rb')))
+
+                merger.write(tempFileName)
+
+                for tempFileName in tempFileNames:
+                    try:
+                        os.remove(tempFileName)
+                    except Exception, e:
+                        continue
+
+            # Open PDF
+            if sys.platform == 'linux2':
+                subprocess.call(["xdg-open", fileName])
+            else:
+                os.startfile(fileName)
+
+    def XXDEVexportDetailsAsPdf(self):
+        selection = self.checkSelection()
+
+        if selection == 0:
+            filmList = self.getFilmList(False)
+        elif selection == 1:
+            filmList = self.getFilmList(True)
+        else:
+            return
+
+        qryStr = "SELECT * FROM film WHERE filmnummer IN ({0})".format(u",".join(u"'{0}'".format(film) for film in filmList))
+        printer = ApisFilmDetailPrinter(self, self.dbm, self.imageRegistry, True)
+        printer.setQuery(qryStr)
+        printer.printFilmDetail()
+
+    def DEVexportListAsPdf(self):
+        selection = self.checkSelection()
+
+        if selection == 0:
+            filmList = self.getFilmList(False)
+        elif selection == 1:
+            filmList = self.getFilmList(True)
+        else:
+            return
+
+        qryStr = u"SELECT filmnummer AS Filmnummer, strftime('%d.%m.%Y', flugdatum) AS Flugdatum, anzahl_bilder AS Bildanzahl, weise AS Weise, art_ausarbeitung AS Art, militaernummer AS Militärnummer, militaernummer_alt AS 'Militärnummer Alt', CASE WHEN weise = 'senk.' THEN (SELECT count(*) from luftbild_senk_cp WHERE film.filmnummer = luftbild_senk_cp.filmnummer) ELSE (SELECT count(*) from luftbild_schraeg_cp WHERE film.filmnummer = luftbild_schraeg_cp.filmnummer) END AS Kartiert, 0 AS Gescannt FROM film WHERE filmnummer IN ({0}) ORDER BY filmnummer".format(u",".join(u"'{0}'".format(film) for film in filmList))
+
+        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, 1)
+        printer.setupInfo(u"Filmliste", u"Filmliste speichern", u"Filmliste", 18)
+        printer.setQuery(qryStr)
+        printer.printList(u"Gescannt")
 
     def exportListAsPdf(self):
 
@@ -403,6 +659,8 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                     fRight.setMarginX(5)
                     fRight.setFont(QFont("Arial", 8))
                     comp.addItem(fRight)
+
+
 
                     filmTab = QgsComposerTextTable(comp)
                     filmTab.setShowGrid(True)

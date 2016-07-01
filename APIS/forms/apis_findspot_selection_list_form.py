@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_findspot_selection_list_form.ui'
 #
-# Created: Wed Apr 27 09:52:17 2016
+# Created: Fri May 20 18:15:23 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,7 +37,6 @@ class Ui_apisFindSpotSelectionListDialog(object):
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.uiViewFindSpotsBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
-        self.uiViewFindSpotsBtn.setEnabled(False)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/layer.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.uiViewFindSpotsBtn.setIcon(icon1)
@@ -45,22 +44,25 @@ class Ui_apisFindSpotSelectionListDialog(object):
         self.uiViewFindSpotsBtn.setAutoDefault(False)
         self.uiViewFindSpotsBtn.setObjectName(_fromUtf8("uiViewFindSpotsBtn"))
         self.horizontalLayout.addWidget(self.uiViewFindSpotsBtn)
-        self.uiExportFindSpotsBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
-        self.uiExportFindSpotsBtn.setEnabled(False)
+        self.uiExportFindSpotsAsShpBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/shp_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.uiExportFindSpotsBtn.setIcon(icon2)
-        self.uiExportFindSpotsBtn.setIconSize(QtCore.QSize(24, 24))
-        self.uiExportFindSpotsBtn.setAutoDefault(False)
-        self.uiExportFindSpotsBtn.setObjectName(_fromUtf8("uiExportFindSpotsBtn"))
-        self.horizontalLayout.addWidget(self.uiExportFindSpotsBtn)
-        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
-        self.uiExportListAsPdfBtn.setEnabled(False)
+        self.uiExportFindSpotsAsShpBtn.setIcon(icon2)
+        self.uiExportFindSpotsAsShpBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportFindSpotsAsShpBtn.setAutoDefault(False)
+        self.uiExportFindSpotsAsShpBtn.setObjectName(_fromUtf8("uiExportFindSpotsAsShpBtn"))
+        self.horizontalLayout.addWidget(self.uiExportFindSpotsAsShpBtn)
+        self.uiExportFindSpotAsPdfBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/pdf_export.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.uiExportFindSpotAsPdfBtn.setIcon(icon3)
+        self.uiExportFindSpotAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
+        self.uiExportFindSpotAsPdfBtn.setAutoDefault(False)
+        self.uiExportFindSpotAsPdfBtn.setObjectName(_fromUtf8("uiExportFindSpotAsPdfBtn"))
+        self.horizontalLayout.addWidget(self.uiExportFindSpotAsPdfBtn)
+        self.uiExportListAsPdfBtn = QtGui.QPushButton(apisFindSpotSelectionListDialog)
         self.uiExportListAsPdfBtn.setIcon(icon3)
         self.uiExportListAsPdfBtn.setIconSize(QtCore.QSize(24, 24))
-        self.uiExportListAsPdfBtn.setAutoDefault(False)
         self.uiExportListAsPdfBtn.setObjectName(_fromUtf8("uiExportListAsPdfBtn"))
         self.horizontalLayout.addWidget(self.uiExportListAsPdfBtn)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -93,8 +95,9 @@ class Ui_apisFindSpotSelectionListDialog(object):
     def retranslateUi(self, apisFindSpotSelectionListDialog):
         apisFindSpotSelectionListDialog.setWindowTitle(_translate("apisFindSpotSelectionListDialog", "APIS Fundstelle Auswahl", None))
         self.uiViewFindSpotsBtn.setText(_translate("apisFindSpotSelectionListDialog", "Fundstellen in QGIS laden", None))
-        self.uiExportFindSpotsBtn.setText(_translate("apisFindSpotSelectionListDialog", "Fundstellen Export", None))
-        self.uiExportListAsPdfBtn.setText(_translate("apisFindSpotSelectionListDialog", "PDF Export", None))
+        self.uiExportFindSpotsAsShpBtn.setText(_translate("apisFindSpotSelectionListDialog", "Fundstellen Export", None))
+        self.uiExportFindSpotAsPdfBtn.setText(_translate("apisFindSpotSelectionListDialog", "PDF Export Fundstellen", None))
+        self.uiExportListAsPdfBtn.setText(_translate("apisFindSpotSelectionListDialog", "PDF Export Liste", None))
         self.uiFindSpotCountLbl.setText(_translate("apisFindSpotSelectionListDialog", "0", None))
         self.label.setText(_translate("apisFindSpotSelectionListDialog", "Fundstellen", None))
 

@@ -24,11 +24,13 @@ import os
 import threading
 from PyQt4.QtCore import QObject, qDebug, Qt, QFile, QRectF, QPointF, QPoint, QTimer, QEventLoop
 from PyQt4.QtCore import SIGNAL
-from PyQt4.QtGui import QFont, QColor, QBrush
+from PyQt4.QtGui import QFont, QColor, QBrush, QMessageBox
 from qgis.core import QgsPluginLayer, QgsCoordinateReferenceSystem, QgsPluginLayerType, QgsImageOperation
 from qgis.gui import QgsMessageBar
-#from ..plugin_settings import PluginSettings
-#from ..qgis_settings import QGISSettings
+from qgis.utils import iface
+
+#from ..plugin_settings import PluginSettings #JL
+#from ..qgis_settings import QGISSettings #JL
 
 from tiles import *
 from downloader import Downloader
@@ -61,10 +63,11 @@ class TileLayer(QgsPluginLayer):
     MAX_TILE_COUNT = 256
     CHANGE_SCALE_VALUE = 0.30
 
-    def __init__(self, plugin, layerDef, creditVisibility=1):
+    def __init__(self, layerDef, creditVisibility=1):
         QgsPluginLayer.__init__(self, TileLayer.LAYER_TYPE, layerDef.title)
-        self.plugin = plugin
-        self.iface = plugin.iface
+
+        self.iface = iface
+        #QMessageBox.information(None, "info", u"{0}".format(self.iface))
         self.layerDef = layerDef
         self.creditVisibility = 1 if creditVisibility else 0
 
@@ -127,13 +130,13 @@ class TileLayer(QgsPluginLayer):
 
         # downloader
         self.downloader = Downloader(self)
-        self.downloader.userAgent = 'Mozilla/5.0' #QGISSettings.get_default_user_agent()
-        self.downloader.default_cache_expiration = 24 #QGISSettings.get_default_tile_expiry()
-        self.downloader.max_connection = 4 #PluginSettings.default_tile_layer_conn_count()  #TODO: Move to INI files
+        self.downloader.userAgent = 'Mozilla/5.0' #QGISSettings.get_default_user_agent() #JL
+        self.downloader.default_cache_expiration = 24 #QGISSettings.get_default_tile_expiry() #JL
+        self.downloader.max_connection = 4 #PluginSettings.default_tile_layer_conn_count() #JL #TODO: Move to INI files
         QObject.connect(self.downloader, SIGNAL("replyFinished(QString, int, int)"), self.networkReplyFinished)
 
         #network
-        self.downloadTimeout = 60000#QGISSettings.get_default_network_timeout()
+        self.downloadTimeout = 60000 #QGISSettings.get_default_network_timeout() #JL
 
         # multi-thread rendering
         self.eventLoop = None
@@ -698,9 +701,9 @@ class TileLayer(QgsPluginLayer):
         self.iface.mainWindow().statusBar().showMessage(msg, timeout)
 
     def showBarMessage(self, text, level=QgsMessageBar.INFO, duration=0, title=None):
-        if True: #PluginSettings.show_messages_in_bar():
+        if True: #PluginSettings.show_messages_in_bar(): #JL
             if title is None:
-                title = "Bing" #PluginSettings.product_name()
+                title = "APIS Tyle Layer" #PluginSettings.product_name() #JL
             self.emit(SIGNAL("showBarMessage(QString, QString, int, int)"), title, text, level, duration)
 
     def showBarMessageSlot(self, title, text, level, duration):
@@ -713,12 +716,11 @@ class TileLayer(QgsPluginLayer):
 #    return self.renderer
 
 class TileLayerType(QgsPluginLayerType):
-    def __init__(self, plugin):
+    def __init__(self):
         QgsPluginLayerType.__init__(self, TileLayer.LAYER_TYPE)
-        self.plugin = plugin
 
     def createLayer(self):
-        return TileLayer(self.plugin, TileServiceInfo.createEmptyInfo())
+        return TileLayer(TileServiceInfo.createEmptyInfo())
 
     def showLayerProperties(self, layer):
         from propertiesdialog import PropertiesDialog
