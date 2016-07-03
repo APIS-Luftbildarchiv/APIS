@@ -1,5 +1,35 @@
 # -*- coding: utf-8 -*
 
+"""
+/***************************************************************************
+ *   APIS                                                                  *
+ *   A QGIS plugin for APIS - Luftbildarchiv Uni Wien                      *
+ *                                                                         *
+ *   begin     : 2016-06-01                                                *
+ *   copyright : (C) 2016 by Johannes Liem und Luftbildarchiv Uni Wien     *
+ *   email     : johannes.liem@digitalcartography.org                      *
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+/***************************************************************************
+ *   apis_site_mapping_dialog.py                                           *
+ *   Fundorte Kartieren Dock Widget                                        *
+ *                                                                         *
+ *                                                                         *
+ *                                                                         *
+ *                                                                         *
+ *                                                                         *
+ ***************************************************************************/
+"""
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtSql import *
@@ -10,13 +40,11 @@ from apis_map_tools import *
 import sys, os, math, string
 import os.path
 
+from apis_utils import *
+
 from apis_site_dialog import *
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
-
-# --------------------------------------------------------
-# Fundort - Eingabe
-# --------------------------------------------------------
 from apis_site_mapping_form import *
 
 class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
@@ -79,6 +107,15 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         self.uiCancelManuallyEditingBtn.clicked.connect(self.onCancelAnyEdits)
         self.uiReplaceProvidedSiteBtn.clicked.connect(self.replaceProvidedSite)
 
+# ---------------------------------------------------------------------------
+# Slots
+# ---------------------------------------------------------------------------
+
+    def onCancelAnyEdits(self):
+        # CleanUp Map Canvas
+        self.cleanUpMapCanvas()
+        # Reset UI
+        self.onNewSiteChanged()
 
 
     def onDiagonalValueChanged(self, value):
@@ -86,7 +123,6 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
 
     def onMappingFinished(self, point, polygon, crs):
-
         self.point = point
         self.polygon = polygon
         self.crs = crs
@@ -96,6 +132,38 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             self.addNewSite()
         else:
             self.checkEditSite()
+
+    def onNewSiteChanged(self):
+        self.uiMapPointAndSquareBtn.setChecked(False)
+        self.uiMapPolygonAndPointBtn.setChecked(False)
+
+        self.uiAddToSiteManuallyGrp.setVisible(False)
+        self.uiAddToSiteByIntersectionGrp.setVisible(False)
+
+        if self.siteLayer and self.siteLayer.isEditable() and not self.uiEditGeometryRBtn.isChecked():
+            self.siteLayer.rollBack()
+
+        if self.uiNewSiteYesRBtn.isChecked():
+            # Add New Site
+            self.uiNewSiteInterpretationGrp.setEnabled(True)
+            self.uiSiteMappingModesGrp.setVisible(True)
+            self.uiSiteMappingModesGrp.setEnabled(False)
+            self.uiNewSiteInterpretationGrp.setEnabled(True)
+            self.uiNewSiteInterpretationGrp.setVisible(True)
+        elif self.uiNewSiteNoRBtn.isChecked():
+            # Add To Existing Site
+            self.uiNewSiteInterpretationGrp.setEnabled(False)
+            self.uiSiteMappingModesGrp.setVisible(True)
+            self.uiSiteMappingModesGrp.setEnabled(True)
+            self.uiNewSiteInterpretationGrp.setVisible(False)
+        elif self.uiEditGeometryRBtn.isChecked():
+            # siteStart Layer in Edit Mode!
+
+            self.uiSiteMappingModesGrp.setVisible(False)
+            self.uiNewSiteInterpretationGrp.setVisible(False)
+            self.startEditingSiteLayer()
+        else:
+            return
 
     # def onPolygonMappingFinished(self, point, polygon, crs):
     #     #QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Site Geom: {0}, {1}".format(point, polygon))
@@ -133,57 +201,6 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
                 self.iface.actionTouch().trigger()
                 self.uiNewSiteInterpretationGrp.setEnabled(True)
 
-
-    def onCancelAnyEdits(self):
-        # CleanUp Map Canvas
-        self.cleanUpMapCanvas()
-        # Reset UI
-        self.onNewSiteChanged()
-
-    def cleanUpMapCanvas(self):
-        # deselect
-        self.siteLayer.removeSelection()
-        # remove map tool rRubberBands/VertexMarker
-        self.siteMapToolByPoint.clearScene()
-        self.siteMapToolByPolygon.clearScene()
-
-
-    def onNewSiteChanged(self):
-        self.uiMapPointAndSquareBtn.setChecked(False)
-        self.uiMapPolygonAndPointBtn.setChecked(False)
-
-        self.uiAddToSiteManuallyGrp.setVisible(False)
-        self.uiAddToSiteByIntersectionGrp.setVisible(False)
-
-        if self.siteLayer and self.siteLayer.isEditable() and not self.uiEditGeometryRBtn.isChecked():
-            self.siteLayer.rollBack()
-
-        if self.uiNewSiteYesRBtn.isChecked():
-            # Add New Site
-            self.uiNewSiteInterpretationGrp.setEnabled(True)
-            self.uiSiteMappingModesGrp.setVisible(True)
-            self.uiSiteMappingModesGrp.setEnabled(False)
-            self.uiNewSiteInterpretationGrp.setEnabled(True)
-            self.uiNewSiteInterpretationGrp.setVisible(True)
-        elif self.uiNewSiteNoRBtn.isChecked():
-            # Add To Existing Site
-            self.uiNewSiteInterpretationGrp.setEnabled(False)
-            self.uiSiteMappingModesGrp.setVisible(True)
-            self.uiSiteMappingModesGrp.setEnabled(True)
-            self.uiNewSiteInterpretationGrp.setVisible(False)
-        elif  self.uiEditGeometryRBtn.isChecked():
-            # siteStart Layer in Edit Mode!
-
-            self.uiSiteMappingModesGrp.setVisible(False)
-            self.uiNewSiteInterpretationGrp.setVisible(False)
-            self.startEditingSiteLayer()
-        else:
-            return
-
-    def startEditingSiteLayer(self):
-        self.reloadSiteLayer()
-        self.siteLayer.startEditing()
-
     def onVisibilityChanged(self, isVisible):
         #QMessageBox.warning(None, self.tr(u"SearchDialog Visibility"), u"Visibility Search Dialog: {0}".format(visibility))
         if not isVisible:
@@ -197,6 +214,22 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             #load layers
             self.removeSiteLayer()
             self.loadSiteLayer()
+
+
+    def cleanUpMapCanvas(self):
+        # deselect
+        self.siteLayer.removeSelection()
+        # remove map tool rRubberBands/VertexMarker
+        self.siteMapToolByPoint.clearScene()
+        self.siteMapToolByPolygon.clearScene()
+
+
+
+
+    def startEditingSiteLayer(self):
+        self.reloadSiteLayer()
+        self.siteLayer.startEditing()
+
 
 
     def removeSiteLayer(self):
@@ -410,7 +443,6 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
             #Get Fundortnummer NN based on Country
 
-
             feat.setAttribute('fundortnummer', siteNumber)
             feat.setAttribute('fundortnummer_nn', siteNumberNN)
 
@@ -441,22 +473,29 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
             if countryCode == 'AUT':
                 # get meridian and epsg Code
-                lon = p.x()
-                if lon < 11.8333333333:
-                    meridian = 28
-                    epsgGK = 31254
-                elif lon > 14.8333333333:
-                    meridian = 34
-                    epsgGK = 31256
-                else:
-                    meridian = 31
-                    epsgGK = 31255
+                meridian, epsgGK = GetMeridianAndEpsgGK(p.x())
+
+                # FIXME : DELETE WHEN getMeridianAndEpsgGK works
+                # lon = p.x()
+                # if lon < 11.8333333333:
+                #     meridian = 28
+                #     epsgGK = 31254
+                # elif lon > 14.8333333333:
+                #     meridian = 34
+                #     epsgGK = 31256
+                # else:
+                #     meridian = 31
+                #     epsgGK = 31255
                 feat.setAttribute('meridian', meridian)
-                gk = QgsGeometry(self.point)
-                destGK = QgsCoordinateReferenceSystem()
-                destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
-                gk.transform(ctGK)
+
+                gk = TransformGeometry(QgsGeometry(self.point), self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+
+                # FIXME : DELETE WHEN getMeridianAndEpsgGK works
+                # gk = QgsGeometry(self.point)
+                # destGK = QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
+                # destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
+                # ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
+                # gk.transform(ctGK)
                 feat.setAttribute('gkx', gk.asPoint().y())  # Hochwert
                 feat.setAttribute('gky', gk.asPoint().x())  # Rechtswert
 
@@ -629,22 +668,25 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
             if country == 'AUT':
                 # get meridian and epsg Code
-                lon = cp.x()
-                if lon < 11.8333333333:
-                    meridian = 28
-                    epsgGK = 31254
-                elif lon > 14.8333333333:
-                    meridian = 34
-                    epsgGK = 31256
-                else:
-                    meridian = 31
-                    epsgGK = 31255
+                meridian, epsgGK = GetMeridianAndEpsgGK(cp.x())
+                # lon = cp.x()
+                # if lon < 11.8333333333:
+                #     meridian = 28
+                #     epsgGK = 31254
+                # elif lon > 14.8333333333:
+                #     meridian = 34
+                #     epsgGK = 31256
+                # else:
+                #     meridian = 31
+                #     epsgGK = 31255
                 feature.setAttribute('meridian', meridian)
-                gk = QgsGeometry(cpGeom)
-                destGK = QgsCoordinateReferenceSystem()
-                destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
-                gk.transform(ctGK)
+
+                gk = TransformGeometry(QgsGeometry(self.point), self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+                # gk = QgsGeometry(cpGeom)
+                # destGK = QgsCoordinateReferenceSystem()
+                # destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
+                # ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
+                # gk.transform(ctGK)
                 feature.setAttribute('gkx', gk.asPoint().y())  # Hochwert
                 feature.setAttribute('gky', gk.asPoint().x())  # Rechtswert
 

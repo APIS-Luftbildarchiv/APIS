@@ -170,7 +170,6 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
                         # self.targetLayerCP.commitChanges()
                         continue
 
-
                     targetFeatCP = QgsFeature(self.targetLayerCP.pendingFields())
                     #PpointGeometry
                     ct = QgsCoordinateTransform(self.sourceLayerCP.crs(), self.targetLayerCP.crs())
@@ -196,8 +195,6 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
                     targetFeatCP.setAttribute('copyright', self.parent.currentFilmInfoDict["copyright"])
                     # By Default Fix Value
                     targetFeatCP.setAttribute('etikett', 0)
-
-
 
                     targetFeatCP.setAttribute('radius', 175)
                     targetFeatCP.setAttribute('keyword', "")

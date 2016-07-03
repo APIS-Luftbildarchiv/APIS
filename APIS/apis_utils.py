@@ -23,7 +23,12 @@
 
 from PyQt4.QtCore import QSettings, QTranslator
 from PyQt4.QtGui import *
+from qgis.core import QgsGeometry, QgsCoordinateTransform
 import os.path
+
+# ---------------------------------------------------------------------------
+# Settings
+# ---------------------------------------------------------------------------
 
 def apisPluginSettings():
     s = QSettings()
@@ -65,16 +70,34 @@ def isApisIni(ini):
 
     return isIni, s if isIni else u"Folgende Schlüssel in der INI Datei sind nicht korrekt oder nicht vorhanden: " + u", ".join(errorKeys)
 
-# class ApisUtils:
-#     def __init__(self, dialog):
-#         self.dialog = dialog
-#
-#     def checkConfigStatus(self):
-#         s = QSettings()
-#         value = s.value("APIS/plugin_config_status", False)
-#         if isinstance(value, (bool)):
-#             return value
-#         else:
-#             return value.lower() in ("yes", "true", "t", "1")
+# ---------------------------------------------------------------------------
+# Common Calculations
+# ---------------------------------------------------------------------------
+
+def GetMeridianAndEpsgGK(lon):
+    '''
+    :param lon: float Longitude in Grad
+    :return meridian, epsg: int/long Meridian Streifen, int/long epsg Gauß-Krüger Österreich
+    '''
+    if lon < 11.8333333333:
+        return 28, 31254
+    elif lon > 14.8333333333:
+        return 34, 31256
+    else:
+        return 31, 31255
 
 
+def TransformGeometry(geom, srcCrs, destCrs):
+    '''
+    :param geom: QgsGeometry Punktgeometrie
+    :param srcCrs: QgsCoordinateReferenceSystem Source CRS
+    :param destCrs: QgsCoordinateReferenceSystem Destination CRS
+    :return:
+    '''
+    geom.transform(QgsCoordinateTransform(srcCrs, destCrs))
+    return geom
+
+
+# ---------------------------------------------------------------------------
+# Common DB Checks / Geometry Checks
+# ---------------------------------------------------------------------------
