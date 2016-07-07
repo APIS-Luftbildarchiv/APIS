@@ -39,7 +39,7 @@ from apis_db_manager import *
 from apis_map_tools import *
 import sys, os, math, string
 import os.path
-
+from apis_site_edit_findspot_handling_dialog import *
 from apis_utils import *
 
 from apis_site_dialog import *
@@ -67,7 +67,9 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         self.siteLayerId = None
         self.siteLayer = None
 
-        self.changedGeometries = {}
+        #self.changedGeometries = {}
+        #self.changedAttributeValues = {}
+        self.lastGeometryChange = None
 
         self.uiSiteMappingModesGrp.setEnabled(False)
 
@@ -224,21 +226,20 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         self.siteMapToolByPolygon.clearScene()
 
 
-
-
     def startEditingSiteLayer(self):
         self.reloadSiteLayer()
         self.siteLayer.startEditing()
 
 
-
     def removeSiteLayer(self):
         if self.siteLayerId in QgsMapLayerRegistry.instance().mapLayers():
+            #TODO: disconnect all slots
             QgsMapLayerRegistry.instance().removeMapLayer(self.siteLayer.id())
 
     def reloadSiteLayer(self):
         if self.siteLayerId not in QgsMapLayerRegistry.instance().mapLayers():
             self.loadSiteLayer()
+
 
     def loadSiteLayer(self):
         uri = QgsDataSourceURI()
@@ -248,10 +249,12 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         self.siteLayer.geometryChanged.connect(self.onSiteGeometryEditing)
         self.siteLayer.editCommandEnded.connect(self.onEditCommandEnded)
-        #self.siteLayer.editCommandStarted.connect(self.onEditCommandStarted)
-        self.siteLayer.committedGeometriesChanges.connect(self.onSiteGeometryChangesCommited)
-        #self.siteLayer.editingStopped.connect(self.editingStopped)
-        #self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
+        self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
+        #self.siteLayer.committedGeometriesChanges.connect(self.onSiteGeometryChangesCommitted)
+        #self.siteLayer.committedAttributeValuesChanges.connect(self.onSiteAttributeValuesChangesCommitted)
+
+        # self.siteLayer.editingStopped.connect(self.editingStopped)
+        # self.siteLayer.editCommandStarted.connect(self.onEditCommandStarted)
 
         symbol_layer = QgsSimpleLineSymbolLayerV2()
         symbol_layer.setWidth(0.6)
@@ -261,26 +264,51 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         QgsMapLayerRegistry.instance().addMapLayer(self.siteLayer)
         self.siteLayerId = self.siteLayer.id()
 
-    def onSiteGeometryChangesCommited(self, layerId, changedGeometries):
-        #QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Edit stopped!")
-        for fid, geom in changedGeometries.items():
-            request = QgsFeatureRequest().setFilterFids([fid])
-            fList = [feat for feat in self.siteLayer.getFeatures(request)]
-            if len(fList) > 1:
-                pass
-                #error
-            else:
-                f = fList[0]
-                siteNumber = f.attribute("fundortnummer")
+    def onSiteAttributeValuesChangesCommitted(self, layerId, changedAttributesValues ):
+        QMessageBox.warning(None, self.tr(u"Site Mapping"), u"AttributeChanges Comitted")
 
-                siteArea = self.siteAreaHa(geom)
-                country = f.attribute("land")
+    def onSiteGeometryChangesCommitted(self, layerId, changedGeometries):
+        QMessageBox.warning(None, self.tr(u"Site Mapping"), u"GeometryChanges Comitted")
 
-                if country == 'AUT':
-                    kgCode, kgName = self.getKgNameAndCode(geom)
-                else:
-                    kgCode = None
-                    kgName = None
+
+
+        #layer = QgsMapLayerRegistry.instance().mapLayer(layerId)
+
+        #
+        # fids = [fid for fid, geom in changedGeometries.items()]
+        #
+        # request = QgsFeatureRequest()
+        # request.setSubsetOfAttributes(['fundortnummer'], layer.pendingFields())
+        # request.setFilterFids(fids)
+        #
+        # features = layer.getFeatures(request)
+        #
+        # if not layer.isEditable():
+        #     layer.startEditing()
+        # for feature in features:
+        #
+        #     layer.updateFeature(feature)
+        # layer.commitChanges()
+
+
+        # for fid, geom in changedGeometries.items():
+        #     request = QgsFeatureRequest().setFilterFids([fid])
+        #     fList = [feat for feat in self.siteLayer.getFeatures(request)]
+        #     if len(fList) > 1:
+        #         pass
+        #         #error
+        #     else:
+        #         f = fList[0]
+        #         siteNumber = f.attribute("fundortnummer")
+        #
+        #         siteArea = self.siteAreaHa(geom)
+        #         country = f.attribute("land")
+        #
+        #         if country == 'AUT':
+        #             kgCode, kgName = self.getKgNameAndCode(geom)
+        #         else:
+        #             kgCode = None
+        #             kgName = None
 
                 #self.siteLayer.startEditing()
                 #feature.setGeometry(polygon)
@@ -358,26 +386,120 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         #Do changes on FindSpots!!!
 
     def onBeforeCommitChanges(self):
-        for fid, geom in self.changedGeometries.items():
-            QMessageBox.warning(None, self.tr(u"Site Mapping"), u"{0}, {1}".format(fid, geom))
-        #self.siteLayer.endEditCommand()
-        #self.siteLayer.rollBack()
-
+        #for fid, geom in self.changedGeometries.items():
+        #    QMessageBox.warning(None, self.tr(u"Site Mapping"), u"{0}, {1}".format(fid, geom))
         #QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Before Commit Changes")
-        self.changedGeometries.clear()
+
+        if not self.siteLayer.isEditable():
+            self.siteLayer.startEditing()
+
+        editBuffer = self.siteLayer.editBuffer()
+        changedGeometriesMap = editBuffer.changedGeometries()
+        fids = [fid for fid, geom in changedGeometriesMap.items()]
+        request = QgsFeatureRequest()
+        request.setFilterFids(fids)
+        polygonDict = {}
+        features = self.siteLayer.getFeatures(request)
+        for feature in features:
+            fid = feature.id()
+            newGeometry = changedGeometriesMap[fid]
+            oldGeometry = feature.geometry()
+            siteNumber = feature.attribute('fundortnummer')
+            polygonDict[siteNumber] = [newGeometry, oldGeometry, newGeometry.buffer(0.0001, 12)]
+            country = feature.attribute('land')
+            # edit and update attributes, affected by geometry change
+            feature.setAttribute('flaeche', self.siteAreaHa(newGeometry))
+
+            cpGeom = newGeometry.centroid()
+            if not newGeometry.contains(cpGeom):
+                cpGeom = newGeometry.pointOnSurface()
+            cp = cpGeom.asPoint()
+            feature.setAttribute('longitude', cp.x())
+            feature.setAttribute('latitude', cp.y())
+
+            if country == 'AUT':
+                # get meridian and epsg Code
+                meridian, epsgGK = GetMeridianAndEpsgGK(cp.x())
+
+                # get KG Coordinates
+                gk = TransformGeometry(cpGeom, self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+                gkx = gk.asPoint().y()  # Hochwert
+                gky = gk.asPoint().x()  # Rechtswert
+
+                kgCode, kgName = self.getKgNameAndCode(newGeometry)
+            else:
+                kgCode = None
+                kgName = None
+                meridian = None
+                gkx = None
+                gky = None
+
+            feature.setAttribute('meridian', meridian)
+            feature.setAttribute('gkx', gkx)  # Hochwert
+            feature.setAttribute('gky', gky)  # Rechtswert
+            feature.setAttribute('katastralgemeindenummer', kgCode)
+            feature.setAttribute('katastralgemeinde', kgName)
+
+            now = QDate.currentDate()
+            feature.setAttribute('datum_aenderung', now.toString("yyyy-MM-dd"))
+            # Aktions
+            import getpass
+            user = getpass.getuser()
+            feature.setAttribute('aktion', u"editG")
+            feature.setAttribute('aktionsdatum', now.toString("yyyy-MM-dd"))
+            feature.setAttribute('aktionsuser', user)
+
+            self.siteLayer.updateFeature(feature)
+
+        findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, polygonDict)
+        res = findSpotHandlingDlg.exec_()
+        #if res or not res:
+        # fortfahren, get desissions made ...
+        #QMessageBox.information(None, u"FO Updates", u"Fortfahren")
+        #actions = findSpotHandlingDlg.getActions()
 
 
     def onSiteGeometryEditing(self, fid, geom):
-        self.changedGeometries[fid] = geom
+        self.lastGeometryChange = [fid, geom]
+        #self.changedGeometries[fid] = [geom]
         #QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Geom Edited, {0}, {1}".format(fid, geom))
 
     def onEditCommandEnded(self):
         #QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Edit Command ended!")
         #check if geometries are simple
-        for fid, geom in self.changedGeometries.items():
-            if not geom.isGeosValid() or geom.isGeosEmpty():
-                QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Die vorgenommenen Veränderungen sind nicht zulässig!")
-                self.siteLayer.destroyEditCommand()
+        fid = self.lastGeometryChange[0]
+        newGeometry = self.lastGeometryChange[1]
+        request = QgsFeatureRequest()
+        request.setSubsetOfAttributes(['land'], self.siteLayer.pendingFields()) #deletes other attributes on update! Only use when do OnlyReading! - like here now!
+        request.setFilterFid(fid)
+
+        features = self.siteLayer.getFeatures(request)
+        for feature in features:
+            oldCountry = feature.attribute('land')
+
+        if not self.passGeometryCheck(newGeometry):
+            QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Die vorgenommenen Veränderungen sind nicht zulässig!")
+            self.siteLayer.destroyEditCommand()
+            return
+
+        if not self.passCountryCheck(oldCountry, newGeometry):
+            QMessageBox.warning(None, u"IntersectingCountries", u"Das neue Fundortpolygon befindet sich nicht mehr im bisherigen Land ({0}). Bitte erstellen Sie dazu einen neuen Fundort.".format(oldCountry))
+            self.siteLayer.destroyEditCommand()
+            return
+
+
+        # else:
+        #     pass
+        #     # Check if site has find spots
+        #     if SiteHasFindSpot(self.dbm.db, siteNumber):
+        #         # Check if any find spots are affected
+        #         self.findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, [siteNumber], geom, oldGeom)
+        #         res = self.findSpotHandlingDlg.exec_()
+        #         if res:
+        #             pass
+        #         else:
+        #             self.siteLayer.destroyEditCommand()
+
 
     def onEditCommandStarted(self, text):
         QMessageBox.warning(None, self.tr(u"Site Mapping"), u"Edit Command started: {0}".format(text))
@@ -451,8 +573,10 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             feat.setAttribute('filmnummer_projekt', filmNumber)
             feat.setAttribute('bildnummer', imgNumber)
 
+            isFilmBased = False
             if self.isFilm(filmNumber):
                 feat.setAttribute('befund', "{0}/{1}: ".format(filmNumber, imgNumber))
+                isFilmBased = True
 
             # Date TODAY
             now = QDate.currentDate()
@@ -474,28 +598,9 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             if countryCode == 'AUT':
                 # get meridian and epsg Code
                 meridian, epsgGK = GetMeridianAndEpsgGK(p.x())
-
-                # FIXME : DELETE WHEN getMeridianAndEpsgGK works
-                # lon = p.x()
-                # if lon < 11.8333333333:
-                #     meridian = 28
-                #     epsgGK = 31254
-                # elif lon > 14.8333333333:
-                #     meridian = 34
-                #     epsgGK = 31256
-                # else:
-                #     meridian = 31
-                #     epsgGK = 31255
                 feat.setAttribute('meridian', meridian)
 
                 gk = TransformGeometry(QgsGeometry(self.point), self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
-
-                # FIXME : DELETE WHEN getMeridianAndEpsgGK works
-                # gk = QgsGeometry(self.point)
-                # destGK = QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                # destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                # ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
-                # gk.transform(ctGK)
                 feat.setAttribute('gkx', gk.asPoint().y())  # Hochwert
                 feat.setAttribute('gky', gk.asPoint().x())  # Rechtswert
 
@@ -515,7 +620,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             (res, outFeats) = self.siteLayer.dataProvider().addFeatures(features)
             self.siteLayer.updateExtents()
 
-            self.openSiteDialogInAddMode(siteNumber)
+            self.openSiteDialogInAddMode(siteNumber, isFilmBased)
         else:
             QMessageBox.warning(None, u"Layer Capabilities!")
 
@@ -568,6 +673,12 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         # combine both geometries
         newGeometry = oldGeometry.combine(self.polygon)
+
+        # alternative to combine: make multipart
+        #newGeometry = QgsGeometry(oldGeometry)
+        #newGeometry.convertToMultiType()
+        #newGeometry.addPartGeometry(self.polygon)
+        #newGeometry.convertToSingleType()
 
         if not self.passGeometryCheck(newGeometry):
             QMessageBox.warning(None, u"Fundort Update", u"Die Geometrie des neue Fundortpolygons ist nicht gültig.")
@@ -638,7 +749,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         # open Dialog in editMode if cancel do not commit Changes but cancel Editing some rollback!
 
-    def saveSiteEdits(self, dialog, siteNumber, polygon, oldPolygon, country):
+    def saveSiteEdits(self, dialog, siteNumber, polygon, oldPolygon, country, fSEditActions):
 
         if True: #editsSaved:
             self.siteLayer.reload()
@@ -648,48 +759,34 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             self.siteLayer.startEditing()
             feature.setGeometry(polygon)
 
-
             # if center point is not on polygon get the nearest Point
             cpGeom = polygon.centroid()
             if not polygon.contains(cpGeom):
                 cpGeom = polygon.pointOnSurface()
-            #nearestCp = polygon.nearestPoint(cpGeom)
-            #cp = nearestCp.asPoint()
             cp = cpGeom.asPoint()
             feature.setAttribute('longitude', cp.x())
             feature.setAttribute('latitude', cp.y())
 
             # Aktions
             import getpass
+            user = getpass.getuser()
             now = QDate.currentDate()
             feature.setAttribute('aktion', 'editAG')
             feature.setAttribute('aktionsdatum', now.toString("yyyy-MM-dd"))
-            feature.setAttribute('aktionsuser', getpass.getuser())
-
+            feature.setAttribute('aktionsuser', user)
+            gk = None
+            meridian = None
+            epsgGK = None
             if country == 'AUT':
                 # get meridian and epsg Code
                 meridian, epsgGK = GetMeridianAndEpsgGK(cp.x())
-                # lon = cp.x()
-                # if lon < 11.8333333333:
-                #     meridian = 28
-                #     epsgGK = 31254
-                # elif lon > 14.8333333333:
-                #     meridian = 34
-                #     epsgGK = 31256
-                # else:
-                #     meridian = 31
-                #     epsgGK = 31255
                 feature.setAttribute('meridian', meridian)
-
-                gk = TransformGeometry(QgsGeometry(self.point), self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
-                # gk = QgsGeometry(cpGeom)
-                # destGK = QgsCoordinateReferenceSystem()
-                # destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                # ctGK = QgsCoordinateTransform(self.siteLayer.crs(), destGK)
-                # gk.transform(ctGK)
+                # get KG Coordinates
+                gk = TransformGeometry(cpGeom, self.siteLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
                 feature.setAttribute('gkx', gk.asPoint().y())  # Hochwert
                 feature.setAttribute('gky', gk.asPoint().x())  # Rechtswert
 
+            # Fundstellen des Fundortes Editieren
             uri = QgsDataSourceURI()
             uri.setDatabase(self.dbm.db.databaseName())
             uri.setDataSource('', 'fundstelle', 'geometry')
@@ -697,28 +794,67 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             findSpotLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
 
             if findSpotLayer.featureCount() > 0:
-                #QMessageBox.warning(None, u"Fundort Update", u"{0}.".format(oldPolygon))
-                if self.allGeometriesEquals(findSpotLayer, oldPolygon):
-                    QMessageBox.warning(None, u"Fundort Update", u"Alle FS sind dem FO Ident")
-                    findSpotLayer.startEditing()
-                    fSIter = findSpotLayer.getFeatures()
-                    for fSFeature in fSIter:
+                logs = []
+                findSpotLayer.startEditing()
+                fSIter = findSpotLayer.getFeatures()
+                for fSFeature in fSIter:
+                    fSGeom = fSFeature.geometry()
+                    sN = fSFeature.attribute("fundortnummer")
+                    fSN = fSFeature.attribute("fundstellenummer")
+                    fSNumber = u"{0}.{1}".format(sN, fSN)
+
+                    if fSEditActions[fSNumber] == 1:
+                        # findSpot Polygon gets same geometry, attributes as sitePolygon
                         fSFeature.setGeometry(polygon)
-                        #geom = fSFeature.geometry()
-                        findSpotLayer.updateFeature(fSFeature)
-                    findSpotLayer.commitChanges()
-                else:
-                    QMessageBox.warning(None, u"Fundort Update", u"FS sind unterscheiden sich vom FO")
-                    findSpotLayer.startEditing()
-                    fSIter = findSpotLayer.getFeatures()
-                    for fSFeature in fSIter:
-                        geom = fSFeature.geometry()
-                        fSFeature.setGeometry(geom.intersection(polygon))
-                        findSpotLayer.updateFeature(fSFeature)
-                    findSpotLayer.commitChanges()
+                        #area allready commited in siteLayer
+                        fSFeature.setAttribute('flaeche', feature.attribute('flaeche'))
+                        #other values (above) not yet commited, so use values/variables from above
+                        fSFeature.setAttribute('longitude', cp.x())
+                        fSFeature.setAttribute('latitude', cp.y())
+                        if country == 'AUT':
+                            fSFeature.setAttribute('meridian', meridian)
+                            fSFeature.setAttribute('gkx', gk.asPoint().y())  # Hochwert
+                            fSFeature.setAttribute('gky', gk.asPoint().x())  # Rechtswert
+
+                        fSFeature.setAttribute('aktion', 'editG1')
+                        logs.append([u"editG1", sN, fSN])
+                    elif fSEditActions[fSNumber] == 2:
+                        # findSpot Polygon is different from sitePolygon
+                        pol = fSGeom.intersection(polygon)
+                        fSFeature.setGeometry(pol)
+                        fSFeature.setAttribute('flaeche', self.siteAreaHa(pol))
+
+                        # if center point is not on polygon get the nearest Point
+                        cpPol = pol.centroid()
+                        if not pol.contains(cpPol):
+                            cpPol = pol.pointOnSurface()
+                        cpP = cpPol.asPoint()
+                        fSFeature.setAttribute('longitude', cpP.x())
+                        fSFeature.setAttribute('latitude', cpP.y())
+                        if country == 'AUT':
+                            #since find spot is always within site, use meridian of site
+                            fSFeature.setAttribute('meridian', meridian)
+                            gkFS = TransformGeometry(cpPol, findSpotLayer.crs(),QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+                            fSFeature.setAttribute('gkx', gkFS.asPoint().y())  # Hochwert
+                            fSFeature.setAttribute('gky', gkFS.asPoint().x())  # Rechtswert
+
+                        fSFeature.setAttribute('aktion', 'editG2')
+                        logs.append([u"editG2", sN, fSN])
+
+                    if fSEditActions[fSNumber] == 1 or fSEditActions[fSNumber] == 2:
+                        fSFeature.setAttribute('datum_aenderung', now.toString("yyyy-MM-dd"))
+                        fSFeature.setAttribute('aktionsdatum', now.toString("yyyy-MM-dd"))
+                        fSFeature.setAttribute('aktionsuser', user)
+
+                    findSpotLayer.updateFeature(fSFeature)
 
 
-            QMessageBox.warning(None, u"Fundort Update", u"{0} Fundstellen für Fundort {1} wurden angepasst.".format(findSpotLayer.featureCount(), siteNumber))
+                commitRes = findSpotLayer.commitChanges()
+
+                #log
+                if commitRes:
+                    for log in logs:
+                        self.apisLogger(log[0], u"fundstelle", u"fundortnummer = '{0}' AND fundstellenummer = {1}".format(log[1], log[2]))
 
             self.siteLayer.updateFeature(feature)
             self.siteLayer.commitChanges()
@@ -923,9 +1059,9 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         self.siteLayer.setSelectedFeatures( id )
 
 
-    def openSiteDialogInAddMode(self, siteNumber):
+    def openSiteDialogInAddMode(self, siteNumber, isFilmBased):
         siteDlgAdd = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
-        siteDlgAdd.openInAddMode(siteNumber)
+        siteDlgAdd.openInAddMode(siteNumber, isFilmBased)
         siteDlgAdd.show()
         # Run the dialog event loop
 
@@ -945,14 +1081,20 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         siteDlgEdit.siteAndGeometryEditsCanceled.connect(self.discardSiteEdits)
         siteDlgEdit.openInEditMode(siteNumber, newPolygon, oldPolygon, country, kgCode, kgName, siteArea)
         siteDlgEdit.show()
-
+        #QMessageBox.information(None, "info", u"{0}".format(res1))
+        #if siteDlgEdit.isActive:
         res = siteDlgEdit.exec_()
-
         siteDlgEdit.removeSitesFromSiteMapCanvas()
+        self.onCancelAnyEdits()
+        #else:
+            #self.onCancelAnyEdits()
+
+
         # were edits saved (if not do not alter geometry)
-        isGeometrySaved = siteDlgEdit.isGeometrySaved()
+        #isGeometrySaved = siteDlgEdit.isGeometrySaved()
         #QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"res: {0}".format(editStatus)))
-        return isGeometrySaved
+
+        return
 
             # Do something useful here - delete the line containing pass and
             # substitute with your code.

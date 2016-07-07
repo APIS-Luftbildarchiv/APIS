@@ -974,11 +974,13 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
                         value = '1'
             if value.strip() == "":
                 flag = True
+                # ROT wenn Plichtfeld leer
                 mEditor.setStyleSheet("{0} {{background-color: rgb(240, 160, 160);}}".format(cName))
                 if mEditor not in self.editorsEdited:
                     self.editorsEdited.append(mEditor)
             else:
                 if mEditor in self.editorsEdited:
+                    # BLAU wenn Pflichtfeld nicht leer und editiert
                     mEditor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(cName))
                 #else:
                     #mEditor.setStyleSheet("")

@@ -23,6 +23,7 @@
 
 from PyQt4.QtCore import QSettings, QTranslator
 from PyQt4.QtGui import *
+from PyQt4.QtSql import QSqlQuery
 from qgis.core import QgsGeometry, QgsCoordinateTransform
 import os.path
 
@@ -101,3 +102,11 @@ def TransformGeometry(geom, srcCrs, destCrs):
 # ---------------------------------------------------------------------------
 # Common DB Checks / Geometry Checks
 # ---------------------------------------------------------------------------
+
+# FIXME : relocate to apis_site_dialog.py if only usage is apis_site_dialog:showEvent()
+def SiteHasFindSpot(db, siteNumber):
+    qryStr = u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber)
+    query = QSqlQuery(db)
+    query.exec_(qryStr)
+    query.first()
+    return query.value(0)

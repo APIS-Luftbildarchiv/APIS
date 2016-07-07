@@ -23,6 +23,8 @@ from apis_sharding_selection_list_dialog import *
 from apis_findspot_dialog import *
 from apis_findspot_selection_list_dialog import *
 from apis_representative_image_dialog import *
+from apis_site_edit_findspot_handling_dialog import *
+from apis_utils import *
 
 from functools import partial
 import subprocess
@@ -51,7 +53,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     #FIRST, PREV, NEXT, LAST = range(4)
     siteEditsSaved = pyqtSignal(bool)
     siteDeleted = pyqtSignal(bool)
-    siteAndGeometryEditsSaved = pyqtSignal(QDialog, str, QgsGeometry, QgsGeometry, str)
+    siteAndGeometryEditsSaved = pyqtSignal(QDialog, str, QgsGeometry, QgsGeometry, str, dict)
     siteAndGeometryEditsCanceled = pyqtSignal(QDialog)
     copyImageFinished = pyqtSignal(bool)
 
@@ -72,6 +74,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.isGeometryEditingSaved = False
         self.repImageLoaded = False
         self.repImagePath = None
+        #self.isActive = None
         # Signals/Slot Connections
         self.rejected.connect(self.onReject)
         #self.uiButtonBox.rejected.connect(self.onReject)
@@ -111,6 +114,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         # Setup Sub-Dialogs
         self.findSpotDlg = None
         self.shardingDlg = None
+        self.findSpotHandlingDlg = None
 
         self.uiLoadSiteInQGisBtn.clicked.connect(self.loadSiteInQGis)
         self.uiLoadSiteInterpretationInQGisBtn.clicked.connect(self.loadSiteInterpretationInQGis)
@@ -190,11 +194,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             self.uiAreaEdit.setText(unicode(siteArea))
 
 
-
-    def openInAddMode(self, siteNumber):
+    def openInAddMode(self, siteNumber, isFilmBased):
         self.initalLoad = True
         self.siteNumber = siteNumber
-
+        self.isFilmBased = isFilmBased
 
         # Setup site model
         self.model = QSqlRelationalTableModel(self, self.dbm.db)
@@ -668,17 +671,25 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                         value = '1'
             if value.strip() == "":
                 flag = True
+                # RED
                 mEditor.setStyleSheet("{0} {{background-color: rgb(240, 160, 160);}}".format(cName))
                 if mEditor not in self.editorsEdited:
                     self.editorsEdited.append(mEditor)
             else:
                 if mEditor in self.editorsEdited:
+                    #BLUE
                     mEditor.setStyleSheet("{0} {{background-color: rgb(153, 204, 255);}}".format(cName))
                 #else:
                     #mEditor.setStyleSheet("")
         if flag:
             QMessageBox.warning(None, self.tr(u"Benötigte Felder Ausfüllen"), self.tr(u"Füllen Sie bitte alle Felder aus, die mit * gekennzeichnet sind."))
             return False
+
+        # Check if fins spots will change due to site geometry edits
+        if self.geometryEditing and SiteHasFindSpot(self.dbm.db, self.siteNumber): # SiteHasFindSpot in apis_utils.py
+            fSEditActions = self.openSiteEditFindSpotHandlingDialog()
+            if fSEditActions == None:
+                return True #Only return False if Dialog should be shown again
 
         #saveToModel
         currIdx = self.mapper.currentIndex()
@@ -700,7 +711,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         #emit signal
         self.siteEditsSaved.emit(True)
         if self.geometryEditing:
-            self.siteAndGeometryEditsSaved.emit(self, self.siteNumber, self.newPolygon, self.oldPolygon, self.country)
+            self.siteAndGeometryEditsSaved.emit(self, self.siteNumber, self.newPolygon, self.oldPolygon, self.country, fSEditActions)
             self.geometryEditing = False
         else:
             # log only if not geometryEditing envolved, otherwise log in site_mapping_dialog.saveSiteEdits()
@@ -1347,13 +1358,14 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             self.rubberBand = None
 
         siteLayer = QgsMapLayerRegistry.instance().mapLayer(self.siteLayerId)
-        siteLayer.reload()
-        siteLayer.updateExtents()
-        extent = siteLayer.extent()
-        extent.scale(1.1)
-        targetExtent = self.uiSiteMapCanvas.mapSettings().layerExtentToOutputExtent(siteLayer, extent)
-        self.uiSiteMapCanvas.refresh()
-        self.uiSiteMapCanvas.setExtent(targetExtent)
+        if siteLayer:
+            siteLayer.reload()
+            siteLayer.updateExtents()
+            extent = siteLayer.extent()
+            extent.scale(1.1)
+            targetExtent = self.uiSiteMapCanvas.mapSettings().layerExtentToOutputExtent(siteLayer, extent)
+            self.uiSiteMapCanvas.refresh()
+            self.uiSiteMapCanvas.setExtent(targetExtent)
         #self.saveCanvasAsImage()
         #self.uiSiteMapCanvas.refreshAllLayers()
 
@@ -1471,13 +1483,43 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.uiSiteImageView.fitInView(self.rect, Qt.KeepAspectRatio)
 
 
+    def openSiteEditFindSpotHandlingDialog(self):
+        if self.findSpotHandlingDlg == None:
+            self.findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, {self.siteNumber: [self.newPolygon, self.oldPolygon, self.newPolygon.buffer(0.0001, 12)]})
+        res = self.findSpotHandlingDlg.exec_()
+        if res:
+            # fortfahren, get desissions made ...
+            #QMessageBox.information(None, u"FO Updates", u"Fortfahren")
+            actions = self.findSpotHandlingDlg.getActions()
+            return actions
+        else:
+            # cancel all edits and close dialog
+            # QMessageBox.information(None, u"FO Updates", u"Abbrechen")
+            return None
+
+
     def showEvent(self, event):
         self.loadRepresentativeImageForSite()
+        #self.isActive = True
+        if self.addMode and self.isFilmBased:
+            self.openRepresentativeImageDialog()
+
+        # if self.editMode and not self.addMode:
+            # QMessageBox.information(None, u"Auswirkung auf Fundorte", u"Auswirkungen auf Fundorte!")
+            # if siteHasFindSpots open assessment dialog
+            # if SiteHasFindSpot(self.dbm.db, self.siteNumber): # SiteHasFindSpot in apis_utils.py
+                # res = self.openSiteEditFindSpotHandlingDialog()
+                # if not res:
+                    #self.isActive = False
+
 
     def resizeEvent(self, event):
         if self.repImageLoaded:
             self.uiSiteImageView.fitInView(self.rect, Qt.KeepAspectRatio)
         #QMessageBox.information(None, "resize site dialog", "resized")
+
+
+
 
 class SiteDelegate(QSqlRelationalDelegate):
     def __init__(self):
