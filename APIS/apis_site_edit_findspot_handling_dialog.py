@@ -74,7 +74,7 @@ class ApisSiteEditFindSpotHandlingDialog(QDialog, Ui_apisSiteEditFindSpotHandlin
         uri.setDataSource('', 'fundstelle', 'geometry')
         findSpotLayer = QgsVectorLayer(uri.uri(), u'Fundstelle', 'spatialite')
         findSpotLayer.setSubsetString(u'"fundortnummer" IN ({0})'.format(sites))
-        QMessageBox.information(None, 'Error', u"{0}".format(findSpotLayer.featureCount()))
+
         if findSpotLayer.featureCount() > 0:
             fSIter = findSpotLayer.getFeatures()
             for fSFeature in fSIter:
@@ -83,7 +83,15 @@ class ApisSiteEditFindSpotHandlingDialog(QDialog, Ui_apisSiteEditFindSpotHandlin
                 fSN = fSFeature.attribute("fundstellenummer")
 
                 fSNumber = u"{0}.{1}".format(sN,fSN)
-
+                #QMessageBox.information(None, 'Error', u"{0}, {1}, {2}".format(self.polygonDict[sN][0], self.polygonDict[sN][1], self.polygonDict[sN][2]))
+                #dj0 = self.polygonDict[sN][0].disjoint(fSGeom)
+                #tc0 = self.polygonDict[sN][0].touches(fSGeom)
+                #eq0 = self.polygonDict[sN][0].equals(fSGeom)
+                #co0 = self.polygonDict[sN][0].contains(fSGeom)
+                #co2 = self.polygonDict[sN][2].contains(fSGeom)
+                #eq1 = fSGeom.equals(self.polygonDict[sN][1])
+                #wi0 = self.polygonDict[sN][0].within(fSGeom)
+                #ol0 = self.polygonDict[sN][0].overlaps(fSGeom)
                 if self.polygonDict[sN][0].disjoint(fSGeom):
                     relationship = "disjoint"
                     action = [self.ACTION_1]
@@ -111,7 +119,6 @@ class ApisSiteEditFindSpotHandlingDialog(QDialog, Ui_apisSiteEditFindSpotHandlin
                 else:
                     relationship = "error"
                     action = []
-                    #fSFeature.setGeometry(polygon)
 
                 rowPos = self.uiFindSpotAssessmentTable.rowCount()
                 self.uiFindSpotAssessmentTable.insertRow(rowPos)

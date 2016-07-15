@@ -10,6 +10,7 @@ from PyQt4.QtXml import *
 from qgis.core import *
 from qgis.gui import *
 import pyexiv2 as exiv
+from apis_utils import *
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 
@@ -60,11 +61,13 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
             return False
 
         #filmNumberCP = set([feature["Image"].split('_')[0] for feature in self.sourceLayerCP.getFeatures()])
-        #if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != self.filmToFilmLegacy(self.filmId):
+        # TODO RM if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != IdToIdLegacy(self.filmId):    #TODO: DELETE LEGACY MODE
+        # if len(filmNumberCP) != 1 or list(filmNumberCP)[0] != self.filmId:
         #    return False
 
         #filmNumberFP = set([feature["Image"].split('_')[0]for feature in self.sourceLayerFP.getFeatures()])
-        #if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != self.filmToFilmLegacy(self.filmId):
+        #TODO RM if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != IdToIdLegacy(self.filmId):         # TODO: DELETE LEGACY MODE
+        # if len(filmNumberFP) != 1 or list(filmNumberFP)[0] != self.filmId:
         #    return False
 
         return True
@@ -84,8 +87,10 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
     def getExifForImage(self, imageNumber):
         exif = [None, None, None, None, None, None]
         dirName = self.settings.value("APIS/image_dir")
-        imageName = self.imageToImageLegacy(imageNumber).replace('.','_') + '.jpg'
-        image = os.path.normpath(dirName+'\\'+self.filmToFilmLegacy(self.filmId)+'\\'+imageName)
+        #TODO RM imageName = IdToIdLegacy(imageNumber).replace('.','_') + '.jpg'       # TODO: RM LEGACY
+        imageName = imageNumber.replace('.', '_') + '.jpg'
+        #TODO RM image = os.path.normpath(dirName+'\\'+IdToIdLegacy(self.filmId)+'\\'+imageName)      # TODO: RM LEGACY
+        image = os.path.normpath(dirName+'\\'+self.filmId+'\\'+imageName)
         #QMessageBox.warning(None, u"exif", image)
 
         if os.path.isfile(image):
@@ -114,21 +119,6 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
 
         return exif
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
-
-    def imageToImageLegacy(self, image):
-        mil = ""
-        if image[2:4] == "19":
-            mil = "01"
-        elif image[2:4] == "20":
-            mil = "02"
-        return mil + image[4:]
 
     def run(self):
 

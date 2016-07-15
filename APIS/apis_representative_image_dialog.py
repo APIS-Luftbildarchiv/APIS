@@ -112,27 +112,11 @@ class ApisRepresentativeImageDialog(QDialog, Ui_apisRepresentativeImageDialog):
     def populateAvailableImagesCombo(self, idx=None):
         self.filmNumber = self.uiFilmNumberCombo.currentText()
         # query image registry
-        availableImages = self.imageRegistry.getImageRegistryForFilm(self.imageToImageLegacy(self.filmNumber))
+        #TODO RM availableImages = self.imageRegistry.getImageRegistryForFilm(IdToIdLegacy(self.filmNumber))
+        availableImages = self.imageRegistry.getImageRegistryForFilm(self.filmNumber)
         self.uiAvailableImagesCombo.clear()
         self.uiAvailableImagesCombo.addItems(availableImages)
         self.uiAvailableImagesCombo.setCurrentIndex(-1)
-
-
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
-
-    def imageToImageLegacy(self, image):
-        mil = ""
-        if image[2:4] == "19":
-            mil = "01"
-        elif image[2:4] == "20":
-            mil = "02"
-        return mil + image[4:]
 
 
     def isFilm(self, filmNumber):
@@ -174,7 +158,8 @@ class ApisRepresentativeImageDialog(QDialog, Ui_apisRepresentativeImageDialog):
     def loadNewImageByFilm(self):
         # generatePath
         imgDir = self.settings.value("APIS/image_dir")
-        filmDir = self.filmToFilmLegacy(self.filmNumber)
+        #TODO RM filmDir = IdToIdLegacy(self.filmNumber)
+        filmDir = self.filmNumber
         self.newPath = os.path.normpath(imgDir +  "\\" + filmDir + "\\" + self.uiAvailableImagesCombo.currentText().replace('.','_') + ".jpg")
         self.uiImagePathLbl.setText(self.newPath)
         self.loadImage(self.newPath)

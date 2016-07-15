@@ -224,9 +224,11 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                 printLayers = []
                 flightpathDir = self.settings.value("APIS/flightpath_dir")
                 #uri = flightpathDir + "\\2014\\02140301_lin.shp"
-                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_lin.shp"
+                #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_lin.shp"
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_lin.shp"
                 if not os.path.isfile(uri):
-                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_gps.shp"
                     if not os.path.isfile(uri):
                         uri = None  # flightpathDir + "\\2014\\02140301_lin.shp"
                         # FIXME: Create From GPS; KARTIERUNG
@@ -376,9 +378,11 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
                 # Vector Layer
                 flightpathDir = self.settings.value("APIS/flightpath_dir")
-                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_lin.shp"
+                #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_lin.shp"
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_lin.shp"
                 if not os.path.isfile(uri):
-                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                    uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_gps.shp"
                     if not os.path.isfile(uri):
                         if filmDict["weise"] == u"senk.":
                             w = u"senk"
@@ -704,10 +708,13 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                 mappedImages = query.value(0)
 
                 #imageDir = self.settings.value("APIS/image_dir")
-                #filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(filmid))
+                #TODO RM filmDirName = imageDir + "\\{0}".format(IdToIdLegacy(filmid))
+                #filmDirName = imageDir + "\\{0}".format(filmid)
                 #filmDir = QDir(filmDirName)
-                #scanns = len(filmDir.entryList([self.filmToFilmLegacy(filmid)+"_*.jpg"], QDir.Files))
-                scanns = self.imageRegistry.hasImageRE(self.filmToFilmLegacy(filmid)+"_.+")
+                #TODO RM scanns = len(filmDir.entryList([IdToIdLegacy(filmid)+"_*.jpg"], QDir.Files))
+                # scanns = len(filmDir.entryList([filmid+"_*.jpg"], QDir.Files))
+                #TODO RM scanns = self.imageRegistry.hasImageRE(IdToIdLegacy(filmid)+"_.+")
+                scanns = self.imageRegistry.hasImageRE(filmid+"_.+")
 
                 #imageTab.addRow([str(imageCountTotal).zfill(len(str(len(imageList))))])
                 filmTab.addRow([str(filmCountTotal).zfill(len(str(len(filmList))))] + [unicode(item) for item in filmRow] + [unicode(mappedImages), unicode(scanns)])
@@ -746,13 +753,6 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
             except Exception, e:
                 pass
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
 
     def onAccepted(self):
         self.accept()

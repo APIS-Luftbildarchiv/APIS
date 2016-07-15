@@ -57,7 +57,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         self.uiFilterScanChk.stateChanged.connect(self.applyFilter)
         self.uiFilterHiResChk.stateChanged.connect(self.applyFilter)
         self.uiFilterOrthoChk.stateChanged.connect(self.applyFilter)
-        self.uiFilterScaleEdit.setValidator(QIntValidator())
+        self.uiFilterScaleEdit.setValidator(QDoubleValidator())
         self.uiFilterScaleEdit.textEdited.connect(self.applyFilter)
         self.uiFilterScaleOperatorCombo.currentIndexChanged.connect(self.applyFilter)
         self.uiFilterFilmKindChk.stateChanged.connect(self.applyFilter)
@@ -111,19 +111,22 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 newRow.append(newCol)
 
             #scan
-            #fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_'))
+            #TODO RM fileName = imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(rec.value("filmnummer")), IdToIdLegacy(rec.value("bildnummer")).replace('.','_'))
+            fileName = imageDir + "\\{0}\\{1}.jpg".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_'))
             #if os.path.isfile(os.path.normpath(fileName)):
             #    newRow.append(QStandardItem("ja"))
             #else:
             #    newRow.append(QStandardItem("nein"))
-            imageNumber = self.imageToImageLegacy(rec.value("bildnummer"))
+            #TODO RM imageNumber = IdToIdLegacy(rec.value("bildnummer"))
+            imageNumber = rec.value("bildnummer")
             if self.imageRegistry.hasImage(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
 
             #ortho
-            #fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')))
+            #TODO RM #fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(IdToIdLegacy(rec.value("filmnummer")), IdToIdLegacy(rec.value("bildnummer")).replace('.','_')))
+            #fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_')))
             #if fileNames:
             if self.imageRegistry.hasOrtho(imageNumber):
                 newRow.append(QStandardItem("ja"))
@@ -135,14 +138,16 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 newRow.append(QStandardItem("ja"))
             else:
                 newRow.append(QStandardItem("nein"))
-            # filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(rec.value("filmnummer")))
+            #TODO RM # filmDirName = imageDir + "\\{0}".format(IdToIdLegacy(rec.value("filmnummer")))
+            # filmDirName = imageDir + "\\{0}".format(rec.value("filmnummer"))
             # filmDir = QDir(filmDirName)
             # hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
             # if len(hiResDirs) > 0:
             #     hasHiRes = "nein"
             #     for hiResDirName in hiResDirs:
             #         hiResDir = QDir(filmDirName + "\\" + hiResDirName)
-            #         hiResFiles = hiResDir.entryList([self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #TODO RM          hiResFiles = hiResDir.entryList([IdToIdLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #         hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
             #         if len(hiResFiles) > 0:
             #             #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
             #             #newRow.append(QStandardItem("ja"))
@@ -217,7 +222,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 newRow.append(newCol)
 
             #scan
-            imageNumber = self.imageToImageLegacy(rec.value("bildnummer"))
+            #TODO RM imageNumber = IdToIdLegacy(rec.value("bildnummer"))
+            imageNumber = rec.value("bildnummer")
             if self.imageRegistry.hasImage(imageNumber):
                 newRow.append(QStandardItem("ja"))
             else:
@@ -235,28 +241,32 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             else:
                 newRow.append(QStandardItem("nein"))
             #scan
-            # fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_'))
+            #TODO RM # fileName = imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(rec.value("filmnummer")), IdToIdLegacy(rec.value("bildnummer")).replace('.','_'))
+            # fileName = imageDir + "\\{0}\\{1}.jpg".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_'))
             # if os.path.isfile(os.path.normpath(fileName)):
             #     newRow.append(QStandardItem("ja"))
             # else:
             #     newRow.append(QStandardItem("nein"))
             #
             # #ortho
-            # fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(rec.value("filmnummer")), self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')))
+            #TODO RM   # fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(IdToIdLegacy(rec.value("filmnummer")), IdToIdLegacy(rec.value("bildnummer")).replace('.','_')))
+            # fileNames = glob.glob(orthoDir + "\\{0}\\{1}_op*.*".format(rec.value("filmnummer"), rec.value("bildnummer").replace('.','_')))
             # if fileNames:
             #     newRow.append(QStandardItem("ja"))
             # else:
             #     newRow.append(QStandardItem("nein"))
             #
             # #hires
-            # filmDirName = imageDir + "\\{0}".format(self.filmToFilmLegacy(rec.value("filmnummer")))
+            #TODO RM # filmDirName = imageDir + "\\{0}".format(IdToIdLegacy(rec.value("filmnummer")))
+            # filmDirName = imageDir + "\\{0}".format(rec.value("filmnummer"))
             # filmDir = QDir(filmDirName)
             # hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
             # if len(hiResDirs) > 0:
             #     hasHiRes = "nein"
             #     for hiResDirName in hiResDirs:
             #         hiResDir = QDir(filmDirName + "\\" + hiResDirName)
-            #         hiResFiles = hiResDir.entryList([self.imageToImageLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #TODO RM          hiResFiles = hiResDir.entryList([IdToIdLegacy(rec.value("bildnummer")).replace('.','_')+"*"], QDir.Files)
+            #         hiResFiles = hiResDir.entryList([rec.value("bildnummer").replace('.','_')+"*"], QDir.Files)
             #         if len(hiResFiles) > 0:
             #             #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
             #             #newRow.append(QStandardItem("ja"))
@@ -428,7 +438,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
     def viewImage(self):
         r = self.uiImageListTableV.currentIndex().row()
         imageDir = self.settings.value("APIS/image_dir")
-        fileName = imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(self.model.item(r, 1).text()), self.imageToImageLegacy(self.model.item(r, 0).text()).replace('.','_'))
+        #TODO RM fileName = imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(self.model.item(r, 1).text()), IdToIdLegacy(self.model.item(r, 0).text()).replace('.','_'))
+        fileName = imageDir + "\\{0}\\{1}.jpg".format(self.model.item(r, 1).text(), self.model.item(r, 0).text().replace('.','_'))
         if os.path.isfile(os.path.normpath(fileName)):
             if sys.platform == 'linux2':
                 subprocess.call(["xdg-open", fileName])
@@ -480,7 +491,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         imageDir = self.settings.value("APIS/image_dir")
 
         for image in imageList:
-            imagePathList.append(os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(image.split('.')[0]), self.imageToImageLegacy(image).replace('.','_'))))
+            #TODO RM imagePathList.append(os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(image.split('.')[0]), IdToIdLegacy(image).replace('.','_'))))
+            imagePathList.append(os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(image.split('.')[0], image.replace('.','_'))))
 
         #QMessageBox.warning(None, "BildNumber", "{0}".format(', '.join(imagePathList)))
         #app = QtGui.QApplication([])
@@ -502,7 +514,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         orthoDir = self.settings.value("APIS/ortho_image_dir")
 
         for ortho in orthoList:
-            orthoFileNames = glob.glob(os.path.normpath(orthoDir + "\\{0}\\{1}_op*.*".format(self.filmToFilmLegacy(ortho.split('.')[0]), self.imageToImageLegacy(ortho).replace('.','_'))))
+            #TODO RM rthoFileNames = glob.glob(os.path.normpath(orthoDir + "\\{0}\\{1}_op*.*".format(IdToIdLegacy(ortho.split('.')[0]), IdToIdLegacy(ortho).replace('.','_'))))
+            orthoFileNames = glob.glob(os.path.normpath(orthoDir + "\\{0}\\{1}_op*.*".format(ortho.split('.')[0], ortho.replace('.','_'))))
             for orthoFile in orthoFileNames:
                 if os.path.splitext(orthoFile)[1] in ['.sid', '.tif', '.tiff', '.jpg']:
                     fileInfo = QFileInfo(orthoFile)
@@ -667,7 +680,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 #ask if normal, hires, oder beides?
                 msgBox = QMessageBox()
                 msgBox.setWindowTitle(u'Bilder Kopieren')
-                msgBox.setText(u'Neben Bilder mit normaler Auflösung stehen Bilder mit hoher Auflösung zur Verfügung. Welche wollen Sie kopieren?')
+                msgBox.setText(u'Neben Bildern mit normaler Auflösung stehen Bilder mit hoher Auflösung zur Verfügung. Welche wollen Sie kopieren?')
                 msgBox.addButton(QPushButton(u'Normale Auflösung'), QMessageBox.ActionRole)
                 msgBox.addButton(QPushButton(u'Hohe Auflösung'), QMessageBox.ActionRole)
                 msgBox.addButton(QPushButton(u'Alle Auflösungen'), QMessageBox.ActionRole)
@@ -701,7 +714,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                             destinationDir.mkdir(filmDirName)
 
                         if loRes:
-                            sourceFileName = os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(self.filmToFilmLegacy(filmDirName), self.imageToImageLegacy(image).replace('.','_')))
+                            #TODO RM sourceFileName = os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(filmDirName), IdToIdLegacy(image).replace('.','_')))
+                            sourceFileName = os.path.normpath(imageDir + "\\{0}\\{1}.jpg".format(filmDirName, image.replace('.','_')))
                             destinationFileName = os.path.normpath(destinationDirName + "\\{0}\\{1}.jpg".format(filmDirName, image.replace('.','_')))
                             #MessageBox.warning(None, "Bilder kopieren", u"SourceVZ: {0}, DestVZ: {1}".format(sourceFileName, destinationFileName))
                             sourceFile = QFile(sourceFileName)
@@ -711,7 +725,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                         #QMessageBox.warning(None, "Bilder kopieren", u"{0}, {1}".format(hiRes, ', '.join(hiResImageList)))
                         if hiRes and image in hiResImageList:
                             #copy hi res image files
-                            filmDirPathName = imageDir + "\\" + self.filmToFilmLegacy(filmDirName)
+                            #TODO RM filmDirPathName = imageDir + "\\" + IdToIdLegacy(filmDirName)
+                            filmDirPathName = imageDir + "\\" + filmDirName
                             filmDir = QDir(filmDirPathName)
                             hiResDirs = filmDir.entryList(["highres*", "mrsid", "raw"], QDir.Dirs)
                             if len(hiResDirs) > 0:
@@ -721,7 +736,8 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                                     if not filmDestDir.exists(hiResDirName):
                                         filmDestDir.mkdir(hiResDirName)
                                     hiResDir = QDir(filmDirPathName + "\\" + hiResDirName)
-                                    hiResFiles = hiResDir.entryList([self.imageToImageLegacy(image).replace('.','_')+"*"], QDir.Files)
+                                    #TODO RM hiResFiles = hiResDir.entryList([IdToIdLegacy(image).replace('.','_')+"*"], QDir.Files)
+                                    hiResFiles = hiResDir.entryList([image.replace('.','_')+"*"], QDir.Files)
                                     if len(hiResFiles) > 0:
                                         for hiResFile in hiResFiles:
                                             sourceHiResFileName = os.path.normpath("{0}\\{1}\\{2}".format(filmDirPathName, hiResDirName, hiResFile))
@@ -793,8 +809,10 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                     val = u"---"
                 metadataDict["APIS_" + rec.fieldName(i)] = val
 
-            if self.imageRegistry.hasImage(self.imageToImageLegacy(metadataDict["APIS_bildnummer"])):
-                imagePath = imageDir + "\\" + self.filmToFilmLegacy(metadataDict["APIS_bildnummer"][:10]) + "\\" + self.imageToImageLegacy(metadataDict["APIS_bildnummer"]).replace('.','_') + ".jpg"
+            #TODO RM if self.imageRegistry.hasImage(IdToIdLegacy(metadataDict["APIS_bildnummer"])):
+            if self.imageRegistry.hasImage(metadataDict["APIS_bildnummer"]):
+                #TODO RM imagePath = imageDir + "\\" + IdToIdLegacy(metadataDict["APIS_bildnummer"][:10]) + "\\" + IdToIdLegacy(metadataDict["APIS_bildnummer"]).replace('.','_') + ".jpg"
+                imagePath = imageDir + "\\" + metadataDict["APIS_bildnummer"][:10] + "\\" + metadataDict["APIS_bildnummer"].replace('.','_') + ".jpg"
                 if os.path.isfile(imagePath):
                     pass
                     # QMessageBox.information(None, "Image", u"{0}".format(imagePath))
@@ -1121,20 +1139,46 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                     rec = query.record()
                     if rec.value("bildnummer") == imageNumber:
                         if len(labelData['mil_nummer']) < 1:
-                            labelData['mil_nummer'].append(u"Mil#: {0}".format(rec.value("mil_num")))
+                            if rec.isNull("mil_nummer"):
+                                labelData['mil_nummer'].append(u"Mil#: -")
+                            else:
+                                labelData['mil_nummer'].append(u"Mil#: {0}".format(rec.value("mil_num")))
+
                         if len(labelData['flugdatum']) < 1:
-                            labelData['flugdatum'].append(u"Flug vom {0}".format(datetime.datetime.strptime(rec.value("flugdatum"), '%Y-%m-%d').strftime('%d.%m.%Y')))
+                            if rec.isNull("flugdatum"):
+                                labelData['flugdatum'].append(u"kein Flugdatum")
+                            else:
+                                labelData['flugdatum'].append(u"Flug vom {0}".format(datetime.datetime.strptime(rec.value("flugdatum"), '%Y-%m-%d').strftime('%d.%m.%Y')))
+
                         if len(labelData['kamera']) < 1:
-                            labelData['kamera'].append(u"Kamera: {0}".format(rec.value("kamera")))
+                            if rec.isNull("kamera"):
+                                labelData['kamera'].append(u"Kamera: -")
+                            else:
+                                labelData['kamera'].append(u"Kamera: {0}".format(rec.value("kamera")))
+
                         if len(labelData['fokus']) < 1:
-                            labelData['fokus'].append(u"Fokus: {0:.2f}".format(rec.value("fokus")))
+                            if rec.isNull("fokus"):
+                                labelData['fokus'].append(u"Fokus: -")
+                            else:
+                                labelData['fokus'].append(u"Fokus: {0:.2f}".format(float(rec.value("fokus"))))
+
                         if len(labelData['massstab']) < 1:
-                            labelData['massstab'].append(u"Mst. 1:{0}".format(int(rec.value("massstab"))))
+                            if rec.isNull("massstab"):
+                                labelData['massstab'].append(u"Mst. -")
+                            else:
+                                labelData['massstab'].append(u"Mst. 1:{0}".format(int(rec.value("massstab"))))
+
                         if len(labelData['hoehe']) < 1:
-                            labelData['hoehe'].append(u"Höhe: {0}m".format(rec.value("hoehe")))
+                            if rec.isNull("hoehe"):
+                                labelData['hoehe'].append(u"Höhe: -")
+                            else:
+                                labelData['hoehe'].append(u"Höhe: {0}m".format(rec.value("hoehe")))
 
                         if count > 0:
-                            labelData['fundort_kg'].append(rec.value("fundort_kg"))
+                            if rec.isNull("fundort_kg"):
+                                labelData['fundort_kg'].append(u"---")
+                            else:
+                                labelData['fundort_kg'].append(rec.value("fundort_kg"))
 
                 labelsData.append(labelData)
 
@@ -1183,7 +1227,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                 #Scale
                 if show and self.uiFilterScaleEdit.text().strip() != '':
                     imageScaleNumber = float(self.model.item(row, 2).text())
-                    scaleNumber = int(self.uiFilterScaleEdit.text())
+                    scaleNumber = float(self.uiFilterScaleEdit.text().replace(',', '.'))
                     operator = self.uiFilterScaleOperatorCombo.currentText()
                     if operator == '=':
                         if imageScaleNumber != scaleNumber:
@@ -1241,21 +1285,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             self.uiFilterHiResChk.setChecked(False)
             self.uiFilterOrthoChk.setChecked(False)
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
 
-    def imageToImageLegacy(self, image):
-        mil = ""
-        if image[2:4] == "19":
-            mil = "01"
-        elif image[2:4] == "20":
-            mil = "02"
-        return mil + image[4:]
 
     def onAccepted(self):
         self.accept()

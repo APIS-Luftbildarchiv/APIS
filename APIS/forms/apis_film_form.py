@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_film_form.ui'
 #
-# Created: Wed Apr 27 09:16:25 2016
+# Created: Thu Jul 14 23:24:51 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -539,6 +539,14 @@ class Ui_apisFilmDialog(object):
         self.uiInitalEntryDate.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
         self.uiInitalEntryDate.setObjectName(_fromUtf8("uiInitalEntryDate"))
         self.horizontalLayout.addWidget(self.uiInitalEntryDate)
+        self.uiInitalEntryQgsDate = QgsDateTimeEdit(self.horizontalLayoutWidget_2)
+        self.uiInitalEntryQgsDate.setMinimumSize(QtCore.QSize(0, 0))
+        self.uiInitalEntryQgsDate.setStyleSheet(_fromUtf8(".QWidget, QLineEdit, QToolButton { padding-right: 39px;}"))
+        self.uiInitalEntryQgsDate.setReadOnly(True)
+        self.uiInitalEntryQgsDate.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.uiInitalEntryQgsDate.setAllowNull(False)
+        self.uiInitalEntryQgsDate.setObjectName(_fromUtf8("uiInitalEntryQgsDate"))
+        self.horizontalLayout.addWidget(self.uiInitalEntryQgsDate)
         self.uiLastChangesLbl = QtGui.QLabel(self.horizontalLayoutWidget_2)
         self.uiLastChangesLbl.setObjectName(_fromUtf8("uiLastChangesLbl"))
         self.horizontalLayout.addWidget(self.uiLastChangesLbl)
@@ -639,6 +647,7 @@ class Ui_apisFilmDialog(object):
         self.label_38.setText(_translate("apisFilmDialog", "*", None))
         self.label_37.setText(_translate("apisFilmDialog", "*", None))
         self.label_5.setText(_translate("apisFilmDialog", "*", None))
+        self.uiFlightDate.setSpecialValueText(_translate("apisFilmDialog", "---", None))
         self.uiFlightDate.setDisplayFormat(_translate("apisFilmDialog", "dd.MM.yyyy", None))
         self.label_3.setText(_translate("apisFilmDialog", "*", None))
         self.uiFilmModeCombo.setItemText(0, _translate("apisFilmDialog", "schräg", None))
@@ -654,13 +663,17 @@ class Ui_apisFilmDialog(object):
         self.uiImageCountEdit.setToolTip(_translate("apisFilmDialog", "<html><head/><body><p>abc def</p></body></html>", None))
         self.uiArchiveLbl.setText(_translate("apisFilmDialog", "Archiv:", None))
         self.uiInitalEntryLbl.setText(_translate("apisFilmDialog", "Ersteintrag:", None))
+        self.uiInitalEntryDate.setSpecialValueText(_translate("apisFilmDialog", "---", None))
         self.uiInitalEntryDate.setDisplayFormat(_translate("apisFilmDialog", "dd.MM.yyyy", None))
+        self.uiInitalEntryQgsDate.setDisplayFormat(_translate("apisFilmDialog", "dd.MM.yyyy", None))
         self.uiLastChangesLbl.setText(_translate("apisFilmDialog", "Letzte Bearbeitung:", None))
+        self.uiLastChangesDate.setSpecialValueText(_translate("apisFilmDialog", "---", None))
         self.uiLastChangesDate.setDisplayFormat(_translate("apisFilmDialog", "dd.MM.yyyy", None))
         self.uiSaveBtn.setText(_translate("apisFilmDialog", "Speichern", None))
         self.uiCancelBtn.setText(_translate("apisFilmDialog", "Abbrechen", None))
         self.uiCancelBtn.setShortcut(_translate("apisFilmDialog", "Enter", None))
         self.uiOkBtn.setText(_translate("apisFilmDialog", "OK", None))
 
+from qgis.gui import QgsDateTimeEdit
 import resource_rc
 import composer_rc

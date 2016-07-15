@@ -307,7 +307,7 @@ class UpdateRegistryWorker(QObject):
     def updateImageRegistries(self):
         self.imageRegistry = []
         self.hiResRegistry = []
-        self.imageEntryList = self.imageDir.entryList(['????????'], QDir.Dirs)
+        self.imageEntryList = self.imageDir.entryList(['??????????'], QDir.Dirs)
         for i in self.imageEntryList:
             if self.killed is True:
                 # kill request received, exit loop early
@@ -328,14 +328,14 @@ class UpdateRegistryWorker(QObject):
                 self.hiResRegistry = self.hiResRegistry + hrEntryList
 
         if self.killed is False:
-            self.imageRegistryNE = [img[:12].replace('_','.') for img in self.imageRegistry]
-            self.hiResRegistryNE = [img[:12].replace('_','.') for img in self.hiResRegistry]
+            self.imageRegistryNE = [img[:14].replace('_','.') for img in self.imageRegistry]
+            self.hiResRegistryNE = [img[:14].replace('_','.') for img in self.hiResRegistry]
 
     def updateOrthoRegistry(self):
         import glob, os
         self.orthoRegistryNE = []
         self.orthoRegistry = []
-        self.orthoEntryList = self.orthoDir.entryList(['????????'], QDir.Dirs)
+        self.orthoEntryList = self.orthoDir.entryList(['??????????'], QDir.Dirs)
         for o in self.orthoEntryList:
             if self.killed is True:
                 # kill request received, exit loop early
@@ -345,7 +345,7 @@ class UpdateRegistryWorker(QObject):
             oEntryList = oDir.entryList(orthoFilters, QDir.Files)
             self.orthoRegistry = self.orthoRegistry + oEntryList
         if self.killed is False:
-            self.orthoRegistryNE = [img[:12].replace('_','.')  for img in self.orthoRegistry]
+            self.orthoRegistryNE = [img[:14].replace('_','.')  for img in self.orthoRegistry]
 
     finished = pyqtSignal(object)
     error = pyqtSignal(Exception, basestring)

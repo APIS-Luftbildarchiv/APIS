@@ -98,6 +98,17 @@ def TransformGeometry(geom, srcCrs, destCrs):
     geom.transform(QgsCoordinateTransform(srcCrs, destCrs))
     return geom
 
+# ---------------------------------------------------------------------------
+# Common Legacy convertions
+# ---------------------------------------------------------------------------
+
+def IdToIdLegacy(id):
+    millennium = ""
+    if id[2:4] == "19":
+        millennium = "01"
+    elif id[2:4] == "20":
+        millennium = "02"
+    return millennium + id[4:]
 
 # ---------------------------------------------------------------------------
 # Common DB Checks / Geometry Checks
@@ -106,6 +117,14 @@ def TransformGeometry(geom, srcCrs, destCrs):
 # FIXME : relocate to apis_site_dialog.py if only usage is apis_site_dialog:showEvent()
 def SiteHasFindSpot(db, siteNumber):
     qryStr = u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber)
+    query = QSqlQuery(db)
+    query.exec_(qryStr)
+    query.first()
+    return query.value(0)
+
+def SitesHaveFindSpots(db, siteNumbers):
+    sites = u", ".join(u"'{0}'".format(siteNumber) for siteNumber in siteNumbers)
+    qryStr = u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer IN ({0})".format(sites)
     query = QSqlQuery(db)
     query.exec_(qryStr)
     query.first()

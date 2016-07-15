@@ -1112,13 +1112,29 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     def loadSiteInterpretationInQGis(self):
         siteNumber = self.uiSiteNumberEdit.text()
-        subsetString = u'"fundortnummer" = "{0}"'.format(siteNumber)
-        siteInterpretationLayer = self.getSpatialiteLayer(u"fundort_interpretation", subsetString, u"fundort interpretation {0}".format(siteNumber))
-        count = siteInterpretationLayer.dataProvider().featureCount()
-        if count > 0:
-            QgsMapLayerRegistry.instance().addMapLayer(siteInterpretationLayer)
+        kgName = self.uiCadastralCommunityEdit.text().lower().replace(".","").replace("-", " ").replace("(","").replace(")", "")
+        #Generate Path
+        country, siteNumberN = siteNumber.split(".")
+        siteNumberN = siteNumberN.zfill(6)
+        intBaseDir = self.settings.value("APIS/int_base_dir")
+        intDir = self.settings.value("APIS/int_dir")
+        shpFile = u"luftint_{0}.shp".format(siteNumberN)
+        intShpPath = os.path.normpath(os.path.join(intBaseDir, country, u"{0} {1}".format(kgName, siteNumberN), intDir, shpFile))
+
+
+        if os.path.isfile(intShpPath):
+            QMessageBox.information(None, u"Interpretation", intShpPath)
+            # TODO load with ApisLayerHandling Into Group Interpretationen
         else:
-            QMessageBox.warning(None, u"Fundort Interpretation", u"Für den Fundort ist keine Interpretation vorhanden.")
+            QMessageBox.warning(None, u"Fundort Interpretation", u"Für den Fundort {0} ist keine Interpretation vorhanden.".format(siteNumber))
+
+        # subsetString = u'"fundortnummer" = "{0}"'.format(siteNumber)
+        # siteInterpretationLayer = self.getSpatialiteLayer(u"fundort_interpretation", subsetString, u"fundort interpretation {0}".format(siteNumber))
+        # count = siteInterpretationLayer.dataProvider().featureCount()
+        # if count > 0:
+        #     QgsMapLayerRegistry.instance().addMapLayer(siteInterpretationLayer)
+        # else:
+        #     QMessageBox.warning(None, u"Fundort Interpretation", u"Für den Fundort ist keine Interpretation vorhanden.")
 
     def askForGeometryType(self):
         # Abfrage ob Fundorte der selektierten Bilder Exportieren oder alle
@@ -1349,7 +1365,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         targetExtent = self.uiSiteMapCanvas.mapSettings().layerExtentToOutputExtent(siteLayer, extent)
 
         self.uiSiteMapCanvas.setExtent(targetExtent)
-       #self.saveCanvasAsImage()
+       # self.saveCanvasAsImage() # FIXME: DELTETE NOT NEEDED
        # self.uiSiteMapCanvas.zoomToFeatureIds(siteLayer, set([0]))
 
     def reloadMapCanvas(self):

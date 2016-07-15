@@ -9,6 +9,7 @@ from PyQt4.QtSql import QSqlQuery
 from qgis.core import *
 
 from apis_points2path import Points2Path
+from apis_utils import IdToIdLegacy         # TODO RM LEGACY
 
 import sys
 import os.path
@@ -64,13 +65,16 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
             availability = [False] * 4
             flightPathDirectory = self.settings.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(film)
             if os.path.isdir(flightPathDirectory):
-                availability[0] = os.path.isfile(flightPathDirectory + "\\" + self.filmToFilmLegacy(film) + ".shp")
+                # TODO RM availability[0] = os.path.isfile(flightPathDirectory + "\\" + IdToIdLegacy(film) + ".shp")     TODO RM LEGACY
+                availability[0] = os.path.isfile(flightPathDirectory + "\\" + film + ".shp")
                 if availability[0]:
                     chkAvailability[0] = True
-                availability[1] = os.path.isfile(flightPathDirectory + "\\" + self.filmToFilmLegacy(film) + "_lin.shp")
+                # TODO RM availability[1] = os.path.isfile(flightPathDirectory + "\\" + IdToIdLegacy(film) + "_lin.shp")      TODO RM LEGACY
+                availability[1] = os.path.isfile(flightPathDirectory + "\\" + film + "_lin.shp")
                 if availability[1]:
                     chkAvailability[1] = True
-                availability[2] = os.path.isfile(flightPathDirectory + "\\" + self.filmToFilmLegacy(film) + "_gps.shp")
+                # TODO RM availability[2] = os.path.isfile(flightPathDirectory + "\\" + IdToIdLegacy(film) + "_gps.shp")    TODO RM LEGACY
+                availability[2] = os.path.isfile(flightPathDirectory + "\\" + film + "_gps.shp")
                 if availability[2]:
                     chkAvailability[2] = True
 
@@ -125,13 +129,16 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
         for key, item in self.filmsDict.items():
             flightPathDirectory =  self.settings.value("APIS/flightpath_dir") + "\\" + self.yearFromFilm(key)
             if item[0] and self.uiGpsFlightPointChk.checkState() == Qt.Checked:
-                self.iface.addVectorLayer(flightPathDirectory+ "\\" + self.filmToFilmLegacy(key) + ".shp", "flugzeug-gps {0}".format(key), 'ogr')
+                #TODO RM self.iface.addVectorLayer(flightPathDirectory+ "\\" + IdToIdLegacy(key) + ".shp", "flugzeug-gps {0}".format(key), 'ogr')
+                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + ".shp", "flugzeug-gps {0}".format(key), 'ogr')
             if item[1] and self.uiGpsFlightLineChk.checkState() == Qt.Checked:
-                self.iface.addVectorLayer(flightPathDirectory+ "\\" + self.filmToFilmLegacy(key) + "_lin.shp", "flugzeug-gps {0}".format(key), 'ogr')
+                #TODO RM self.iface.addVectorLayer(flightPathDirectory+ "\\" + IdToIdLegacy(key) + "_lin.shp", "flugzeug-gps {0}".format(key), 'ogr')
+                self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + "_lin.shp", "flugzeug-gps {0}".format(key), 'ogr')
             if item[2] and (self.uiGpsCameraPointChk.checkState() == Qt.Checked or self.uiGpsCameraLineChk.checkState() == Qt.Checked):
                 #self.iface.addVectorLayer(flightPathDirectory+ "\\" + key + "_gps.shp", "flugstrecke {0} gps p".format(key), 'ogr')
 
-                vlayer = QgsVectorLayer(flightPathDirectory+ "\\" + self.filmToFilmLegacy(key) + "_gps.shp", "kamera-gps {0} p".format(key), 'ogr')
+                #TODO RM vlayer = QgsVectorLayer(flightPathDirectory+ "\\" + IdToIdLegacy(key) + "_gps.shp", "kamera-gps {0} p".format(key), 'ogr')
+                vlayer = QgsVectorLayer(flightPathDirectory+ "\\" + key + "_gps.shp", "kamera-gps {0} p".format(key), 'ogr')
                 if self.uiGpsCameraPointChk.checkState() == Qt.Checked:
                     QgsMapLayerRegistry.instance().addMapLayer(vlayer)
 
@@ -165,13 +172,6 @@ class ApisViewFlightPathDialog(QDialog, Ui_apisViewFlightPathDialog):
             year = "20"
         return year + film[2:4]
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
 
     def onAccepted(self):
         self.loadLayer()

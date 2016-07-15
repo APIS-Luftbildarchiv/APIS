@@ -13,6 +13,8 @@ from PyPDF2 import PdfFileMerger, PdfFileReader
 from py_tiled_layer.tilelayer import TileLayer, TileLayerType
 from py_tiled_layer.tiles import TileServiceInfo, BoundingBox #TileLayerDefinition
 
+from apis_utils import IdToIdLegacy
+
 import os, sys, subprocess
 
 
@@ -73,21 +75,6 @@ class ApisPrinter():
         if not self.fileName:
             self.fileName = None
 
-    def _filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
-
-    def _imageToImageLegacy(self, image):
-        mil = ""
-        if image[2:4] == "19":
-            mil = "01"
-        elif image[2:4] == "20":
-            mil = "02"
-        return mil + image[4:]
 
     def _mergePdfs(self, targetFileName, fileNameList):
         merger = PdfFileMerger()
@@ -208,21 +195,27 @@ class ApisListPrinter(ApisPrinter):
 
                         if fieldName == updateScan:
                             if rec.contains("bildnummer"):
-                                value = "ja" if self.imageRegistry.hasImage(self._imageToImageLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                # TODO RM value = "ja" if self.imageRegistry.hasImage(IdToIdLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                value = "ja" if self.imageRegistry.hasImage(unicode(rec.value("bildnummer"))) else "nein"
                             else:
-                                value = self.imageRegistry.hasImageRE(self._filmToFilmLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                #TODO RM value = self.imageRegistry.hasImageRE(IdToIdLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                value = self.imageRegistry.hasImageRE(unicode(rec.value("filmnummer")) + "_.+")
                             rec.setValue(i, value)
                         elif fieldName == updateOrtho:
                             if rec.contains("bildnummer"):
-                                value = "ja" if self.imageRegistry.hasOrtho(self._imageToImageLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                # TODO RM value = "ja" if self.imageRegistry.hasOrtho(IdToIdLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                value = "ja" if self.imageRegistry.hasOrtho(unicode(rec.value("bildnummer"))) else "nein"
                             else:
-                                value = self.imageRegistry.hasOrthoRE(self._filmToFilmLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                #TODO RM value = self.imageRegistry.hasOrthoRE(IdToIdLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                value = self.imageRegistry.hasOrthoRE(unicode(rec.value("filmnummer")) + "_.+")
                             rec.setValue(i, value)
                         elif fieldName == updateHiRes:
                             if rec.contains("bildnummer"):
-                                value = "ja" if self.imageRegistry.hasHiRes(self._imageToImageLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                #TODO RM value = "ja" if self.imageRegistry.hasHiRes(IdToIdLegacy(unicode(rec.value("bildnummer")))) else "nein"
+                                value = "ja" if self.imageRegistry.hasHiRes(unicode(rec.value("bildnummer"))) else "nein"
                             else:
-                                value = self.imageRegistry.hasHiResRE(self._filmToFilmLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                #TODO RM value = self.imageRegistry.hasHiResRE(IdToIdLegacy(unicode(rec.value("filmnummer"))) + "_.+")
+                                value = self.imageRegistry.hasHiResRE(unicode(rec.value("filmnummer")) + "_.+")
                             rec.setValue(i, value)
 
                         row.append(unicode("" if rec.isNull(i) else rec.value(i)))
@@ -578,7 +571,7 @@ class ApisLabelPrinter():
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
         dt = QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")
         fileName = u"Etiketten_{0}".format(captureMode)
-        self.fileName = QFileDialog.getSaveFileName(self.parent, u"Etiketten Export", saveDir + "\\" + '{0}_{1}'.format(fileName, dt), '*.pdf')
+        self.fileName = QFileDialog.getSaveFileName(self.parent, u"Etiketten Export", saveDir + u"\\" + u"{0}_{1}".format(fileName, dt), '*.pdf')
 
         if not self.fileName:
             self.fileName = None

@@ -784,28 +784,20 @@ if __name__ == '__main__':
 
     apis.AddTableJson("config/fundort_pnt.json")
     apis.AddTableJson("config/fundort_pol.json")
-    apis.AddTableJson("config/fundort_interpretation.json")
-
     apis.AddTableJson("config/fundort.json")
 
     apis.AddTableJson("config/fundstelle_pnt.json")
     apis.AddTableJson("config/fundstelle_pol.json")
-
     apis.AddTableJson("config/fundstelle.json")
-
-    apis.AddTableJson("config/fundort_log_pnt.json")
-    apis.AddTableJson("config/fundort_log_pol.json")
-    apis.AddTableJson("config/fundstelle_log_pnt.json")
-    apis.AddTableJson("config/fundstelle_log_pol.json")
 
     apis.AddTableJson("config/fundort_log.json")
     apis.AddTableJson("config/fundstelle_log.json")
 
-    apis.RunSqlUpdates("config/sqlupdates.json")
+    apis.RunSqlUpdates("config/sqlupdates_1.json")
 
     apis.generateMissingSitePolygons()
     apis.generateMissingFindSpotPolygons()
 
-    apis.RunSqlUpdates("config/sqlupdates_fundort_neu.json")
+    apis.RunSqlUpdates("config/sqlupdates_2.json")
 
     apis.CleanUp()

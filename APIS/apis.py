@@ -22,9 +22,11 @@
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-from qgis.core import QgsPluginLayerRegistry
+from qgis.core import QgsDataSourceURI, QgsPluginLayerRegistry, QgsVectorLayer
+from qgis.gui import QgsMessageBar
+
 # Initialize Qt resources from file resources.py
-import resources_rc
+import resources
 # Import the code for the dialogs
 # from apis_dialog import ApisDialog
 from apis_settings_dialog import *
@@ -40,7 +42,6 @@ from apis_utils import *
 from apis_db_manager import *
 
 import os.path
-
 
 class APIS:
     """QGIS Plugin Implementation."""
@@ -245,6 +246,16 @@ class APIS:
 
         self.openDialogButtons = []
 
+        # (Re)Load Apis Layers
+        iconPath = ':/plugins/APIS/icons/layer.png'
+        self.openDialogButtons.append(self.addApisAction(
+            iconPath,
+            text=self.tr(u'APIS Layers'),
+            callback=self.loadApisLayers,
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
+            parent=self.iface.mainWindow())
+        )
+
         #Film Dialog
         iconPath = ':/plugins/APIS/icons/film.png'
         self.openDialogButtons.append(self.addApisAction(
@@ -293,6 +304,48 @@ class APIS:
         # Register plugin layer type
         self.tileLayerType = TileLayerType()
         QgsPluginLayerRegistry.instance().addPluginLayerType(self.tileLayerType)
+
+    def loadApisLayers(self):
+        tocRoot = QgsProject.instance().layerTreeRoot()
+        #
+        if not tocRoot.findGroup(u"Funde"):
+            tocRoot.addGroup(u"Funde")
+        if not tocRoot.findGroup(u"Bilder"):
+            tocRoot.addGroup(u"Bilder")
+        if not tocRoot.findGroup(u"Geographie"):
+            tocRoot.addGroup(u"Geographie")
+
+        siteGrp = tocRoot.findGroup(u"Funde")
+
+        stylesBaseDir = os.path.dirname(os.path.abspath(__file__)) + "/styles/"
+
+        uri = QgsDataSourceURI()
+        uri.setDatabase(self.dbm.db.databaseName())
+
+        layersSiteGrp = siteGrp.findLayers()
+        layerNamesSiteGrp = [layer.layerName() for layer in layersSiteGrp]
+
+        if u'Fundorte' not in layerNamesSiteGrp:
+            uri.setDataSource('', 'fundort', 'geometry')
+            siteLayer = QgsVectorLayer(uri.uri(), u'Fundorte', 'spatialite')
+            siteLayer.loadNamedStyle(stylesBaseDir + "fundort.qml")
+            QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)
+            siteGrp.insertLayer(0, siteLayer)
+
+        if u'Fundstellen' not in layerNamesSiteGrp:
+            uri.setDataSource('', 'fundstelle', 'geometry')
+            findSpotLayer = QgsVectorLayer(uri.uri(), u'Fundstellen', 'spatialite')
+            findSpotLayer.loadNamedStyle(stylesBaseDir + "fundstelle.qml")
+            QgsMapLayerRegistry.instance().addMapLayer(findSpotLayer, False)
+            siteGrp.insertLayer(1, findSpotLayer)
+
+
+        #QgsLayerTreeGroup.
+        #QgsLayerTreeNode.set
+
+
+        #QMessageBox.information(None, u"ApisLayers", u"{0}".format(tocRoot.findGroup(u"Funde")))
+
 
     def openFilmDialog(self):
         """Run method that performs all the real work"""

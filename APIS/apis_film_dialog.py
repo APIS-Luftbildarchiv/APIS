@@ -119,10 +119,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.initalLoad = False
 
-    def cbValidate(self):
-        #FIXME: Implement with QValidator
-        QMessageBox.warning(None, "Test", unicode([self.uiArchiveCombo.itemText(i) for i in range(self.uiArchiveCombo.count())]))
-
     def setupMapper(self):
         self.mapper = QDataWidgetMapper(self)
 
@@ -211,6 +207,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         # Date and Times
         self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
         self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
+        self.mapper.addMapping(self.uiInitalEntryQgsDate, self.model.fieldIndex("datum_ersteintrag"))
         self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
 
         self.mapper.addMapping(self.uiDepartureTime, self.model.fieldIndex("abflug_zeit"))
@@ -292,7 +289,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         editor.setAutoCompletion(True)
         editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), depend, self))
-        #self.uiProducerCombo.lineEdit().editingFinished.connect(self.cbValidate)
 
         if depend:
             editor.currentIndexChanged.connect(partial(self.updateDepends, editor, depend))
@@ -473,18 +469,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
     def extractGpsFromImages(self):
         key = self.uiCurrentFilmNumberEdit.text()
-        e2p = Exif2Points(self.iface, self.filmToFilmLegacy(key))
+        #TODO RM  e2p = Exif2Points(self.iface, IdToIdLegacy(key))   TODO RM LEGACY
+        e2p = Exif2Points(self.iface, key)
         layer = e2p.run()
         if layer:
             self.iface.addVectorLayer(layer, "flugstrecke {0} gps p".format(key), 'ogr')
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
 
     def mapPrintTest(self):
         filmId = self.uiCurrentFilmNumberEdit.text()
@@ -524,10 +514,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
             # Vector Layer
             flightpathDir = self.settings.value("APIS/flightpath_dir")
-            #uri = flightpathDir + "\\2010\\02101101_lin.shp"
-            uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_lin.shp"
+            #TODO RM uri = flightpathDir + "\\2010\\02101101_lin.shp"
+            #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_lin.shp"   TODO RM
+            uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_lin.shp"
             if not os.path.isfile(uri):
-                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + self.filmToFilmLegacy(filmDict["filmnummer"]) + "_gps.shp"
+                #TODO RM uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + IdToIdLegacy(filmDict["filmnummer"]) + "_gps.shp" TODO RM
+                uri = flightpathDir + "\\" + filmDict['flugdatum'][:4] + "\\" + filmDict["filmnummer"] + "_gps.shp"
                 if not os.path.isfile(uri):
                     if filmDict["weise"] == u"senk.":
                         w = u"senk"
@@ -1061,7 +1053,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         currIdx = self.mapper.currentIndex()
         now = QDate.currentDate()
         self.uiLastChangesDate.setDate(now)
-        self.mapper.submit()
+
+        QMessageBox.information(None, "Submit", "Bevor Submit")
+        res = self.mapper.submit()
+        sqlError = self.mapper.model().lastError()
+        QMessageBox.information(None, "Submit", "Nach Submit {0}, {1}".format(res, sqlError.text()))
 
         while (self.model.canFetchMore()):
             self.model.fetchMore()
@@ -1146,6 +1142,13 @@ class FilmDelegate(QSqlRelationalDelegate):
                 #value ="00:00:00"
                 #QMessageBox.warning(None, "Test", unicode(index.model().data(index, Qt.EditRole)))
 
+        # elif editor.metaObject().className() == 'QDateEdit' and value == '':
+        #     editor.setDate(QDate())
+
+        elif editor.metaObject().className() == 'QgsDateTimeEdit' and value == '':
+            editor.setEmpty()
+            editor.lineEdit().setText("---")
+
         elif editor.metaObject().className() == 'QLineEdit':
             editor.setText(value)
 
@@ -1167,17 +1170,18 @@ class FilmDelegate(QSqlRelationalDelegate):
             #    model.setData(index, editor.text())
 
         if index.column() == 0: #0 ... filmnummer, 1 ... filmnummer_legacy, 2 ... filmnummer_hh_jjjj_mm, 3 ... filmnummer_nn
-            #QMessageBox.warning(None, "Test", unicode(index.column()) + editor.text())
+            QSqlRelationalDelegate.setModelData(self, editor, model, index)
+            # QMessageBox.warning(None, "Test", unicode(index.column()) + editor.text())
             filmnummer = str(editor.text())
-            model.setData(model.createIndex(index.row(), 2), filmnummer[:8]) # filmnummer_hh_jjjj_mm
-            model.setData(model.createIndex(index.row(), 3), int(filmnummer[-2:])) # filmnummer_nn
-            model.setData(model.createIndex(index.row(), 0), filmnummer) #filmnummer
+        #   model.setData(model.createIndex(index.row(), 0), filmnummer) #filmnummer
             mil = ""
             if filmnummer[2:4] == "19":
                 mil = "01"
             elif filmnummer[2:4] == "20":
                 mil = "02"
             model.setData(model.createIndex(index.row(), 1), mil + filmnummer[4:]) # filmnummer_legacy
+            model.setData(model.createIndex(index.row(), 2), filmnummer[:8])  # filmnummer_hh_jjjj_mm
+            model.setData(model.createIndex(index.row(), 3), int(filmnummer[-2:])) # filmnummer_nn
 
         elif editor.metaObject().className() == 'QDateEdit':
             model.setData(index, editor.date().toString("yyyy-MM-dd"))
@@ -1193,36 +1197,37 @@ class FilmDelegate(QSqlRelationalDelegate):
         #elif (editor.metaObject().className() == 'QComboBox' and editor.currentText()==''):
         #    model.setData(model.createIndex(index.row(), 0), None)
         else:
+            #QMessageBox.information(None, )
             QSqlRelationalDelegate.setModelData(self, editor, model, index)
 
-class DependDelegate(QSqlRelationalDelegate):
-    def __init__(self):
-       QSqlRelationalDelegate.__init__(self)
-
-    def createEditor(self, parent, option, index):
-        pass
-
-    def setEditorData(self, editor, index):
-        editor.setText(unicode(index.model().data(index, Qt.DisplayRole)))
-
-    def setModelData(self, editor, model, index):
-        pass
-
-
-class DropBoxDelegate(QStyledItemDelegate):
-    def __init__(self):
-        QStyledItemDelegate.__init__(self)
-
-    def createEditor(self, parent, option, index):
-        pass
-
-    def setEditorData(self, editor, index):
-        QMessageBox.warning(None, "Test", unicode(index.model().data(index, Qt.DisplayRole)))
-        pass
-
-    def setModelData(self, editor, model, index):
-        QMessageBox.warning(None, "Test", editor.text())
-        pass
+# class DependDelegate(QSqlRelationalDelegate):
+#     def __init__(self):
+#        QSqlRelationalDelegate.__init__(self)
+#
+#     def createEditor(self, parent, option, index):
+#         pass
+#
+#     def setEditorData(self, editor, index):
+#         editor.setText(unicode(index.model().data(index, Qt.DisplayRole)))
+#
+#     def setModelData(self, editor, model, index):
+#         pass
+#
+#
+# class DropBoxDelegate(QStyledItemDelegate):
+#     def __init__(self):
+#         QStyledItemDelegate.__init__(self)
+#
+#     def createEditor(self, parent, option, index):
+#         pass
+#
+#     def setEditorData(self, editor, index):
+#         QMessageBox.warning(None, "Test", unicode(index.model().data(index, Qt.DisplayRole)))
+#         pass
+#
+#     def setModelData(self, editor, model, index):
+#         QMessageBox.warning(None, "Test", editor.text())
+#         pass
 
 class InListValidator(QValidator):
         def __init__(self, itemList, editor, depend, parent):

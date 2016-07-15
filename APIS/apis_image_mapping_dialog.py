@@ -497,8 +497,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def getExifForImage(self, imageNumber):
         exif = [None, None, None, None, None, None]
         dirName = self.settings.value("APIS/image_dir")
-        imageName = self.imageToImageLegacy(imageNumber).replace('.','_') + '.jpg'
-        image = os.path.normpath(dirName+'\\'+self.filmToFilmLegacy(self.currentFilmNumber)+'\\'+imageName)
+        #TODO RM imageName = IdToIdLegacy(imageNumber).replace('.','_') + '.jpg' TODO RM
+        imageName = imageNumber.replace('.','_') + '.jpg'
+        #TODO RM image = os.path.normpath(dirName+'\\'+IdToIdLegacy(self.currentFilmNumber)+'\\'+imageName) TODO RM
+        image = os.path.normpath(dirName+'\\'+self.currentFilmNumber+'\\'+imageName)
         #QMessageBox.warning(None, u"exif", image)
 
         if os.path.isfile(image):
@@ -527,21 +529,6 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
         return exif
 
-    def filmToFilmLegacy(self, film):
-        mil = ""
-        if film[2:4] == "19":
-            mil = "01"
-        elif film[2:4] == "20":
-            mil = "02"
-        return mil + film[4:]
-
-    def imageToImageLegacy(self, image):
-        mil = ""
-        if image[2:4] == "19":
-            mil = "01"
-        elif image[2:4] == "20":
-            mil = "02"
-        return mil + image[4:]
 
     def reloadCpLayer(self):
          if self.cpLayerId not in QgsMapLayerRegistry.instance().mapLayers():

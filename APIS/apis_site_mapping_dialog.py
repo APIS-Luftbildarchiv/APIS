@@ -266,9 +266,11 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
     def onSiteAttributeValuesChangesCommitted(self, layerId, changedAttributesValues ):
         QMessageBox.warning(None, self.tr(u"Site Mapping"), u"AttributeChanges Comitted")
+        # Log Because of Attribute Changes
 
     def onSiteGeometryChangesCommitted(self, layerId, changedGeometries):
         QMessageBox.warning(None, self.tr(u"Site Mapping"), u"GeometryChanges Comitted")
+        # Log Because of Geometry Changes
 
 
 
@@ -405,7 +407,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             newGeometry = changedGeometriesMap[fid]
             oldGeometry = feature.geometry()
             siteNumber = feature.attribute('fundortnummer')
-            polygonDict[siteNumber] = [newGeometry, oldGeometry, newGeometry.buffer(0.0001, 12)]
+            polygonDict[siteNumber] = [newGeometry, QgsGeometry(oldGeometry), newGeometry.buffer(0.0001, 12)]
             country = feature.attribute('land')
             # edit and update attributes, affected by geometry change
             feature.setAttribute('flaeche', self.siteAreaHa(newGeometry))
@@ -451,13 +453,70 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
             self.siteLayer.updateFeature(feature)
 
-        findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, polygonDict)
-        res = findSpotHandlingDlg.exec_()
-        #if res or not res:
-        # fortfahren, get desissions made ...
-        #QMessageBox.information(None, u"FO Updates", u"Fortfahren")
-        #actions = findSpotHandlingDlg.getActions()
+        if SitesHaveFindSpots(self.dbm.db, [siteNumber for siteNumber in polygonDict]):
+            findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, polygonDict)
+            res = findSpotHandlingDlg.exec_()
+            fSEditActions = findSpotHandlingDlg.getActions()
+            # Edit FindSpots
+            sites = u", ".join(u"'{0}'".format(siteNumber) for siteNumber in polygonDict)
 
+            # Fundstellen des Fundortes Editieren
+            uri = QgsDataSourceURI()
+            uri.setDatabase(self.dbm.db.databaseName())
+            uri.setDataSource('', 'fundstelle', 'geometry')
+            findSpotLayer = QgsVectorLayer(uri.uri(), u'Fundstelle', 'spatialite')
+            findSpotLayer.setSubsetString(u'"fundortnummer" IN ({0})'.format(sites))
+
+            if findSpotLayer.featureCount() > 0:
+                logs = []
+                findSpotLayer.startEditing()
+                fSIter = findSpotLayer.getFeatures()
+                for fSFeature in fSIter:
+                    fSGeom = fSFeature.geometry()
+                    sN = fSFeature.attribute("fundortnummer")
+                    fSN = fSFeature.attribute("fundstellenummer")
+                    fSNumber = u"{0}.{1}".format(sN, fSN)
+
+                    if fSEditActions[fSNumber] == 1:
+                        # findSpot Polygon gets same geometry, attributes as sitePolygon
+                        pol = polygonDict[sN][0]
+                        fSFeature.setGeometry(pol)
+                        fSFeature.setAttribute('aktion', 'editG1')
+                        logs.append([u"editG1", sN, fSN])
+                    elif fSEditActions[fSNumber] == 2:
+                        # findSpot Polygon is different from sitePolygon
+                        pol = fSGeom.intersection(polygonDict[sN][0])
+                        fSFeature.setGeometry(pol)
+                        fSFeature.setAttribute('aktion', 'editG2')
+                        logs.append([u"editG2", sN, fSN])
+
+                    if fSEditActions[fSNumber] == 1 or fSEditActions[fSNumber] == 2:
+                        fSFeature.setAttribute('flaeche', self.siteAreaHa(pol))
+                        # if center point is not on polygon get the nearest Point
+                        cpPol = pol.centroid()
+                        if not pol.contains(cpPol):
+                            cpPol = pol.pointOnSurface()
+                        cpP = cpPol.asPoint()
+                        fSFeature.setAttribute('longitude', cpP.x())
+                        fSFeature.setAttribute('latitude', cpP.y())
+                        if country == 'AUT':
+                            # since find spot is always within site, use meridian of site
+                            fSFeature.setAttribute('meridian', meridian)
+                            gkFS = TransformGeometry(cpPol, findSpotLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+                            fSFeature.setAttribute('gkx', gkFS.asPoint().y())  # Hochwert
+                            fSFeature.setAttribute('gky', gkFS.asPoint().x())  # Rechtswert
+
+                        fSFeature.setAttribute('datum_aenderung', now.toString("yyyy-MM-dd"))
+                        fSFeature.setAttribute('aktionsdatum', now.toString("yyyy-MM-dd"))
+                        fSFeature.setAttribute('aktionsuser', user)
+
+                    findSpotLayer.updateFeature(fSFeature)
+
+                commitRes = findSpotLayer.commitChanges()
+                # log
+                if commitRes:
+                    for log in logs:
+                        self.apisLogger(log[0], u"fundstelle", u"fundortnummer = '{0}' AND fundstellenummer = {1}".format(log[1], log[2]))
 
     def onSiteGeometryEditing(self, fid, geom):
         self.lastGeometryChange = [fid, geom]

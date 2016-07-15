@@ -304,8 +304,26 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
     def attributeSearchSiteBySiteNumber(self):
         # Fundortsuche
         siteNumberSearchValue = self.uiSearchSiteNumberCombo.lineEdit().text()
+        searchValues = [sV.strip().replace("'", "").replace("\"", "") for sV in siteNumberSearchValue.split(",") if len(sV.strip().replace("'", "").replace("\"", "")) > 0]
+        if len(searchValues) < 1:
+            return
+        likeSearch = False
+        if len(searchValues) == 1:
+            # has Quotes
+            if len(siteNumberSearchValue) > 1 and siteNumberSearchValue.startswith("'") or siteNumberSearchValue.startswith("\"") and siteNumberSearchValue.endswith("'") or siteNumberSearchValue.endswith("\""):
+                likeSearch = False
+            else:
+                likeSearch = True
+
+        searchValuesStr = u", ".join(u"'{0}'".format(sV) for sV in searchValues)
+        #QMessageBox.warning(None, self.tr(u"Fundorte"), u"{0}, {1}".format(likeSearch, searchValuesStr))
+
         query = QSqlQuery(self.dbm.db)
-        query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer LIKE '%{0}%' ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(siteNumberSearchValue))
+        if likeSearch:
+            query.prepare(u"SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer LIKE '{0}' ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(searchValuesStr.replace("'", "%")))
+        else:
+            query.prepare(u"SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN ({0}) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(searchValuesStr))
+
         # qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
         query.exec_()
         self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)

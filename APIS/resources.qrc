@@ -8,5 +8,6 @@
         <file>icons/settings_alert.png</file>
         <file>icons/search.png</file>
         <file>icons/site.png</file>
+        <file>icons/layer.png</file>
     </qresource>
 </RCC>
