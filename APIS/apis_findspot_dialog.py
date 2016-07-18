@@ -38,11 +38,12 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
     findSpotEditsSaved = pyqtSignal(bool)
     findSpotDeleted = pyqtSignal(bool)
 
-    def __init__(self, iface, dbm, imageRegistry, parent=None):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer, parent=None):
         QDialog.__init__(self, parent)
         self.iface = iface
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
 
         self.setupUi(self)
 
@@ -941,7 +942,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             #QMessageBox.warning(None, "Test", u"{0}".format(self.parentWidget()))
             self.close()
         else:
-            siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.parentWidget())
+            siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer, self.parentWidget())
             siteDlg.openInViewMode(self.siteNumber)
             self.close()
             siteDlg.show()

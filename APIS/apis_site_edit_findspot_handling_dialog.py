@@ -54,6 +54,7 @@ class ApisSiteEditFindSpotHandlingDialog(QDialog, Ui_apisSiteEditFindSpotHandlin
         self.iface = iface
         self.dbm = dbm
         self.polygonDict = polygonDict
+        self.closeAble = True
 
         # Signals/Slot Connections
         self.rejected.connect(self.onReject)
@@ -171,7 +172,16 @@ class ApisSiteEditFindSpotHandlingDialog(QDialog, Ui_apisSiteEditFindSpotHandlin
         the user closes the dialog
         '''
         #QMessageBox.information(None, u"Abbrechen", u"Vorgang wird abgebrochen!")
-        self.close()
+        if self.closeAble:
+            self.close()
 
+    def closeEvent(self, evnt):
+        if self.closeAble:
+            super(ApisSiteEditFindSpotHandlingDialog, self).closeEvent(evnt)
+        else:
+            evnt.ignore()
+            #self.setWindowState(QtCore.Qt.WindowMinimized)
 
-
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape and not self.closeAble:
+            event.ignore()

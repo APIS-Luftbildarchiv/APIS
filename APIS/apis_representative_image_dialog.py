@@ -65,7 +65,7 @@ class ApisRepresentativeImageDialog(QDialog, Ui_apisRepresentativeImageDialog):
 
 
         # ist FilmProjekt ein FILM?
-        if self.isFilm(self.filmNumber):
+        if IsFilm(self.dbm.db, self.filmNumber):
             self.populateFilmCombo(self.filmNumber)
         else:
             self.populateFilmCombo()
@@ -118,14 +118,6 @@ class ApisRepresentativeImageDialog(QDialog, Ui_apisRepresentativeImageDialog):
         self.uiAvailableImagesCombo.addItems(availableImages)
         self.uiAvailableImagesCombo.setCurrentIndex(-1)
 
-
-    def isFilm(self, filmNumber):
-        # check if filmNumber is a filmNumber in film Table
-        qryStr = "SELECT COUNT(*) FROM film WHERE filmnummer = '{0}'".format(filmNumber)
-        query = QSqlQuery(self.dbm.db)
-        query.exec_(qryStr)
-        query.first()
-        return query.value(0)
 
     def showEvent(self, event):
         if self.currentPath:

@@ -14,11 +14,12 @@ import traceback
 import time
 
 class RectangleMapTool(QgsMapToolEmitPoint):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
 
         QgsMapToolEmitPoint.__init__(self, self.canvas)
         self.rubberBand = QgsRubberBand(self.canvas, QGis.Polygon)
@@ -33,8 +34,8 @@ class RectangleMapTool(QgsMapToolEmitPoint):
         self.reset()
 
         self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
-        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
+        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
 
         self.worker = None
 

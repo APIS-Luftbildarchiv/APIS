@@ -771,8 +771,6 @@ if __name__ == '__main__':
     apis.AddTableJson("config/datierung_quelle.json")
 
     apis.AddTableJson("config/begehung.json")
-    apis.AddTableJson("config/begehung_zustand.json")
-    apis.AddTableJson("config/begehung_begehtyp.json")
 
     apis.AddTableJson("config/film.json")
 

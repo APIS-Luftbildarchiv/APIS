@@ -544,7 +544,7 @@
         <string/>
        </property>
        <property name="text">
-        <string>Interpretation in QGIS laden</string>
+        <string>Interpretation</string>
        </property>
        <property name="icon">
         <iconset resource="resource.qrc">

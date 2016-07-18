@@ -46,11 +46,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
     FIRST, PREV, NEXT, LAST = range(4)
 
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
         self.setupUi(self)
 
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
@@ -97,7 +98,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.searchFilmDlg = ApisSearchFilmDialog(self.iface, self.dbm)
         self.editWeatherDlg = ApisEditWeatherDialog(self.iface, self.dbm)
         self.viewFlightPathDlg = ApisViewFlightPathDialog(self.iface, self.dbm)
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         self.imageSelectionListDlg = ApisImageSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
 
 

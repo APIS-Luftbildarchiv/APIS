@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_form.ui'
 #
-# Created: Tue Jun 07 14:38:52 2016
+# Created: Sun Jul 17 23:36:31 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -450,7 +450,7 @@ class Ui_apisSiteDialog(object):
         self.label_15.setText(_translate("apisSiteDialog", "Kartenausschnitt:", None))
         self.label_16.setText(_translate("apisSiteDialog", "Repräsentatives Luftbild:", None))
         self.uiLoadSiteInterpretationInQGisBtn.setToolTip(_translate("apisSiteDialog", "Flugweg des Filmes in QGIS anzeigen", None))
-        self.uiLoadSiteInterpretationInQGisBtn.setText(_translate("apisSiteDialog", "Interpretation in QGIS laden", None))
+        self.uiLoadSiteInterpretationInQGisBtn.setText(_translate("apisSiteDialog", "Interpretation", None))
         self.uiLoadSiteInQGisBtn.setText(_translate("apisSiteDialog", "Fundort in QGIS laden", None))
         self.uiListImagesOfSiteBtn.setText(_translate("apisSiteDialog", "Luftbilder", None))
         self.uiListShardingsOfSiteBtn.setText(_translate("apisSiteDialog", "Begehung", None))

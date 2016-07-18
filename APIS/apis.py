@@ -22,7 +22,7 @@
 
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
-from qgis.core import QgsDataSourceURI, QgsPluginLayerRegistry, QgsVectorLayer
+from qgis.core import QgsPluginLayerRegistry, QgsLayerDefinition, QgsProject
 from qgis.gui import QgsMessageBar
 
 # Initialize Qt resources from file resources.py
@@ -35,6 +35,7 @@ from apis_image_mapping_dialog import *
 from apis_site_mapping_dialog import *
 from apis_search_dialog import *
 from apis_image_registry import *
+from apis_layer_manager import *
 
 from py_tiled_layer.tilelayer import TileLayer, TileLayerType
 
@@ -79,6 +80,7 @@ class APIS:
         self.toolbar.setObjectName(u'APIS')
 
         self.dbm = None
+        self.apisLayer = None
         self.areDialogsInit = False
         self.areDialogsActive = False
         self.imageMappingMode = False
@@ -110,32 +112,19 @@ class APIS:
     def enableApis(self):
         #QMessageBox.warning(None, self.tr(u"ApisEnabled"), u"ImageRegistry is now loaded!")
         if(self.configStatus and self.imageRegistry.registryIsLoaded()):
-            #generate ApisImageRegistry in Background Thread
-            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has Image: {0}".format(self.imageRegistry.hasImage('02140301_750')))
-            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has HiRes: {0}".format(self.imageRegistry.hasHiRes('01850205_005')))
-            #QMessageBox.warning(None, self.tr(u"ImageRegistry"), u"Has Ortho: {0}".format(self.imageRegistry.hasOrtho('02030608_045')))
-
             self.dbm = ApisDbManager(self.settings.value("APIS/database_file"))
             self.initDialogs()
             if self.openDialogButtons is not None:
                 self.activateDialogs(True)
 
-            #Connect
-            self.iface.actionSaveActiveLayerEdits().triggered.connect(self.isApisLayer)
-            self.iface.actionSaveEdits().triggered.connect(self.isApisLayer)
-            self.iface.actionSaveAllEdits().triggered.connect(self.isApisLayer)
+            # TODO: Prepare ApisLayerTree
+            self.apisLayer = ApisLayerManager(self.plugin_dir, self.iface, self.dbm)
+
         else:
             QMessageBox.warning(None, self.tr(u"Konfiguration"), u"{0}, {1}".format(self.configStatus, self.settings))
             if self.openDialogButtons is not None:
                 self.activateDialogs(False)
 
-            self.iface.actionSaveActiveLayerEdits().triggered.disconnect(self.isApisLayer)
-            self.iface.actionSaveEdits().triggered.disconnect(self.isApisLayer)
-            self.iface.actionSaveAllEdits().triggered.disconnect(self.isApisLayer)
-
-    def isApisLayer(self):
-        pass
-        #QMessageBox.warning(None, self.tr(u"IsApisLayer"), u"Save APIS Layers")
 
     def addApisAction(
         self,
@@ -217,7 +206,7 @@ class APIS:
         return action
 
     def initDialogs(self):
-        self.filmDlg = ApisFilmDialog(self.iface, self.dbm, self.imageRegistry)
+        self.filmDlg = ApisFilmDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         self.imageMappingDlg = None
         self.siteMappingDlg = None
         self.searchDlg = None
@@ -251,7 +240,7 @@ class APIS:
         self.openDialogButtons.append(self.addApisAction(
             iconPath,
             text=self.tr(u'APIS Layers'),
-            callback=self.loadApisLayers,
+            callback=self.loadApisLayerTree,
             enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
             parent=self.iface.mainWindow())
         )
@@ -305,46 +294,11 @@ class APIS:
         self.tileLayerType = TileLayerType()
         QgsPluginLayerRegistry.instance().addPluginLayerType(self.tileLayerType)
 
-    def loadApisLayers(self):
-        tocRoot = QgsProject.instance().layerTreeRoot()
-        #
-        if not tocRoot.findGroup(u"Funde"):
-            tocRoot.addGroup(u"Funde")
-        if not tocRoot.findGroup(u"Bilder"):
-            tocRoot.addGroup(u"Bilder")
-        if not tocRoot.findGroup(u"Geographie"):
-            tocRoot.addGroup(u"Geographie")
-
-        siteGrp = tocRoot.findGroup(u"Funde")
-
-        stylesBaseDir = os.path.dirname(os.path.abspath(__file__)) + "/styles/"
-
-        uri = QgsDataSourceURI()
-        uri.setDatabase(self.dbm.db.databaseName())
-
-        layersSiteGrp = siteGrp.findLayers()
-        layerNamesSiteGrp = [layer.layerName() for layer in layersSiteGrp]
-
-        if u'Fundorte' not in layerNamesSiteGrp:
-            uri.setDataSource('', 'fundort', 'geometry')
-            siteLayer = QgsVectorLayer(uri.uri(), u'Fundorte', 'spatialite')
-            siteLayer.loadNamedStyle(stylesBaseDir + "fundort.qml")
-            QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)
-            siteGrp.insertLayer(0, siteLayer)
-
-        if u'Fundstellen' not in layerNamesSiteGrp:
-            uri.setDataSource('', 'fundstelle', 'geometry')
-            findSpotLayer = QgsVectorLayer(uri.uri(), u'Fundstellen', 'spatialite')
-            findSpotLayer.loadNamedStyle(stylesBaseDir + "fundstelle.qml")
-            QgsMapLayerRegistry.instance().addMapLayer(findSpotLayer, False)
-            siteGrp.insertLayer(1, findSpotLayer)
-
-
-        #QgsLayerTreeGroup.
-        #QgsLayerTreeNode.set
-
-
-        #QMessageBox.information(None, u"ApisLayers", u"{0}".format(tocRoot.findGroup(u"Funde")))
+    def loadApisLayerTree(self):
+        #res = QgsLayerDefinition.loadLayerDefinition(self.plugin_dir + "\\layer_tree\\apis_default_layer_definition.qlr", QgsProject.instance().layerTreeRoot())
+        #QMessageBox.information(None, "LoadLayerDef", u"Loaded: {0}".format(res))
+        if self.apisLayer and self.apisLayer.isLoaded:
+            self.apisLayer.loadDefaultLayerTree()
 
 
     def openFilmDialog(self):
@@ -361,7 +315,7 @@ class APIS:
 
     def toggleImageMappingDialog(self):
         if not self.imageMappingDlg:
-            self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm)
+            self.imageMappingDlg = ApisImageMappingDialog(self.iface, self.dbm, self.apisLayer)
             self.imageMappingDlg.visibilityChanged.connect(self.mappingActionBtn.setChecked)
 
         #if self.imageMappingDlg.isVisible():
@@ -377,7 +331,7 @@ class APIS:
 
     def toggleSiteMappingDialog(self):
         if not self.siteMappingDlg:
-            self.siteMappingDlg = ApisSiteMappingDialog(self.iface, self.dbm, self.imageRegistry)
+            self.siteMappingDlg = ApisSiteMappingDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
             self.siteMappingDlg.visibilityChanged.connect(self.siteMappingActionBtn.setChecked)
 
         if self.siteMappingActionBtn.isChecked():
@@ -387,7 +341,7 @@ class APIS:
 
     def toggleSearchDialg(self):
         if not self.searchDlg:
-            self.searchDlg = ApisSearchDialog(self.iface, self.dbm, self.imageRegistry)
+            self.searchDlg = ApisSearchDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
             self.searchDlg.visibilityChanged.connect(self.searchActionBtn.setChecked)
 
         if self.searchActionBtn.isChecked():
@@ -396,17 +350,17 @@ class APIS:
             self.searchDlg.hide()
 
 
-    def toggleImageSearchTool(self):
-        # Check if something is working at the moment ... if yes don't do anything!
-        self.imageSearchTool = RectangleMapTool(self.iface, self.dbm)
-        mb = self.iface.messageBar()
-        if self.searchImageActionBtn.isChecked():
-            self.iface.mapCanvas().setMapTool(self.imageSearchTool)
-            mb.pushMessage("Luftbildsuche", "Klicken Sie auf die Karte oder ziehen Sie ein Rechteck auf um nach Luftbildern zu suchen!", level=QgsMessageBar.INFO)
-        else:
-            #if self.imageSearchTool.worker is None:
-            self.iface.mapCanvas().unsetMapTool(self.imageSearchTool)
-            mb.clearWidgets()
+    # def toggleImageSearchTool(self):
+    #     # Check if something is working at the moment ... if yes don't do anything!
+    #     self.imageSearchTool = RectangleMapTool(self.iface, self.dbm)
+    #     mb = self.iface.messageBar()
+    #     if self.searchImageActionBtn.isChecked():
+    #         self.iface.mapCanvas().setMapTool(self.imageSearchTool)
+    #         mb.pushMessage("Luftbildsuche", "Klicken Sie auf die Karte oder ziehen Sie ein Rechteck auf um nach Luftbildern zu suchen!", level=QgsMessageBar.INFO)
+    #     else:
+    #         #if self.imageSearchTool.worker is None:
+    #         self.iface.mapCanvas().unsetMapTool(self.imageSearchTool)
+    #         mb.clearWidgets()
 
     def openSettingsDialog(self):
         """Run method that performs all the real work"""
@@ -460,8 +414,15 @@ class APIS:
         self.openSettingsButton.setIcon(QIcon(iconPath))
 
         if self.mappingActionBtn.isChecked():
-            self.mappingActionBtn.setChecked(False)
-            self.toggleImageMappingDialog()
+            self.mappingActionBtn.trigger()
+
+        if self.siteMappingActionBtn.isChecked():
+            self.siteMappingActionBtn.trigger()
+
+        if self.searchActionBtn.isChecked():
+            self.searchActionBtn.trigger()
+
+
 
 
      # noinspection PyMethodMayBeStatic
@@ -481,6 +442,10 @@ class APIS:
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+        #
+        # QMessageBox.information(None, "ApisUnload", "ApisUnload")
+        self.activateDialogs(False)
+
         for action in self.actions:
             self.iface.removePluginDatabaseMenu(
                 self.tr(u'&APIS'),
@@ -490,3 +455,5 @@ class APIS:
         QgsPluginLayerRegistry.instance().removePluginLayerType(TileLayer.LAYER_TYPE)
         # remove the toolbar
         del self.toolbar
+
+        # TODO deactivate all open connections ...

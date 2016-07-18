@@ -20,7 +20,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 from apis_monoplot_import_form import *
 
 class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
-    def __init__(self, parent, iface, dbm, targetLayerCP=None, targetLayerFP=None, filmId=None):
+    def __init__(self, parent, iface, dbm, sourceLayerCP, sourceLayerFP, targetLayerCP=None, targetLayerFP=None, filmId=None):
         QDialog.__init__(self)
         self.setupUi(self)
         self.iface = iface
@@ -32,11 +32,10 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
         self.targetLayerCP = targetLayerCP
         self.targetLayerFP = targetLayerFP
 
-        self.sourceLayerCP = None
-        self.soruceLayerFP = None
-
-        self.uiCenterPointMLCombo.setFilters(QgsMapLayerProxyModel.PointLayer)
-        self.uiFootPrintMLCombo.setFilters(QgsMapLayerProxyModel.PolygonLayer)
+        self.sourceLayerCP = sourceLayerCP
+        self.sourceLayerFP = sourceLayerFP
+        #self.sourceLayerCP = self.uiCenterPointMLCombo.currentLayer()
+        #self.sourceLayerFP = self.uiFootPrintMLCombo.currentLayer()
 
         self.uiImportBtn.clicked.connect(self.run)
 
@@ -121,9 +120,6 @@ class ApisMonoplotImportDialog(QDialog, Ui_apisMonoplotImportDialog):
 
 
     def run(self):
-
-        self.sourceLayerCP = self.uiCenterPointMLCombo.currentLayer()
-        self.sourceLayerFP = self.uiFootPrintMLCombo.currentLayer()
 
         if self.areSourceLayerMonoplot():
             #iterate over sourceLayerCP

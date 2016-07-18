@@ -24,11 +24,12 @@ from functools import partial
 import subprocess
 
 class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
@@ -95,7 +96,7 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
         findSpotNumber = self.model.item(idx.row(), 1).text()
         siteNumber = self.model.item(idx.row(), 0).text()
         if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self)
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer, self)
             self.findSpotDlg.findSpotEditsSaved.connect(self.reloadTable)
             self.findSpotDlg.findSpotDeleted.connect(self.reloadTable)
         self.findSpotDlg.openInViewMode(siteNumber, findSpotNumber)

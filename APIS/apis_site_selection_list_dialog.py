@@ -24,11 +24,12 @@ from functools import partial
 import subprocess
 
 class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         QDialog.__init__(self)
         self.iface = iface
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.setupUi(self)
 
@@ -95,7 +96,7 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
     def openSiteDialog(self, idx):
         siteNumber = self.model.item(idx.row(), 0).text()
         if self.siteDlg == None:
-            self.siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
+            self.siteDlg = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
             self.siteDlg.siteEditsSaved.connect(self.reloadTable)
             self.siteDlg.siteDeleted.connect(self.reloadTable)
         self.siteDlg.openInViewMode(siteNumber)
@@ -144,31 +145,60 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
                 self.close()
 
     def loadSiteInterpretationInQgis(self):
-        siteList = self.askForSiteList()
+        siteList = self.askForSiteList([2])
         if siteList:
-            subsetString = u'"fundortnummer" IN ('
-            for siteNumber in siteList:
-                subsetString += u'\'{0}\','.format(siteNumber)
-            subsetString = subsetString[:-1]
-            subsetString += u')'
-            siteLayer = self.getSpatialiteLayer('fundort_interpretation', subsetString)
-            count = siteLayer.dataProvider().featureCount()
-            #QMessageBox.information(None, "Feature Count", "Feature Count: {0}".format(count))
+            interpretationsToLoad = []
+            noInterpretations = []
+            intBaseDir = self.settings.value("APIS/int_base_dir")
+            intDir = self.settings.value("APIS/int_dir")
+            for siteNumber, kgName in siteList:
+                country, siteNumberN = siteNumber.split(".")
+                siteNumberN = siteNumberN.zfill(6)
+                if country == u"AUT":
+                    kgName = u"{0} ".format(kgName.lower().replace(".", "").replace("-", " ").replace("(", "").replace(")", ""))
+                else:
+                    kgName = ""
+                #QMessageBox.information(None, 'info', u"{0}, {1}, {2}, {3}".format(siteNumber, siteNumberN, country, kgName))
 
-            if count > 0:
-                siteListLayer = list(set(siteLayer.getValues('fundortnummer')[0]))
+                shpFile = u"luftint_{0}.shp".format(siteNumberN)
+                intShpPath = os.path.normpath(os.path.join(intBaseDir, country, u"{0}{1}".format(kgName, siteNumberN), intDir, shpFile))
+                if os.path.isfile(intShpPath):
+                    interpretationsToLoad.append(intShpPath)
+                else:
+                    noInterpretations.append(siteNumber)
+
+            if len(interpretationsToLoad) > 0:
+                for intShp in interpretationsToLoad:
+                    # TODO load Shape Files with ApisLayerHandling
+                    self.apisLayer.requestShapeFile(intShp, epsg=None, layerName=None, groupName="Interpretationen",useLayerFromTree=True, addToCanvas=True)
+
+                    #QMessageBox.information(None, u"Interpretation", intShp)
+            else:
+                QMessageBox.warning(None, u"Fundort Interpretation", u"Für die ausgewählten Fundorte ist keine Interpretation vorhanden.")
+
+
+            #subsetString += u'\'{0}\','.format(siteNumber)
+            #subsetString = subsetString[:-1]
+            #subsetString += u')'
+            #siteLayer = self.getSpatialiteLayer('fundort_interpretation', subsetString)
+            #count = siteLayer.dataProvider().featureCount()
+            #QMessageBox.information(None, "Feature Count", "Feature Count: {0}".format(count))
+            #count = 0
+            #if count > 0:
+            #    pass
+                #siteListLayer = list(set(siteLayer.getValues('fundortnummer')[0]))
                 #siteListLayer = [sub_list[0] for sub_list in list(siteLayer.getValues('fundortnummer'))]
                 #QMessageBox.warning(None, u"Fundort Interpretation", u"Layer: {0}".format(u", ".join(siteListLayer)))
                 #QMessageBox.warning(None, u"Fundort Interpretation", u"Selection: {0}".format(u",".join(siteList)))
 
-                noInterpretation = list(set(siteList) - set(siteListLayer))
-                if len(noInterpretation) > 0:
-                    QMessageBox.warning(None, u"Fundort Interpretation", u"Für einige Fundorte ist keine Interpretation vorhanden. [{0}]".format(u", ".join(noInterpretation)))
+                #noInterpretation = list(set(siteList) - set(siteListLayer))
+                #if len(noInterpretation) > 0:
+                 #   QMessageBox.warning(None, u"Fundort Interpretation", u"Für einige Fundorte ist keine Interpretation vorhanden. [{0}]".format(u", ".join(noInterpretation)))
 
-                self.loadLayer(siteLayer)
-                self.close()
-            else:
-                QMessageBox.warning(None, u"Fundort Interpretation", u"Für die ausgewählten Fundorte ist keine Interpretation vorhanden.")
+                #self.loadLayer(siteLayer)
+                #self.close()
+           # else:
+           #     QMessageBox.warning(None, u"Fundort Interpretation", u"Für die ausgewählten Fundorte ist keine Interpretation vorhanden.")
 
     def exportSiteAsShp(self):
         siteList = self.askForSiteList()
@@ -213,7 +243,7 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
             printer.setQuery(qryStr)
             printer.printList()
 
-    def askForSiteList(self):
+    def askForSiteList(self, plusCols=None):
         if self.uiSiteListTableV.selectionModel().hasSelection():
             #Abfrage ob Fundorte der selektierten Bilder Exportieren oder alle
             msgBox = QMessageBox()
@@ -225,27 +255,44 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
             ret = msgBox.exec_()
 
             if ret == 0:
-                siteList = self.getSiteList(False)
+                siteList = self.getSiteList(False, plusCols)
             elif ret == 1:
-                siteList = self.getSiteList(True)
+                siteList = self.getSiteList(True, plusCols)
             else:
                 return None
         else:
-            siteList = self.getSiteList(True)
+            siteList = self.getSiteList(True, plusCols)
 
         return siteList
 
-    def getSiteList(self, getAll):
+    def getSiteList(self, getAll, plusCols=None):
         siteList = []
+        site = []
         if self.uiSiteListTableV.selectionModel().hasSelection() and not getAll:
             rows = self.uiSiteListTableV.selectionModel().selectedRows()
             for row in rows:
+                if plusCols:
+                    site = []
                 if not self.uiSiteListTableV.isRowHidden(row.row()):
-                    siteList.append(self.model.item(row.row(), 0).text())
+                    if plusCols:
+                        site.append(self.model.item(row.row(), 0).text())
+                        for col in plusCols:
+                            site.append(self.model.item(row.row(), col).text())
+                        siteList.append(site)
+                    else:
+                        siteList.append(self.model.item(row.row(), 0).text())
         else:
             for row in range(self.model.rowCount()):
+                if plusCols:
+                    site = []
                 if not self.uiSiteListTableV.isRowHidden(row):
-                    siteList.append(self.model.item(row, 0).text())
+                    if plusCols:
+                        site.append(self.model.item(row, 0).text())
+                        for col in plusCols:
+                            site.append(self.model.item(row, col).text())
+                        siteList.append(site)
+                    else:
+                        siteList.append(self.model.item(row, 0).text())
 
         return siteList
 

@@ -29,6 +29,8 @@ from apis_utils import *
 from functools import partial
 import subprocess
 import string
+import shutil
+import glob
 
 from apis_exif2points import Exif2Points
 
@@ -57,11 +59,12 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     siteAndGeometryEditsCanceled = pyqtSignal(QDialog)
     copyImageFinished = pyqtSignal(bool)
 
-    def __init__(self, iface, dbm, imageRegistry, parent=None):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer, parent=None):
         QDialog.__init__(self, parent)
         self.iface = iface
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
 
         self.setupUi(self)
 
@@ -396,7 +399,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         findSpotNumber = self.uiFindSpotListTableV.model().item(idx.row(), 0).text()
         siteNumber = self.uiSiteNumberEdit.text()
         if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self)
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer, self)
             self.findSpotDlg.findSpotEditsSaved.connect(self.setupFindSpotList)
             self.findSpotDlg.findSpotDeleted.connect(self.setupFindSpotList)
             if isinstance(self.parentWidget(), ApisFindSpotSelectionListDialog):
@@ -419,7 +422,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     def openFindSpotDialogInAddMode(self, siteNumber, findSpotNumber):
 
         if self.findSpotDlg == None:
-            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self)
+            self.findSpotDlg = ApisFindSpotDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer, self)
             self.findSpotDlg.findSpotEditsSaved.connect(self.setupFindSpotList)
             self.findSpotDlg.findSpotDeleted.connect(self.setupFindSpotList)
             if isinstance(self.parentWidget(), ApisFindSpotSelectionListDialog):
@@ -1112,22 +1115,78 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     def loadSiteInterpretationInQGis(self):
         siteNumber = self.uiSiteNumberEdit.text()
-        kgName = self.uiCadastralCommunityEdit.text().lower().replace(".","").replace("-", " ").replace("(","").replace(")", "")
-        #Generate Path
         country, siteNumberN = siteNumber.split(".")
+        if country == u"AUT":
+            kgName = u"{0} ".format(self.uiCadastralCommunityEdit.text().lower().replace(".","").replace("-", " ").replace("(","").replace(")", ""))
+        else:
+            kgName = ""
+        ##Generate Path
+
         siteNumberN = siteNumberN.zfill(6)
         intBaseDir = self.settings.value("APIS/int_base_dir")
         intDir = self.settings.value("APIS/int_dir")
         shpFile = u"luftint_{0}.shp".format(siteNumberN)
-        intShpPath = os.path.normpath(os.path.join(intBaseDir, country, u"{0} {1}".format(kgName, siteNumberN), intDir, shpFile))
+        intShpPath = os.path.normpath(os.path.join(intBaseDir, country, u"{0}{1}".format(kgName, siteNumberN), intDir, shpFile))
 
 
         if os.path.isfile(intShpPath):
-            QMessageBox.information(None, u"Interpretation", intShpPath)
-            # TODO load with ApisLayerHandling Into Group Interpretationen
-        else:
-            QMessageBox.warning(None, u"Fundort Interpretation", u"Für den Fundort {0} ist keine Interpretation vorhanden.".format(siteNumber))
+            #QMessageBox.information(None, u"Interpretation", intShpPath)
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Fundort Interpretation')
+            msgBox.setText(u"Für den Fundort {0} ist eine Interpretation vorhanden:".format(
+                    siteNumber))
+            msgBox.addButton(QPushButton(u'In QGIS laden'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Verzeichnis öffnen'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Laden und öffnen'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+            if ret == 0 or ret == 2:
+                # Load in QGIS
+                self.apisLayer.requestShapeFile(intShpPath, epsg=None, layerName=None, groupName="Interpretationen", useLayerFromTree=True, addToCanvas=True)
+            if ret == 1 or ret == 2:
+                # Open Folder
+                OpenFileOrFolder(os.path.dirname(intShpPath))
 
+            if ret == 3:
+                return
+
+
+        else:
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Fundort Interpretation')
+            msgBox.setText(u"Für den Fundort {0} ist keine Interpretation vorhanden. Wollen Sie eine Interpretation Erstellen?".format(siteNumber))
+            msgBox.addButton(QPushButton(u'Vorbereiten'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Vorbereiten und laden'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+
+            if ret == 0 or ret == 1:
+                # Create Folder Path
+                intPath = os.path.normpath(os.path.join(intBaseDir, country, u"{0}{1}".format(kgName, siteNumberN), intDir))
+                try:
+                    os.makedirs(intPath)
+                except Exception as e:
+                    pass
+                # Copy Dummy Template
+                srcPath = os.path.normpath(os.path.join(os.path.dirname(__file__), u"master_templates"))
+                template = self.settings.value("APIS/int_master_shp")
+                for srcFile in glob.glob(os.path.normpath(os.path.join(srcPath, u'{0}.*'.format(template)))):
+                    extension = os.path.splitext(srcFile)[1]
+                    dstFile = os.path.normpath(os.path.join(intPath, u"luftint_{0}{1}".format(siteNumberN, extension)))
+                    #QMessageBox.information(None, "Template", u"{0}, {1}".format(srcFile, dstFile))
+                    shutil.copy(srcFile, dstFile)
+
+                # Open Folder
+                OpenFileOrFolder(intPath)
+            else:
+                return
+
+            if ret == 1:
+                self.apisLayer.requestShapeFile(intShpPath, epsg=None, layerName=None, groupName="Interpretationen", useLayerFromTree=True, addToCanvas=True)
+                #pass
+                # TODO load with ApisLayerHandling Into Group Interpretationen
+
+        #TODO : REMOVE
         # subsetString = u'"fundortnummer" = "{0}"'.format(siteNumber)
         # siteInterpretationLayer = self.getSpatialiteLayer(u"fundort_interpretation", subsetString, u"fundort interpretation {0}".format(siteNumber))
         # count = siteInterpretationLayer.dataProvider().featureCount()
@@ -1290,7 +1349,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             # Insert layer
             #toc_root = QgsProject.instance().layerTreeRoot()
             #position = len(toc_root.children())  # Insert to bottom if wms\tms
-            QgsMapLayerRegistry.instance().addMapLayer(layer, True)
+            QgsMapLayerRegistry.instance().addMapLayer(layer, False)
             canvasLayer2 = QgsMapCanvasLayer(layer)
             layerSet.append(canvasLayer2)
             #toc_root.insertLayer(position, layer)
@@ -1398,10 +1457,14 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     def getRepresentativeImage(self, siteNumber):
         query = QSqlQuery(self.dbm.db)
-        query.prepare(u"SELECT CASE WHEN repraesentatives_luftbild IS NULL THEN replace(fundortnummer_legacy, '.','_') WHEN repraesentatives_luftbild ='_1' THEN replace(fundortnummer_legacy, '.','_') || '_1' ELSE repraesentatives_luftbild END as repImage FROM fundort WHERE fundortnummer = '{0}'".format(siteNumber))
+        #query.prepare(u"SELECT CASE WHEN repraesentatives_luftbild IS NULL THEN replace(fundortnummer_legacy, '.','_') WHEN repraesentatives_luftbild ='_1' THEN replace(fundortnummer_legacy, '.','_') || '_1' ELSE repraesentatives_luftbild END as repImage FROM fundort WHERE fundortnummer = '{0}'".format(siteNumber))
+        query.prepare(u"SELECT CASE WHEN repraesentatives_luftbild IS NULL THEN 0 WHEN repraesentatives_luftbild ='_1' THEN 0 ELSE repraesentatives_luftbild END as repImage FROM fundort WHERE fundortnummer = '{0}'".format(siteNumber))
         res = query.exec_()
         query.first()
-        return unicode(query.value(0))
+        if query.value(0) == 0:
+            return False
+        else:
+            return unicode(query.value(0))
 
     def getSiteNumberLegacy(self, siteNumber):
         query = QSqlQuery(self.dbm.db)
@@ -1440,7 +1503,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
     def copyNewImageToDestination(self, sourceFileName):
         destinationDir = QDir(self.settings.value("APIS/repr_image_dir"))
-        destinationFileName = self.getSiteNumberLegacy(self.siteNumber).replace('.', '_')
+        #TODO RM: destinationFileName = self.getSiteNumberLegacy(self.siteNumber).replace('.', '_')
+        destinationFileName = self.siteNumber.replace('.', '_')
         destinationFilePath = os.path.normpath(os.path.normpath(destinationDir.absolutePath() + "\\{0}.jpg".format(destinationFileName)))
 
         sourceFile = QFile(os.path.normpath(sourceFileName))
@@ -1520,21 +1584,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         if self.addMode and self.isFilmBased:
             self.openRepresentativeImageDialog()
 
-        # if self.editMode and not self.addMode:
-            # QMessageBox.information(None, u"Auswirkung auf Fundorte", u"Auswirkungen auf Fundorte!")
-            # if siteHasFindSpots open assessment dialog
-            # if SiteHasFindSpot(self.dbm.db, self.siteNumber): # SiteHasFindSpot in apis_utils.py
-                # res = self.openSiteEditFindSpotHandlingDialog()
-                # if not res:
-                    #self.isActive = False
-
 
     def resizeEvent(self, event):
         if self.repImageLoaded:
             self.uiSiteImageView.fitInView(self.rect, Qt.KeepAspectRatio)
-        #QMessageBox.information(None, "resize site dialog", "resized")
-
-
 
 
 class SiteDelegate(QSqlRelationalDelegate):
@@ -1583,20 +1636,7 @@ class SiteDelegate(QSqlRelationalDelegate):
             #    QMessageBox.warning(None, "Test", unicode(index.data(Qt.DisplayRole)) + ',' + unicode(editor.text()))
             #    model.setData(index, editor.text())
 
-        # if index.column() == 0: #0 ... filmnummer, 1 ... filmnummer_legacy, 2 ... filmnummer_hh_jjjj_mm, 3 ... filmnummer_nn
-        #     #QMessageBox.warning(None, "Test", unicode(index.column()) + editor.text())
-        #     filmnummer = str(editor.text())
-        #     model.setData(model.createIndex(index.row(), 2), filmnummer[:8]) # filmnummer_hh_jjjj_mm
-        #     model.setData(model.createIndex(index.row(), 3), int(filmnummer[-2:])) # filmnummer_nn
-        #     model.setData(model.createIndex(index.row(), 0), filmnummer) #filmnummer
-        #     mil = ""
-        #     if filmnummer[2:4] == "19":
-        #         mil = "01"
-        #     elif filmnummer[2:4] == "20":
-        #         mil = "02"
-        #     model.setData(model.createIndex(index.row(), 1), mil + filmnummer[4:]) # filmnummer_legacy
 
-        # elif editor.metaObject().className() == 'QDateEdit':
         if editor.metaObject().className() == 'QDateEdit':
             model.setData(index, editor.date().toString("yyyy-MM-dd"))
         elif editor.metaObject().className() == 'QTimeEdit':

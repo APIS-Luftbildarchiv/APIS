@@ -25,7 +25,7 @@ from PyQt4.QtCore import QSettings, QTranslator
 from PyQt4.QtGui import *
 from PyQt4.QtSql import QSqlQuery
 from qgis.core import QgsGeometry, QgsCoordinateTransform
-import os.path
+import os.path, sys, subprocess
 
 # ---------------------------------------------------------------------------
 # Settings
@@ -46,7 +46,7 @@ def apisPluginSettings():
 def isApisIni(ini):
     s = QSettings(ini, QSettings.IniFormat)
     requiredKeysIsFile = ['database_file']
-    requiredKeysIsDir = ['flightpath_dir', 'image_dir', 'ortho_image_dir', 'repr_image_dir', 'insp_image_dir', 'site_image_dir', 'oek50_bmn_dir', 'oek50_utm_dir']
+    requiredKeysIsDir = ['flightpath_dir', 'image_dir', 'ortho_image_dir', 'repr_image_dir', 'insp_image_dir']
     requiredKeys = ['hires_vertical', 'hires_oblique_digital', 'hires_oblique_analog']
 
     isIni = True
@@ -70,6 +70,17 @@ def isApisIni(ini):
              errorKeys.append(k)
 
     return isIni, s if isIni else u"Folgende Schlüssel in der INI Datei sind nicht korrekt oder nicht vorhanden: " + u", ".join(errorKeys)
+
+# ---------------------------------------------------------------------------
+# Open Files or Folder
+# ---------------------------------------------------------------------------
+
+def OpenFileOrFolder(fileOrFolder):
+    if os.path.exists(fileOrFolder):
+        if sys.platform == 'linux2':
+            subprocess.call(["xdg-open", fileOrFolder])
+        else:
+            os.startfile(fileOrFolder)
 
 # ---------------------------------------------------------------------------
 # Common Calculations
@@ -124,8 +135,22 @@ def SiteHasFindSpot(db, siteNumber):
 
 def SitesHaveFindSpots(db, siteNumbers):
     sites = u", ".join(u"'{0}'".format(siteNumber) for siteNumber in siteNumbers)
-    qryStr = u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer IN ({0})".format(sites)
     query = QSqlQuery(db)
-    query.exec_(qryStr)
+    query.prepare(u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer IN ({0})".format(sites)   )
+    query.exec_()
+    query.first()
+    return query.value(0)
+
+
+def IsFilm(db, filmNumber):
+    """
+    Checks if filmNumber is a filmNumber in film Table
+    :param db: Database
+    :param filmNumber: 10 digit filmNumber
+    :return:
+    """
+    query = QSqlQuery(db)
+    query.prepare(u"SELECT COUNT(*) FROM film WHERE filmnummer = '{0}'".format(filmNumber))
+    query.exec_()
     query.first()
     return query.value(0)

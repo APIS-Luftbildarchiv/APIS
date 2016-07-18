@@ -48,7 +48,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 from apis_site_mapping_form import *
 
 class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         QDockWidget.__init__(self)
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
@@ -56,6 +56,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self)
         self.hide()
 
@@ -152,15 +153,20 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             self.uiSiteMappingModesGrp.setEnabled(False)
             self.uiNewSiteInterpretationGrp.setEnabled(True)
             self.uiNewSiteInterpretationGrp.setVisible(True)
+            #if self.siteLayer:
+            #    self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
         elif self.uiNewSiteNoRBtn.isChecked():
             # Add To Existing Site
             self.uiNewSiteInterpretationGrp.setEnabled(False)
             self.uiSiteMappingModesGrp.setVisible(True)
             self.uiSiteMappingModesGrp.setEnabled(True)
             self.uiNewSiteInterpretationGrp.setVisible(False)
+            #if self.siteLayer:
+            #   self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
         elif self.uiEditGeometryRBtn.isChecked():
             # siteStart Layer in Edit Mode!
-
+            #if self.siteLayer:
+            #    self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
             self.uiSiteMappingModesGrp.setVisible(False)
             self.uiNewSiteInterpretationGrp.setVisible(False)
             self.startEditingSiteLayer()
@@ -439,8 +445,9 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             feature.setAttribute('meridian', meridian)
             feature.setAttribute('gkx', gkx)  # Hochwert
             feature.setAttribute('gky', gky)  # Rechtswert
-            feature.setAttribute('katastralgemeindenummer', kgCode)
-            feature.setAttribute('katastralgemeinde', kgName)
+            # Do not overwrite kg (InitalKG)
+            #feature.setAttribute('katastralgemeindenummer', kgCode)
+            #feature.setAttribute('katastralgemeinde', kgName)
 
             now = QDate.currentDate()
             feature.setAttribute('datum_aenderung', now.toString("yyyy-MM-dd"))
@@ -455,6 +462,8 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         if SitesHaveFindSpots(self.dbm.db, [siteNumber for siteNumber in polygonDict]):
             findSpotHandlingDlg = ApisSiteEditFindSpotHandlingDialog(self.iface, self.dbm, polygonDict)
+            findSpotHandlingDlg.closeAble = False
+            findSpotHandlingDlg.uiCancelEditBtn.setEnabled(False)
             res = findSpotHandlingDlg.exec_()
             fSEditActions = findSpotHandlingDlg.getActions()
             # Edit FindSpots
@@ -572,7 +581,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             self.uiSiteMappingModesGrp.setEnabled(True)
 
     def onCheckIfFilm(self):
-        if self.isFilm(self.uiFilmOrProjectEdit.text()):
+        if IsFilm(self.dbm.db, self.uiFilmOrProjectEdit.text()):
             QMessageBox.warning(None, self.tr(u"Site Mapping"), u"{0} ist ein bestehender Film".format(self.uiFilmOrProjectEdit.text()))
             # Bildnummer Freischalten
             self.uiImageNumberEdit.setEnabled(True)
@@ -580,15 +589,6 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             QMessageBox.warning(None, self.tr(u"Site Mapping"), u"{0} ist kein Film".format(self.uiFilmOrProjectEdit.text()))
             self.uiImageNumberEdit.setEnabled(False)
             self.uiImageNumberEdit.setText('-1')
-
-
-    def isFilm(self, filmNumber):
-        # check if filmNumber is a filmNumber in film Table
-        qryStr = "SELECT COUNT(*) FROM film WHERE filmnummer = '{0}'".format(filmNumber)
-        query = QSqlQuery(self.dbm.db)
-        query.exec_(qryStr)
-        query.first()
-        return query.value(0)
 
 
     def addNewSite(self):
@@ -633,7 +633,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             feat.setAttribute('bildnummer', imgNumber)
 
             isFilmBased = False
-            if self.isFilm(filmNumber):
+            if IsFilm(self.dbm.db, filmNumber):
                 feat.setAttribute('befund', "{0}/{1}: ".format(filmNumber, imgNumber))
                 isFilmBased = True
 
@@ -1119,7 +1119,8 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
 
     def openSiteDialogInAddMode(self, siteNumber, isFilmBased):
-        siteDlgAdd = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
+        siteDlgAdd = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         siteDlgAdd.openInAddMode(siteNumber, isFilmBased)
         siteDlgAdd.show()
         # Run the dialog event loop
@@ -1130,12 +1131,14 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             pass
         siteDlgAdd.removeSitesFromSiteMapCanvas()
         self.onCancelAnyEdits()
+        self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
 
         # QMessageBox.warning(None, self.tr(u"Load Site"), self.tr(u"For Site: {0}".format(siteNumber)))
 
 
     def openSiteDialogInEditMode(self, siteNumber, newPolygon, oldPolygon, country, kgCode, kgName, siteArea):
-        siteDlgEdit = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
+        siteDlgEdit = ApisSiteDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         siteDlgEdit.siteAndGeometryEditsSaved.connect(self.saveSiteEdits)
         siteDlgEdit.siteAndGeometryEditsCanceled.connect(self.discardSiteEdits)
         siteDlgEdit.openInEditMode(siteNumber, newPolygon, oldPolygon, country, kgCode, kgName, siteArea)
@@ -1145,6 +1148,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
         res = siteDlgEdit.exec_()
         siteDlgEdit.removeSitesFromSiteMapCanvas()
         self.onCancelAnyEdits()
+        self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
         #else:
             #self.onCancelAnyEdits()
 

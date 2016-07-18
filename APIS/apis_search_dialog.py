@@ -21,20 +21,21 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 # --------------------------------------------------------
 from apis_search_form import *
 class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
-    def __init__(self, iface, dbm, imageRegistry):
+    def __init__(self, iface, dbm, imageRegistry, apisLayer):
         QDockWidget.__init__(self)
         self.iface = iface
         self.setupUi(self)
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.dbm = dbm
         self.imageRegistry = imageRegistry
+        self.apisLayer = apisLayer
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self)
         self.hide()
 
         self.visibilityChanged.connect(self.onVisibilityChanged)
 
         # Spatial Search
-        self.spatialSearchTool = RectangleMapTool(self.iface, self.dbm, self.imageRegistry)
+        self.spatialSearchTool = RectangleMapTool(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         self.spatialSearchTool.setButton(self.uiSpatialSearchBtn)
         self.uiSpatialSearchBtn.setCheckable(True)
         self.uiSpatialSearchBtn.toggled.connect(self.toggleSpatialSearch)
@@ -212,7 +213,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
                 #
                 #qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
                 query.exec_()
-                self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+                self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
                 info = u"gefunden, die von den selektierten Features aus dem Layer '{0}' abgedeckt/geschnitten werden.".format(vlayer.name())
                 res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
                 if res:
@@ -225,7 +226,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
                 query.prepare("SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung_zeit, datierung_periode, datierung_periode_detail, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst WHERE NOT IsEmpty(fst.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}', {1}), fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}', {1}))) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(searchGeometry.exportToWkt(), epsg))
                 #query.prepare("SELECT fundortnummer, fundstellenummer, datierung, fundart, fundart_detail, sicherheit, kultur FROM fundstelle WHERE (fundortnummer || '.' || fundstellenummer) as id1 IN (SELECT DISTINCT (fs.fundortnummer || '.' || fs.fundstellenummer) as id2 FROM fundstelle fs WHERE NOT IsEmpty(fs.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fs.geometry) AND fs.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = GeomFromText('{0}',{1}) ) )".format(searchGeometry.exportToWkt(), epsg))
                 query.exec_()
-                self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+                self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
                 res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
                 if res:
                     self.findSpotSelectionListDlg.show()
@@ -281,7 +282,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             # qryStr = "SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort_pnt WHERE fundort_pnt.fundortnummer IN (SELECT DISTINCT fundort_pol.fundortnummer FROM fundort_pol WHERE NOT IsEmpty(fundort_pol.geometry) AND NOT IsEmpty(GeomFromText('{0}',{1})) AND Intersects(GeomFromText('{0}',{1}), fundort_pol.geometry) AND fundort_pol.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort_pol' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY SUBSTR(fundortnummer, 0, 3), CAST(SUBSTR(fundortnummer, 5) AS INTEGER)".format(searchGeometry.exportToWkt(), epsg)
             query.prepare(u"SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, ({0}) cc WHERE NOT IsEmpty(fo.geometry) AND Intersects(cc.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = cc.geometry ) ) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(ccSearchStr))
             query.exec_()
-            self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+            self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
             #info = u"gefunden, die von den selektierten Features aus dem Layer '{0}' abgedeckt/geschnitten werden.".format(vlayer.name())
             res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query)
             if res:
@@ -293,7 +294,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
             #Fundstellen
             query.prepare(u"SELECT fs.fundortnummer, fs.fundstellenummer, fo.katastralgemeinde, datierung_zeit, datierung_periode, datierung_periode_detail, fundart, fundart_detail, fs.sicherheit, kultur FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND (fs.fundortnummer || '.' || fs.fundstellenummer) IN (SELECT DISTINCT (fst.fundortnummer || '.' || fst.fundstellenummer) AS fsn FROM fundstelle fst, ({0}) cc WHERE NOT IsEmpty(fst.geometry) AND Intersects(cc.geometry, fst.geometry) AND fst.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundstelle' AND search_frame = cc.geometry)) ORDER BY fo.katastralgemeindenummer, fo.land, fo.fundortnummer_nn, fs.fundstellenummer".format(ccSearchStr))
             query.exec_()
-            self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+            self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
             res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
             if res:
                 self.findSpotSelectionListDlg.show()
@@ -326,7 +327,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
 
         # qryStr = "select cp.bildnummer as bildnummer, cp.filmnummer as filmnummer, cp.radius as mst_radius, f.weise as weise, f.art_ausarbeitung as art from film as f, luftbild_schraeg_cp AS cp WHERE f.filmnummer = cp.filmnummer AND cp.bildnummer IN (SELECT fp.bildnummer FROM luftbild_schraeg_fp AS fp WHERE NOT IsEmpty(fp.geometry) AND Intersects(GeomFromText('{0}',{1}), fp.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_schraeg_fp' AND search_frame = GeomFromText('{0}',{1}) )) UNION ALL SELECT  cp_s.bildnummer AS bildnummer, cp_S.filmnummer AS filmnummer, cp_s.massstab, f_s.weise, f_s.art_ausarbeitung FROM film AS f_s, luftbild_senk_cp AS cp_s WHERE f_s.filmnummer = cp_s.filmnummer AND cp_s.bildnummer IN (SELECT fp_s.bildnummer FROM luftbild_senk_fp AS fp_s WHERE NOT IsEmpty(fp_s.geometry) AND Intersects(GeomFromText('{0}',{1}), fp_s.geometry) AND rowid IN (SELECT rowid FROM SpatialIndex WHERE f_table_name = 'luftbild_senk_fp' AND search_frame = GeomFromText('{0}',{1}) ) ) ORDER BY filmnummer, bildnummer".format(searchGeometry.exportToWkt(), epsg)
         query.exec_()
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         info = u"gefunden, deren Fundortnummer die Suche '{0}' enthält.".format(siteNumberSearchValue)
         res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
@@ -350,7 +351,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         query = QSqlQuery(self.dbm.db)
         query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, {0} WHERE fo.geometry IS NOT NULL AND {0}.geometry IS NOT NULL AND {0}.filmnummer = '{1}' AND Intersects({0}.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = {0}.geometry)) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(fromTable, filmNumber))
         query.exec_()
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         info = u"gefunden, die vom Film {0} abgedeckt/geschnitten werden.".format(filmNumber)
         res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
@@ -365,7 +366,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE fundortnummer IN (SELECT DISTINCT fo.fundortnummer FROM fundort fo, (SELECT filmnummer, geometry FROM luftbild_schraeg_fp WHERE NOT IsEmpty(luftbild_schraeg_fp.geometry) AND substr(luftbild_schraeg_fp.filmnummer, 3, 4) = '{0}' UNION ALL SELECT filmnummer, geometry FROM luftbild_senk_fp WHERE NOT IsEmpty(luftbild_senk_fp.geometry) AND substr(luftbild_senk_fp.filmnummer, 3, 4) = '{0}') luftbild WHERE NOT IsEmpty(fo.geometry) AND Intersects(luftbild.geometry, fo.geometry) AND fo.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'fundort' AND search_frame = luftbild.geometry)) ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(year))
 
         query.exec_()
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         info = u"gefunden, die von Filmen aus dem Jahr {0} abgedeckt/geschnitten werden.".format(year)
         res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
@@ -379,7 +380,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         query = QSqlQuery(self.dbm.db)
         query.prepare("SELECT fundortnummer, flurname, katastralgemeinde, fundgewinnung, sicherheit FROM fundort WHERE filmnummer_projekt LIKE '%{0}%' ORDER BY katastralgemeindenummer, land, fundortnummer_nn".format(projectNameSearchValue))
         query.exec_()
-        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.siteSelectionListDlg = ApisSiteSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         info = u"gefunden, deren Projektbezeichnung die Suche '{0}' enthält.".format(projectNameSearchValue)
         res = self.siteSelectionListDlg.loadSiteListBySpatialQuery(query, info)
         if res:
@@ -447,7 +448,7 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
         #return
         query.prepare(qryStr)
         query.exec_()
-        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry)
+        self.findSpotSelectionListDlg = ApisFindSpotSelectionListDialog(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         res = self.findSpotSelectionListDlg.loadFindSpotListBySpatialQuery(query)
         if res:
             self.findSpotSelectionListDlg.show()

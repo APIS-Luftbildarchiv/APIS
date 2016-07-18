@@ -20,12 +20,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/forms")
 # --------------------------------------------------------
 from apis_image_mapping_form import *
 class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
-    def __init__(self, iface, dbm):
+    def __init__(self, iface, dbm, apisLayer):
         QDockWidget.__init__(self)
         self.iface = iface
         self.setupUi(self)
         self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
         self.dbm = dbm
+        self.apisLayer = apisLayer
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self)
         self.hide()
         self.canvas = self.iface.mapCanvas()
@@ -33,6 +34,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.imageCenterPoint = None
         self.cpLayerId = None
         self.fpLayerId = None
+        self.currentFilmNumber = None
+        self.isOblique = True
+
+        self.visibilityChanged.connect(self.onVisibilityChanged)
 
         self.setPointMapTool = QgsMapToolEmitPoint(self.canvas) #SetPointMapTool(self.canvas)
         self.setPointMapTool.canvasClicked.connect(self.updatePoint)
@@ -75,6 +80,27 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
         self.mappingMode = False
 
+    def onVisibilityChanged(self, isVisible):
+        if not isVisible:
+            self.vertexMarker.hide()
+            self.vertexMarker2.hide()
+
+            if self.uiSetCenterPointBtn.isChecked():
+                self.uiSetCenterPointBtn.toggle()
+
+            self.removeCenterPointLayer()
+            self.removeFootPrintLayer()
+
+        else:
+            if self.currentFilmNumber:
+                self.reloadCpLayer()
+                self.reloadFpLayer()
+
+            if self.mappingMode:
+                self.vertexMarker.show()
+                self.vertexMarker2.show()
+
+
     def openFilmSelectionDialog(self):
         """Run method that performs all the real work"""
         self.filmSelectionDlg.show()
@@ -91,11 +117,33 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         self.reloadCpLayer()
         self.reloadFpLayer()
 
-        monoplotImportDlg = ApisMonoplotImportDialog(self, self.iface, self.dbm, self.cpLayer, self.fpLayer, self.currentFilmNumber)
-        monoplotImportDlg.show()
-        if monoplotImportDlg.exec_():
-            self.cpLayer.updateExtents()
-            self.fpLayer.updateExtents()
+        # sourceLayer
+        imageBasePath = self.settings.value("APIS/image_dir")
+        monoplotPath = self.settings.value("APIS/monoplot_dir")
+        epsg = self.settings.value("APIS/monoplot_epsg", type=int)
+        sourceCpLayerShp = u"{0}.{1}".format(self.settings.value("APIS/monoplot_cp_shp"), u"shp")
+        sourceFpLayerShp = u"{0}.{1}".format(self.settings.value("APIS/monoplot_fp_shp"), u"shp")
+        sourceCpLayerPath = os.path.normpath(os.path.join(imageBasePath, self.currentFilmNumber, monoplotPath, sourceCpLayerShp))
+        sourceFpLayerPath = os.path.normpath(os.path.join(imageBasePath, self.currentFilmNumber, monoplotPath, sourceFpLayerShp))
+        cpIsFile = os.path.isfile(sourceCpLayerPath)
+        fpIsFile = os.path.isfile(sourceFpLayerPath)
+        sourceCpLayer = self.apisLayer.requestShapeFile(sourceCpLayerPath, epsg, None, "Bildkartierung", True, True)
+        sourceFpLayer = self.apisLayer.requestShapeFile(sourceFpLayerPath, epsg, None, "Bildkartierung", True, True)
+        if cpIsFile and fpIsFile:
+            monoplotImportDlg = ApisMonoplotImportDialog(self, self.iface, self.dbm, sourceCpLayer, sourceFpLayer, self.cpLayer, self.fpLayer, self.currentFilmNumber)
+            monoplotImportDlg.show()
+            if monoplotImportDlg.exec_():
+                self.cpLayer.updateExtents()
+                self.fpLayer.updateExtents()
+        else:
+            errorText = u""
+            if not cpIsFile:
+                errorText += u"\n{0}".format(sourceCpLayerPath)
+            if not fpIsFile:
+                errorText += u"\n{0}".format(sourceFpLayerPath)
+
+            QMessageBox.warning(None, u"Monoplot Import", u"Für den Film {0} sind folgende Monoplot Dateien nicht vorhanden: {1}".format(self.currentFilmNumber, errorText))
+
 
     def setCurrentFilmNumber(self, filmNumber):
         self.currentFilmNumber = filmNumber
@@ -111,8 +159,8 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
         if not self.imageCenterPoint:
             self.uiAddCenterPointBtn.setEnabled(False)
         self.mappingMode = False
-        if not self.uiSetCenterPointBtn.isChecked():
-            self.uiSetCenterPointBtn.toggle()
+        #if not self.uiSetCenterPointBtn.isChecked():
+        #    self.uiSetCenterPointBtn.toggle()
 
 
         # Remove old Layer & Load New Layer
@@ -123,6 +171,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
     def resetCurrentFilmNumber(self):
         self.uiCurrentFilmNumberEdit.clear()
+        self.currentFilmNumber = None
         self.setCurrentLayout(True,False,False,False)
 
         #self.canvas.unsetMapTool(self.setPointMapTool)
@@ -143,23 +192,7 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
                 layout.itemAt(i).widget().setEnabled(enable)
 
     def checkFilmNumber(self, filmNumber):
-        query = QSqlQuery(self.dbm.db)
-        qryStr = "SELECT rowid FROM film WHERE filmnummer = '{0}'".format(filmNumber)
-        # qryStr = "SELECT" \
-        #          "  (SELECT COUNT(*)" \
-        #          "       FROM film AS t2" \
-        #          "       WHERE t2.rowid < t1.rowid" \
-        #          "      ) + (" \
-        #          "         SELECT COUNT(*)" \
-        #          "         FROM film AS t3" \
-        #          "        WHERE t3.rowid = t1.rowid AND t3.rowid < t1.rowid" \
-        #          "      ) AS rowNum" \
-        #          "   FROM film AS t1" \
-        #          "   WHERE filmnummer = '{0}'" \
-        #          "   ORDER BY t1.rowid ASC".format(filmNumber)
-        query.exec_(qryStr)
-        query.first()
-        if query.value(0) != None:
+        if IsFilm(self.dbm.db, filmNumber):
             # Film exists
             return True
         else:
@@ -547,12 +580,6 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
     def generateFootprintsForFilmVertical(self):
         self.reloadCpLayer()
         self.reloadFpLayer()
-        #uri = QgsDataSourceURI()
-        #uri.setDatabase(self.dbm.db.databaseName())
-        #uri.setDataSource('', 'luftbild_{0}_fp'.format(self.orientation), 'geometry')
-        #self.fpLayer = QgsVectorLayer(uri.uri(), u'Kartierung {0} Footprint'.format(self.currentFilmNumber), 'spatialite')
-        #self.fpLayer.setSubsetString(u'"filmnummer" = "{0}"'.format(self.currentFilmNumber))
-        #QgsMapLayerRegistry.instance().addMapLayer(self.fpLayer)
 
         # Error wenn nur ein punkt vorhanden
         if self.cpLayer.featureCount() > 1:
@@ -726,6 +753,10 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
                 fpFts.append(fpFt)
             (res, outFeats) = self.fpLayer.dataProvider().addFeatures(fpFts)
             self.fpLayer.updateExtents()
+            if self.canvas.isCachingEnabled():
+                self.fpLayer.setCacheImage(None)
+            else:
+                self.canvas.refresh()
         else:
             QMessageBox.warning(None, u"Layer Capabilities!")
 

@@ -1,0 +1,94 @@
+{
+    "groups": {
+        "temp": {"display_name": "Temp", "pos_after": 0},
+        "image_mapping": {"display_name":"Bildkartierung", "pos_after": "temp"},
+        "site_mapping": {"display_name":"Fundortkartierung", "pos_after": "image_mapping"},
+        "flight_path": {"display_name":"Flugwege", "pos_after": "site_mapping"},
+        "interpretation": {"display_name":"Interpretationen", "pos_after": "flight_path"},
+        "sites": {"display_name": "Funde", "pos_after": "interpretation"},
+        "images": {"display_name": "Luftbilder", "pos_after": "sites"},
+        "orthos": {"display_name": "Orthofotos", "pos_after": "images"},
+        "borders": {"display_name": "Grenzen", "pos_after": "orthos"},
+        "oek50": {"display_name": "OK50 GK", "pos_after": "borders"}
+    },
+    "groups_order": [
+        "temp",
+        "image_mapping",
+        "site_mapping",
+        "flight_path",
+        "interpretation",
+        "sites",
+        "images",
+        "orthos",
+        "borders",
+        "oek50"
+    ],
+    "layers": {
+        "flight_path_pnt": {
+            "group": "flight_path",
+            "style": "flugweg_pkt"
+        },
+        "flight_path_lin": {
+            "group": "flight_path",
+            "style": "flugweg_lin"
+        },
+        "images_vertical_cp": {
+            "default": 1,
+            "display_name": "Senkrecht CenterPoints",
+            "name": "luftbild_senk_cp",
+            "group": "images",
+            "style": "bilder_pkt.qml"
+        },
+        "images_vertical_fp": {
+            "default": 1,
+            "display_name": "Senkrecht FootPrints",
+            "name": "luftbild_senk_fp",
+            "group": "images",
+            "style": "bilder_pol.qml"
+        },
+        "images_oblique_cp": {
+            "default": 1,
+            "display_name": "Schräg CenterPoints",
+            "name": "luftbild_schraeg_cp",
+            "group": "images",
+            "style": "bilder_pkt.qml"
+        },
+        "images_oblique_fp": {
+            "default": 1,
+            "display_name": "Schräg FootPrints",
+            "name": "luftbild_schraeg_fp",
+            "group": "images",
+            "style": "bilder_pol.qml"
+        },
+        "sites": {
+            "default": 1,
+            "display_name": "Fundorte",
+            "name": "fundort",
+            "group": "sites",
+            "style": "fundort.qml"
+        },
+        "fundstelle_pol": {
+            "default": 1,
+            "display_name": "Fundstellen",
+            "name": "fundstelle",
+            "group": "sites",
+            "style": "fundstelle.qml"
+        },
+        "kgs_pol": {
+            "default": 1,
+            "posAfter": 0,
+            "display_name": "Katastralgemeinden",
+            "name": "katastralgemeinden",
+            "group": "borders",
+            "style": "katastralgemeinde.qml"
+        },
+        "osm_pol": {
+            "default": 1,
+            "posAfter": "kgs_pol",
+            "display_name": "Staatsgrenzen",
+            "name": "osm_boundaries",
+            "group": "borders",
+            "style": "staatsgrenzen.qml"
+        }
+    }
+}
