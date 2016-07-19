@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_monoplot_import_form.ui'
 #
-# Created: Sat Jul 16 19:24:14 2016
+# Created: Mon Jul 18 17:21:34 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,6 +42,7 @@ class Ui_apisMonoplotImportDialog(object):
         self.uiReportPTxt.setSizePolicy(sizePolicy)
         self.uiReportPTxt.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.uiReportPTxt.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.uiReportPTxt.setReadOnly(True)
         self.uiReportPTxt.setPlainText(_fromUtf8(""))
         self.uiReportPTxt.setObjectName(_fromUtf8("uiReportPTxt"))
         self.verticalLayout.addWidget(self.uiReportPTxt)

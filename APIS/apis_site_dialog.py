@@ -660,6 +660,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
     def saveEdits(self):
         # Check Mandatory fields
         flag = False
+        fSEditActions = {}
         for mEditor in self.mandatoryEditors:
             cName = mEditor.metaObject().className()
             if cName == 'QLineEdit':
@@ -825,12 +826,13 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
                 # get filename from SQL
                 repImageName = self.getRepresentativeImage(self.siteNumber)
-                path += u"\\" + repImageName + u".jpg"
-                # Check if exists
-                repImageFile = QFile(path)
+                if repImageName:
+                    path += u"\\" + repImageName + u".jpg"
+                    # Check if exists
+                    repImageFile = QFile(path)
 
-                if repImageFile.exists():
-                    repImageFile.remove()
+                    if repImageFile.exists():
+                        repImageFile.remove()
 
                 # log eintragen
                 self.apisLogger(u"delete", u"fundort", u"fundortnummer = '{0}'".format(self.siteNumber))
@@ -856,9 +858,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         if fileName:
 
-            qryStr = u"SELECT * FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber)
             query = QSqlQuery(self.dbm.db)
-            query.prepare(qryStr)
+            query.prepare(u"SELECT * FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber))
             query.exec_()
 
             siteDict = {}
@@ -899,6 +900,17 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
                 siteDict['epsg_mgi'] = u"4312"
 
+            query.prepare(u"SELECT kg.katastralgemeindenummer as kgcode, kg.katastralgemeindename as kgname, round(100*Area(Intersection(Transform(fo.geometry, 31287), kg.geometry))/Area(Transform(fo.geometry, 31287))) as percent FROM katastralgemeinden kg, fundort fo WHERE fundortnummer = '{0}' AND intersects(Transform(fo.geometry, 31287), kg.geometry) AND kg.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'katastralgemeinden' AND search_frame = Transform(fo.geometry, 31287)) ORDER  BY percent DESC".format(self.siteNumber))
+            query.exec_()
+            query.seek(-1)
+            val = u""
+            while query.next():
+                rec = query.record()
+                val += u"{0} {1} ({2} %)\n".format(rec.value(0), rec.value(1), rec.value(2))
+
+            siteDict['kgs_lage'] = val
+            #QMessageBox.information(None, "KGS", val)
+
             # MapSettings
             mapSettings = QgsMapSettings()
             mapSettings.setCrsTransformEnabled(True)
@@ -911,7 +923,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             siteLayer = self.getSpatialiteLayer(u"fundort", u'"fundortnummer" = "{0}"'.format(self.siteNumber), u"fundort")
             siteLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
             siteLayer.setCoordinateSystem()
+
+            # TODO replace with loadNamedStyle
             siteLayer.setRendererV2(self.getSiteRenderer())
+
             QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)  # False = don't add to Layers (TOC)
             layerSet.append(siteLayer.id())
             extent = mapSettings.layerExtentToOutputExtent(siteLayer, siteLayer.extent())
@@ -920,53 +935,63 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             baseVal = max(5000.0, scaleVal*1.1)
             #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
             extent.scale(baseVal/scaleVal)
-            QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
+            #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
 
-            import math
-            mapWidth = 94  # 160
-            mapHeight = 70  # 120
-            c = 40075016.6855785
-            mpW = extent.width() / mapWidth
-            mpH = extent.height() / mapHeight
-            zW = math.log(c / mpW, 2) - 8
-            zH = math.log(c / mpH, 2) - 8
-            z = math.floor(min(zW, zH)) + 2
-            # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+            # ÖK Background
+            #TODO from settings
+            oekLayer = QgsRasterLayer(u"C:\\apis\\daten\\oek50\\oek50qgis\\ok50_gk_m28_apis4qgis.vrt", u"ok50_m28")
 
+            oekLayer.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
+            QgsMapLayerRegistry.instance().addMapLayer(oekLayer, False)
+            layerSet.append(oekLayer.id())
 
-            # Tile Layer (Background Map)
-            # TODO: Move To Settings ...
-            ds = {}
-            # ds['type'] = 'TMS'
-            ds['title'] = 'basemap.at'
-            ds['attribution'] = 'basemap.at'
-            ds['attributionUrl'] = 'http://www.basemap.at'
-            ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-            ds['yOriginTop'] = 1
-            ds['zmin'] = 0
-            ds['zmax'] = int(z)
-            ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
+            #oekLayer.setExtent(extent)
 
-            layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
-
-            tileLayer = TileLayer070(layerDef, False)
-            tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-
-            if not tileLayer.isValid():
-                error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
-                self.iface.messageBar().pushMessage(self.tr('Error'),
-                                                    error_message,
-                                                    level=QgsMessageBar.CRITICAL)
-                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-            else:
-                # Set Attributes
-                # tileLayer.setAttribution(ds['copyright_text'])
-                # tileLayer.setAttributionUrl(ds['copyright_url'])
-                QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
-                layerSet.append(tileLayer.id())
-
-            # Set LayerSet
-            tileLayer.setExtent(extent)
+            # import math
+            # mapWidth = 94  # 160
+            # mapHeight = 70  # 120
+            # c = 40075016.6855785
+            # mpW = extent.width() / mapWidth
+            # mpH = extent.height() / mapHeight
+            # zW = math.log(c / mpW, 2) - 8
+            # zH = math.log(c / mpH, 2) - 8
+            # z = math.floor(min(zW, zH)) + 2
+            # # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+            #
+            #
+            # # Tile Layer (Background Map)
+            # # TODO: Move To Settings ...
+            # ds = {}
+            # # ds['type'] = 'TMS'
+            # ds['title'] = 'basemap.at'
+            # ds['attribution'] = 'basemap.at'
+            # ds['attributionUrl'] = 'http://www.basemap.at'
+            # ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+            # ds['yOriginTop'] = 1
+            # ds['zmin'] = 0
+            # ds['zmax'] = int(z)
+            # ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
+            #
+            # layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
+            #
+            # tileLayer = TileLayer070(layerDef, False)
+            # tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #
+            # if not tileLayer.isValid():
+            #     error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+            #     self.iface.messageBar().pushMessage(self.tr('Error'),
+            #                                         error_message,
+            #                                         level=QgsMessageBar.CRITICAL)
+            #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+            # else:
+            #     # Set Attributes
+            #     # tileLayer.setAttribution(ds['copyright_text'])
+            #     # tileLayer.setAttributionUrl(ds['copyright_url'])
+            #     QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+            #     layerSet.append(tileLayer.id())
+            #
+            # # Set LayerSet
+            # tileLayer.setExtent(extent)
 
             mapSettings.setExtent(extent)
             mapSettings.setLayers(layerSet)
@@ -986,16 +1011,91 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             composition.loadFromTemplate(templateDom, siteDict)
             pageCount = 1
 
-            adjustItems = ["parzelle", "flur", "hoehe", "flaeche" "kommentar_lage", "media", "befund", "literatur", "detailinterpretation"]
+            adjustItemHightTxt = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "befund", "literatur", "detailinterpretation"]
+
+            for itemId in adjustItemHightTxt:
+                itemTxt = composition.getComposerItemById(itemId + "Txt")
+                if itemTxt:
+                    fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
+                    #oldHeight = itemTxt.rectWithFrame().height()
+                    displayText = unicode(itemTxt.displayText())
+                    w = itemTxt.rectWithFrame().width()
+                    boxWidth = w - 2 * itemTxt.marginX()
+                    lineCount = 0
+                    oldLineCount = 0
+                    spaceWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), " ")
+                    newText = u""
+                    for line in displayText.splitlines():
+                        lineWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
+                        oldLineCount += math.ceil(lineWidth / boxWidth)
+                        if lineWidth > boxWidth:
+                            lineCount += 1
+                            if lineCount > 1:
+                                newText += u"\n"
+                            accWordWidth = 0
+                            wordNum = 0
+                            for word in line.split():
+                                wordNum += 1
+                                wordWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), word)
+                                accWordWidth += wordWidth
+                                if accWordWidth > boxWidth:
+                                    if wordNum > 1:
+                                        lineCount += 1
+                                    if wordWidth > boxWidth:
+                                        accCharWidth = 0
+                                        newWord = u""
+                                        for char in word:
+                                            charWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), char)
+                                            accCharWidth += charWidth
+                                            newWord += char
+                                            if accCharWidth >= boxWidth - 5:
+                                                #INSERT LINE BREAK
+                                                lineCount += 1
+                                                accCharWidth = 0
+                                                newText += newWord
+                                                newWord = u"\n"
+                                        newText += newWord + u" "
+                                        accWordWidth = accCharWidth + spaceWidth
+
+                                    else:
+                                        if wordNum > 1:
+                                            newText += u"\n" + word + u" "
+
+                                        accWordWidth = wordWidth + spaceWidth
+
+                                else:
+                                    accWordWidth += spaceWidth
+                                    newText += word + u" "
+
+
+                        else:
+                            lineCount += 1 #math.ceil(textWidth / boxWidth)
+                            if lineCount > 1:
+                                newText += u"\n"
+                            newText += line
+
+                    itemTxt.setText(newText)
+
+                    #QMessageBox.information(None, "LineCount", u"feld: {0}, old: {1}, new: {2}".format(itemId, oldLineCount, lineCount))
+
+                    newHeight = fontHeight * (lineCount + 0.5)
+                    newHeight += 2 * itemTxt.marginY() + 2
+
+                    x = itemTxt.pos().x()
+                    y = itemTxt.pos().y()
+                    itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, 1)
+
+
+
+            adjustItems = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "media", "befund", "literatur", "detailinterpretation"]
 
             bottomBorder = 30.0
             topBorder = 27.0
             i = 0
             for itemId in adjustItems:
-
                 itemTxt = composition.getComposerItemById(itemId + "Txt")
                 itemLbl = composition.getComposerItemById(itemId +"Lbl")
-                itemBox = composition.getComposerItemById(itemId + "Box")
+                #itemBox = composition.getComposerItemById(itemId + "Box")
 
 
                 if itemId == "media":
@@ -1011,29 +1111,17 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
                     path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
                     repImageName = self.getRepresentativeImage(self.siteNumber)
-                    path += u"\\" + repImageName + u".jpg"
+                    if repImageName:
+                        path += u"\\" + repImageName + u".jpg"
 
-                    repImageFile = QFile(path)
-                    if repImageFile.exists():
-                        itemImg.setPicturePath(path)
+                        repImageFile = QFile(path)
+                        if repImageFile.exists():
+                            itemImg.setPicturePath(path)
 
                     newY = itemImg.pos().y() + itemImg.rectWithFrame().height() + 5.0
 
 
                 if itemTxt and itemLbl:
-
-                    #textWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), itemTxt.displayText())
-                    fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
-                    oldHeight = itemTxt.rectWithFrame().height()
-                    displayText = itemTxt.displayText()
-                    boxWidth = itemTxt.rectWithFrame().width() - 2 * itemTxt.marginX()
-                    lineCount = 0
-                    for line in displayText.splitlines():
-                        textWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
-                        lineCount += math.ceil(textWidth / boxWidth)
-
-                    newHeight = fontHeight * (lineCount + 1)
-                    newHeight += 2 * itemTxt.marginY() + 2
 
                     x = itemTxt.pos().x()
                     if i == 0:
@@ -1041,7 +1129,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                     else:
                         y = newY
                     w = itemTxt.rectWithFrame().width()
-                    newY = y + newHeight
+                    h  = itemTxt.rectWithFrame().height()
+                    newY = y + h
                     if newY > composition.paperHeight() - bottomBorder:
                         pageCount += 1
                         y = topBorder
@@ -1057,16 +1146,17 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                             self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
                             footer += 1
 
-                    itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, pageCount)
+                    itemTxt.setItemPosition(x, y, w, h, QgsComposerItem.UpperLeft, True, pageCount)
                     itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
 
                     i += 1
 
-                    if itemBox:
-                        h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
-                        itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
-
-
+                    #if itemBox:
+                        #h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
+                        #itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
+            addLineAfterItems = ["lage_und_koordinaten", "kgs_lageLbl"]
+            for itemId in addLineAfterItems:
+                continue
             #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
 
             composition.setNumPages(pageCount)
@@ -1295,6 +1385,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.siteLayerId = siteLayer.id()
         siteLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
 
+        # TODO replace with loadNamedStyle
         siteLayer.setRendererV2(self.getSiteRenderer())
 
         extent = siteLayer.extent()
@@ -1305,62 +1396,80 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         layerSet = []
         layerSet.append(canvasLayer)
 
-        # Tile Layer (Background Map)
-        ds = {}
-        ds['type'] = 'TMS'
-        ds['alias'] = 'basemap'
-        ds['copyright_text'] = 'basemaop'
-        ds['copyright_link'] = 'http://www.basemap.at'
-        #ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-        #ds['tms_url'] = "http://maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg"
-        ds['tms_url'] = "http://maps.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png"
+        # ÖK Background
 
-        #service_info = TileServiceInfo(ds['alias'], ds['alias'], ds['tms_url'])
-        #service_info.zmin = 0
-        #service_info.zmax = 17 #int(z)
-        #if ds.tms_y_origin_top is not None:
-        #   service_info.yOriginTop = ds.tms_y_origin_top
-        #service_info.epsg_crs_id = 3857
-        #service_info.postgis_crs_id = None
-        #service_info.custom_proj = None
-        #service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+        oekLayer28 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m28"), u"ok50_m28")
+        oekLayer31 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m31"), u"ok50_m31")
+        oekLayer34 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m34"), u"ok50_m34")
 
-        service_info = TileServiceInfo(ds['alias'], ds['copyright_text'], ds['tms_url'])
-        service_info.zmin = 0
-        service_info.zmax = 17
-        #if ds.tms_y_origin_top is not None:
-        #    service_info.yOriginTop = ds.tms_y_origin_top
-        service_info.epsg_crs_id = 3857
-        service_info.postgis_crs_id = None
-        service_info.custom_proj = None
-        layer = TileLayer(service_info, False)
+        # oekLayer.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
+        QgsMapLayerRegistry.instance().addMapLayer(oekLayer28, False)
+        QgsMapLayerRegistry.instance().addMapLayer(oekLayer31, False)
+        QgsMapLayerRegistry.instance().addMapLayer(oekLayer34, False)
+        canvasLayerBg28 = QgsMapCanvasLayer(oekLayer28)
+        canvasLayerBg31 = QgsMapCanvasLayer(oekLayer31)
+        canvasLayerBg34 = QgsMapCanvasLayer(oekLayer34)
+        layerSet.append(canvasLayerBg28)
+        layerSet.append(canvasLayerBg31)
+        layerSet.append(canvasLayerBg34)
 
-
-        if not layer.isValid():
-            error_message = ('Layer %s can\'t be added to the map!') % ds['alias']
-            self.iface.messageBar().pushMessage('Error',
-                                           error_message,
-                                           level=QgsMessageBar.CRITICAL)
-            QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-        else:
-            # Set attribs
-            layer.setAttribution(ds['copyright_text'])
-            layer.setAttributionUrl(ds['copyright_link'])
-            # Insert layer
-            #toc_root = QgsProject.instance().layerTreeRoot()
-            #position = len(toc_root.children())  # Insert to bottom if wms\tms
-            QgsMapLayerRegistry.instance().addMapLayer(layer, False)
-            canvasLayer2 = QgsMapCanvasLayer(layer)
-            layerSet.append(canvasLayer2)
-            #toc_root.insertLayer(position, layer)
-            #self.iface.mapCanvass()
-
-            # Save link
-            #service_layers.append(layer)
-            # Set OTF CRS Transform for map
-            #if PluginSettings.enable_otf_3857() and ds.type == KNOWN_DRIVERS.TMS:
-            self.iface.mapCanvas().setCrsTransformEnabled(True)
-            self.iface.mapCanvas().setDestinationCrs(TileLayer.CRS_3857)
+        # # Tile Layer (Background Map)
+        # ds = {}
+        # ds['type'] = 'TMS'
+        # ds['alias'] = 'basemap'
+        # ds['copyright_text'] = 'basemaop'
+        # ds['copyright_link'] = 'http://www.basemap.at'
+        # #ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+        # #ds['tms_url'] = "http://maps.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg"
+        # ds['tms_url'] = "http://maps.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png"
+        #
+        # #service_info = TileServiceInfo(ds['alias'], ds['alias'], ds['tms_url'])
+        # #service_info.zmin = 0
+        # #service_info.zmax = 17 #int(z)
+        # #if ds.tms_y_origin_top is not None:
+        # #   service_info.yOriginTop = ds.tms_y_origin_top
+        # #service_info.epsg_crs_id = 3857
+        # #service_info.postgis_crs_id = None
+        # #service_info.custom_proj = None
+        # #service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+        #
+        # service_info = TileServiceInfo(ds['alias'], ds['copyright_text'], ds['tms_url'])
+        # service_info.zmin = 0
+        # service_info.zmax = 17
+        # #if ds.tms_y_origin_top is not None:
+        # #    service_info.yOriginTop = ds.tms_y_origin_top
+        # service_info.epsg_crs_id = 3857
+        # service_info.postgis_crs_id = None
+        # service_info.custom_proj = None
+        # layer = TileLayer(service_info, False)
+        #
+        #
+        # if not layer.isValid():
+        #     error_message = ('Layer %s can\'t be added to the map!') % ds['alias']
+        #     self.iface.messageBar().pushMessage('Error',
+        #                                    error_message,
+        #                                    level=QgsMessageBar.CRITICAL)
+        #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+        # else:
+        #     # Set attribs
+        #     layer.setAttribution(ds['copyright_text'])
+        #     layer.setAttributionUrl(ds['copyright_link'])
+        #     # Insert layer
+        #     #toc_root = QgsProject.instance().layerTreeRoot()
+        #     #position = len(toc_root.children())  # Insert to bottom if wms\tms
+        #     QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+        #     canvasLayer2 = QgsMapCanvasLayer(layer)
+        #     layerSet.append(canvasLayer2)
+        #     #toc_root.insertLayer(position, layer)
+        #     #self.iface.mapCanvass()
+        #
+        #     # Save link
+        #     #service_layers.append(layer)
+        #     # Set OTF CRS Transform for map
+        #     #if PluginSettings.enable_otf_3857() and ds.type == KNOWN_DRIVERS.TMS:
+        #     self.uiSiteMapCanvas.setCrsTransformEnabled(True)
+        #     self.uiSiteMapCanvas.setDestinationCrs(TileLayer.CRS_3857)
+        #     #self.iface.mapCanvas().setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
 
 
         # ds = {}
@@ -1477,17 +1586,19 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         # get path from settings
         path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
         # get filename from SQL
-        repImageName = self.getRepresentativeImage(self.siteNumber)
-        path += u"\\" + repImageName + u".jpg"
-        # Check if exists
-        repImageFile = QFile(path)
-
         self.scene = QGraphicsScene()
         self.uiSiteImageView.setScene(self.scene)
+        repImageName = self.getRepresentativeImage(self.siteNumber)
+        if repImageName:
+            path += u"\\" + repImageName + u".jpg"
+            # Check if exists
+            repImageFile = QFile(path)
 
-        if repImageFile.exists():
-            self.loadImage(repImageFile.fileName())
-            #QMessageBox.information(None, "FileInfo", u"True, {0}".format(repImageFile.fileName()))
+            if repImageFile.exists():
+                self.loadImage(repImageFile.fileName())
+                #QMessageBox.information(None, "FileInfo", u"True, {0}".format(repImageFile.fileName()))
+            else:
+                self.loadText(u"Kein repräsentatives Luftbild vorhanden ...")
         else:
             self.loadText(u"Kein repräsentatives Luftbild vorhanden ...")
 
@@ -1531,13 +1642,16 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         path = self.settings.value("APIS/repr_image_dir")
         # get filename from SQL
         repImageName = self.getRepresentativeImage(self.siteNumber)
-        path += u"\\" + repImageName + u".jpg"
-        # Check if exists
-        repImageFile = QFile(path)
+        if repImageName:
+            path += u"\\" + repImageName + u".jpg"
+            # Check if exists
+            repImageFile = QFile(path)
 
-        if repImageFile.exists():
-            self.loadImage(repImageFile.fileName())
-            # QMessageBox.information(None, "FileInfo", u"True, {0}".format(repImageFile.fileName()))
+            if repImageFile.exists():
+                self.loadImage(repImageFile.fileName())
+                # QMessageBox.information(None, "FileInfo", u"True, {0}".format(repImageFile.fileName()))
+            else:
+                self.loadText(u"Kein repräsentatives Luftbild vorhanden ...")
         else:
             self.loadText(u"Kein repräsentatives Luftbild vorhanden ...")
 

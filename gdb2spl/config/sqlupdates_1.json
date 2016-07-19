@@ -5,6 +5,8 @@
         "UPDATE film SET wetter = CASE WHEN wetter = 'leicht bewölkt' THEN '2991X' WHEN wetter = 'stark bewölkt' THEN '8991X' WHEN wetter = 'Nebel' THEN '9994X' WHEN wetter = 'sonnig' THEN '0991X' else '9990X' END",
         "UPDATE film SET filmnummer = (SELECT hst.id FROM hersteller AS hst WHERE hst.kurz = hersteller) || CASE WHEN SUBSTR(filmnummer, 1, 2) = '01' THEN '19' ELSE '20' END || SUBSTR(filmnummer, 3)",
         "UPDATE film SET filmnummer_hh_jjjj_mm = (SELECT hst.id FROM hersteller AS hst WHERE hst.kurz = hersteller) || CASE WHEN SUBSTR(filmnummer_hh_jjjj_mm, 1, 2) = '01' THEN '19' ELSE '20' END || SUBSTR(filmnummer_hh_jjjj_mm, 3)",
+        "UPDATE film SET datum_aenderung = datum_ersteintrag WHERE datum_aenderung IS NULL AND datum_ersteintrag IS NOT NULL",
+        "UPDATE film SET datum_ersteintrag = datum_aenderung WHERE datum_ersteintrag IS NULL AND datum_aenderung IS NOT NULL",
         "INSERT INTO copyright (bezeichnung) SELECT DISTINCT copyright FROM film WHERE copyright IS NOT NULL",
         "INSERT INTO projekt (bezeichnung) SELECT DISTINCT projekt FROM film WHERE projekt IS NOT NULL",
         "UPDATE luftbild_schraeg_cp SET filmnummer = (SELECT film.filmnummer FROM film WHERE film.filmnummer_legacy = luftbild_schraeg_cp.filmnummer) WHERE EXISTS (SELECT * FROM film WHERE film.filmnummer_legacy = luftbild_schraeg_cp.filmnummer)",

@@ -206,10 +206,12 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         #self.mapper.addMapping(self.uiCommentsPTxt, self.model.fieldIndex("kommentar"))
 
         # Date and Times
-        self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
-        self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
+        #self.mapper.addMapping(self.uiFlightDate, self.model.fieldIndex("flugdatum"))
+        self.mapper.addMapping(self.uiFlightQgsDate, self.model.fieldIndex("flugdatum"))
+        #self.mapper.addMapping(self.uiInitalEntryDate, self.model.fieldIndex("datum_ersteintrag"))
         self.mapper.addMapping(self.uiInitalEntryQgsDate, self.model.fieldIndex("datum_ersteintrag"))
-        self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
+        #self.mapper.addMapping(self.uiLastChangesDate, self.model.fieldIndex("datum_aenderung"))
+        self.mapper.addMapping(self.uiLastChangesQgsDate, self.model.fieldIndex("datum_aenderung"))
 
         self.mapper.addMapping(self.uiDepartureTime, self.model.fieldIndex("abflug_zeit"))
         self.mapper.addMapping(self.uiArrivalTime, self.model.fieldIndex("ankunft_zeit"))
@@ -985,15 +987,18 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.mapper.setCurrentIndex(row)
 
         self.uiTotalFilmCountLbl.setText(unicode(self.model.rowCount()))
-        self.uiFlightDate.setDate(flightDate)
+        #self.uiFlightDate.setDate(flightDate)
+        self.uiFlightQgsDate.setDate(flightDate)
         self.uiProducerEdit.setText(producer)
         self.uiArchiveCombo.lineEdit().setText(producer)
         if not useLastEntry:
             self.uiWeatherCodeEdit.setText("9990X")
 
-        now = QDate.currentDate()
-        self.uiInitalEntryDate.setDate(now)
-        self.uiLastChangesDate.setDate(now)
+        now = QDateTime.currentDateTime()
+        #self.uiInitalEntryDate.setDate(now)
+        self.uiInitalEntryQgsDate.setDateTime(now)
+        #self.uiLastChangesDate.setDate(now)
+        self.uiLastChangesQgsDate.setDateTime(now)
         self.uiFilmModeCombo.setEnabled(True)
 
 
@@ -1052,13 +1057,15 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         #saveToModel
         currIdx = self.mapper.currentIndex()
-        now = QDate.currentDate()
-        self.uiLastChangesDate.setDate(now)
+        now = QDateTime.currentDateTime()
+        #self.uiLastChangesDate.setDate(now)
+        self.uiLastChangesQgsDate.setDateTime(now)
 
-        QMessageBox.information(None, "Submit", "Bevor Submit")
         res = self.mapper.submit()
-        sqlError = self.mapper.model().lastError()
-        QMessageBox.information(None, "Submit", "Nach Submit {0}, {1}".format(res, sqlError.text()))
+
+        if not res:
+            sqlError = self.mapper.model().lastError()
+            QMessageBox.information(None, "Submit", u"Errpr: {0}, {1}".format(res, sqlError.text()))
 
         while (self.model.canFetchMore()):
             self.model.fetchMore()
@@ -1148,7 +1155,6 @@ class FilmDelegate(QSqlRelationalDelegate):
 
         elif editor.metaObject().className() == 'QgsDateTimeEdit' and value == '':
             editor.setEmpty()
-            editor.lineEdit().setText("---")
 
         elif editor.metaObject().className() == 'QLineEdit':
             editor.setText(value)
@@ -1183,7 +1189,8 @@ class FilmDelegate(QSqlRelationalDelegate):
             model.setData(model.createIndex(index.row(), 1), mil + filmnummer[4:]) # filmnummer_legacy
             model.setData(model.createIndex(index.row(), 2), filmnummer[:8])  # filmnummer_hh_jjjj_mm
             model.setData(model.createIndex(index.row(), 3), int(filmnummer[-2:])) # filmnummer_nn
-
+        elif editor.metaObject().className() == 'QgsDateTimeEdit':
+            model.setData(index, editor.dateTime().toString("yyyy-MM-dd"))
         elif editor.metaObject().className() == 'QDateEdit':
             model.setData(index, editor.date().toString("yyyy-MM-dd"))
         elif editor.metaObject().className() == 'QTimeEdit':

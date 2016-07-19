@@ -76,6 +76,7 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         self.uiAddToSiteManuallyGrp.setVisible(False)
         self.uiAddToSiteByIntersectionGrp.setVisible(False)
+        self.uiEditGeometryGrp.setVisible(False)
 
         self.visibilityChanged.connect(self.onVisibilityChanged)
 
@@ -109,6 +110,9 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         self.uiCancelManuallyEditingBtn.clicked.connect(self.onCancelAnyEdits)
         self.uiReplaceProvidedSiteBtn.clicked.connect(self.replaceProvidedSite)
+
+        self.uiEditGeometryStartBtn.clicked.connect(self.startEditingSiteLayer)
+        self.uiEditGeometryCancelBtn.clicked.connect(self.cancelEditingSiteLayer)
 
 # ---------------------------------------------------------------------------
 # Slots
@@ -145,6 +149,8 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
 
         if self.siteLayer and self.siteLayer.isEditable() and not self.uiEditGeometryRBtn.isChecked():
             self.siteLayer.rollBack()
+            self.uiEditGeometryStartBtn.setEnabled(True)
+            self.uiEditGeometryCancelBtn.setEnabled(False)
 
         if self.uiNewSiteYesRBtn.isChecked():
             # Add New Site
@@ -153,23 +159,23 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
             self.uiSiteMappingModesGrp.setEnabled(False)
             self.uiNewSiteInterpretationGrp.setEnabled(True)
             self.uiNewSiteInterpretationGrp.setVisible(True)
-            #if self.siteLayer:
-            #    self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
+            self.uiEditGeometryGrp.setVisible(False)
+
         elif self.uiNewSiteNoRBtn.isChecked():
             # Add To Existing Site
             self.uiNewSiteInterpretationGrp.setEnabled(False)
             self.uiSiteMappingModesGrp.setVisible(True)
             self.uiSiteMappingModesGrp.setEnabled(True)
             self.uiNewSiteInterpretationGrp.setVisible(False)
-            #if self.siteLayer:
-            #   self.siteLayer.beforeCommitChanges.disconnect(self.onBeforeCommitChanges)
+            self.uiEditGeometryGrp.setVisible(False)
+
         elif self.uiEditGeometryRBtn.isChecked():
             # siteStart Layer in Edit Mode!
-            #if self.siteLayer:
-            #    self.siteLayer.beforeCommitChanges.connect(self.onBeforeCommitChanges)
             self.uiSiteMappingModesGrp.setVisible(False)
             self.uiNewSiteInterpretationGrp.setVisible(False)
-            self.startEditingSiteLayer()
+            self.uiEditGeometryGrp.setVisible(True)
+
+            #self.startEditingSiteLayer()
         else:
             return
 
@@ -235,7 +241,14 @@ class ApisSiteMappingDialog(QDockWidget, Ui_apisSiteMappingDialog):
     def startEditingSiteLayer(self):
         self.reloadSiteLayer()
         self.siteLayer.startEditing()
+        self.uiEditGeometryStartBtn.setEnabled(False)
+        self.uiEditGeometryCancelBtn.setEnabled(True)
 
+    def cancelEditingSiteLayer(self):
+        if self.siteLayer and self.siteLayer.isEditable():
+            self.siteLayer.rollBack()
+        self.uiEditGeometryStartBtn.setEnabled(True)
+        self.uiEditGeometryCancelBtn.setEnabled(False)
 
     def removeSiteLayer(self):
         if self.siteLayerId in QgsMapLayerRegistry.instance().mapLayers():

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_site_mapping_form.ui'
 #
-# Created: Wed Apr 27 09:52:16 2016
+# Created: Tue Jul 19 15:56:14 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -211,11 +211,17 @@ class Ui_apisSiteMappingDialog(object):
         self.verticalLayout.addWidget(self.uiAddToSiteByIntersectionGrp)
         self.uiEditGeometryGrp = QtGui.QGroupBox(self.dockWidgetContents)
         self.uiEditGeometryGrp.setObjectName(_fromUtf8("uiEditGeometryGrp"))
-        self.verticalLayout_7 = QtGui.QVBoxLayout(self.uiEditGeometryGrp)
-        self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
-        self.label = QtGui.QLabel(self.uiEditGeometryGrp)
-        self.label.setObjectName(_fromUtf8("label"))
-        self.verticalLayout_7.addWidget(self.label)
+        self.horizontalLayout_11 = QtGui.QHBoxLayout(self.uiEditGeometryGrp)
+        self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
+        self.uiEditGeometryStartBtn = QtGui.QPushButton(self.uiEditGeometryGrp)
+        self.uiEditGeometryStartBtn.setIcon(icon3)
+        self.uiEditGeometryStartBtn.setObjectName(_fromUtf8("uiEditGeometryStartBtn"))
+        self.horizontalLayout_11.addWidget(self.uiEditGeometryStartBtn)
+        self.uiEditGeometryCancelBtn = QtGui.QPushButton(self.uiEditGeometryGrp)
+        self.uiEditGeometryCancelBtn.setEnabled(False)
+        self.uiEditGeometryCancelBtn.setIcon(icon5)
+        self.uiEditGeometryCancelBtn.setObjectName(_fromUtf8("uiEditGeometryCancelBtn"))
+        self.horizontalLayout_11.addWidget(self.uiEditGeometryCancelBtn)
         self.verticalLayout.addWidget(self.uiEditGeometryGrp)
         spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
@@ -250,7 +256,8 @@ class Ui_apisSiteMappingDialog(object):
         self.uiReplaceSelectedSiteBtn.setText(_translate("apisSiteMappingDialog", "Ersetzen", None))
         self.uiProvideSiteManuallyBtn.setText(_translate("apisSiteMappingDialog", "Manuelle Eingabe", None))
         self.uiCancelSelectedEditingBtn.setText(_translate("apisSiteMappingDialog", "Abbrechen", None))
-        self.uiEditGeometryGrp.setTitle(_translate("apisSiteMappingDialog", "Geometrie Editieren", None))
-        self.label.setText(_translate("apisSiteMappingDialog", "TextLabel", None))
+        self.uiEditGeometryGrp.setTitle(_translate("apisSiteMappingDialog", "Geometrie Editieren Fundorte (mit QGIS)", None))
+        self.uiEditGeometryStartBtn.setText(_translate("apisSiteMappingDialog", "Starten", None))
+        self.uiEditGeometryCancelBtn.setText(_translate("apisSiteMappingDialog", "Abbrechen", None))
 
 import resource_rc

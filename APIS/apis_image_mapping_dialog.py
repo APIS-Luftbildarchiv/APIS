@@ -451,25 +451,20 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
 
             if countryCode == 'AUT':
                 #get meridian and epsg Code
-                lon = self.imageCenterPoint.x()
-                if lon < 11.8333333333:
-                    meridian = 28
-                    epsgGK = 31254
-                elif lon > 14.8333333333:
-                    meridian = 34
-                    epsgGK = 31256
-                else:
-                    meridian = 31
-                    epsgGK = 31255
-                feat.setAttribute('meridian', meridian)
-                gk = QgsGeometry().fromPoint(self.imageCenterPoint)
-                destGK = QgsCoordinateReferenceSystem()
-                destGK.createFromId(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId)
-                ctGK = QgsCoordinateTransform(self.cpLayer.crs(), destGK)
-                gk.transform(ctGK)
-                feat.setAttribute('gkx', gk.asPoint().y()) # Hochwert
-                feat.setAttribute('gky', gk.asPoint().x()) # Rechtswert
+                meridian, epsgGK = GetMeridianAndEpsgGK(self.imageCenterPoint.x())
 
+                # get KG Coordinates
+                gk = TransformGeometry(QgsGeometry().fromPoint(self.imageCenterPoint), self.cpLayer.crs(), QgsCoordinateReferenceSystem(epsgGK, QgsCoordinateReferenceSystem.EpsgCrsId))
+                gkx = gk.asPoint().y() # Hochwert
+                gky = gk.asPoint().x() # Rechtswert
+            else:
+                meridian = None
+                gkx = None
+                gky = None
+
+            feat.setAttribute('meridian', meridian)
+            feat.setAttribute('gkx', gkx)  # Hochwert
+            feat.setAttribute('gky', gky)  # Rechtswert
 
             for imageNumber in imageNumbers:
                 f = QgsFeature(feat)
@@ -488,14 +483,17 @@ class ApisImageMappingDialog(QDockWidget, Ui_apisImageMappingDialog):
                     if exif[1] and exif[2]:
                         capturePoint = QgsPoint(exif[1], exif[2])
                         kappa = capturePoint.azimuth(self.imageCenterPoint)
-                        f.setAttribute('kappa', kappa)
+                    else:
+                        kappa = None
+                    f.setAttribute('kappa', kappa)
 
                     f.setAttribute('belichtungszeit', exif[3])
                     f.setAttribute('fokus', exif[4]) # FocalLength
                     if exif[4] and exif[5]:
-                       f.setAttribute('blende', exif[4]/exif[5] ) #effecitve aperture (diameter of entrance pupil) = focalLength / fNumber
+                        blende = exif[4]/exif[5] #effecitve aperture (diameter of entrance pupil) = focalLength / fNumber
                     else:
-                        f.setAttribute('blende', None)
+                        blende = None
+                    f.setAttribute('blende', blende)
 
                 features.append(f)
 

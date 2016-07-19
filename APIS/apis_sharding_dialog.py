@@ -392,8 +392,9 @@ class ApisShardingDialog(QDialog, Ui_apisShardingDialog):
 
     def getFolderNameSite(self, siteNumber):
         query = QSqlQuery(self.dbm.db)
-        qryStr = u"SELECT trim(katastralgemeinde) || ' ' || trim(katastralgemeindenummer) || '.' || substr('000' || fundortnummer_nn_legacy, -3, 3) AS folderName FROM fundort f WHERE f.fundortnummer='{0}'".format(siteNumber)
-        query.exec_(qryStr)
+        #qryStr = u"SELECT trim(katastralgemeinde) || ' ' || trim(katastralgemeindenummer) || '.' || substr('000' || fundortnummer_nn_legacy, -3, 3) AS folderName FROM fundort f WHERE f.fundortnummer='{0}'".format(siteNumber)
+        query.prepare(u"SELECT land || '\\'  || CASE WHEN land = 'AUT' THEN replace(replace(replace(replace(lower(trim(katastralgemeinde)), '.',''), '-', ' '), '(', ''), ')', '') || ' ' ELSE '' END || substr('000000' || fundortnummer_nn, -6, 6) AS folderName FROM fundort f WHERE f.fundortnummer='{0}'".format(siteNumber))
+        query.exec_()
         query.first()
         return query.value(0)
 

@@ -796,9 +796,8 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
         if fileName:
 
-            qryStr = u"SELECT katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer = '{0}' AND fundstelle.fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber)
             query = QSqlQuery(self.dbm.db)
-            query.prepare(qryStr)
+            query.prepare(u"SELECT katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer = '{0}' AND fundstelle.fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber))
             query.exec_()
 
             findSpotDict = {}

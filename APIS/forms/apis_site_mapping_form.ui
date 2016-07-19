@@ -419,13 +419,31 @@
     <item>
      <widget class="QGroupBox" name="uiEditGeometryGrp">
       <property name="title">
-       <string>Geometrie Editieren</string>
+       <string>Geometrie Editieren Fundorte (mit QGIS)</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QPushButton" name="uiEditGeometryStartBtn">
          <property name="text">
-          <string>TextLabel</string>
+          <string>Starten</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</normaloff>:/plugins/APIS/icons/edit_geometry_polygon.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="uiEditGeometryCancelBtn">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Abbrechen</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/plugins/APIS/icons/cancel.png</normaloff>:/plugins/APIS/icons/cancel.png</iconset>
          </property>
         </widget>
        </item>
