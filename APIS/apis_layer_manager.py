@@ -96,6 +96,26 @@ class ApisLayerManager:
     #         groupName = self.__groups[groupId]["display_name"]
     #         self._addGroupIfMissing(groupName)
 
+    def requestSiteLayer(self):
+        groupName = self.__groups[self.__layers["sites"]["group"]]["display_name"]
+        group = self._addGroupIfMissing(groupName)
+
+        stylePath = self.stylesDir + self.__layers["sites"]["style"]
+        layer = self.requestSpatialiteTable(self.dbm.db.databaseName(), self.__layers["sites"]["name"],
+                                    self.__layers["sites"]["display_name"], groupName, None, True, True, stylePath)
+
+        return layer
+
+    def requestFindSpotLayer(self):
+        groupName = self.__groups[self.__layers["find_spots"]["group"]]["display_name"]
+        group = self._addGroupIfMissing(groupName)
+
+        stylePath = self.stylesDir + self.__layers["find_spots"]["style"]
+        layer = self.requestSpatialiteTable(self.dbm.db.databaseName(), self.__layers["find_spots"]["name"],
+                                    self.__layers["find_spots"]["display_name"], groupName, None, True, True, stylePath)
+
+        return layer
+
     def _getPosOfPrevGroup(self, groupName):
         topLevelGroups = [child.name() for child in self.tocRoot.children() if QgsLayerTree.isGroup(child)]
         if groupName in topLevelGroups:

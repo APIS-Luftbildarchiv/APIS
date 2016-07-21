@@ -939,59 +939,59 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
             # ÖK Background
             #TODO from settings
-            oekLayer = QgsRasterLayer(u"C:\\apis\\daten\\oek50\\oek50qgis\\ok50_gk_m28_apis4qgis.vrt", u"ok50_m28")
+            #oekLayer = QgsRasterLayer(u"C:\\apis\\daten\\oek50\\oek50qgis\\ok50_gk_m28_apis4qgis.vrt", u"ok50_m28")
 
-            oekLayer.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
-            QgsMapLayerRegistry.instance().addMapLayer(oekLayer, False)
-            layerSet.append(oekLayer.id())
+            #oekLayer.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #QgsMapLayerRegistry.instance().addMapLayer(oekLayer, False)
+            #layerSet.append(oekLayer.id())
 
             #oekLayer.setExtent(extent)
 
-            # import math
-            # mapWidth = 94  # 160
-            # mapHeight = 70  # 120
-            # c = 40075016.6855785
-            # mpW = extent.width() / mapWidth
-            # mpH = extent.height() / mapHeight
-            # zW = math.log(c / mpW, 2) - 8
-            # zH = math.log(c / mpH, 2) - 8
-            # z = math.floor(min(zW, zH)) + 2
-            # # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
-            #
-            #
-            # # Tile Layer (Background Map)
-            # # TODO: Move To Settings ...
-            # ds = {}
-            # # ds['type'] = 'TMS'
-            # ds['title'] = 'basemap.at'
-            # ds['attribution'] = 'basemap.at'
-            # ds['attributionUrl'] = 'http://www.basemap.at'
-            # ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-            # ds['yOriginTop'] = 1
-            # ds['zmin'] = 0
-            # ds['zmax'] = int(z)
-            # ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
-            #
-            # layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
-            #
-            # tileLayer = TileLayer070(layerDef, False)
-            # tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #
-            # if not tileLayer.isValid():
-            #     error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
-            #     self.iface.messageBar().pushMessage(self.tr('Error'),
-            #                                         error_message,
-            #                                         level=QgsMessageBar.CRITICAL)
-            #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-            # else:
-            #     # Set Attributes
-            #     # tileLayer.setAttribution(ds['copyright_text'])
-            #     # tileLayer.setAttributionUrl(ds['copyright_url'])
-            #     QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
-            #     layerSet.append(tileLayer.id())
-            #
-            # # Set LayerSet
-            # tileLayer.setExtent(extent)
+            import math
+            mapWidth = 94  # 160
+            mapHeight = 70  # 120
+            c = 40075016.6855785
+            mpW = extent.width() / mapWidth
+            mpH = extent.height() / mapHeight
+            zW = math.log(c / mpW, 2) - 8
+            zH = math.log(c / mpH, 2) - 8
+            z = math.floor(min(zW, zH)) + 2
+            # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+
+
+            # Tile Layer (Background Map)
+            # TODO: Move To Settings ...
+            ds = {}
+            # ds['type'] = 'TMS'
+            ds['title'] = 'basemap.at'
+            ds['attribution'] = 'basemap.at'
+            ds['attributionUrl'] = 'http://www.basemap.at'
+            ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+            ds['yOriginTop'] = 1
+            ds['zmin'] = 0
+            ds['zmax'] = int(z)
+            ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
+
+            layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
+
+            tileLayer = TileLayer070(layerDef, False)
+            tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+
+            if not tileLayer.isValid():
+                error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+                self.iface.messageBar().pushMessage(self.tr('Error'),
+                                                    error_message,
+                                                    level=QgsMessageBar.CRITICAL)
+                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+            else:
+                # Set Attributes
+                # tileLayer.setAttribution(ds['copyright_text'])
+                # tileLayer.setAttributionUrl(ds['copyright_url'])
+                QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+                layerSet.append(tileLayer.id())
+
+            # Set LayerSet
+            tileLayer.setExtent(extent)
 
             mapSettings.setExtent(extent)
             mapSettings.setLayers(layerSet)

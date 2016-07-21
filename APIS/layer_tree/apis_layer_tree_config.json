@@ -67,7 +67,7 @@
             "group": "sites",
             "style": "fundort.qml"
         },
-        "fundstelle_pol": {
+        "find_spots": {
             "default": 1,
             "display_name": "Fundstellen",
             "name": "fundstelle",
