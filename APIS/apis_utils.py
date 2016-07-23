@@ -127,9 +127,9 @@ def IdToIdLegacy(id):
 
 # FIXME : relocate to apis_site_dialog.py if only usage is apis_site_dialog:showEvent()
 def SiteHasFindSpot(db, siteNumber):
-    qryStr = u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber)
     query = QSqlQuery(db)
-    query.exec_(qryStr)
+    query.prepare(u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber))
+    query.exec_()
     query.first()
     return query.value(0)
 

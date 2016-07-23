@@ -72,8 +72,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         self.uiSearchFilmBtn.clicked.connect(self.openSearchFilmDialog)
         self.uiEditWeatherBtn.clicked.connect(self.openEditWeatherDialog)
 
-        #self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
-        self.uiExportPdfBtn.clicked.connect(self.mapPrintTest)
+        self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
 
         #self.uiShowFlightPathBtn.clicked.connect(partial(self.openViewFlightPathDialog, [self.uiCurrentFilmNumberEdit.text()]))
         self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
@@ -479,7 +478,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             self.iface.addVectorLayer(layer, "flugstrecke {0} gps p".format(key), 'ogr')
 
 
-    def mapPrintTest(self):
+    def exportDetailsPdf(self):
         filmId = self.uiCurrentFilmNumberEdit.text()
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
         fileName = QFileDialog.getSaveFileName(self, 'Film Details', saveDir + "\\" + 'FilmDetails_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
@@ -674,173 +673,173 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             else:
                 os.startfile(fileName)
 
-    def exportDetailsPdf(self):
-        filmId = self.uiCurrentFilmNumberEdit.text()
-        saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
-        #fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
-        fileName = QFileDialog.getSaveFileName(self, 'Film Details', saveDir + "\\" + 'Filmdetails_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
-
-        if fileName:
-            #QMessageBox.warning(None, "Save", fileName)
-            #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
-            #template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
-            template = os.path.dirname(__file__) + "/composer/templates/FilmDetails.qpt"
-            #if os.path.isfile(template):
-            templateDOM = QDomDocument()
-            templateDOM.setContent(QFile(template), False)
-
-            #FIXME load correct Flightpath; from Settings
-            printLayers = []
-            flightpathDir = self.settings.value("APIS/flightpath_dir")
-            #uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
-            uri = flightpathDir + "\\2014\\02140301_lin.shp"
-            printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
-            #printLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            printLayer.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
-            printLayer.setCoordinateSystem()
-            symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.25'})
-            printLayer.rendererV2().setSymbol(symbol)
-            QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
-            e = printLayer.extent()
-            #self.iface.messageBar().pushMessage(self.tr('Extent'), e.asWktPolygon(), level=QgsMessageBar.INFO)
-
-            eGeo = QgsGeometry.fromRect(e)
-            gt = QgsCoordinateTransform(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId), QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            eGeo.transform(gt)
-            #self.iface.messageBar().pushMessage(self.tr('Extent'), eGeo.exportToWkt(), level=QgsMessageBar.INFO)
-            extent = eGeo.boundingBox()
-
-            #layerset.append(printLayer.id())
-            printLayers.append(printLayer.id())
-
-            ds = {}
-            #ds['type'] = 'TMS'
-            #ds['alias'] = 'Bing'
-            #ds['copyright_text'] = 'Bing'
-            #ds['copyright_url'] = 'http://www.virtualearth.net'
-            #ds['tms_url'] = "http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=0&dir=dir_n'"
-
-
-            ds['type'] = 'TMS'
-            ds['alias'] = 'MapBox Gray'
-            ds['copyright_text'] = 'MapBox'
-            ds['copyright_url'] = 'http://www.mapbox.com'
-            ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-
-            #service_info = TileServiceInfo('Bing', 'Bing', ds['tms_url'])
-            service_info = TileServiceInfo('MapBox', 'MapBox', ds['tms_url'])
-            service_info.zmin = 0
-            service_info.zmax = 20
-            #if ds.tms_y_origin_top is not None:
-            #    service_info.yOriginTop = ds.tms_y_origin_top
-            service_info.epsg_crs_id = None
-            service_info.postgis_crs_id = None
-            service_info.custom_proj = None
-            service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
-            layer = TileLayer(self, service_info, False)
-            #layer.setExtent(QgsRectangle(-50,-50,50,50))
-            layer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #layer.setExtent(extent)
-            #layer.setExtent(QgsRectangle(1700000.0, 6000000.0, 2000000.0, 6170000.0))
-            #extent = layer.extent()
-            #self.iface.messageBar().pushMessage(self.tr('Extent'), extent.asWktPolygon(), level=QgsMessageBar.INFO)
-            if not layer.isValid():
-                error_message = self.tr('Layer %s can\'t be added to the map!') % ds['alias']
-                self.iface.messageBar().pushMessage(self.tr('Error'),
-                                                   error_message,
-                                                   level=QgsMessageBar.CRITICAL)
-                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-            else:
-                # Set attribs
-                layer.setAttribution(ds['copyright_text'])
-                layer.setAttributionUrl(ds['copyright_url'])
-                # Insert to bottom
-                QgsMapLayerRegistry.instance().addMapLayer(layer, False)
-                #toc_root = QgsProject.instance().layerTreeRoot()
-                #toc_root.insertLayer(len(toc_root.children()), layer)
-                # Save link
-                #self.service_layers.append(layer)
-                # Set OTF CRS Transform for map
-                #if PluginSettings.enable_otf_3857() and ds.type == KNOWN_DRIVERS.TMS:
-                #self.iface.mapCanvas().setCrsTransformEnabled(True)
-                #self.iface.mapCanvas().setDestinationCrs(TileLayer.CRS_3857)
-                printLayers.append(layer.id())
-
-            #printLayers.append(printLayer.id())
-
-            #urlWithParams = ' '
-            #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
-            #rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
-            #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
-            #printLayers.append(rlayer.id())
-
-            ms = QgsMapSettings()
-            ms.setCrsTransformEnabled(True)
-            ms.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            ms.setMapUnits(QGis.UnitType(0))
-            ms.setOutputDpi(300)
-            #ms.setExtent(extent)
-            #self.iface.messageBar().pushMessage(self.tr('Extent'), ms.extent().asWktPolygon(), level=QgsMessageBar.INFO)
-            ms.setLayers(printLayers)
-
-            #mapRectangle = QgsRectangle(140,-28,155,-15)
-            #mr.setExtent(extent)
-
-            comp = QgsComposition(ms)
-            comp.setPlotStyle(QgsComposition.Print)
-            comp.setPrintResolution(300)
-
-            m = self.mapper.model()
-            r = self.mapper.currentIndex()
-            filmDict = {}
-            for c in range(m.columnCount()):
-                val = unicode(m.data(m.createIndex(r, c)))
-                if val.replace(" ", "")=='' or val=='NULL':
-                    val = u"---"
-
-                filmDict[m.headerData(c, Qt.Horizontal)] = val
-
-
-
-
-                #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
-
-            filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
-            filmDict['datum_druck'] =  QDate.currentDate().toString("yyyy-MM-dd")
-
-            comp.loadFromTemplate(templateDOM, filmDict)
-
-            composerMap = comp.getComposerMapById(0)
-            composerMap.setUpdatesEnabled(True)
-            composerMap.zoomToExtent(extent)
-
-            #composerMap.setNewExtent(extent)
-            #self.iface.messageBar().pushMessage(self.tr('Scale'), "{0}".format(composerMap.scale()), level=QgsMessageBar.INFO)
-            #composerMap.setNewScale(1000000)
-
-            #composerMap.setKeepLayerSet(True)
-            #composerMap.setLayerSet(printLayers)
-            #composerMap.renderModeUpdateCachedImage()
-            #ms.setLayers(printLayers)
-
-           # if composerMap:
-            #    QMessageBox.warning(None, "Save", composerMap)
-           #composerMap.setKeepLayerSet(True)
-            #composerMap.setLayerSet(layerset)
-
-
-
-            comp.exportAsPDF(fileName)
-            # Delete all layers (array)
-            for lid in printLayers:
-                QgsMapLayerRegistry.instance().removeMapLayer(lid)
-
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
-            else:
-                os.startfile(fileName)
-            #else:
-            #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
+    # def exportDetailsPdfOLD(self):
+    #     filmId = self.uiCurrentFilmNumberEdit.text()
+    #     saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+    #     #fileName = QFileDialog.getSaveFileName(self, 'Film Details', 'c://FilmDetails_{0}'.format(self.uiCurrentFilmNumberEdit.text()), '*.pdf')
+    #     fileName = QFileDialog.getSaveFileName(self, 'Film Details', saveDir + "\\" + 'Filmdetails_{0}_{1}'.format(filmId ,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")), '*.pdf')
+    #
+    #     if fileName:
+    #         #QMessageBox.warning(None, "Save", fileName)
+    #         #FIXME template from Settings ':/plugins/APIS/icons/settings.png'
+    #         #template = 'C:/Users/Johannes/.qgis2/python/plugins/APIS/composer/templates/FilmDetails.qpt'
+    #         template = os.path.dirname(__file__) + "/composer/templates/FilmDetails.qpt"
+    #         #if os.path.isfile(template):
+    #         templateDOM = QDomDocument()
+    #         templateDOM.setContent(QFile(template), False)
+    #
+    #         #FIXME load correct Flightpath; from Settings
+    #         printLayers = []
+    #         flightpathDir = self.settings.value("APIS/flightpath_dir")
+    #         #uri = flightpathDir + "\\" + self.uiFlightDate.date().toString("yyyy") + "\\" + filmId + "_lin.shp"
+    #         uri = flightpathDir + "\\2014\\02140301_lin.shp"
+    #         printLayer = QgsVectorLayer(uri, "FlightPath", "ogr")
+    #         #printLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+    #         printLayer.setCrs(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId))
+    #         printLayer.setCoordinateSystem()
+    #         symbol = QgsLineSymbolV2.createSimple({'color':'orange', 'line_width':'0.25'})
+    #         printLayer.rendererV2().setSymbol(symbol)
+    #         QgsMapLayerRegistry.instance().addMapLayer(printLayer, False) #False = don't add to Layers (TOC)
+    #         e = printLayer.extent()
+    #         #self.iface.messageBar().pushMessage(self.tr('Extent'), e.asWktPolygon(), level=QgsMessageBar.INFO)
+    #
+    #         eGeo = QgsGeometry.fromRect(e)
+    #         gt = QgsCoordinateTransform(QgsCoordinateReferenceSystem(4326, QgsCoordinateReferenceSystem.EpsgCrsId), QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+    #         eGeo.transform(gt)
+    #         #self.iface.messageBar().pushMessage(self.tr('Extent'), eGeo.exportToWkt(), level=QgsMessageBar.INFO)
+    #         extent = eGeo.boundingBox()
+    #
+    #         #layerset.append(printLayer.id())
+    #         printLayers.append(printLayer.id())
+    #
+    #         ds = {}
+    #         #ds['type'] = 'TMS'
+    #         #ds['alias'] = 'Bing'
+    #         #ds['copyright_text'] = 'Bing'
+    #         #ds['copyright_url'] = 'http://www.virtualearth.net'
+    #         #ds['tms_url'] = "http://ecn.t3.tiles.virtualearth.net/tiles/a{q}.jpeg?g=0&dir=dir_n'"
+    #
+    #
+    #         ds['type'] = 'TMS'
+    #         ds['alias'] = 'MapBox Gray'
+    #         ds['copyright_text'] = 'MapBox'
+    #         ds['copyright_url'] = 'http://www.mapbox.com'
+    #         ds['tms_url'] = "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+    #
+    #         #service_info = TileServiceInfo('Bing', 'Bing', ds['tms_url'])
+    #         service_info = TileServiceInfo('MapBox', 'MapBox', ds['tms_url'])
+    #         service_info.zmin = 0
+    #         service_info.zmax = 20
+    #         #if ds.tms_y_origin_top is not None:
+    #         #    service_info.yOriginTop = ds.tms_y_origin_top
+    #         service_info.epsg_crs_id = None
+    #         service_info.postgis_crs_id = None
+    #         service_info.custom_proj = None
+    #         service_info.bbox = BoundingBox(-180, -85.05, 180, 85.05)
+    #         layer = TileLayer(self, service_info, False)
+    #         #layer.setExtent(QgsRectangle(-50,-50,50,50))
+    #         layer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+    #         #layer.setExtent(extent)
+    #         #layer.setExtent(QgsRectangle(1700000.0, 6000000.0, 2000000.0, 6170000.0))
+    #         #extent = layer.extent()
+    #         #self.iface.messageBar().pushMessage(self.tr('Extent'), extent.asWktPolygon(), level=QgsMessageBar.INFO)
+    #         if not layer.isValid():
+    #             error_message = self.tr('Layer %s can\'t be added to the map!') % ds['alias']
+    #             self.iface.messageBar().pushMessage(self.tr('Error'),
+    #                                                error_message,
+    #                                                level=QgsMessageBar.CRITICAL)
+    #             QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+    #         else:
+    #             # Set attribs
+    #             layer.setAttribution(ds['copyright_text'])
+    #             layer.setAttributionUrl(ds['copyright_url'])
+    #             # Insert to bottom
+    #             QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+    #             #toc_root = QgsProject.instance().layerTreeRoot()
+    #             #toc_root.insertLayer(len(toc_root.children()), layer)
+    #             # Save link
+    #             #self.service_layers.append(layer)
+    #             # Set OTF CRS Transform for map
+    #             #if PluginSettings.enable_otf_3857() and ds.type == KNOWN_DRIVERS.TMS:
+    #             #self.iface.mapCanvas().setCrsTransformEnabled(True)
+    #             #self.iface.mapCanvas().setDestinationCrs(TileLayer.CRS_3857)
+    #             printLayers.append(layer.id())
+    #
+    #         #printLayers.append(printLayer.id())
+    #
+    #         #urlWithParams = ' '
+    #         #urlWithParams = 'url=http://wms.jpl.nasa.gov/wms.cgi&layers=global_mosaic&styles=pseudo&format=image/jpeg&crs=EPSG:4326'
+    #         #rlayer = QgsRasterLayer(urlWithParams, 'basemap', 'wms')
+    #         #QgsMapLayerRegistry.instance().addMapLayer(rlayer)
+    #         #printLayers.append(rlayer.id())
+    #
+    #         ms = QgsMapSettings()
+    #         ms.setCrsTransformEnabled(True)
+    #         ms.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+    #         ms.setMapUnits(QGis.UnitType(0))
+    #         ms.setOutputDpi(300)
+    #         #ms.setExtent(extent)
+    #         #self.iface.messageBar().pushMessage(self.tr('Extent'), ms.extent().asWktPolygon(), level=QgsMessageBar.INFO)
+    #         ms.setLayers(printLayers)
+    #
+    #         #mapRectangle = QgsRectangle(140,-28,155,-15)
+    #         #mr.setExtent(extent)
+    #
+    #         comp = QgsComposition(ms)
+    #         comp.setPlotStyle(QgsComposition.Print)
+    #         comp.setPrintResolution(300)
+    #
+    #         m = self.mapper.model()
+    #         r = self.mapper.currentIndex()
+    #         filmDict = {}
+    #         for c in range(m.columnCount()):
+    #             val = unicode(m.data(m.createIndex(r, c)))
+    #             if val.replace(" ", "")=='' or val=='NULL':
+    #                 val = u"---"
+    #
+    #             filmDict[m.headerData(c, Qt.Horizontal)] = val
+    #
+    #
+    #
+    #
+    #             #QMessageBox.warning(None, "Save", "{0}:{1}".format(colName, value))
+    #
+    #         filmDict['wetter_description'] = self._generateWeatherCode(filmDict['wetter'])
+    #         filmDict['datum_druck'] =  QDate.currentDate().toString("yyyy-MM-dd")
+    #
+    #         comp.loadFromTemplate(templateDOM, filmDict)
+    #
+    #         composerMap = comp.getComposerMapById(0)
+    #         composerMap.setUpdatesEnabled(True)
+    #         composerMap.zoomToExtent(extent)
+    #
+    #         #composerMap.setNewExtent(extent)
+    #         #self.iface.messageBar().pushMessage(self.tr('Scale'), "{0}".format(composerMap.scale()), level=QgsMessageBar.INFO)
+    #         #composerMap.setNewScale(1000000)
+    #
+    #         #composerMap.setKeepLayerSet(True)
+    #         #composerMap.setLayerSet(printLayers)
+    #         #composerMap.renderModeUpdateCachedImage()
+    #         #ms.setLayers(printLayers)
+    #
+    #        # if composerMap:
+    #         #    QMessageBox.warning(None, "Save", composerMap)
+    #        #composerMap.setKeepLayerSet(True)
+    #         #composerMap.setLayerSet(layerset)
+    #
+    #
+    #
+    #         comp.exportAsPDF(fileName)
+    #         # Delete all layers (array)
+    #         for lid in printLayers:
+    #             QgsMapLayerRegistry.instance().removeMapLayer(lid)
+    #
+    #         if sys.platform == 'linux2':
+    #             subprocess.call(["xdg-open", fileName])
+    #         else:
+    #             os.startfile(fileName)
+    #         #else:
+    #         #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
 
 
     def openSearchFilmDialog(self):

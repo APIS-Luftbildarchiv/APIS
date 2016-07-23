@@ -124,7 +124,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.uiListImagesOfSiteBtn.clicked.connect(self.openImageSelectionListDialog)
         self.uiSelectRepresentativeImageBtn.clicked.connect(self.openRepresentativeImageDialog)
         self.uiDeleteSiteBtn.clicked.connect(self.deleteSite)
-        self.uiExportPdfBtn.clicked.connect(self.exportDetailsPdf)
+        self.uiExportPdfBtn.clicked.connect(self.exportPdf)
 
         self.uiAddNewFindSpotBtn.clicked.connect(self.addNewFindSpot)
 
@@ -852,7 +852,30 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         return query.value(0)
 
 
-    def exportDetailsPdf(self):
+    def exportPdf(self):
+        if self.siteHasFindSpots(self.siteNumber):
+            msgBox = QMessageBox()
+            msgBox.setWindowTitle(u'Fundort als PDF exportieren')
+            msgBox.setText(u"Wählen Sie eine der folgenden Druckoptionen.".format(self.siteNumber))
+            msgBox.addButton(QPushButton(u'Fundort'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Fundort und Liste der Fundstellen'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Fundort, Liste und Fundstellen im Detail'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+            ret = msgBox.exec_()
+
+            if ret == 0:
+                self.exportSiteDetailsPdf()
+            elif ret == 1:
+                self.exportSiteDetailsPdf(True)
+            elif ret == 2:
+                return
+            else:
+                return
+        else:
+            self.exportSiteDetailsPdf()
+
+
+    def exportSiteDetailsPdf(self, isTemp=False):
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
         fileName = QFileDialog.getSaveFileName(self, 'Fundort Details', saveDir + "\\" + 'FundortDetails_{0}_{1}'.format(self.siteNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
 
