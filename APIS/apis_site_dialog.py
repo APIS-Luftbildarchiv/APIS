@@ -874,7 +874,6 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         else:
             self.exportSiteDetailsPdf()
 
-
     def exportSiteDetailsPdf(self, isTemp=False):
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
         fileName = QFileDialog.getSaveFileName(self, 'Fundort Details', saveDir + "\\" + 'FundortDetails_{0}_{1}'.format(self.siteNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
@@ -889,7 +888,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             query.seek(-1)
             while query.next():
                 rec = query.record()
-                for col in range(rec.count()-1): #-1 geometry wird nicht benötigt!
+                for col in range(rec.count()-1): # -1 geometry wird nicht benötigt!
                     #val = unicode(rec.value(col))
                     #QMessageBox.information(None, "type", u"{0}".format(type(rec.value(col))))
                     val = u"{0}".format(rec.value(col))
@@ -937,7 +936,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             # MapSettings
             mapSettings = QgsMapSettings()
             mapSettings.setCrsTransformEnabled(True)
-            mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3416, QgsCoordinateReferenceSystem.EpsgCrsId))
+
             mapSettings.setMapUnits(QGis.UnitType(0))
             mapSettings.setOutputDpi(300)
 
@@ -959,62 +959,83 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
             extent.scale(baseVal/scaleVal)
             #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
+            mapWidth = 94.0
+            mapHeight = 70.0
+            if (extent.width()/extent.height()) > (mapWidth/mapHeight):
+                newHeight = extent.width() * mapHeight / mapWidth
+                yMin = extent.center().y() - (newHeight / 2.0)
+                yMax = extent.center().y() + (newHeight / 2.0)
+                newRect = QgsRectangle(extent.xMinimum(), yMin, extent.xMaximum(), yMax)
+                extent.combineExtentWith(newRect)
+            elif (extent.width()/extent.height()) < (mapWidth/mapHeight):
+                newWidth = extent.height() * mapWidth / mapHeight
+                xMin = extent.center().x() - (newWidth / 2.0)
+                xMax = extent.center().x() + (newWidth / 2.0)
+                newRect = QgsRectangle(xMin, extent.yMinimum(), xMax, extent.yMaximum())
+                extent.combineExtentWith(newRect)
 
             # ÖK Background
-            #TODO from settings
-            #oekLayer = QgsRasterLayer(u"C:\\apis\\daten\\oek50\\oek50qgis\\ok50_gk_m28_apis4qgis.vrt", u"ok50_m28")
+            oekLayer28 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m28"), u"OKM28")
+            oekLayer28.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
+            QgsMapLayerRegistry.instance().addMapLayer(oekLayer28, False)
+            oekLayer28.setExtent(mapSettings.mapToLayerCoordinates(oekLayer28, extent))
 
-            #oekLayer.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #QgsMapLayerRegistry.instance().addMapLayer(oekLayer, False)
-            #layerSet.append(oekLayer.id())
+            oekLayer31 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m31"), u"OKM31")
+            oekLayer31.setCrs(QgsCoordinateReferenceSystem(31255, QgsCoordinateReferenceSystem.EpsgCrsId))
+            QgsMapLayerRegistry.instance().addMapLayer(oekLayer31, False)
+            oekLayer31.setExtent(mapSettings.mapToLayerCoordinates(oekLayer31, extent))
 
-            #oekLayer.setExtent(extent)
+            oekLayer34 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m34"), u"OKM34")
+            oekLayer34.setCrs(QgsCoordinateReferenceSystem(31256, QgsCoordinateReferenceSystem.EpsgCrsId))
+            QgsMapLayerRegistry.instance().addMapLayer(oekLayer34, False)
+            oekLayer34.setExtent(mapSettings.mapToLayerCoordinates(oekLayer34, extent))
 
-            import math
-            mapWidth = 94  # 160
-            mapHeight = 70  # 120
-            c = 40075016.6855785
-            mpW = extent.width() / mapWidth
-            mpH = extent.height() / mapHeight
-            zW = math.log(c / mpW, 2) - 8
-            zH = math.log(c / mpH, 2) - 8
-            z = math.floor(min(zW, zH)) + 2
-            # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+            layerSet.append(oekLayer28.id())
+            layerSet.append(oekLayer31.id())
+            layerSet.append(oekLayer34.id())
 
-
-            # Tile Layer (Background Map)
-            # TODO: Move To Settings ...
-            ds = {}
-            # ds['type'] = 'TMS'
-            ds['title'] = 'basemap.at'
-            ds['attribution'] = 'basemap.at'
-            ds['attributionUrl'] = 'http://www.basemap.at'
-            ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-            ds['yOriginTop'] = 1
-            ds['zmin'] = 0
-            ds['zmax'] = int(z)
-            ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
-
-            layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
-
-            tileLayer = TileLayer070(layerDef, False)
-            tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-
-            if not tileLayer.isValid():
-                error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
-                self.iface.messageBar().pushMessage(self.tr('Error'),
-                                                    error_message,
-                                                    level=QgsMessageBar.CRITICAL)
-                QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-            else:
-                # Set Attributes
-                # tileLayer.setAttribution(ds['copyright_text'])
-                # tileLayer.setAttributionUrl(ds['copyright_url'])
-                QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
-                layerSet.append(tileLayer.id())
-
-            # Set LayerSet
-            tileLayer.setExtent(extent)
+            # import math
+            # mapWidth = 94  # 160
+            # mapHeight = 70  # 120
+            # c = 40075016.6855785
+            # mpW = extent.width() / mapWidth
+            # mpH = extent.height() / mapHeight
+            # zW = math.log(c / mpW, 2) - 8
+            # zH = math.log(c / mpH, 2) - 8
+            # z = math.floor(min(zW, zH)) + 2
+            # # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+            #
+            #
+            # # Tile Layer (Background Map)
+            # # TODO: Move To Settings ...
+            # ds = {}
+            # # ds['type'] = 'TMS'
+            # ds['title'] = 'basemap.at'
+            # ds['attribution'] = 'basemap.at'
+            # ds['attributionUrl'] = 'http://www.basemap.at'
+            # ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+            # ds['yOriginTop'] = 1
+            # ds['zmin'] = 0
+            # ds['zmax'] = int(z)
+            # ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
+            #
+            # layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
+            #
+            # tileLayer = TileLayer070(layerDef, False)
+            # tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+            #
+            # if not tileLayer.isValid():
+            #     error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+            #     self.iface.messageBar().pushMessage(self.tr('Error'),
+            #                                         error_message,
+            #                                         level=QgsMessageBar.CRITICAL)
+            #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+            # else:
+            #     QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+            #     layerSet.append(tileLayer.id())
+            #
+            # # Set LayerSet
+            # tileLayer.setExtent(extent)
 
             mapSettings.setExtent(extent)
             mapSettings.setLayers(layerSet)
@@ -1030,8 +1051,12 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             composition.setPrintResolution(300)
 
             # Composer Items
+            try:
+                composition.loadFromTemplate(templateDom, siteDict)
+            except Exception as e:
+                QMessageBox.information(None, "Error", "error: {0}".format(e))
 
-            composition.loadFromTemplate(templateDom, siteDict)
+
             pageCount = 1
 
             adjustItemHightTxt = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "befund", "literatur", "detailinterpretation"]
@@ -1115,6 +1140,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             bottomBorder = 30.0
             topBorder = 27.0
             i = 0
+            newY = 0.0
             for itemId in adjustItems:
                 itemTxt = composition.getComposerItemById(itemId + "Txt")
                 itemLbl = composition.getComposerItemById(itemId +"Lbl")
