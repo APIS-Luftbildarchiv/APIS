@@ -4,9 +4,12 @@
     <bookmark url="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" line="109" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="Update">
+    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_layer_manager.py" afterPath="$PROJECT_DIR$/APIS/apis_layer_manager.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/layer_tree/styles/fundort.qml" afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/fundort.qml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/layer_tree/styles/fundstelle.qml" afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/fundstelle.qml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
     </list>
     <ignored path="APIS.iws" />
@@ -89,13 +92,13 @@
         <option value="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" />
         <option value="$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json" />
-        <option value="$PROJECT_DIR$/APIS/apis_layer_manager.py" />
         <option value="$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/ok50tools/buildvrt.py" />
         <option value="$PROJECT_DIR$/ok50tools/convert2rgb_oek116.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
         <option value="$PROJECT_DIR$/ok50tools/worldfiles.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_layer_manager.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/metadata.txt" />
       </list>
     </option>
@@ -110,7 +113,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1456" />
-    <option name="height" value="916" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -137,6 +140,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,7 +190,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -293,6 +296,19 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="APIS" />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -436,13 +452,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Update">
-      <created>1433327128938</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1433327128938</updated>
     </task>
     <task id="LOCAL-00019" summary="Update">
       <created>1433335035185</created>
@@ -780,7 +789,14 @@
       <option name="project" value="LOCAL" />
       <updated>1469288048499</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Update: ÖK 50 VRTs als Background in Fundort PDF Export (Im Code derzeit auskommentiert ... mit TileLayer; Option wenn im Ausland)">
+      <created>1471333753162</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1471333753163</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView">
@@ -793,17 +809,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24283667" sideWeight="0.4940978" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24641834" sideWeight="0.4940978" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32780612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21556123" sideWeight="0.59240687" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24362245" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21556123" sideWeight="0.40759313" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23495702" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22704081" sideWeight="0.35673353" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23853868" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22580644" sideWeight="0.35673353" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23567335" sideWeight="0.5059022" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -833,7 +849,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add pyQGIS Plugin to Repo" />
     <MESSAGE value="Update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+    <MESSAGE value="Update: ÖK 50 VRTs als Background in Fundort PDF Export (Im Code derzeit auskommentiert ... mit TileLayer; Option wenn im Ausland)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: ÖK 50 VRTs als Background in Fundort PDF Export (Im Code derzeit auskommentiert ... mit TileLayer; Option wenn im Ausland)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -849,13 +866,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APIS/resources.qrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/1492868609/PyQt4/QtGui/QPaintDevice.py" />
     <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1137,19 +1147,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6953">
           <caret line="424" column="35" selection-start-line="424" selection-start-column="35" selection-end-line="424" selection-end-column="35" />
-          <folding>
-            <marker date="1468572197765" expanded="true" signature="18004:18082" ph="select descr... wetter" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_layer_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4658">
-          <caret line="279" column="24" selection-start-line="279" selection-start-column="24" selection-end-line="279" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1174,21 +1171,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ok50tools/worldfiles.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
-          <folding>
-            <element signature="e#24#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1196,9 +1182,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="44" selection-end-column="48" />
-          <folding>
-            <element signature="e#25#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1206,7 +1189,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1214,7 +1196,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1222,7 +1203,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1230,40 +1210,58 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/layer_tree/styles/fundort_druck_ok50.qml" />
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="970" column="65" selection-start-line="970" selection-start-column="65" selection-end-line="970" selection-end-column="65" />
+        <state relative-caret-position="173">
+          <caret line="950" column="85" selection-start-line="950" selection-start-column="81" selection-end-line="950" selection-end-column="85" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
-            <marker date="1471263123008" expanded="true" signature="14209:14377" ph="SELECT funds... fundstelle" />
-            <marker date="1471263123008" expanded="true" signature="18186:18332" ph="SELECT CASE fundstelle" />
-            <marker date="1471263123008" expanded="true" signature="18537:18665" ph="SELECT parze... fundort" />
-            <marker date="1471263123008" expanded="true" signature="19226:19494" ph="INSERT INTO fundstelle... " />
-            <marker date="1471263123008" expanded="true" signature="21124:21164" ph="INSERT INTO missing_value... " />
-            <marker date="1471263123008" expanded="true" signature="21140:21164" ph="SELECT * FRO... missing_value" />
-            <marker date="1471263123008" expanded="true" signature="21465:21580" ph="UPDATE missi... " />
-            <marker date="1471263123008" expanded="true" signature="21553:21576" ph="SELECT max(r... missing_value" />
-            <marker date="1471263123008" expanded="true" signature="23650:24152" ph="select cp.bi... film" />
-            <marker date="1471263123008" expanded="true" signature="23650:24690" ph="select cp.bi... " />
-            <marker date="1471263123008" expanded="true" signature="23883:24151" ph="SELECT fp.bi... luftbild_schraeg_fp" />
-            <marker date="1471263123008" expanded="true" signature="24033:24149" ph="SELECT rowid... SpatialIndex" />
-            <marker date="1471263123008" expanded="true" signature="24163:24658" ph="SELECT cp_s.... film" />
-            <marker date="1471263123008" expanded="true" signature="24386:24656" ph="SELECT fp_s.... luftbild_senk_fp" />
-            <marker date="1471263123008" expanded="true" signature="24541:24654" ph="SELECT rowid... SpatialIndex" />
-            <marker date="1471263123008" expanded="true" signature="35038:35097" ph="SELECT count... fundstelle" />
-            <marker date="1471263123008" expanded="true" signature="36603:36652" ph="SELECT * FRO... fundort" />
-            <marker date="1471263123008" expanded="true" signature="38537:39027" ph="SELECT kg.ka... katastralgemeinden" />
-            <marker date="1471263123008" expanded="true" signature="38882:39003" ph="SELECT ROWID... SpatialIndex" />
-            <marker date="1471263123008" expanded="true" signature="56797:56829" ph="..." />
-            <marker date="1471263123008" expanded="true" signature="72274:72545" ph="SELECT CASE fundort" />
-            <marker date="1471263123008" expanded="true" signature="72591:72780" ph="SELECT CASE fundort" />
-            <marker date="1471263123008" expanded="true" signature="73077:73145" ph="SELECT fundo... fundort" />
-            <marker date="1471263123008" expanded="true" signature="75732:75812" ph="UPDATE fundo... " />
+            <marker date="1471362988873" expanded="true" signature="14264:14432" ph="SELECT funds... fundstelle" />
+            <marker date="1471362988873" expanded="true" signature="18241:18387" ph="SELECT CASE fundstelle" />
+            <marker date="1471362988873" expanded="true" signature="18592:18720" ph="SELECT parze... fundort" />
+            <marker date="1471362988873" expanded="true" signature="19281:19549" ph="INSERT INTO fundstelle... " />
+            <marker date="1471362988873" expanded="true" signature="21179:21219" ph="INSERT INTO missing_value... " />
+            <marker date="1471362988873" expanded="true" signature="21195:21219" ph="SELECT * FRO... missing_value" />
+            <marker date="1471362988873" expanded="true" signature="21520:21635" ph="UPDATE missi... " />
+            <marker date="1471362988873" expanded="true" signature="21608:21631" ph="SELECT max(r... missing_value" />
+            <marker date="1471362988873" expanded="true" signature="23705:24207" ph="select cp.bi... film" />
+            <marker date="1471362988873" expanded="true" signature="23705:24745" ph="select cp.bi... " />
+            <marker date="1471362988873" expanded="true" signature="23938:24206" ph="SELECT fp.bi... luftbild_schraeg_fp" />
+            <marker date="1471362988873" expanded="true" signature="24088:24204" ph="SELECT rowid... SpatialIndex" />
+            <marker date="1471362988873" expanded="true" signature="24218:24713" ph="SELECT cp_s.... film" />
+            <marker date="1471362988873" expanded="true" signature="24441:24711" ph="SELECT fp_s.... luftbild_senk_fp" />
+            <marker date="1471362988873" expanded="true" signature="24596:24709" ph="SELECT rowid... SpatialIndex" />
+            <marker date="1471362988873" expanded="true" signature="35093:35152" ph="SELECT count... fundstelle" />
+            <marker date="1471362988873" expanded="true" signature="36658:36707" ph="SELECT * FRO... fundort" />
+            <marker date="1471362988873" expanded="true" signature="38592:39082" ph="SELECT kg.ka... katastralgemeinden" />
+            <marker date="1471362988873" expanded="true" signature="38937:39058" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1471362988873" expanded="true" signature="56895:56927" ph="..." />
+            <marker date="1471362988873" expanded="true" signature="72417:72688" ph="SELECT CASE fundort" />
+            <marker date="1471362988873" expanded="true" signature="72734:72923" ph="SELECT CASE fundort" />
+            <marker date="1471362988873" expanded="true" signature="73220:73288" ph="SELECT fundo... fundort" />
+            <marker date="1471362988873" expanded="true" signature="75875:75955" ph="UPDATE fundo... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_layer_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="310" column="20" selection-start-line="310" selection-start-column="8" selection-end-line="310" selection-end-column="20" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
           </folding>
         </state>
       </provider>

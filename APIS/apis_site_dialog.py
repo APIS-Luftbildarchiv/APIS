@@ -65,6 +65,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.dbm = dbm
         self.imageRegistry = imageRegistry
         self.apisLayer = apisLayer
+        self.stylesDir = self.apisLayer.getStylesDir()
 
         self.setupUi(self)
 
@@ -947,8 +948,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             siteLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
             siteLayer.setCoordinateSystem()
 
-            # TODO replace with loadNamedStyle
-            siteLayer.setRendererV2(self.getSiteRenderer())
+            siteLayer.loadNamedStyle(os.path.join(self.stylesDir, u"fundort_print.qml"))
+            #siteLayer.setRendererV2(self.getSiteRenderer())
 
             QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)  # False = don't add to Layers (TOC)
             layerSet.append(siteLayer.id())
@@ -1434,8 +1435,8 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         self.siteLayerId = siteLayer.id()
         siteLayer.setSubsetString(u'"fundortnummer" = "{0}"'.format(siteNumber))
 
-        # TODO replace with loadNamedStyle
-        siteLayer.setRendererV2(self.getSiteRenderer())
+        siteLayer.loadNamedStyle(os.path.join(self.stylesDir, u"fundort_preview.qml"))
+        #siteLayer.setRendererV2(self.getSiteRenderer())
 
         extent = siteLayer.extent()
         extent.scale(1.1)

@@ -307,3 +307,6 @@ class ApisLayerManager:
                     return treeLayer.layer()
 
         return None
+
+    def getStylesDir(self):
+        return self.stylesDir
