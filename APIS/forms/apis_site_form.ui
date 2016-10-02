@@ -63,20 +63,13 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Katastralgemeinde:</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="uiCadastralCommunityEdit">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(218, 218, 218);</string>
+        <string notr="true"/>
        </property>
        <property name="readOnly">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -343,6 +336,23 @@
      </item>
      <item row="15" column="1">
       <widget class="QLineEdit" name="uiElevationEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="uiOverpassBtn">
+       <property name="text">
+        <string>Gemeinde:</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resource.qrc">
+         <normaloff>:/plugins/APIS/icons/site.png</normaloff>:/plugins/APIS/icons/site.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>11</width>
+         <height>11</height>
+        </size>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

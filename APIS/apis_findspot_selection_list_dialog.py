@@ -178,14 +178,59 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
     def exportFindSpotAsPdf(self):
         findSpotList = self.askForFindSpotList()
         if findSpotList:
-            pass
+            saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+            timeStamp = QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")
+
+            if len(findSpotList) == 1:
+                saveDialogTitle = u"Fundstelle"
+                targetFileNameTemplate = u"Fundstelle_{0}_{1}".format(findSpotList[0], timeStamp)
+            else:
+                saveDialogTitle = u"Fundstellen Sammlung"
+                targetFileNameTemplate = u"Fundstellen_Sammlung_{0}".format(timeStamp)
+
+            targetFileName = QFileDialog.getSaveFileName(self, saveDialogTitle, os.path.join(saveDir, targetFileNameTemplate), "*.pdf")
+
+            if targetFileName:
+                fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
+
+                if len(findSpotList) == 1:
+
+                    # print file
+                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetFileName, timeStamp)
+
+                    # open file, open location?
+                    for key in pdfFiles:
+                        for pdfFile in pdfFiles[key]:
+                            OpenFileOrFolder(pdfFile)
+
+                else:
+                    targetDirName = os.path.join(os.path.dirname(os.path.abspath(targetFileName)), u"temp_apis_print")
+                    try:
+                        os.makedirs(targetDirName)
+                    except OSError:
+                        if not os.path.isdir(targetDirName):
+                            raise
+
+                    # print files (temp)
+                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp)
+
+                    # merge to collection
+                    pdfFilesList = []
+                    for key in pdfFiles:
+                        for pdfFile in pdfFiles[key]:
+                            pdfFilesList.append(pdfFile)
+
+                    MergePdfFiles(targetFileName, pdfFilesList)
+
+                    # open file, open location?
+                    OpenFileOrFolder(targetFileName)
 
 
     def exportListAsPdf(self):
         findSpotList = self.askForFindSpotList()
         if findSpotList:
             qryStr = u"SELECT fs.fundortnummer || '.' || fs.fundstellenummer AS Fundstellenummer, fo.katastralgemeindenummer AS 'KG Nummer', fo.katastralgemeinde AS 'KG Name', datierung_zeit || ',' || datierung_periode || ',' || datierung_periode_detail || ',' || phase_von || '-' || phase_bis AS Datierung, fundart AS Fundart FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND fs.fundortnummer || '.' || fs.fundstellenummer IN ({0}) ORDER BY fo.land, fo.katastralgemeindenummer, fo.fundortnummer_nn, fs.fundstellenummer".format(u",".join(u"'{0}'".format(findSpot) for findSpot in findSpotList))
-            printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, 1)
+            printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, False, None, 1)
             printer.setupInfo(u"Fundstellenliste", u"Fundstellenliste speichern", u"Fundstellenliste", 22)
             printer.setQuery(qryStr)
             printer.printList()
@@ -303,15 +348,12 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
                 ret = msgBox.exec_()
 
                 if ret == 0 or ret == 2:
-                    # Shp Datei in QGIS laden
+                    # Load Shp File in QGIS
                     self.iface.addVectorLayer(layerName, "", 'ogr')
 
                 if ret == 1 or ret == 2:
-                    # ordner öffnen
-                    if sys.platform == 'linux2':
-                        subprocess.call(["xdg-open", os.path.split(layerName)[0]])
-                    else:
-                        os.startfile(os.path.split(layerName)[0])
+                    # Open Folder
+                    OpenFileOrFolder(os.path.split(layerName)[0])
 
             else:
                 QMessageBox.warning(None, "Fundstelle Export", u"Beim erstellen der SHP Datei ist ein Fehler aufgetreten.")

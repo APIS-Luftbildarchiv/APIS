@@ -136,10 +136,22 @@ def SiteHasFindSpot(db, siteNumber):
 def SitesHaveFindSpots(db, siteNumbers):
     sites = u", ".join(u"'{0}'".format(siteNumber) for siteNumber in siteNumbers)
     query = QSqlQuery(db)
-    query.prepare(u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer IN ({0})".format(sites)   )
+    query.prepare(u"SELECT COUNT(*) FROM fundstelle WHERE fundortnummer IN ({0})".format(sites))
     query.exec_()
     query.first()
     return query.value(0)
+
+def GetFindSpotNumbers(db, siteNumbers):
+    query = QSqlQuery(db)
+    sites = u", ".join(u"'{0}'".format(siteNumber) for siteNumber in siteNumbers)
+    query.prepare(u"SELECT fundortnummer || '.' || fundstellenummer FROM fundstelle WHERE fundortnummer  IN ({0})".format(sites))
+    res = query.exec_()
+    query.seek(-1)
+    findSpots = []
+    while query.next():
+        findSpots.append(query.value(0))
+
+    return findSpots
 
 
 def IsFilm(db, filmNumber):

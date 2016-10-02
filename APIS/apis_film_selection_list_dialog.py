@@ -314,10 +314,7 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                         continue
 
             try:
-                if sys.platform == 'linux2':
-                    subprocess.call(["xdg-open", fileName])
-                else:
-                    os.startfile(fileName)
+                OpenFileOrFolder(fileName)
             except Exception, e:
                 pass
 
@@ -526,10 +523,8 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
                         continue
 
             # Open PDF
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
-            else:
-                os.startfile(fileName)
+            OpenFileOrFolder(fileName)
+
 
     def XXDEVexportDetailsAsPdf(self):
         selection = self.checkSelection()
@@ -558,7 +553,7 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
 
         qryStr = u"SELECT filmnummer AS Filmnummer, strftime('%d.%m.%Y', flugdatum) AS Flugdatum, anzahl_bilder AS Bildanzahl, weise AS Weise, art_ausarbeitung AS Art, militaernummer AS Militärnummer, militaernummer_alt AS 'Militärnummer Alt', CASE WHEN weise = 'senk.' THEN (SELECT count(*) from luftbild_senk_cp WHERE film.filmnummer = luftbild_senk_cp.filmnummer) ELSE (SELECT count(*) from luftbild_schraeg_cp WHERE film.filmnummer = luftbild_schraeg_cp.filmnummer) END AS Kartiert, 0 AS Gescannt FROM film WHERE filmnummer IN ({0}) ORDER BY filmnummer".format(u",".join(u"'{0}'".format(film) for film in filmList))
 
-        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, 1)
+        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, False, None, 1)
         printer.setupInfo(u"Filmliste", u"Filmliste speichern", u"Filmliste", 18)
         printer.setQuery(qryStr)
         printer.printList(u"Gescannt")
@@ -746,10 +741,7 @@ class ApisFilmSelectionListDialog(QDialog, Ui_apisFilmSelectionListDialog):
             comp.exportAsPDF(fileName)
 
             try:
-                if sys.platform == 'linux2':
-                    subprocess.call(["xdg-open", fileName])
-                else:
-                    os.startfile(fileName)
+                OpenFileOrFolder(fileName)
             except Exception, e:
                 pass
 

@@ -8,7 +8,8 @@ from PyQt4 import QtGui
 from PyQt4 import QtCore
 from PyQt4.QtCore import Qt
 from PyQt4.QtCore import SIGNAL
-import subprocess
+
+from apis_utils import OpenFileOrFolder
 
 class QdGraphicsPixmapItem(QtGui.QGraphicsPixmapItem):
     def __init__(self, path, size, parent=None):
@@ -41,10 +42,8 @@ class QdGraphicsPixmapItem(QtGui.QGraphicsPixmapItem):
 
     def viewImage(self):
         if os.path.isfile(self._path):
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", self._path])
-            else:
-                os.startfile(self._path)
+            OpenFileOrFolder(self._path)
+
         else:
             QtGui.QMessageBox.warning(None, "Bild", u"Bild unter {0} nicht vorhanden".format(self._path))
 

@@ -24,6 +24,7 @@ from apis_findspot_dialog import *
 from apis_findspot_selection_list_dialog import *
 from apis_representative_image_dialog import *
 from apis_site_edit_findspot_handling_dialog import *
+from apis_overpass_request_dialog import *
 from apis_utils import *
 
 from functools import partial
@@ -88,6 +89,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
         self.uiPlotNumberBtn.clicked.connect(lambda: self.openTextEditor("Parzellennummer", self.uiPlotNumberEdit))
         self.uiCommentBtn.clicked.connect(lambda: self.openTextEditor("Bemerkung zur Lage", self.uiCommentEdit))
+        self.uiOverpassBtn.clicked.connect(self.openOverpassRequest)
 
         self.uiListShardingsOfSiteBtn.clicked.connect(self.openShardingSelectionListDialog)
 
@@ -536,6 +538,29 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         if textEditorDlg.exec_():
             editor.setText(textEditorDlg.getText())
 
+    def openOverpassRequest(self):
+        overpassRequestDlg = ApisOverpassRequestDialog()
+        query = QSqlQuery(self.dbm.db)
+        query.prepare(u"SELECT latitude, longitude FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber))
+        res = query.exec_()
+        query.first()
+        overpassRequestDlg.setLatLon(query.value(0), query.value(1))
+        if overpassRequestDlg.exec_():
+            newValue = overpassRequestDlg.getSelection()
+            oldValue = self.uiCadastralCommunityEdit.text()
+            if oldValue.strip():
+                # Abfrage ob Fundorte der selektierten Bilder Exportieren oder alle
+                msgBox = QMessageBox()
+                msgBox.setWindowTitle(u'Katastralgemeinde')
+                msgBox.setText(u'Wollen Sie die Katastralgemeinde "{0}" durch "{1}" ersetzen?'.format(oldValue, newValue))
+                msgBox.addButton(QPushButton(u'Ersetzen'), QMessageBox.ActionRole)
+                msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
+                ret = msgBox.exec_()
+                if ret == 0:
+                    self.uiCadastralCommunityEdit.setText(newValue)
+            else:
+                self.uiCadastralCommunityEdit.setText(newValue)
+
     def onAccept(self):
         '''
         Check DB
@@ -852,84 +877,149 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
         query.first()
         return query.value(0)
 
+    def getFindSpotNumbers(self, siteNumber):
+        query = QSqlQuery(self.dbm.db)
+        query.prepare(u"SELECT fundortnummer || '.' || fundstellenummer FROM fundstelle WHERE fundortnummer = '{0}'".format(siteNumber))
+        res = query.exec_()
+        query.seek(-1)
+        findSpots = []
+        while query.next():
+            findSpots.append(query.value(0))
+
+        return findSpots
 
     def exportPdf(self):
         if self.siteHasFindSpots(self.siteNumber):
             msgBox = QMessageBox()
             msgBox.setWindowTitle(u'Fundort als PDF exportieren')
             msgBox.setText(u"Wählen Sie eine der folgenden Druckoptionen.".format(self.siteNumber))
-            msgBox.addButton(QPushButton(u'Fundort'), QMessageBox.ActionRole)
-            msgBox.addButton(QPushButton(u'Fundort und Liste der Fundstellen'), QMessageBox.ActionRole)
-            msgBox.addButton(QPushButton(u'Fundort, Liste und Fundstellen im Detail'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'FO Detail'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'FO Detail und FS Liste'), QMessageBox.ActionRole)
+            msgBox.addButton(QPushButton(u'FO Detail, FS Liste und Detail'), QMessageBox.ActionRole)
             msgBox.addButton(QPushButton(u'Abbrechen'), QMessageBox.RejectRole)
-            ret = msgBox.exec_()
+            printMode = msgBox.exec_()
 
-            if ret == 0:
-                self.exportSiteDetailsPdf()
-            elif ret == 1:
-                self.exportSiteDetailsPdf(True)
-            elif ret == 2:
-                return
-            else:
+            if printMode not in [0,1,2]:
                 return
         else:
-            self.exportSiteDetailsPdf()
+            # Site Only
+            printMode = 0
 
-    def exportSiteDetailsPdf(self, isTemp=False):
+        #Setup Output
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
-        fileName = QFileDialog.getSaveFileName(self, 'Fundort Details', saveDir + "\\" + 'FundortDetails_{0}_{1}'.format(self.siteNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
+        timeStamp = QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")
+        if printMode == 0:
+            saveDialogTitle = u"Fundort"
+            targetFileNameTemplate = u"Fundort_{0}_{1}".format(self.siteNumber, timeStamp)
+        elif printMode == 1:
+            saveDialogTitle = u"Fundort mit Fundstellenliste"
+            targetFileNameTemplate = u"Fundort_{0}_Fundstellenliste_{1}".format(self.siteNumber, timeStamp)
+        elif printMode == 2:
+            saveDialogTitle = u"Fundort mit Fundstellen"
+            targetFileNameTemplate = u"Fundort_{0}_Fundstellen_{1}".format(self.siteNumber, timeStamp)
+        else:
+            return
 
-        if fileName:
+        targetFileName = QFileDialog.getSaveFileName(self, saveDialogTitle, os.path.join(saveDir, targetFileNameTemplate), "*.pdf")
 
-            query = QSqlQuery(self.dbm.db)
-            query.prepare(u"SELECT * FROM fundort WHERE fundortnummer = '{0}'".format(self.siteNumber))
-            query.exec_()
+        if targetFileName:
+            pdfFilesList = []
 
-            siteDict = {}
-            query.seek(-1)
-            while query.next():
-                rec = query.record()
-                for col in range(rec.count()-1): # -1 geometry wird nicht benötigt!
-                    #val = unicode(rec.value(col))
-                    #QMessageBox.information(None, "type", u"{0}".format(type(rec.value(col))))
-                    val = u"{0}".format(rec.value(col))
-                    if val.replace(" ", "") == '' or val == 'NULL':
-                        val = u"---"
-
-                    siteDict[unicode(rec.fieldName(col))] = val
-
-                siteDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
-                siteDict['datum_ersteintrag'] = QDate.fromString(siteDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-                siteDict['datum_aenderung'] = QDate.fromString(siteDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-
-
-                if siteDict['sicherheit'] == u"1":
-                    siteDict['sicherheit'] = u"sicher"
-                elif siteDict['sicherheit'] == u"2":
-                    siteDict['sicherheit'] = u"wahrscheinlich"
-                elif siteDict['sicherheit'] == u"3":
-                    siteDict['sicherheit'] = u"fraglich"
-                elif siteDict['sicherheit'] == u"4":
-                    siteDict['sicherheit'] = u"kein Fundort"
-
-                if siteDict['meridian'] == u"28":
-                    siteDict['epsg_gk'] = u"31254"
-                elif siteDict['meridian'] == u"31":
-                    siteDict['epsg_gk'] = u"31255"
-                elif siteDict['meridian'] == u"34":
-                    siteDict['epsg_gk'] = u"31256"
+            if printMode in [0, 1, 2]:
+            # Site
+                if printMode == 0:
+                    # Site Only
+                    sitePdfs = self.exportSiteDetailsPdf([self.siteNumber], targetFileName, timeStamp)
+                    pdfFilesList += sitePdfs
                 else:
-                    siteDict['epsg_gk'] = u"---"
+                    # Temp Folder
+                    targetDirName = os.path.join(os.path.dirname(os.path.abspath(targetFileName)), u"temp_apis_print")
+                    try:
+                        os.makedirs(targetDirName)
+                    except OSError:
+                        if not os.path.isdir(targetDirName):
+                            raise
 
-                siteDict['epsg_mgi'] = u"4312"
+                    # Temp Site
+                    sitePdfs = self.exportSiteDetailsPdf([self.siteNumber], targetDirName, timeStamp, True)
+                    pdfFilesList += sitePdfs
 
-            query.prepare(u"SELECT kg.katastralgemeindenummer as kgcode, kg.katastralgemeindename as kgname, round(100*Area(Intersection(Transform(fo.geometry, 31287), kg.geometry))/Area(Transform(fo.geometry, 31287))) as percent FROM katastralgemeinden kg, fundort fo WHERE fundortnummer = '{0}' AND intersects(Transform(fo.geometry, 31287), kg.geometry) AND kg.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'katastralgemeinden' AND search_frame = Transform(fo.geometry, 31287)) ORDER  BY percent DESC".format(self.siteNumber))
-            query.exec_()
-            query.seek(-1)
+
+            if printMode in [1, 2]:
+                # FindSpotList
+                qryStr = u"SELECT fs.fundortnummer || '.' || fs.fundstellenummer AS Fundstellenummer, fo.katastralgemeindenummer AS 'KG Nummer', fo.katastralgemeinde AS 'KG Name', datierung_zeit || ',' || datierung_periode || ',' || datierung_periode_detail || ',' || phase_von || '-' || phase_bis AS Datierung, fundart AS Fundart FROM fundstelle fs, fundort fo WHERE fs.fundortnummer = fo.fundortnummer AND fs.fundortnummer = '{0}' ORDER BY fs.fundstellenummer".format(self.siteNumber)
+                fN = os.path.join(targetDirName, u"Fundstellenliste_{0}_{1}.pdf".format(self.siteNumber, timeStamp))
+                printer = ApisListPrinter(self, self.dbm, self.imageRegistry, False, True, fN, 1)
+                printer.setupInfo(u"Fundstellenliste", u"Fundstellenliste speichern", u"Fundstellenliste", 22)
+                printer.setQuery(qryStr)
+                findSpotListPdf = printer.printList()
+                pdfFilesList.append(findSpotListPdf)
+
+            if printMode == 2:
+                # FindSpots
+                findSpotList = self.getFindSpotNumbers(self.siteNumber)
+                fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
+                pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp)
+
+
+            # Merge and Open
+            if printMode > 0:
+                MergePdfFiles(targetFileName, pdfFilesList)
+
+            # Open Target File
+            OpenFileOrFolder(targetFileName)
+
+
+    def exportSiteDetailsPdf(self, siteList, targetFileOrFolder, timeStamp, isTemp=False):
+
+        query = QSqlQuery(self.dbm.db)
+        query.prepare(u"SELECT * FROM fundort WHERE fundortnummer IN ({0})".format((u",".join(u"'{0}'".format(site) for site in siteList))))
+        query.exec_()
+
+        query.seek(-1)
+        sitePdfs = []
+        while query.next():
+            siteDict = {}
+            rec = query.record()
+            for col in range(rec.count()-1): # -1 geometry wird nicht benötigt!
+                val = u"{0}".format(rec.value(col))
+                if val.replace(" ", "") == '' or val == 'NULL':
+                    val = u"---"
+                siteDict[unicode(rec.fieldName(col))] = val
+
+            siteDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
+            siteDict['datum_ersteintrag'] = QDate.fromString(siteDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+            siteDict['datum_aenderung'] = QDate.fromString(siteDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+
+
+            if siteDict['sicherheit'] == u"1":
+                siteDict['sicherheit'] = u"sicher"
+            elif siteDict['sicherheit'] == u"2":
+                siteDict['sicherheit'] = u"wahrscheinlich"
+            elif siteDict['sicherheit'] == u"3":
+                siteDict['sicherheit'] = u"fraglich"
+            elif siteDict['sicherheit'] == u"4":
+                siteDict['sicherheit'] = u"kein Fundort"
+
+            if siteDict['meridian'] == u"28":
+                siteDict['epsg_gk'] = u"31254"
+            elif siteDict['meridian'] == u"31":
+                siteDict['epsg_gk'] = u"31255"
+            elif siteDict['meridian'] == u"34":
+                siteDict['epsg_gk'] = u"31256"
+            else:
+                siteDict['epsg_gk'] = u"---"
+
+            siteDict['epsg_mgi'] = u"4312"
+
+            query2 = QSqlQuery(self.dbm.db)
+            query2.prepare(u"SELECT kg.katastralgemeindenummer as kgcode, kg.katastralgemeindename as kgname, round(100*Area(Intersection(Transform(fo.geometry, 31287), kg.geometry))/Area(Transform(fo.geometry, 31287))) as percent FROM katastralgemeinden kg, fundort fo WHERE fundortnummer = '{0}' AND intersects(Transform(fo.geometry, 31287), kg.geometry) AND kg.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'katastralgemeinden' AND search_frame = Transform(fo.geometry, 31287)) ORDER  BY percent DESC".format(siteDict['fundortnummer']))
+            query2.exec_()
+            query2.seek(-1)
             val = u""
-            while query.next():
-                rec = query.record()
-                val += u"{0} {1} ({2} %)\n".format(rec.value(0), rec.value(1), rec.value(2))
+            while query2.next():
+                rec2 = query2.record()
+                val += u"{0} {1} ({2} %)\n".format(rec2.value(0), rec2.value(1), rec2.value(2))
 
             siteDict['kgs_lage'] = val
             #QMessageBox.information(None, "KGS", val)
@@ -1055,7 +1145,7 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             try:
                 composition.loadFromTemplate(templateDom, siteDict)
             except Exception as e:
-                QMessageBox.information(None, "Error", "error: {0}".format(e))
+                QMessageBox.information(None, "Error", "Error Loading Template for Site Print: {0}".format(e))
 
 
             pageCount = 1
@@ -1161,14 +1251,21 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
 
                     path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
                     repImageName = self.getRepresentativeImage(self.siteNumber)
+
+                    newY = itemImg.pos().y() + itemImg.rectWithFrame().height() + 5.0
+
                     if repImageName:
                         path += u"\\" + repImageName + u".jpg"
 
                         repImageFile = QFile(path)
                         if repImageFile.exists():
                             itemImg.setPicturePath(path)
-
-                    newY = itemImg.pos().y() + itemImg.rectWithFrame().height() + 5.0
+                        else:
+                            #remove itemImg (to avoid red cross)
+                            composition.removeComposerItem(itemImg)
+                    else:
+                        #remove itemImg (to avoid red cross)
+                        composition.removeComposerItem(itemImg)
 
 
                 if itemTxt and itemLbl:
@@ -1212,13 +1309,15 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
             composition.setNumPages(pageCount)
 
             # Create PDF
-            composition.exportAsPDF(fileName)
-
-            # Open PDF
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
+            if isTemp:
+                targetFile = os.path.join(targetFileOrFolder, u"Fundort_{0}_{1}.pdf".format(siteDict['fundortnummer'], timeStamp))
             else:
-                os.startfile(fileName)
+                targetFile = targetFileOrFolder
+
+            composition.exportAsPDF(targetFile)
+            sitePdfs.append(targetFile)
+
+        return sitePdfs
 
     def cloneLabel(self, comp, l, pageCount):
         label = QgsComposerLabel(comp)

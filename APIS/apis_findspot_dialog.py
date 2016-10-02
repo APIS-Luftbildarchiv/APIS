@@ -792,134 +792,147 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
 
     def exportDetailsPdf(self):
         saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
-        fileName = QFileDialog.getSaveFileName(self, 'Fundstelle Details', saveDir + "\\" + 'FundstelleDetails_{0}.{1}_{2}'.format(self.siteNumber, self.findSpotNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
+        timeStamp = QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")
+        saveDialogTitle = u"Fundstelle"
+        targetFileNameTemplate = u"Fundstelle_{0}.{1}_{2}".format(self.siteNumber, self.findSpotNumber, timeStamp)
+        targetFileName = QFileDialog.getSaveFileName(self, saveDialogTitle, os.path.join(saveDir, targetFileNameTemplate), "*.pdf")
 
-        if fileName:
+        if targetFileName:
+            fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
 
-            query = QSqlQuery(self.dbm.db)
-            query.prepare(u"SELECT katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer = '{0}' AND fundstelle.fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber))
-            query.exec_()
+            # print file
+            pdfFiles = fsDetailsPrinter.exportDetailsPdf([u"{0}.{1}".format(self.siteNumber, self.findSpotNumber)], targetFileName, timeStamp)
 
-            findSpotDict = {}
-            query.seek(-1)
-            while query.next():
-                rec = query.record()
-                for col in range(rec.count()-1): #-1 geometry wird nicht benötigt!
-                    #val = unicode(rec.value(col))
-                    #QMessageBox.information(None, "type", u"{0}".format(type(rec.value(col))))
-                    val = u"{0}".format(rec.value(col))
-                    if val.replace(" ", "") == '' or val == 'NULL':
-                        val = u"---"
+            # open file, open location?
+            for key in pdfFiles:
+                for pdfFile in pdfFiles[key]:
+                    OpenFileOrFolder(pdfFile)
 
-                    findSpotDict[unicode(rec.fieldName(col))] = val
-
-                findSpotDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
-                findSpotDict['datum_ersteintrag'] = QDate.fromString(findSpotDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-                findSpotDict['datum_aenderung'] = QDate.fromString(findSpotDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-
-
-                if findSpotDict['sicherheit'] == u"1":
-                    findSpotDict['sicherheit'] = u"sicher"
-                elif findSpotDict['sicherheit'] == u"2":
-                    findSpotDict['sicherheit'] = u"wahrscheinlich"
-                elif findSpotDict['sicherheit'] == u"3":
-                    findSpotDict['sicherheit'] = u"fraglich"
-                elif findSpotDict['sicherheit'] == u"4":
-                    findSpotDict['sicherheit'] = u"keine Fundstelle"
-
-            # MapSettings
-            mapSettings = QgsMapSettings()
-            mapSettings.setMapUnits(QGis.UnitType(0))
-            mapSettings.setOutputDpi(300)
-
-
-            # Template
-            template = os.path.dirname(__file__) + "/composer/templates/FundstelleDetail.qpt"  # map_print_test.qpt"
-            templateDom = QDomDocument()
-            templateDom.setContent(QFile(template), False)
-
-            # Composition
-            composition = QgsComposition(mapSettings)
-            composition.setPlotStyle(QgsComposition.Print)
-            composition.setPrintResolution(300)
-
-            # Composer Items
-
-            composition.loadFromTemplate(templateDom, findSpotDict)
-            pageCount = 1
-
-            adjustItems = ["kommentar_lage", "fundbeschreibung", "fundverbleib", "befund", "fundgeschichte", "literatur", "sonstiges"]
-            #xShift = 0
-            #yShift = 0
-            bottomBorder = 30.0
-            topBorder = 27.0
-            i = 0
-            for itemId in adjustItems:
-
-                itemTxt = composition.getComposerItemById(itemId + "Txt")
-                itemLbl = composition.getComposerItemById(itemId +"Lbl")
-                itemBox = composition.getComposerItemById(itemId + "Box")
-
-                if itemTxt and itemLbl:
-
-                    #textWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), itemTxt.displayText())
-                    fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
-                    oldHeight = itemTxt.rectWithFrame().height()
-                    displayText = itemTxt.displayText()
-                    boxWidth = itemTxt.rectWithFrame().width() - 2 * itemTxt.marginX()
-                    lineCount = 0
-                    for line in displayText.splitlines():
-                        textWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
-                        lineCount += math.ceil(textWidth / boxWidth)
-
-                    newHeight = fontHeight * (lineCount + 1)
-                    newHeight += 2 * itemTxt.marginY() + 2
-
-                    x = itemTxt.pos().x()
-                    if i == 0:
-                        y = itemTxt.pos().y()
-                    else:
-                        y = newY
-                    w = itemTxt.rectWithFrame().width()
-                    newY = y + newHeight
-                    if newY > composition.paperHeight() - bottomBorder:
-                        pageCount += 1
-                        y = topBorder
-                        newY = y + newHeight
-                        #copy Header
-                        header = 1
-                        while composition.getComposerItemById("header_{0}".format(header)):
-                            self.cloneLabel(composition, composition.getComposerItemById("header_{0}".format(header)), pageCount)
-                            header += 1
-                        #copyFooter
-                        footer = 1
-                        while composition.getComposerItemById("footer_{0}".format(footer)):
-                            self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
-                            footer += 1
-
-                    itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, pageCount)
-                    itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
-
-                    i += 1
-
-                    if itemBox:
-                        h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
-                        itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
-
-
-            #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
-
-            composition.setNumPages(pageCount)
-
-            # Create PDF
-            composition.exportAsPDF(fileName)
-
-            # Open PDF
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
-            else:
-                os.startfile(fileName)
-
+    #
+    # def exportDetailsPdf(self):
+    #     saveDir = self.settings.value("APIS/working_dir", QDir.home().dirName())
+    #     fileName = QFileDialog.getSaveFileName(self, 'Fundstelle Details', saveDir + "\\" + 'FundstelleDetails_{0}.{1}_{2}'.format(self.siteNumber, self.findSpotNumber,QDateTime.currentDateTime().toString("yyyyMMdd_hhmmss")),'*.pdf')
+    #
+    #     if fileName:
+    #         queryStr = u"SELECT katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer = '{0}' AND fundstelle.fundstellenummer = {1}".format(self.siteNumber, self.findSpotNumber)
+    #
+    #         query = QSqlQuery(self.dbm.db)
+    #         query.prepare(queryStr)
+    #         query.exec_()
+    #
+    #         query.seek(-1)
+    #         while query.next():
+    #             findSpotDict = {}
+    #             rec = query.record()
+    #
+    #             #Replace
+    #             for col in range(rec.count()-1): #-1 geometry wird nicht benötigt!
+    #                 val = u"{0}".format(rec.value(col))
+    #                 if val.replace(" ", "") == '' or val == 'NULL':
+    #                     val = u"---"
+    #                 findSpotDict[unicode(rec.fieldName(col))] = val
+    #
+    #             findSpotDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
+    #             findSpotDict['datum_ersteintrag'] = QDate.fromString(findSpotDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+    #             findSpotDict['datum_aenderung'] = QDate.fromString(findSpotDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+    #
+    #
+    #             if findSpotDict['sicherheit'] == u"1":
+    #                 findSpotDict['sicherheit'] = u"sicher"
+    #             elif findSpotDict['sicherheit'] == u"2":
+    #                 findSpotDict['sicherheit'] = u"wahrscheinlich"
+    #             elif findSpotDict['sicherheit'] == u"3":
+    #                 findSpotDict['sicherheit'] = u"fraglich"
+    #             elif findSpotDict['sicherheit'] == u"4":
+    #                 findSpotDict['sicherheit'] = u"keine Fundstelle"
+    #
+    #             # MapSettings
+    #             mapSettings = QgsMapSettings()
+    #             mapSettings.setMapUnits(QGis.UnitType(0))
+    #             mapSettings.setOutputDpi(300)
+    #
+    #             # Template
+    #             template = os.path.dirname(__file__) + "/composer/templates/FundstelleDetail.qpt"  # map_print_test.qpt"
+    #             templateDom = QDomDocument()
+    #             templateDom.setContent(QFile(template), False)
+    #
+    #             # Composition
+    #             composition = QgsComposition(mapSettings)
+    #             composition.setPlotStyle(QgsComposition.Print)
+    #             composition.setPrintResolution(300)
+    #             composition.loadFromTemplate(templateDom, findSpotDict)
+    #
+    #             # Composer Items
+    #
+    #             pageCount = 1
+    #
+    #             adjustItems = ["kommentar_lage", "fundbeschreibung", "fundverbleib", "befund", "fundgeschichte", "literatur", "sonstiges"]
+    #             bottomBorder = 30.0
+    #             topBorder = 27.0
+    #             i = 0
+    #             for itemId in adjustItems:
+    #
+    #                 itemTxt = composition.getComposerItemById(itemId + "Txt")
+    #                 itemLbl = composition.getComposerItemById(itemId +"Lbl")
+    #                 itemBox = composition.getComposerItemById(itemId + "Box")
+    #
+    #                 if itemTxt and itemLbl:
+    #
+    #                     #textWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), itemTxt.displayText())
+    #                     fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
+    #                     oldHeight = itemTxt.rectWithFrame().height()
+    #                     displayText = itemTxt.displayText()
+    #                     boxWidth = itemTxt.rectWithFrame().width() - 2 * itemTxt.marginX()
+    #                     lineCount = 0
+    #                     for line in displayText.splitlines():
+    #                         textWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
+    #                         lineCount += math.ceil(textWidth / boxWidth)
+    #
+    #                     newHeight = fontHeight * (lineCount + 1)
+    #                     newHeight += 2 * itemTxt.marginY() + 2
+    #
+    #                     x = itemTxt.pos().x()
+    #                     if i == 0:
+    #                         y = itemTxt.pos().y()
+    #                     else:
+    #                         y = newY
+    #                     w = itemTxt.rectWithFrame().width()
+    #                     newY = y + newHeight
+    #                     if newY > composition.paperHeight() - bottomBorder:
+    #                         pageCount += 1
+    #                         y = topBorder
+    #                         newY = y + newHeight
+    #                         #copy Header
+    #                         header = 1
+    #                         while composition.getComposerItemById("header_{0}".format(header)):
+    #                             self.cloneLabel(composition, composition.getComposerItemById("header_{0}".format(header)), pageCount)
+    #                             header += 1
+    #                         #copyFooter
+    #                         footer = 1
+    #                         while composition.getComposerItemById("footer_{0}".format(footer)):
+    #                             self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
+    #                             footer += 1
+    #
+    #                     itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, pageCount)
+    #                     itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+    #
+    #                     i += 1
+    #
+    #                     if itemBox:
+    #                         h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
+    #                         itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
+    #
+    #
+    #             #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
+    #
+    #             composition.setNumPages(pageCount)
+    #
+    #             # Create PDF
+    #             composition.exportAsPDF(fileName)
+    #
+    #             # Open PDF
+    #             OpenFileOrFolder(fileName)
+    #
     def cloneLabel(self, comp, l, pageCount):
         label = QgsComposerLabel(comp)
         label.setItemPosition(l.pos().x(), l.pos().y(), l.rectWithFrame().width(), l.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)

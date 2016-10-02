@@ -441,10 +441,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
         #TODO RM fileName = imageDir + "\\{0}\\{1}.jpg".format(IdToIdLegacy(self.model.item(r, 1).text()), IdToIdLegacy(self.model.item(r, 0).text()).replace('.','_'))
         fileName = imageDir + "\\{0}\\{1}.jpg".format(self.model.item(r, 1).text(), self.model.item(r, 0).text().replace('.','_'))
         if os.path.isfile(os.path.normpath(fileName)):
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
-            else:
-                os.startfile(fileName)
+            OpenFileOrFolder(fileName)
         else:
             QMessageBox.warning(None, "Bild", u"Bild unter {0} nicht vorhanden".format(fileName))
         #get Path to Image
@@ -590,10 +587,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             self.iface.addVectorLayer(layer, "", 'ogr')
 
             #open folder in file browser
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", os.path.split(layer)[0]])
-            else:
-                os.startfile(os.path.split(layer)[0])
+            OpenFileOrFolder(os.path.split(layer)[0])
 
             #vlayer = QgsVectorLayer("multipolygon?crs=EPSG:4326", "export_footprints", "memory")
             # vlayer.setCrs(self.pointLayer.crs())
@@ -747,11 +741,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
                                             sourceHiResFile.copy(destinationHiResFileName)
                                         #QMessageBox.warning(None, "Bild", u"{0}".format(', '.join(hiResFiles)))
 
-
-                if sys.platform == 'linux2':
-                    subprocess.call(["xdg-open", destinationDirName])
-                else:
-                    os.startfile(destinationDirName)
+                OpenFileOrFolder(destinationDirName)
 
             else:
                 QMessageBox.warning(None, "Bilder kopieren", u"Das Ziel Verzeichnis {0} konnte in {1} nicht erstellt werden".format(newDirName, selectedDirName))
@@ -855,7 +845,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
 
         #qryStr = u"SELECT filmnummer AS Filmnummer, strftime('%d.%m.%Y', flugdatum) AS Flugdatum, anzahl_bilder AS Bildanzahl, weise AS Weise, art_ausarbeitung AS Art, militaernummer AS Militärnummer, militaernummer_alt AS 'Militärnummer Alt', CASE WHEN weise = 'senk.' THEN (SELECT count(*) from luftbild_senk_cp WHERE film.filmnummer = luftbild_senk_cp.filmnummer) ELSE (SELECT count(*) from luftbild_schraeg_cp WHERE film.filmnummer = luftbild_schraeg_cp.filmnummer) END AS Kartiert, 0 AS Gescannt FROM film WHERE filmnummer IN ({0}) ORDER BY filmnummer".format(u",".join(u"'{0}'".format(image) for image in imageList))
         qryStr = u"SELECT bildnummer AS Bildnummer, weise AS Weise, radius AS 'Radius/Maßstab', art_ausarbeitung AS Art, 'nein' AS Gescannt, 'nein' AS Ortho, 'nein' AS HiRes FROM luftbild_schraeg_cp oI, film f WHERE oI.filmnummer = f.filmnummer AND bildnummer IN ({0}) UNION ALL SELECT bildnummer AS Bildnummer, weise AS Weise, CAST(massstab AS INT) AS 'Radius/Maßstab', art_ausarbeitung AS Art, 'nein' AS Gescannt, 'nein' AS Ortho, 'nein' AS HiRes FROM luftbild_senk_cp vI, film f WHERE vI.filmnummer = f.filmnummer AND bildnummer IN ({0}) ORDER BY bildnummer".format(u",".join(u"'{0}'".format(image) for image in imageList))
-        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, 0)
+        printer = ApisListPrinter(self, self.dbm, self.imageRegistry, True, False, None, 0)
         printer.setupInfo(u"Bildliste", u"Bildliste speichern", u"Bildliste", 14)
         printer.setQuery(qryStr)
         printer.printList(u"Gescannt", u"Ortho", u"HiRes")
@@ -1037,10 +1027,7 @@ class ApisImageSelectionListDialog(QDialog, Ui_apisImageSelectionListDialog):
             comp.exportAsPDF(fileName)
 
             try:
-                if sys.platform == 'linux2':
-                    subprocess.call(["xdg-open", fileName])
-                else:
-                    os.startfile(fileName)
+                OpenFileOrFolder(fileName)
             except Exception, e:
                 pass
 

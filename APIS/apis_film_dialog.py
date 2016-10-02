@@ -668,10 +668,7 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
                 QgsMapLayerRegistry.instance().removeMapLayer(layerId)
 
             # Open PDF
-            if sys.platform == 'linux2':
-                subprocess.call(["xdg-open", fileName])
-            else:
-                os.startfile(fileName)
+            OpenFileOrFolder(fileName)
 
     # def exportDetailsPdfOLD(self):
     #     filmId = self.uiCurrentFilmNumberEdit.text()
@@ -834,10 +831,8 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
     #         for lid in printLayers:
     #             QgsMapLayerRegistry.instance().removeMapLayer(lid)
     #
-    #         if sys.platform == 'linux2':
-    #             subprocess.call(["xdg-open", fileName])
-    #         else:
-    #             os.startfile(fileName)
+    #         OpenFileOrFolder(fileName)
+
     #         #else:
     #         #    QMessageBox.warning(None, "Save", "QGIS Template File Not Correct!")
 
