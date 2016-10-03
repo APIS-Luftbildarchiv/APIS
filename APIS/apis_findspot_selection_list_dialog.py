@@ -196,7 +196,7 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
                 if len(findSpotList) == 1:
 
                     # print file
-                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetFileName, timeStamp)
+                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetFileName, timeStamp, False)
 
                     # open file, open location?
                     for key in pdfFiles:
@@ -212,7 +212,7 @@ class ApisFindSpotSelectionListDialog(QDialog, Ui_apisFindSpotSelectionListDialo
                             raise
 
                     # print files (temp)
-                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp)
+                    pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp, False)
 
                     # merge to collection
                     pdfFilesList = []

@@ -114,345 +114,354 @@ class ApisSitePrinter(ApisPrinter):
         query.exec_()
 
         query.seek(-1)
-        sitePdfs = []
-        while query.next():
-            siteDict = {}
-            rec = query.record()
-            for col in range(rec.count()-1): # -1 geometry wird nicht benötigt!
-                val = u"{0}".format(rec.value(col))
-                if val.replace(" ", "") == '' or val == 'NULL':
-                    val = u"---"
-                siteDict[unicode(rec.fieldName(col))] = val
+        sitePdfs = {}
+        try:
+            while query.next():
+                siteDict = {}
+                rec = query.record()
+                for col in range(rec.count()-1): # -1 geometry wird nicht benötigt!
+                    val = u"{0}".format(rec.value(col))
+                    if val.replace(" ", "") == '' or val == 'NULL':
+                        val = u"---"
+                    siteDict[unicode(rec.fieldName(col))] = val
 
-            siteDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
-            siteDict['datum_ersteintrag'] = QDate.fromString(siteDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-            siteDict['datum_aenderung'] = QDate.fromString(siteDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
-
-
-            if siteDict['sicherheit'] == u"1":
-                siteDict['sicherheit'] = u"sicher"
-            elif siteDict['sicherheit'] == u"2":
-                siteDict['sicherheit'] = u"wahrscheinlich"
-            elif siteDict['sicherheit'] == u"3":
-                siteDict['sicherheit'] = u"fraglich"
-            elif siteDict['sicherheit'] == u"4":
-                siteDict['sicherheit'] = u"kein Fundort"
-
-            if siteDict['meridian'] == u"28":
-                siteDict['epsg_gk'] = u"31254"
-            elif siteDict['meridian'] == u"31":
-                siteDict['epsg_gk'] = u"31255"
-            elif siteDict['meridian'] == u"34":
-                siteDict['epsg_gk'] = u"31256"
-            else:
-                siteDict['epsg_gk'] = u"---"
-
-            siteDict['epsg_mgi'] = u"4312"
-
-            query2 = QSqlQuery(self.dbm.db)
-            query2.prepare(u"SELECT kg.katastralgemeindenummer as kgcode, kg.katastralgemeindename as kgname, round(100*Area(Intersection(Transform(fo.geometry, 31287), kg.geometry))/Area(Transform(fo.geometry, 31287))) as percent FROM katastralgemeinden kg, fundort fo WHERE fundortnummer = '{0}' AND intersects(Transform(fo.geometry, 31287), kg.geometry) AND kg.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'katastralgemeinden' AND search_frame = Transform(fo.geometry, 31287)) ORDER  BY percent DESC".format(siteDict['fundortnummer']))
-            query2.exec_()
-            query2.seek(-1)
-            val = u""
-            while query2.next():
-                rec2 = query2.record()
-                val += u"{0} {1} ({2} %)\n".format(rec2.value(0), rec2.value(1), rec2.value(2))
-
-            siteDict['kgs_lage'] = val
-            #QMessageBox.information(None, "KGS", val)
-
-            # MapSettings
-            mapSettings = QgsMapSettings()
-            mapSettings.setCrsTransformEnabled(True)
-            mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3416, QgsCoordinateReferenceSystem.EpsgCrsId))
-
-            mapSettings.setMapUnits(QGis.UnitType(0))
-            mapSettings.setOutputDpi(300)
-
-            layerSet = []
-            # Site Layer
-            siteLayer = self.getSpatialiteLayer(u"fundort", u'"fundortnummer" = "{0}"'.format(siteDict['fundortnummer']), u"fundort")
-            siteLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
-            siteLayer.setCoordinateSystem()
-
-            siteLayer.loadNamedStyle(os.path.join(self.stylesDir, u"fundort_print.qml"))
-            #siteLayer.setRendererV2(self.getSiteRenderer())
-
-            QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)  # False = don't add to Layers (TOC)
-            layerSet.append(siteLayer.id())
-            extent = mapSettings.layerExtentToOutputExtent(siteLayer, siteLayer.extent())
-
-            scaleVal = max(extent.width(), extent.height())
-            baseVal = max(5000.0, scaleVal*1.1)
-            #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
-            extent.scale(baseVal/scaleVal)
-            #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
-            mapWidth = 94.0
-            mapHeight = 70.0
-            if (extent.width()/extent.height()) > (mapWidth/mapHeight):
-                newHeight = extent.width() * mapHeight / mapWidth
-                yMin = extent.center().y() - (newHeight / 2.0)
-                yMax = extent.center().y() + (newHeight / 2.0)
-                newRect = QgsRectangle(extent.xMinimum(), yMin, extent.xMaximum(), yMax)
-                extent.combineExtentWith(newRect)
-            elif (extent.width()/extent.height()) < (mapWidth/mapHeight):
-                newWidth = extent.height() * mapWidth / mapHeight
-                xMin = extent.center().x() - (newWidth / 2.0)
-                xMax = extent.center().x() + (newWidth / 2.0)
-                newRect = QgsRectangle(xMin, extent.yMinimum(), xMax, extent.yMaximum())
-                extent.combineExtentWith(newRect)
-
-            # ÖK Background
-            oekLayer28 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m28"), u"OKM28")
-            oekLayer28.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
-            QgsMapLayerRegistry.instance().addMapLayer(oekLayer28, False)
-            oekLayer28.setExtent(mapSettings.mapToLayerCoordinates(oekLayer28, extent))
-
-            oekLayer31 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m31"), u"OKM31")
-            oekLayer31.setCrs(QgsCoordinateReferenceSystem(31255, QgsCoordinateReferenceSystem.EpsgCrsId))
-            QgsMapLayerRegistry.instance().addMapLayer(oekLayer31, False)
-            oekLayer31.setExtent(mapSettings.mapToLayerCoordinates(oekLayer31, extent))
-
-            oekLayer34 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m34"), u"OKM34")
-            oekLayer34.setCrs(QgsCoordinateReferenceSystem(31256, QgsCoordinateReferenceSystem.EpsgCrsId))
-            QgsMapLayerRegistry.instance().addMapLayer(oekLayer34, False)
-            oekLayer34.setExtent(mapSettings.mapToLayerCoordinates(oekLayer34, extent))
-
-            layerSet.append(oekLayer28.id())
-            layerSet.append(oekLayer31.id())
-            layerSet.append(oekLayer34.id())
-
-            # import math
-            # mapWidth = 94  # 160
-            # mapHeight = 70  # 120
-            # c = 40075016.6855785
-            # mpW = extent.width() / mapWidth
-            # mpH = extent.height() / mapHeight
-            # zW = math.log(c / mpW, 2) - 8
-            # zH = math.log(c / mpH, 2) - 8
-            # z = math.floor(min(zW, zH)) + 2
-            # # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
-            #
-            #
-            # # Tile Layer (Background Map)
-            # # TODO: Move To Settings ...
-            # ds = {}
-            # # ds['type'] = 'TMS'
-            # ds['title'] = 'basemap.at'
-            # ds['attribution'] = 'basemap.at'
-            # ds['attributionUrl'] = 'http://www.basemap.at'
-            # ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-            # ds['yOriginTop'] = 1
-            # ds['zmin'] = 0
-            # ds['zmax'] = int(z)
-            # ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
-            #
-            # layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
-            #
-            # tileLayer = TileLayer070(layerDef, False)
-            # tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
-            #
-            # if not tileLayer.isValid():
-            #     error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
-            #     self.iface.messageBar().pushMessage(self.tr('Error'),
-            #                                         error_message,
-            #                                         level=QgsMessageBar.CRITICAL)
-            #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
-            # else:
-            #     QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
-            #     layerSet.append(tileLayer.id())
-            #
-            # # Set LayerSet
-            # tileLayer.setExtent(extent)
-
-            mapSettings.setExtent(extent)
-            mapSettings.setLayers(layerSet)
-
-            # Template
-            template = os.path.dirname(__file__) + "/composer/templates/FundortDetail.qpt"  # map_print_test.qpt"
-            templateDom = QDomDocument()
-            templateDom.setContent(QFile(template), False)
-
-            # Composition
-            composition = QgsComposition(mapSettings)
-            composition.setPlotStyle(QgsComposition.Print)
-            composition.setPrintResolution(300)
-
-            # Composer Items
-            try:
-                composition.loadFromTemplate(templateDom, siteDict)
-            except Exception as e:
-                QMessageBox.information(None, "Error", "Error Loading Template for Site Print: {0}".format(e))
+                siteDict['datum_druck'] = QDate.currentDate().toString("dd.MM.yyyy")
+                siteDict['datum_ersteintrag'] = QDate.fromString(siteDict['datum_ersteintrag'], "yyyy-MM-dd").toString("dd.MM.yyyy")
+                siteDict['datum_aenderung'] = QDate.fromString(siteDict['datum_aenderung'], "yyyy-MM-dd").toString("dd.MM.yyyy")
 
 
-            pageCount = 1
+                if siteDict['sicherheit'] == u"1":
+                    siteDict['sicherheit'] = u"sicher"
+                elif siteDict['sicherheit'] == u"2":
+                    siteDict['sicherheit'] = u"wahrscheinlich"
+                elif siteDict['sicherheit'] == u"3":
+                    siteDict['sicherheit'] = u"fraglich"
+                elif siteDict['sicherheit'] == u"4":
+                    siteDict['sicherheit'] = u"kein Fundort"
 
-            adjustItemHightTxt = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "befund", "literatur", "detailinterpretation"]
+                if siteDict['meridian'] == u"28":
+                    siteDict['epsg_gk'] = u"31254"
+                elif siteDict['meridian'] == u"31":
+                    siteDict['epsg_gk'] = u"31255"
+                elif siteDict['meridian'] == u"34":
+                    siteDict['epsg_gk'] = u"31256"
+                else:
+                    siteDict['epsg_gk'] = u"---"
 
-            for itemId in adjustItemHightTxt:
-                itemTxt = composition.getComposerItemById(itemId + "Txt")
-                if itemTxt:
-                    fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
-                    #oldHeight = itemTxt.rectWithFrame().height()
-                    displayText = unicode(itemTxt.displayText())
-                    w = itemTxt.rectWithFrame().width()
-                    boxWidth = w - 2 * itemTxt.marginX()
-                    lineCount = 0
-                    oldLineCount = 0
-                    spaceWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), " ")
-                    newText = u""
-                    for line in displayText.splitlines():
-                        lineWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
-                        oldLineCount += math.ceil(lineWidth / boxWidth)
-                        if lineWidth > boxWidth:
-                            lineCount += 1
-                            if lineCount > 1:
-                                newText += u"\n"
-                            accWordWidth = 0
-                            wordNum = 0
-                            for word in line.split():
-                                wordNum += 1
-                                wordWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), word)
-                                accWordWidth += wordWidth
-                                if accWordWidth > boxWidth:
-                                    if wordNum > 1:
-                                        lineCount += 1
-                                    if wordWidth > boxWidth:
-                                        accCharWidth = 0
-                                        newWord = u""
-                                        for char in word:
-                                            charWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), char)
-                                            accCharWidth += charWidth
-                                            newWord += char
-                                            if accCharWidth >= boxWidth - 5:
-                                                #INSERT LINE BREAK
-                                                lineCount += 1
-                                                accCharWidth = 0
-                                                newText += newWord
-                                                newWord = u"\n"
-                                        newText += newWord + u" "
-                                        accWordWidth = accCharWidth + spaceWidth
+                siteDict['epsg_mgi'] = u"4312"
+
+                query2 = QSqlQuery(self.dbm.db)
+                query2.prepare(u"SELECT kg.katastralgemeindenummer as kgcode, kg.katastralgemeindename as kgname, round(100*Area(Intersection(Transform(fo.geometry, 31287), kg.geometry))/Area(Transform(fo.geometry, 31287))) as percent FROM katastralgemeinden kg, fundort fo WHERE fundortnummer = '{0}' AND intersects(Transform(fo.geometry, 31287), kg.geometry) AND kg.ROWID IN (SELECT ROWID FROM SpatialIndex WHERE f_table_name = 'katastralgemeinden' AND search_frame = Transform(fo.geometry, 31287)) ORDER  BY percent DESC".format(siteDict['fundortnummer']))
+                query2.exec_()
+                query2.seek(-1)
+                val = u""
+                while query2.next():
+                    rec2 = query2.record()
+                    val += u"{0} {1} ({2} %)\n".format(rec2.value(0), rec2.value(1), rec2.value(2))
+
+                siteDict['kgs_lage'] = val
+                #QMessageBox.information(None, "KGS", val)
+
+                # MapSettings
+                mapSettings = QgsMapSettings()
+                mapSettings.setCrsTransformEnabled(True)
+                mapSettings.setDestinationCrs(QgsCoordinateReferenceSystem(3416, QgsCoordinateReferenceSystem.EpsgCrsId))
+
+                mapSettings.setMapUnits(QGis.UnitType(0))
+                mapSettings.setOutputDpi(300)
+
+                layerSet = []
+                # Site Layer
+                siteLayer = self.getSpatialiteLayer(u"fundort", u'"fundortnummer" = "{0}"'.format(siteDict['fundortnummer']), u"fundort")
+                siteLayer.setCrs(QgsCoordinateReferenceSystem(4312, QgsCoordinateReferenceSystem.EpsgCrsId))
+                siteLayer.setCoordinateSystem()
+
+                siteLayer.loadNamedStyle(os.path.join(self.stylesDir, u"fundort_print.qml"))
+                #siteLayer.setRendererV2(self.getSiteRenderer())
+
+                QgsMapLayerRegistry.instance().addMapLayer(siteLayer, False)  # False = don't add to Layers (TOC)
+                layerSet.append(siteLayer.id())
+                extent = mapSettings.layerExtentToOutputExtent(siteLayer, siteLayer.extent())
+
+                scaleVal = max(extent.width(), extent.height())
+                baseVal = max(5000.0, scaleVal*1.1)
+                #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
+                extent.scale(baseVal/scaleVal)
+                #QMessageBox.information(None, "MAP", "w: {0}, h: {1}".format(extent.width(), extent.height()))
+                mapWidth = 94.0
+                mapHeight = 70.0
+                if (extent.width()/extent.height()) > (mapWidth/mapHeight):
+                    newHeight = extent.width() * mapHeight / mapWidth
+                    yMin = extent.center().y() - (newHeight / 2.0)
+                    yMax = extent.center().y() + (newHeight / 2.0)
+                    newRect = QgsRectangle(extent.xMinimum(), yMin, extent.xMaximum(), yMax)
+                    extent.combineExtentWith(newRect)
+                elif (extent.width()/extent.height()) < (mapWidth/mapHeight):
+                    newWidth = extent.height() * mapWidth / mapHeight
+                    xMin = extent.center().x() - (newWidth / 2.0)
+                    xMax = extent.center().x() + (newWidth / 2.0)
+                    newRect = QgsRectangle(xMin, extent.yMinimum(), xMax, extent.yMaximum())
+                    extent.combineExtentWith(newRect)
+
+                # ÖK Background
+                oekLayer28 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m28"), u"OKM28")
+                oekLayer28.setCrs(QgsCoordinateReferenceSystem(31254, QgsCoordinateReferenceSystem.EpsgCrsId))
+                QgsMapLayerRegistry.instance().addMapLayer(oekLayer28, False)
+                oekLayer28.setExtent(mapSettings.mapToLayerCoordinates(oekLayer28, extent))
+
+                oekLayer31 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m31"), u"OKM31")
+                oekLayer31.setCrs(QgsCoordinateReferenceSystem(31255, QgsCoordinateReferenceSystem.EpsgCrsId))
+                QgsMapLayerRegistry.instance().addMapLayer(oekLayer31, False)
+                oekLayer31.setExtent(mapSettings.mapToLayerCoordinates(oekLayer31, extent))
+
+                oekLayer34 = QgsRasterLayer(self.settings.value("APIS/oek50_gk_qgis_m34"), u"OKM34")
+                oekLayer34.setCrs(QgsCoordinateReferenceSystem(31256, QgsCoordinateReferenceSystem.EpsgCrsId))
+                QgsMapLayerRegistry.instance().addMapLayer(oekLayer34, False)
+                oekLayer34.setExtent(mapSettings.mapToLayerCoordinates(oekLayer34, extent))
+
+                layerSet.append(oekLayer28.id())
+                layerSet.append(oekLayer31.id())
+                layerSet.append(oekLayer34.id())
+
+                # import math
+                # mapWidth = 94  # 160
+                # mapHeight = 70  # 120
+                # c = 40075016.6855785
+                # mpW = extent.width() / mapWidth
+                # mpH = extent.height() / mapHeight
+                # zW = math.log(c / mpW, 2) - 8
+                # zH = math.log(c / mpH, 2) - 8
+                # z = math.floor(min(zW, zH)) + 2
+                # # self.iface.messageBar().pushMessage(self.tr('Zoom'), "z: {0}".format(z), level=QgsMessageBar.INFO)
+                #
+                #
+                # # Tile Layer (Background Map)
+                # # TODO: Move To Settings ...
+                # ds = {}
+                # # ds['type'] = 'TMS'
+                # ds['title'] = 'basemap.at'
+                # ds['attribution'] = 'basemap.at'
+                # ds['attributionUrl'] = 'http://www.basemap.at'
+                # ds['serviceUrl'] = "http://maps.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg"  #geolandbasemap "https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
+                # ds['yOriginTop'] = 1
+                # ds['zmin'] = 0
+                # ds['zmax'] = int(z)
+                # ds['bbox'] = BoundingBox070(-180, -85.05, 180, 85.05)
+                #
+                # layerDef = TileLayerDefinition070(ds['title'], ds['attribution'], ds['attributionUrl'], ds['serviceUrl'],ds['yOriginTop'], ds['zmin'], ds['zmax'], ds['bbox'])
+                #
+                # tileLayer = TileLayer070(layerDef, False)
+                # tileLayer.setCrs(QgsCoordinateReferenceSystem(3857, QgsCoordinateReferenceSystem.EpsgCrsId))
+                #
+                # if not tileLayer.isValid():
+                #     error_message = self.tr('Background Layer %s can\'t be added to the map!') % ds['alias']
+                #     self.iface.messageBar().pushMessage(self.tr('Error'),
+                #                                         error_message,
+                #                                         level=QgsMessageBar.CRITICAL)
+                #     QgsMessageLog.logMessage(error_message, level=QgsMessageLog.CRITICAL)
+                # else:
+                #     QgsMapLayerRegistry.instance().addMapLayer(tileLayer, False)
+                #     layerSet.append(tileLayer.id())
+                #
+                # # Set LayerSet
+                # tileLayer.setExtent(extent)
+
+                mapSettings.setExtent(extent)
+                mapSettings.setLayers(layerSet)
+
+                # Template
+                template = os.path.dirname(__file__) + "/composer/templates/FundortDetail.qpt"  # map_print_test.qpt"
+                templateDom = QDomDocument()
+                templateDom.setContent(QFile(template), False)
+
+                # Composition
+                composition = QgsComposition(mapSettings)
+                composition.setPlotStyle(QgsComposition.Print)
+                composition.setPrintResolution(300)
+
+                # Composer Items
+                try:
+                    composition.loadFromTemplate(templateDom, siteDict)
+                except Exception as e:
+                    QMessageBox.information(None, "Error", "Error Loading Template for Site Print: {0}".format(e))
+
+
+                pageCount = 1
+
+                adjustItemHightTxt = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "befund", "literatur", "detailinterpretation"]
+
+                for itemId in adjustItemHightTxt:
+                    itemTxt = composition.getComposerItemById(itemId + "Txt")
+                    if itemTxt:
+                        fontHeight = QgsComposerUtils.fontHeightMM(itemTxt.font())
+                        #oldHeight = itemTxt.rectWithFrame().height()
+                        displayText = unicode(itemTxt.displayText())
+                        w = itemTxt.rectWithFrame().width()
+                        boxWidth = w - 2 * itemTxt.marginX()
+                        lineCount = 0
+                        oldLineCount = 0
+                        spaceWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), " ")
+                        newText = u""
+                        for line in displayText.splitlines():
+                            lineWidth = max(1.0, QgsComposerUtils.textWidthMM(itemTxt.font(), line))
+                            oldLineCount += math.ceil(lineWidth / boxWidth)
+                            if lineWidth > boxWidth:
+                                lineCount += 1
+                                if lineCount > 1:
+                                    newText += u"\n"
+                                accWordWidth = 0
+                                wordNum = 0
+                                for word in line.split():
+                                    wordNum += 1
+                                    wordWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), word)
+                                    accWordWidth += wordWidth
+                                    if accWordWidth > boxWidth:
+                                        if wordNum > 1:
+                                            lineCount += 1
+                                        if wordWidth > boxWidth:
+                                            accCharWidth = 0
+                                            newWord = u""
+                                            for char in word:
+                                                charWidth = QgsComposerUtils.textWidthMM(itemTxt.font(), char)
+                                                accCharWidth += charWidth
+                                                newWord += char
+                                                if accCharWidth >= boxWidth - 5:
+                                                    #INSERT LINE BREAK
+                                                    lineCount += 1
+                                                    accCharWidth = 0
+                                                    newText += newWord
+                                                    newWord = u"\n"
+                                            newText += newWord + u" "
+                                            accWordWidth = accCharWidth + spaceWidth
+
+                                        else:
+                                            if wordNum > 1:
+                                                newText += u"\n" + word + u" "
+
+                                            accWordWidth = wordWidth + spaceWidth
 
                                     else:
-                                        if wordNum > 1:
-                                            newText += u"\n" + word + u" "
-
-                                        accWordWidth = wordWidth + spaceWidth
-
-                                else:
-                                    accWordWidth += spaceWidth
-                                    newText += word + u" "
+                                        accWordWidth += spaceWidth
+                                        newText += word + u" "
 
 
-                        else:
-                            lineCount += 1 #math.ceil(textWidth / boxWidth)
-                            if lineCount > 1:
-                                newText += u"\n"
-                            newText += line
+                            else:
+                                lineCount += 1 #math.ceil(textWidth / boxWidth)
+                                if lineCount > 1:
+                                    newText += u"\n"
+                                newText += line
 
-                    itemTxt.setText(newText)
+                        itemTxt.setText(newText)
 
-                    #QMessageBox.information(None, "LineCount", u"feld: {0}, old: {1}, new: {2}".format(itemId, oldLineCount, lineCount))
+                        #QMessageBox.information(None, "LineCount", u"feld: {0}, old: {1}, new: {2}".format(itemId, oldLineCount, lineCount))
 
-                    newHeight = fontHeight * (lineCount + 0.5)
-                    newHeight += 2 * itemTxt.marginY() + 2
+                        newHeight = fontHeight * (lineCount + 0.5)
+                        newHeight += 2 * itemTxt.marginY() + 2
 
-                    x = itemTxt.pos().x()
-                    y = itemTxt.pos().y()
-                    itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, 1)
+                        x = itemTxt.pos().x()
+                        y = itemTxt.pos().y()
+                        itemTxt.setItemPosition(x, y, w, newHeight, QgsComposerItem.UpperLeft, True, 1)
 
 
 
-            adjustItems = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "media", "befund", "literatur", "detailinterpretation"]
+                adjustItems = ["parzelle", "flur", "hoehe", "flaeche", "kommentar_lage", "kgs_lage", "media", "befund", "literatur", "detailinterpretation"]
 
-            bottomBorder = 30.0
-            topBorder = 27.0
-            i = 0
-            newY = 0.0
-            for itemId in adjustItems:
-                itemTxt = composition.getComposerItemById(itemId + "Txt")
-                itemLbl = composition.getComposerItemById(itemId +"Lbl")
-                #itemBox = composition.getComposerItemById(itemId + "Box")
+                bottomBorder = 30.0
+                topBorder = 27.0
+                i = 0
+                newY = 0.0
+                for itemId in adjustItems:
+                    itemTxt = composition.getComposerItemById(itemId + "Txt")
+                    itemLbl = composition.getComposerItemById(itemId +"Lbl")
+                    #itemBox = composition.getComposerItemById(itemId + "Box")
 
 
-                if itemId == "media":
-                    itemMap = composition.getComposerItemById("fundort_karte")
-                    itemImg = composition.getComposerItemById("rep_luftbild")
+                    if itemId == "media":
+                        itemMap = composition.getComposerItemById("fundort_karte")
+                        itemImg = composition.getComposerItemById("rep_luftbild")
 
-                    y = newY + 5.0
+                        y = newY + 5.0
 
-                    itemMap.setItemPosition(itemMap.pos().x(), y, itemMap.rectWithFrame().width(), itemMap.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
-                    itemImg.setItemPosition(itemImg.pos().x(), y, itemImg.rectWithFrame().width(), itemImg.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+                        itemMap.setItemPosition(itemMap.pos().x(), y, itemMap.rectWithFrame().width(), itemMap.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+                        itemImg.setItemPosition(itemImg.pos().x(), y, itemImg.rectWithFrame().width(), itemImg.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
 
-                    itemMap.zoomToExtent(extent)
+                        itemMap.zoomToExtent(extent)
 
-                    path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
-                    repImageName = self.getRepresentativeImage(siteDict['fundortnummer'])
+                        path = self.settings.value("APIS/repr_image_dir", QDir.home().dirName())
+                        repImageName = self.getRepresentativeImage(siteDict['fundortnummer'])
 
-                    newY = itemImg.pos().y() + itemImg.rectWithFrame().height() + 5.0
+                        newY = itemImg.pos().y() + itemImg.rectWithFrame().height() + 5.0
 
-                    if repImageName:
-                        path += u"\\" + repImageName + u".jpg"
+                        if repImageName:
+                            path += u"\\" + repImageName + u".jpg"
 
-                        repImageFile = QFile(path)
-                        if repImageFile.exists():
-                            itemImg.setPicturePath(path)
+                            repImageFile = QFile(path)
+                            if repImageFile.exists():
+                                itemImg.setPicturePath(path)
+                            else:
+                                #remove itemImg (to avoid red cross)
+                                composition.removeComposerItem(itemImg)
                         else:
                             #remove itemImg (to avoid red cross)
                             composition.removeComposerItem(itemImg)
-                    else:
-                        #remove itemImg (to avoid red cross)
-                        composition.removeComposerItem(itemImg)
 
 
-                if itemTxt and itemLbl:
+                    if itemTxt and itemLbl:
 
-                    x = itemTxt.pos().x()
-                    if i == 0:
-                        y = itemTxt.pos().y()
-                    else:
-                        y = newY
-                    w = itemTxt.rectWithFrame().width()
-                    h  = itemTxt.rectWithFrame().height()
-                    newY = y + h
-                    if newY > composition.paperHeight() - bottomBorder:
-                        pageCount += 1
-                        y = topBorder
-                        newY = y + newHeight
-                        #copy Header
-                        header = 1
-                        while composition.getComposerItemById("header_{0}".format(header)):
-                            self.cloneLabel(composition, composition.getComposerItemById("header_{0}".format(header)), pageCount)
-                            header += 1
-                        #copyFooter
-                        footer = 1
-                        while composition.getComposerItemById("footer_{0}".format(footer)):
-                            self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
-                            footer += 1
+                        x = itemTxt.pos().x()
+                        if i == 0:
+                            y = itemTxt.pos().y()
+                        else:
+                            y = newY
+                        w = itemTxt.rectWithFrame().width()
+                        h  = itemTxt.rectWithFrame().height()
+                        newY = y + h
+                        if newY > composition.paperHeight() - bottomBorder:
+                            pageCount += 1
+                            y = topBorder
+                            newY = y + newHeight
+                            #copy Header
+                            header = 1
+                            while composition.getComposerItemById("header_{0}".format(header)):
+                                self.cloneLabel(composition, composition.getComposerItemById("header_{0}".format(header)), pageCount)
+                                header += 1
+                            #copyFooter
+                            footer = 1
+                            while composition.getComposerItemById("footer_{0}".format(footer)):
+                                self.cloneLabel(composition, composition.getComposerItemById("footer_{0}".format(footer)),pageCount)
+                                footer += 1
 
-                    itemTxt.setItemPosition(x, y, w, h, QgsComposerItem.UpperLeft, True, pageCount)
-                    itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
+                        itemTxt.setItemPosition(x, y, w, h, QgsComposerItem.UpperLeft, True, pageCount)
+                        itemLbl.setItemPosition(itemLbl.pos().x(), y, itemLbl.rectWithFrame().width(), itemLbl.rectWithFrame().height(), QgsComposerItem.UpperLeft, True, pageCount)
 
-                    i += 1
+                        i += 1
 
-                    #if itemBox:
-                        #h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
-                        #itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
-            addLineAfterItems = ["lage_und_koordinaten", "kgs_lageLbl"]
-            for itemId in addLineAfterItems:
-                continue
-            #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
+                        #if itemBox:
+                            #h = (itemBox.rectWithFrame().height() - oldHeight) + newHeight
+                            #itemBox.setItemPosition(itemBox.pos().x(), itemBox.pos().y(), itemBox.rectWithFrame().width(), h, QgsComposerItem.UpperLeft, True, pageCount)
+                addLineAfterItems = ["lage_und_koordinaten", "kgs_lageLbl"]
+                for itemId in addLineAfterItems:
+                    continue
+                #QMessageBox.information(None, "info", u"w: {0}, h: {1}, w: {2}, h: {3}, , x: {4}, y: {5}".format(width, height, l.rectWithFrame().width(), l.rectWithFrame().height(), l.pos().x(), l.pos().y()))
 
-            composition.setNumPages(pageCount)
+                composition.setNumPages(pageCount)
 
-            # Create PDF
-            if isTemp:
-                targetFile = os.path.join(targetFileOrFolder, u"Fundort_{0}_{1}.pdf".format(siteDict['fundortnummer'], timeStamp))
-            else:
-                targetFile = targetFileOrFolder
+                # Create PDF
+                if isTemp:
+                    targetFile = os.path.join(targetFileOrFolder, u"Fundort_{0}_{1}.pdf".format(siteDict['fundortnummer'], timeStamp))
+                else:
+                    targetFile = targetFileOrFolder
 
-            composition.exportAsPDF(targetFile)
-            sitePdfs.append(targetFile)
+                composition.exportAsPDF(targetFile)
+                sitePdfs[siteDict['fundortnummer']] = targetFile
+
+                #Clean UP
+                #siteDict.clear()
+                QgsMapLayerRegistry.instance().removeMapLayers([siteLayer.id(), oekLayer28.id(), oekLayer31.id(), oekLayer34.id()])
+
+
+        except Exception as e:
+            QMessageBox.information(None, "Error", "Error Site Printing: {0}".format(e))
 
         return sitePdfs
 
@@ -493,7 +502,7 @@ class ApisSitePrinter(ApisPrinter):
 
 class ApisFindSpotPrinter(ApisPrinter):
 
-    def exportDetailsPdf(self, findSpotList, targetFileOrFolder, timeStamp):
+    def exportDetailsPdf(self, findSpotList, targetFileOrFolder, timeStamp, isTemp=False):
 
         queryStr = u"SELECT fundortnummer_nn, land, katastralgemeinde, katastralgemeindenummer, fundstelle.* FROM fundstelle, fundort WHERE fundstelle.fundortnummer = fundort.fundortnummer AND fundstelle.fundortnummer || '.' || fundstelle.fundstellenummer IN ({0}) ORDER BY land, katastralgemeindenummer, fundortnummer_nn, fundstelle.fundstellenummer".format((u",".join(u"'{0}'".format(findSpot) for findSpot in findSpotList)))
 
@@ -610,7 +619,7 @@ class ApisFindSpotPrinter(ApisPrinter):
             composition.setNumPages(pageCount)
 
             # Create PDF
-            if len(findSpotList) > 1:
+            if len(findSpotList) > 1 or isTemp:
                 targetFile = os.path.join(targetFileOrFolder, u"Fundstelle_{0}.{1}_{2}.pdf".format(findSpotDict['fundortnummer'], findSpotDict['fundstellenummer'], timeStamp))
             else:
                 targetFile = targetFileOrFolder

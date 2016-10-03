@@ -801,7 +801,7 @@ class ApisFindSpotDialog(QDialog, Ui_apisFindSpotDialog):
             fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
 
             # print file
-            pdfFiles = fsDetailsPrinter.exportDetailsPdf([u"{0}.{1}".format(self.siteNumber, self.findSpotNumber)], targetFileName, timeStamp)
+            pdfFiles = fsDetailsPrinter.exportDetailsPdf([u"{0}.{1}".format(self.siteNumber, self.findSpotNumber)], targetFileName, timeStamp, False)
 
             # open file, open location?
             for key in pdfFiles:

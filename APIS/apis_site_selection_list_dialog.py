@@ -299,7 +299,10 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
 
                         foDetailsPrinter = ApisSitePrinter(self, self.dbm, self.imageRegistry)
                         foDetailsPrinter.setStylesDir(self.apisLayer.getStylesDir())
-                        sitePdfs = foDetailsPrinter.exportSiteDetailsPdf(siteList, targetDirName, timeStamp, True)
+                        sitePdfs = {}
+                        for siteNumber in siteList:
+                            sitePdf = foDetailsPrinter.exportSiteDetailsPdf([siteNumber], targetDirName, timeStamp, True)
+                            sitePdfs[siteNumber] = sitePdf[siteNumber]
 
                 if printMode in [1, 2]:
                     # print FindSpotLists for all Sites
@@ -319,30 +322,28 @@ class ApisSiteSelectionListDialog(QDialog, Ui_apisSiteSelectionListDialog):
                     findSpotList = GetFindSpotNumbers(self.dbm.db, siteList)
                     if findSpotList:
                         fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
-                        findSpots = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp)
+                        findSpots = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp, True)
 
 
-            # Order files
-            if not (printMode == 0 and len(siteList) == 1):
-                pdfFiles = []
-                i = 0
-                for siteNumber in siteList:
-                    #Site
-                    pdfFiles.append(sitePdfs[i])
-                    i += 1
-                    # FindSpotList for Site
-                    if printMode in [1, 2]:
-                        if siteNumber in findSpotListsDict:
-                            pdfFiles.append(findSpotListsDict[siteNumber])
-                    # FindSpots for Site
-                    if printMode == 2:
-                        if siteNumber in findSpots:
-                            for findSpot in findSpots[siteNumber]:
-                                pdfFiles.append(findSpot)
-                if pdfFiles:
-                    MergePdfFiles(targetFileName, pdfFiles)
+                # Order files
+                if not (printMode == 0 and len(siteList) == 1):
+                    pdfFiles = []
+                    for siteNumber in siteList:
+                        #Site
+                        pdfFiles.append(sitePdfs[siteNumber])
+                        # FindSpotList for Site
+                        if printMode in [1, 2]:
+                            if siteNumber in findSpotListsDict:
+                                pdfFiles.append(findSpotListsDict[siteNumber])
+                        # FindSpots for Site
+                        if printMode == 2:
+                            if siteNumber in findSpots:
+                                for findSpot in findSpots[siteNumber]:
+                                    pdfFiles.append(findSpot)
+                    if pdfFiles:
+                        MergePdfFiles(targetFileName, pdfFiles)
 
-            OpenFileOrFolder(targetFileName)
+                OpenFileOrFolder(targetFileName)
 
 
 

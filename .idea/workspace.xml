@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_printer.py" afterPath="$PROJECT_DIR$/APIS/apis_printer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" afterPath="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_thumb_viewer.py" afterPath="$PROJECT_DIR$/APIS/apis_thumb_viewer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/apis_utils.py" afterPath="$PROJECT_DIR$/APIS/apis_utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_form.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/metadata.txt" afterPath="$PROJECT_DIR$/APIS/metadata.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,22 +34,12 @@
       <file leaf-file-name="apis_site_selection_list_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+            <state relative-caret-position="2051">
+              <caret line="326" column="0" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
               <folding>
-                <marker date="1475439409258" expanded="true" signature="13946:14380" ph="SELECT fs.fu... fundstelle" />
-                <marker date="1475439409258" expanded="true" signature="17012:17300" ph="SELECT fundo... fundort" />
+                <marker date="1475498918354" expanded="true" signature="14114:14548" ph="SELECT fs.fu... fundstelle" />
+                <marker date="1475498918354" expanded="true" signature="17218:17506" ph="SELECT fundo... fundort" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="metadata.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -67,61 +47,61 @@
       <file leaf-file-name="apis_site_dialog.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-57">
-              <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="54" />
+            <state relative-caret-position="419">
+              <caret line="962" column="17" selection-start-line="962" selection-start-column="17" selection-end-line="962" selection-end-column="17" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
-                <marker date="1475436357104" expanded="true" signature="14376:14544" ph="SELECT funds... fundstelle" />
-                <marker date="1475436357104" expanded="true" signature="18353:18499" ph="SELECT CASE fundstelle" />
-                <marker date="1475436357104" expanded="true" signature="18704:18832" ph="SELECT parze... fundort" />
-                <marker date="1475436357104" expanded="true" signature="19393:19661" ph="INSERT INTO fundstelle... " />
-                <marker date="1475436357104" expanded="true" signature="21291:21331" ph="INSERT INTO missing_value... " />
-                <marker date="1475436357104" expanded="true" signature="21307:21331" ph="SELECT * FRO... missing_value" />
-                <marker date="1475436357104" expanded="true" signature="21632:21747" ph="UPDATE missi... " />
-                <marker date="1475436357104" expanded="true" signature="21720:21743" ph="SELECT max(r... missing_value" />
-                <marker date="1475436357104" expanded="true" signature="22498:22565" ph="SELECT latit... fundort" />
-                <marker date="1475436357104" expanded="true" signature="25064:25566" ph="select cp.bi... film" />
-                <marker date="1475436357104" expanded="true" signature="25064:26104" ph="select cp.bi... " />
-                <marker date="1475436357104" expanded="true" signature="25297:25565" ph="SELECT fp.bi... luftbild_schraeg_fp" />
-                <marker date="1475436357104" expanded="true" signature="25447:25563" ph="SELECT rowid... SpatialIndex" />
-                <marker date="1475436357104" expanded="true" signature="25577:26072" ph="SELECT cp_s.... film" />
-                <marker date="1475436357104" expanded="true" signature="25800:26070" ph="SELECT fp_s.... luftbild_senk_fp" />
-                <marker date="1475436357104" expanded="true" signature="25955:26068" ph="SELECT rowid... SpatialIndex" />
-                <marker date="1475436357104" expanded="true" signature="36452:36511" ph="SELECT count... fundstelle" />
-                <marker date="1475436357104" expanded="true" signature="36723:36814" ph="SELECT fundo... fundstelle" />
-                <marker date="1475436357104" expanded="true" signature="39698:40132" ph="SELECT fs.fu... fundstelle" />
-                <marker date="1475436357104" expanded="true" signature="41311:41360" ph="SELECT * FRO... fundort" />
-                <marker date="1475436357104" expanded="true" signature="41311:41361" ph="SELECT * FRO... fundort" />
-                <marker date="1475436357104" expanded="true" signature="43089:43579" ph="SELECT kg.ka... katastralgemeinden" />
-                <marker date="1475436357104" expanded="true" signature="43434:43555" ph="SELECT ROWID... SpatialIndex" />
-                <marker date="1475436357104" expanded="true" signature="77706:77895" ph="SELECT CASE fundort" />
-                <marker date="1475436357104" expanded="true" signature="78192:78260" ph="SELECT fundo... fundort" />
-                <marker date="1475436357104" expanded="true" signature="80847:80927" ph="UPDATE fundo... " />
+                <marker date="1475495011595" expanded="true" signature="14376:14544" ph="SELECT funds... fundstelle" />
+                <marker date="1475495011595" expanded="true" signature="18353:18499" ph="SELECT CASE fundstelle" />
+                <marker date="1475495011595" expanded="true" signature="18704:18832" ph="SELECT parze... fundort" />
+                <marker date="1475495011595" expanded="true" signature="19393:19661" ph="INSERT INTO fundstelle... " />
+                <marker date="1475495011595" expanded="true" signature="21291:21331" ph="INSERT INTO missing_value... " />
+                <marker date="1475495011595" expanded="true" signature="21307:21331" ph="SELECT * FRO... missing_value" />
+                <marker date="1475495011595" expanded="true" signature="21632:21747" ph="UPDATE missi... " />
+                <marker date="1475495011595" expanded="true" signature="21720:21743" ph="SELECT max(r... missing_value" />
+                <marker date="1475495011595" expanded="true" signature="22498:22565" ph="SELECT latit... fundort" />
+                <marker date="1475495011595" expanded="true" signature="25064:25566" ph="select cp.bi... film" />
+                <marker date="1475495011595" expanded="true" signature="25064:26104" ph="select cp.bi... " />
+                <marker date="1475495011595" expanded="true" signature="25297:25565" ph="SELECT fp.bi... luftbild_schraeg_fp" />
+                <marker date="1475495011595" expanded="true" signature="25447:25563" ph="SELECT rowid... SpatialIndex" />
+                <marker date="1475495011595" expanded="true" signature="25577:26072" ph="SELECT cp_s.... film" />
+                <marker date="1475495011595" expanded="true" signature="25800:26070" ph="SELECT fp_s.... luftbild_senk_fp" />
+                <marker date="1475495011595" expanded="true" signature="25955:26068" ph="SELECT rowid... SpatialIndex" />
+                <marker date="1475495011595" expanded="true" signature="36452:36511" ph="SELECT count... fundstelle" />
+                <marker date="1475495011595" expanded="true" signature="36723:36814" ph="SELECT fundo... fundstelle" />
+                <marker date="1475495011595" expanded="true" signature="39698:40132" ph="SELECT fs.fu... fundstelle" />
+                <marker date="1475495011595" expanded="true" signature="41539:41588" ph="SELECT * FRO... fundort" />
+                <marker date="1475495011595" expanded="true" signature="41539:41589" ph="SELECT * FRO... fundort" />
+                <marker date="1475495011595" expanded="true" signature="43317:43807" ph="SELECT kg.ka... katastralgemeinden" />
+                <marker date="1475495011595" expanded="true" signature="43662:43783" ph="SELECT ROWID... SpatialIndex" />
+                <marker date="1475495011595" expanded="true" signature="77934:78123" ph="SELECT CASE fundort" />
+                <marker date="1475495011595" expanded="true" signature="78420:78488" ph="SELECT fundo... fundort" />
+                <marker date="1475495011595" expanded="true" signature="81075:81155" ph="UPDATE fundo... " />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="apis_printer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="apis_printer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/APIS/apis_printer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="448" column="21" selection-start-line="448" selection-start-column="15" selection-end-line="448" selection-end-column="21" />
+            <state relative-caret-position="351">
+              <caret line="459" column="16" selection-start-line="459" selection-start-column="16" selection-end-line="459" selection-end-column="16" />
               <folding>
                 <element signature="e#24#50#0" expanded="true" />
-                <element signature="e#36761#41154#0" expanded="false" />
-                <element signature="e#36904#41034#0" expanded="false" />
-                <element signature="e#41209#44702#0" expanded="false" />
-                <element signature="e#44758#48212#0" expanded="false" />
-                <element signature="e#48246#54000#0" expanded="false" />
-                <marker date="1475438648473" expanded="true" signature="3412:3462" ph="SELECT * FRO... fundort" />
-                <marker date="1475438648473" expanded="true" signature="5190:5680" ph="SELECT kg.ka... katastralgemeinden" />
-                <marker date="1475438648473" expanded="true" signature="5535:5656" ph="SELECT ROWID... SpatialIndex" />
-                <marker date="1475438648473" expanded="true" signature="22263:22452" ph="SELECT CASE fundort" />
-                <marker date="1475438648473" expanded="true" signature="22779:23017" ph="SELECT katas... fundstelle" />
-                <marker date="1475438648473" expanded="true" signature="22779:23018" ph="SELECT katas... fundstelle" />
-                <marker date="1475438648473" expanded="true" signature="22779:23108" ph="SELECT fundo... fundstelle" />
-                <marker date="1475438648473" expanded="true" signature="44160:44238" ph="select descr... wetter" />
+                <element signature="e#38258#42651#0" expanded="false" />
+                <element signature="e#38401#42531#0" expanded="false" />
+                <element signature="e#42706#46199#0" expanded="false" />
+                <element signature="e#46255#49709#0" expanded="false" />
+                <element signature="e#49743#55497#0" expanded="false" />
+                <marker date="1475500187963" expanded="true" signature="3412:3462" ph="SELECT * FRO... fundort" />
+                <marker date="1475500187963" expanded="true" signature="5323:5813" ph="SELECT kg.ka... katastralgemeinden" />
+                <marker date="1475500187963" expanded="true" signature="5668:5789" ph="SELECT ROWID... SpatialIndex" />
+                <marker date="1475500187963" expanded="true" signature="23736:23925" ph="SELECT CASE fundort" />
+                <marker date="1475500187963" expanded="true" signature="24266:24504" ph="SELECT katas... fundstelle" />
+                <marker date="1475500187963" expanded="true" signature="24266:24505" ph="SELECT katas... fundstelle" />
+                <marker date="1475500187963" expanded="true" signature="24266:24595" ph="SELECT fundo... fundstelle" />
+                <marker date="1475500187963" expanded="true" signature="45657:45735" ph="select descr... wetter" />
               </folding>
             </state>
           </provider>
@@ -130,7 +110,7 @@
       <file leaf-file-name="apis_utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
+            <state relative-caret-position="2108">
               <caret line="128" column="19" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="19" />
               <folding>
                 <marker date="1475436756054" expanded="true" signature="4959:5018" ph="SELECT COUNT... fundstelle" />
@@ -151,18 +131,18 @@
               <caret line="805" column="39" selection-start-line="805" selection-start-column="39" selection-end-line="805" selection-end-column="39" />
               <folding>
                 <element signature="e#24#33#0" expanded="true" />
-                <marker date="1475357848988" expanded="true" signature="3763:3788" ph="SELECT DISTI... missing_value" />
-                <marker date="1475357848988" expanded="true" signature="4956:4981" ph="SELECT DISTI... missing_value" />
-                <marker date="1475357848988" expanded="true" signature="7722:7822" ph="SELECT katas... fundort" />
-                <marker date="1475357848988" expanded="true" signature="13936:13961" ph="SELECT DISTI... missing_value" />
-                <marker date="1475357848988" expanded="true" signature="16262:16313" ph="SELECT DISTI... zeit" />
-                <marker date="1475357848988" expanded="true" signature="17078:17157" ph="SELECT DISTI... zeit" />
-                <marker date="1475357848988" expanded="true" signature="30897:30937" ph="INSERT INTO missing_value... " />
-                <marker date="1475357848988" expanded="true" signature="30913:30937" ph="SELECT * FRO... missing_value" />
-                <marker date="1475357848988" expanded="true" signature="31238:31353" ph="UPDATE missi... " />
-                <marker date="1475357848988" expanded="true" signature="31326:31349" ph="SELECT max(r... missing_value" />
-                <marker date="1475357848988" expanded="true" signature="31793:31939" ph="SELECT CASE fundstelle" />
-                <marker date="1475357848988" expanded="true" signature="33384:33599" ph="SELECT katas... fundstelle" />
+                <marker date="1475491271205" expanded="true" signature="3763:3788" ph="SELECT DISTI... missing_value" />
+                <marker date="1475491271205" expanded="true" signature="4956:4981" ph="SELECT DISTI... missing_value" />
+                <marker date="1475491271205" expanded="true" signature="7722:7822" ph="SELECT katas... fundort" />
+                <marker date="1475491271205" expanded="true" signature="13936:13961" ph="SELECT DISTI... missing_value" />
+                <marker date="1475491271205" expanded="true" signature="16262:16313" ph="SELECT DISTI... zeit" />
+                <marker date="1475491271205" expanded="true" signature="17078:17157" ph="SELECT DISTI... zeit" />
+                <marker date="1475491271205" expanded="true" signature="30897:30937" ph="INSERT INTO missing_value... " />
+                <marker date="1475491271205" expanded="true" signature="30913:30937" ph="SELECT * FRO... missing_value" />
+                <marker date="1475491271205" expanded="true" signature="31238:31353" ph="UPDATE missi... " />
+                <marker date="1475491271205" expanded="true" signature="31326:31349" ph="SELECT max(r... missing_value" />
+                <marker date="1475491271205" expanded="true" signature="31793:31939" ph="SELECT CASE fundstelle" />
+                <marker date="1475491271205" expanded="true" signature="33391:33606" ph="SELECT katas... fundstelle" />
               </folding>
             </state>
           </provider>
@@ -172,9 +152,9 @@
         <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3417">
-              <caret line="214" column="104" selection-start-line="214" selection-start-column="104" selection-end-line="214" selection-end-column="104" />
+              <caret line="214" column="111" selection-start-line="214" selection-start-column="111" selection-end-line="214" selection-end-column="111" />
               <folding>
-                <marker date="1475404202407" expanded="true" signature="9287:9810" ph="SELECT fs.fu... fundstelle" />
+                <marker date="1475491956389" expanded="true" signature="9301:9824" ph="SELECT fs.fu... fundstelle" />
               </folding>
             </state>
           </provider>
@@ -274,11 +254,11 @@
         <option value="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_printer.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/metadata.txt" />
+        <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_printer.py" />
       </list>
     </option>
   </component>
@@ -319,6 +299,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -353,8 +335,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -617,13 +597,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Update">
-      <created>1433336194228</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1433336194228</updated>
     </task>
     <task id="LOCAL-00021" summary="Update">
       <created>1433755551545</created>
@@ -961,7 +934,14 @@
       <option name="project" value="LOCAL" />
       <updated>1471537126955</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="- Fundort/Fundstellen Druck&#10;- Overpass API">
+      <created>1475440933607</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1475440933608</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TodoView">
@@ -977,10 +957,11 @@
     <frame x="-1928" y="-188" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27985075" sideWeight="0.4940978" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28304905" sideWeight="0.4940978" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32780612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21556123" sideWeight="0.59240687" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14757709" sideWeight="0.4932763" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24362245" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20954357" sideWeight="0.40759313" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17910448" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -995,7 +976,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14757709" sideWeight="0.4932763" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1016,7 +996,8 @@
     <MESSAGE value="Update" />
     <MESSAGE value="Update: ÖK 50 VRTs als Background in Fundort PDF Export (Im Code derzeit auskommentiert ... mit TileLayer; Option wenn im Ausland)" />
     <MESSAGE value="FO Preview und Print Style mit StyleFile (not hardcoded)" />
-    <option name="LAST_COMMIT_MESSAGE" value="FO Preview und Print Style mit StyleFile (not hardcoded)" />
+    <MESSAGE value="- Fundort/Fundstellen Druck&#10;- Overpass API" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fundort/Fundstellen Druck&#10;- Overpass API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1337,9 +1318,9 @@
     <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3417">
-          <caret line="214" column="104" selection-start-line="214" selection-start-column="104" selection-end-line="214" selection-end-column="104" />
+          <caret line="214" column="111" selection-start-line="214" selection-start-column="111" selection-end-line="214" selection-end-column="111" />
           <folding>
-            <marker date="1475404202407" expanded="true" signature="9287:9810" ph="SELECT fs.fu... fundstelle" />
+            <marker date="1475491956389" expanded="true" signature="9301:9824" ph="SELECT fs.fu... fundstelle" />
           </folding>
         </state>
       </provider>
@@ -1350,25 +1331,25 @@
           <caret line="805" column="39" selection-start-line="805" selection-start-column="39" selection-end-line="805" selection-end-column="39" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
-            <marker date="1475357848988" expanded="true" signature="3763:3788" ph="SELECT DISTI... missing_value" />
-            <marker date="1475357848988" expanded="true" signature="4956:4981" ph="SELECT DISTI... missing_value" />
-            <marker date="1475357848988" expanded="true" signature="7722:7822" ph="SELECT katas... fundort" />
-            <marker date="1475357848988" expanded="true" signature="13936:13961" ph="SELECT DISTI... missing_value" />
-            <marker date="1475357848988" expanded="true" signature="16262:16313" ph="SELECT DISTI... zeit" />
-            <marker date="1475357848988" expanded="true" signature="17078:17157" ph="SELECT DISTI... zeit" />
-            <marker date="1475357848988" expanded="true" signature="30897:30937" ph="INSERT INTO missing_value... " />
-            <marker date="1475357848988" expanded="true" signature="30913:30937" ph="SELECT * FRO... missing_value" />
-            <marker date="1475357848988" expanded="true" signature="31238:31353" ph="UPDATE missi... " />
-            <marker date="1475357848988" expanded="true" signature="31326:31349" ph="SELECT max(r... missing_value" />
-            <marker date="1475357848988" expanded="true" signature="31793:31939" ph="SELECT CASE fundstelle" />
-            <marker date="1475357848988" expanded="true" signature="33384:33599" ph="SELECT katas... fundstelle" />
+            <marker date="1475491271205" expanded="true" signature="3763:3788" ph="SELECT DISTI... missing_value" />
+            <marker date="1475491271205" expanded="true" signature="4956:4981" ph="SELECT DISTI... missing_value" />
+            <marker date="1475491271205" expanded="true" signature="7722:7822" ph="SELECT katas... fundort" />
+            <marker date="1475491271205" expanded="true" signature="13936:13961" ph="SELECT DISTI... missing_value" />
+            <marker date="1475491271205" expanded="true" signature="16262:16313" ph="SELECT DISTI... zeit" />
+            <marker date="1475491271205" expanded="true" signature="17078:17157" ph="SELECT DISTI... zeit" />
+            <marker date="1475491271205" expanded="true" signature="30897:30937" ph="INSERT INTO missing_value... " />
+            <marker date="1475491271205" expanded="true" signature="30913:30937" ph="SELECT * FRO... missing_value" />
+            <marker date="1475491271205" expanded="true" signature="31238:31353" ph="UPDATE missi... " />
+            <marker date="1475491271205" expanded="true" signature="31326:31349" ph="SELECT max(r... missing_value" />
+            <marker date="1475491271205" expanded="true" signature="31793:31939" ph="SELECT CASE fundstelle" />
+            <marker date="1475491271205" expanded="true" signature="33391:33606" ph="SELECT katas... fundstelle" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="2108">
           <caret line="128" column="19" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="19" />
           <folding>
             <marker date="1475436756054" expanded="true" signature="4959:5018" ph="SELECT COUNT... fundstelle" />
@@ -1381,81 +1362,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_printer.py">
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="448" column="21" selection-start-line="448" selection-start-column="15" selection-end-line="448" selection-end-column="21" />
-          <folding>
-            <element signature="e#24#50#0" expanded="true" />
-            <element signature="e#36761#41154#0" expanded="false" />
-            <element signature="e#36904#41034#0" expanded="false" />
-            <element signature="e#41209#44702#0" expanded="false" />
-            <element signature="e#44758#48212#0" expanded="false" />
-            <element signature="e#48246#54000#0" expanded="false" />
-            <marker date="1475438648473" expanded="true" signature="3412:3462" ph="SELECT * FRO... fundort" />
-            <marker date="1475438648473" expanded="true" signature="5190:5680" ph="SELECT kg.ka... katastralgemeinden" />
-            <marker date="1475438648473" expanded="true" signature="5535:5656" ph="SELECT ROWID... SpatialIndex" />
-            <marker date="1475438648473" expanded="true" signature="22263:22452" ph="SELECT CASE fundort" />
-            <marker date="1475438648473" expanded="true" signature="22779:23017" ph="SELECT katas... fundstelle" />
-            <marker date="1475438648473" expanded="true" signature="22779:23018" ph="SELECT katas... fundstelle" />
-            <marker date="1475438648473" expanded="true" signature="22779:23108" ph="SELECT fundo... fundstelle" />
-            <marker date="1475438648473" expanded="true" signature="44160:44238" ph="select descr... wetter" />
-          </folding>
+        <state relative-caret-position="357">
+          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
-          <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="54" />
+        <state relative-caret-position="419">
+          <caret line="962" column="17" selection-start-line="962" selection-start-column="17" selection-end-line="962" selection-end-column="17" />
           <folding>
             <element signature="e#24#33#0" expanded="true" />
-            <marker date="1475436357104" expanded="true" signature="14376:14544" ph="SELECT funds... fundstelle" />
-            <marker date="1475436357104" expanded="true" signature="18353:18499" ph="SELECT CASE fundstelle" />
-            <marker date="1475436357104" expanded="true" signature="18704:18832" ph="SELECT parze... fundort" />
-            <marker date="1475436357104" expanded="true" signature="19393:19661" ph="INSERT INTO fundstelle... " />
-            <marker date="1475436357104" expanded="true" signature="21291:21331" ph="INSERT INTO missing_value... " />
-            <marker date="1475436357104" expanded="true" signature="21307:21331" ph="SELECT * FRO... missing_value" />
-            <marker date="1475436357104" expanded="true" signature="21632:21747" ph="UPDATE missi... " />
-            <marker date="1475436357104" expanded="true" signature="21720:21743" ph="SELECT max(r... missing_value" />
-            <marker date="1475436357104" expanded="true" signature="22498:22565" ph="SELECT latit... fundort" />
-            <marker date="1475436357104" expanded="true" signature="25064:25566" ph="select cp.bi... film" />
-            <marker date="1475436357104" expanded="true" signature="25064:26104" ph="select cp.bi... " />
-            <marker date="1475436357104" expanded="true" signature="25297:25565" ph="SELECT fp.bi... luftbild_schraeg_fp" />
-            <marker date="1475436357104" expanded="true" signature="25447:25563" ph="SELECT rowid... SpatialIndex" />
-            <marker date="1475436357104" expanded="true" signature="25577:26072" ph="SELECT cp_s.... film" />
-            <marker date="1475436357104" expanded="true" signature="25800:26070" ph="SELECT fp_s.... luftbild_senk_fp" />
-            <marker date="1475436357104" expanded="true" signature="25955:26068" ph="SELECT rowid... SpatialIndex" />
-            <marker date="1475436357104" expanded="true" signature="36452:36511" ph="SELECT count... fundstelle" />
-            <marker date="1475436357104" expanded="true" signature="36723:36814" ph="SELECT fundo... fundstelle" />
-            <marker date="1475436357104" expanded="true" signature="39698:40132" ph="SELECT fs.fu... fundstelle" />
-            <marker date="1475436357104" expanded="true" signature="41311:41360" ph="SELECT * FRO... fundort" />
-            <marker date="1475436357104" expanded="true" signature="41311:41361" ph="SELECT * FRO... fundort" />
-            <marker date="1475436357104" expanded="true" signature="43089:43579" ph="SELECT kg.ka... katastralgemeinden" />
-            <marker date="1475436357104" expanded="true" signature="43434:43555" ph="SELECT ROWID... SpatialIndex" />
-            <marker date="1475436357104" expanded="true" signature="77706:77895" ph="SELECT CASE fundort" />
-            <marker date="1475436357104" expanded="true" signature="78192:78260" ph="SELECT fundo... fundort" />
-            <marker date="1475436357104" expanded="true" signature="80847:80927" ph="UPDATE fundo... " />
+            <marker date="1475495011595" expanded="true" signature="14376:14544" ph="SELECT funds... fundstelle" />
+            <marker date="1475495011595" expanded="true" signature="18353:18499" ph="SELECT CASE fundstelle" />
+            <marker date="1475495011595" expanded="true" signature="18704:18832" ph="SELECT parze... fundort" />
+            <marker date="1475495011595" expanded="true" signature="19393:19661" ph="INSERT INTO fundstelle... " />
+            <marker date="1475495011595" expanded="true" signature="21291:21331" ph="INSERT INTO missing_value... " />
+            <marker date="1475495011595" expanded="true" signature="21307:21331" ph="SELECT * FRO... missing_value" />
+            <marker date="1475495011595" expanded="true" signature="21632:21747" ph="UPDATE missi... " />
+            <marker date="1475495011595" expanded="true" signature="21720:21743" ph="SELECT max(r... missing_value" />
+            <marker date="1475495011595" expanded="true" signature="22498:22565" ph="SELECT latit... fundort" />
+            <marker date="1475495011595" expanded="true" signature="25064:25566" ph="select cp.bi... film" />
+            <marker date="1475495011595" expanded="true" signature="25064:26104" ph="select cp.bi... " />
+            <marker date="1475495011595" expanded="true" signature="25297:25565" ph="SELECT fp.bi... luftbild_schraeg_fp" />
+            <marker date="1475495011595" expanded="true" signature="25447:25563" ph="SELECT rowid... SpatialIndex" />
+            <marker date="1475495011595" expanded="true" signature="25577:26072" ph="SELECT cp_s.... film" />
+            <marker date="1475495011595" expanded="true" signature="25800:26070" ph="SELECT fp_s.... luftbild_senk_fp" />
+            <marker date="1475495011595" expanded="true" signature="25955:26068" ph="SELECT rowid... SpatialIndex" />
+            <marker date="1475495011595" expanded="true" signature="36452:36511" ph="SELECT count... fundstelle" />
+            <marker date="1475495011595" expanded="true" signature="36723:36814" ph="SELECT fundo... fundstelle" />
+            <marker date="1475495011595" expanded="true" signature="39698:40132" ph="SELECT fs.fu... fundstelle" />
+            <marker date="1475495011595" expanded="true" signature="41539:41588" ph="SELECT * FRO... fundort" />
+            <marker date="1475495011595" expanded="true" signature="41539:41589" ph="SELECT * FRO... fundort" />
+            <marker date="1475495011595" expanded="true" signature="43317:43807" ph="SELECT kg.ka... katastralgemeinden" />
+            <marker date="1475495011595" expanded="true" signature="43662:43783" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1475495011595" expanded="true" signature="77934:78123" ph="SELECT CASE fundort" />
+            <marker date="1475495011595" expanded="true" signature="78420:78488" ph="SELECT fundo... fundort" />
+            <marker date="1475495011595" expanded="true" signature="81075:81155" ph="UPDATE fundo... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="315" column="0" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+        <state relative-caret-position="2051">
+          <caret line="326" column="0" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
           <folding>
-            <marker date="1475439409258" expanded="true" signature="13946:14380" ph="SELECT fs.fu... fundstelle" />
-            <marker date="1475439409258" expanded="true" signature="17012:17300" ph="SELECT fundo... fundort" />
+            <marker date="1475498918354" expanded="true" signature="14114:14548" ph="SELECT fs.fu... fundstelle" />
+            <marker date="1475498918354" expanded="true" signature="17218:17506" ph="SELECT fundo... fundort" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+    <entry file="file://$PROJECT_DIR$/APIS/apis_printer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-          <folding />
+        <state relative-caret-position="351">
+          <caret line="459" column="16" selection-start-line="459" selection-start-column="16" selection-end-line="459" selection-end-column="16" />
+          <folding>
+            <element signature="e#24#50#0" expanded="true" />
+            <element signature="e#38258#42651#0" expanded="false" />
+            <element signature="e#38401#42531#0" expanded="false" />
+            <element signature="e#42706#46199#0" expanded="false" />
+            <element signature="e#46255#49709#0" expanded="false" />
+            <element signature="e#49743#55497#0" expanded="false" />
+            <marker date="1475500187963" expanded="true" signature="3412:3462" ph="SELECT * FRO... fundort" />
+            <marker date="1475500187963" expanded="true" signature="5323:5813" ph="SELECT kg.ka... katastralgemeinden" />
+            <marker date="1475500187963" expanded="true" signature="5668:5789" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1475500187963" expanded="true" signature="23736:23925" ph="SELECT CASE fundort" />
+            <marker date="1475500187963" expanded="true" signature="24266:24504" ph="SELECT katas... fundstelle" />
+            <marker date="1475500187963" expanded="true" signature="24266:24505" ph="SELECT katas... fundstelle" />
+            <marker date="1475500187963" expanded="true" signature="24266:24595" ph="SELECT fundo... fundstelle" />
+            <marker date="1475500187963" expanded="true" signature="45657:45735" ph="select descr... wetter" />
+          </folding>
         </state>
       </provider>
     </entry>

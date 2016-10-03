@@ -959,7 +959,10 @@ class ApisSiteDialog(QDialog, Ui_apisSiteDialog):
                 # FindSpots
                 findSpotList = self.getFindSpotNumbers(self.siteNumber)
                 fsDetailsPrinter = ApisFindSpotPrinter(self, self.dbm, self.imageRegistry)
-                pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp)
+                pdfFiles = fsDetailsPrinter.exportDetailsPdf(findSpotList, targetDirName, timeStamp, True)
+                #QMessageBox.warning(None, "Warning", u",".join(pdfFile for pdfFile in pdfFiles[self.siteNumber]))
+                for pdfFile in pdfFiles[self.siteNumber]:
+                    pdfFilesList.append(pdfFile)
 
 
             # Merge and Open
