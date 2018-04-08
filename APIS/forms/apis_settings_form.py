@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_settings_form.ui'
 #
-# Created: Thu Jun 09 12:27:04 2016
+# Created: Fri Dec 16 17:29:15 2016
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,14 +27,12 @@ class Ui_apisSettingsDialog(object):
     def setupUi(self, apisSettingsDialog):
         apisSettingsDialog.setObjectName(_fromUtf8("apisSettingsDialog"))
         apisSettingsDialog.setWindowModality(QtCore.Qt.ApplicationModal)
-        apisSettingsDialog.resize(300, 200)
+        apisSettingsDialog.resize(635, 390)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(apisSettingsDialog.sizePolicy().hasHeightForWidth())
         apisSettingsDialog.setSizePolicy(sizePolicy)
-        apisSettingsDialog.setMinimumSize(QtCore.QSize(300, 200))
-        apisSettingsDialog.setMaximumSize(QtCore.QSize(300, 200))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/APIS/icons/apis.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         apisSettingsDialog.setWindowIcon(icon)

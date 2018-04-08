@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'forms/apis_search_form.ui'
 #
-# Created: Fri Jul 15 10:20:46 2016
+# Created: Wed Apr 26 18:23:44 2017
 #      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,14 +34,14 @@ class Ui_apisSearchDialog(object):
         self.dockWidgetContents.setObjectName(_fromUtf8("dockWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.dockWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.tabWidget_6 = QtGui.QTabWidget(self.dockWidgetContents)
-        self.tabWidget_6.setEnabled(True)
+        self.uiSearchTab = QtGui.QTabWidget(self.dockWidgetContents)
+        self.uiSearchTab.setEnabled(True)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.tabWidget_6.sizePolicy().hasHeightForWidth())
-        self.tabWidget_6.setSizePolicy(sizePolicy)
-        self.tabWidget_6.setObjectName(_fromUtf8("tabWidget_6"))
+        sizePolicy.setHeightForWidth(self.uiSearchTab.sizePolicy().hasHeightForWidth())
+        self.uiSearchTab.setSizePolicy(sizePolicy)
+        self.uiSearchTab.setObjectName(_fromUtf8("uiSearchTab"))
         self.tab_9 = QtGui.QWidget()
         self.tab_9.setObjectName(_fromUtf8("tab_9"))
         self.verticalLayout_8 = QtGui.QVBoxLayout(self.tab_9)
@@ -160,7 +160,7 @@ class Ui_apisSearchDialog(object):
         self.verticalLayout_8.addLayout(self.horizontalLayout_11)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_8.addItem(spacerItem)
-        self.tabWidget_6.addTab(self.tab_9, _fromUtf8(""))
+        self.uiSearchTab.addTab(self.tab_9, _fromUtf8(""))
         self.tab_10 = QtGui.QWidget()
         self.tab_10.setObjectName(_fromUtf8("tab_10"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.tab_10)
@@ -396,14 +396,14 @@ class Ui_apisSearchDialog(object):
         self.verticalLayout_5.addLayout(self.horizontalLayout_12)
         self.tabWidget.addTab(self.uiFindspotTab, _fromUtf8(""))
         self.verticalLayout_3.addWidget(self.tabWidget)
-        self.tabWidget_6.addTab(self.tab_10, _fromUtf8(""))
-        self.verticalLayout.addWidget(self.tabWidget_6)
+        self.uiSearchTab.addTab(self.tab_10, _fromUtf8(""))
+        self.verticalLayout.addWidget(self.uiSearchTab)
         spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
         apisSearchDialog.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(apisSearchDialog)
-        self.tabWidget_6.setCurrentIndex(0)
+        self.uiSearchTab.setCurrentIndex(0)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(apisSearchDialog)
 
@@ -416,7 +416,7 @@ class Ui_apisSearchDialog(object):
         self.label.setText(_translate("apisSearchDialog", "Suche mit Vektor Feature (Selektion) aus Layer:", None))
         self.label_7.setText(_translate("apisSearchDialog", "KG-Name oder KG-Nummer (Österreich):", None))
         self.label_8.setText(_translate("apisSearchDialog", "Land (englisch):", None))
-        self.tabWidget_6.setTabText(self.tabWidget_6.indexOf(self.tab_9), _translate("apisSearchDialog", "Räumliche Suche", None))
+        self.uiSearchTab.setTabText(self.uiSearchTab.indexOf(self.tab_9), _translate("apisSearchDialog", "Räumliche Suche", None))
         self.label_4.setText(_translate("apisSearchDialog", "Fundort Nummer:", None))
         self.label_5.setText(_translate("apisSearchDialog", "Film Nummer:", None))
         self.label_2.setText(_translate("apisSearchDialog", "Jahr (Fundorte in Filmen eines Jahres):", None))
@@ -436,7 +436,7 @@ class Ui_apisSearchDialog(object):
         self.label_12.setText(_translate("apisSearchDialog", "Suche mit Vektor Feature (Selektion) aus Layer:", None))
         self.uiSearchFindSpotBtn.setText(_translate("apisSearchDialog", "Suche", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.uiFindspotTab), _translate("apisSearchDialog", "Fundstelle", None))
-        self.tabWidget_6.setTabText(self.tabWidget_6.indexOf(self.tab_10), _translate("apisSearchDialog", "Attribut Suche", None))
+        self.uiSearchTab.setTabText(self.uiSearchTab.indexOf(self.tab_10), _translate("apisSearchDialog", "Attribut Suche", None))
 
 from qgis.gui import QgsMapLayerComboBox
 import resource_rc

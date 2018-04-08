@@ -4,13 +4,30 @@
     <bookmark url="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" line="109" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="Adding forms overpass and site edit findspot handling">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_overpass_request_form.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_overpass_request_form.ui" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_edit_findspot_handling_form.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/APIS/forms/apis_site_edit_findspot_handling_form.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="c79c954f-a176-47b4-afab-d255578bdebc" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/bilder_pkt.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/bilder_pol.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/katastralgemeinde.qml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APIS/layer_tree/styles/staatsgrenzen.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/APIS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/APIS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/apis.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/apis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/apis_film_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/apis_film_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/apis_layer_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/apis_layer_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/apis_search_dialog.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/apis_search_dialog.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/forms/apis_film_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/forms/apis_search_form.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/forms/apis_settings_form.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/i18n/af.ts" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/i18n/af.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/metadata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APIS/pb_tool.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/APIS/pb_tool.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis_config_server.ini" beforeDir="false" afterPath="$PROJECT_DIR$/apis_config_server.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_apis.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config_apis.ini" afterDir="false" />
     </list>
     <ignored path="APIS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,21 +42,16 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="APIS" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="apis_site_selection_list_dialog.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
+      <file leaf-file-name="af.ts" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APIS/i18n/af.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="326" column="0" lean-forward="false" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
-              <folding>
-                <marker date="1475498918354" expanded="true" signature="14114:14548" ph="SELECT fs.fu... fundstelle" />
-                <marker date="1475498918354" expanded="true" signature="17218:17506" ph="SELECT fundo... fundort" />
-              </folding>
+            <state relative-caret-position="100">
+              <caret line="5" column="59" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -53,6 +65,43 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>loaddefault</find>
+      <find>disable_site_and_findspot</find>
+      <find>self.settings.value</find>
+      <find>configStatus</find>
+      <find>initGui</find>
+      <find>updateRegistries</find>
+      <find>startWorker</find>
+      <find>emit</find>
+      <find>loaded</find>
+      <find>activateDialogs</find>
+      <find>openDialogButtons</find>
+      <find>addApisAction</find>
+      <find>activate</find>
+      <find>areDialogsActive</find>
+      <find>film_dialog</find>
+      <find>openFilmDialog</find>
+      <find>comboBoxMaps</find>
+      <find>setupComboBox</find>
+      <find>depend</find>
+      <find>uiCameraCombo</find>
+      <find>updateDependsupdateDepends</find>
+      <find>editA</find>
+      <find>editA&quot;</find>
+      <find>editG</find>
+      <find>editG2</find>
+      <find>saveSiteEdits</find>
+      <find>siteAndGeometryEditsSaved</find>
+      <find>Btn</find>
+      <find>viewPictures</find>
+      <find>getFolderNameSite</find>
+    </findStrings>
+    <dirStrings>
+      <dir>C:\data\development\apis\APIS\APIS</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,9 +112,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/gdb2spl/config/fundstelle_log.json" />
-        <option value="$PROJECT_DIR$/APIS/apis_representative_image_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/py_tiled_layer_old/tilelayer.py" />
         <option value="$PROJECT_DIR$/APIS/py_tiled_layer/__init__.py" />
         <option value="$PROJECT_DIR$/APIS/py_tiled_layer/tiles.py" />
@@ -80,15 +126,11 @@
         <option value="$PROJECT_DIR$/APIS/resources_rc.py" />
         <option value="$PROJECT_DIR$/apisRename/apisRename.py" />
         <option value="$PROJECT_DIR$/APIS/apis_image_registry.py" />
-        <option value="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
         <option value="$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_db_manager.py" />
         <option value="$PROJECT_DIR$/APIS/apis_layer_tree.py" />
         <option value="$PROJECT_DIR$/APIS/apis_search_tools.py" />
-        <option value="$PROJECT_DIR$/APIS/apis.py" />
         <option value="$PROJECT_DIR$/ok50tools/convert2rgb.py" />
-        <option value="$PROJECT_DIR$/config_apis.ini" />
         <option value="$PROJECT_DIR$/APIS/apis_site_edit_findspot_handling_dialog.py" />
         <option value="$PROJECT_DIR$/gdb2spl/config/sqlupdates_2.json" />
         <option value="$PROJECT_DIR$/gdb2spl/apis_gdb2spl.py" />
@@ -96,24 +138,31 @@
         <option value="$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py" />
         <option value="$PROJECT_DIR$/gdb2spl/config/sqlupdates_1.json" />
         <option value="$PROJECT_DIR$/APIS/apis_sharding_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
         <option value="$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py" />
-        <option value="$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json" />
         <option value="$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
         <option value="$PROJECT_DIR$/ok50tools/buildvrt.py" />
         <option value="$PROJECT_DIR$/ok50tools/convert2rgb_oek116.py" />
         <option value="$PROJECT_DIR$/ok50tools/worldfiles.py" />
-        <option value="$PROJECT_DIR$/APIS/apis_layer_manager.py" />
-        <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
-        <option value="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_findspot_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_utils.py" />
-        <option value="$PROJECT_DIR$/APIS/metadata.txt" />
         <option value="$PROJECT_DIR$/APIS/apis_site_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py" />
         <option value="$PROJECT_DIR$/APIS/apis_printer.py" />
+        <option value="$PROJECT_DIR$/apis_config_server.ini" />
+        <option value="$PROJECT_DIR$/APIS/apis_lale.py" />
+        <option value="$PROJECT_DIR$/APIS/forms/apis_search_form.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_search_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json" />
+        <option value="$PROJECT_DIR$/APIS/apis_layer_manager.py" />
+        <option value="$PROJECT_DIR$/APIS/apis.py" />
+        <option value="$PROJECT_DIR$/APIS/metadata.txt" />
+        <option value="$PROJECT_DIR$/APIS/pb_tool.cfg" />
+        <option value="$PROJECT_DIR$/APIS/forms/apis_film_form.py" />
+        <option value="$PROJECT_DIR$/config_apis.ini" />
+        <option value="$PROJECT_DIR$/APIS/apis_film_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py" />
+        <option value="$PROJECT_DIR$/APIS/i18n/af.ts" />
       </list>
     </option>
   </component>
@@ -123,104 +172,70 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-16" />
-    <option name="y" value="-16" />
-    <option name="width" value="3872" />
-    <option name="height" value="2092" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-960" />
+    <option name="width" value="971" />
+    <option name="height" value="1046" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="APIS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="forms" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="APIS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="APIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APIS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="APIS" type="462c0819:PsiDirectoryNode" />
+              <item name="APIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APIS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="APIS" type="462c0819:PsiDirectoryNode" />
+              <item name="APIS" type="462c0819:PsiDirectoryNode" />
+              <item name="i18n" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="293" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="293" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="293" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="967" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="967" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="292" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="293" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="968" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="292" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="293" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="968" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\data\development\apis\APIS\APIS" />
       <recent name="C:\apis\APIS\gdb2spl\config" />
       <recent name="C:\apis\APIS\APIS" />
       <recent name="C:\apis\APIS" />
@@ -229,6 +244,18 @@
       <recent name="C:\apis\APIS\APIS\layer_tree\styles" />
       <recent name="C:\apis\APIS\APIS\" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -249,6 +276,13 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
@@ -304,6 +338,7 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
@@ -317,16 +352,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <module name="APIS" />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -376,79 +401,58 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="APIS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="APIS" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="APIS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="APIS" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
+      <module name="APIS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="APIS" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
-      <method />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -460,13 +464,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1428678765324</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Update">
-      <created>1433943088763</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1433943088763</updated>
     </task>
     <task id="LOCAL-00023" summary="Update">
       <created>1434301184012</created>
@@ -804,7 +801,14 @@
       <option name="project" value="LOCAL" />
       <updated>1475501650612</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Adding forms overpass and site edit findspot handling">
+      <created>1481909094607</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1481909094608</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TodoView">
@@ -817,34 +821,40 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
-    <editor active="false" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.4940978" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32780612" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21556123" sideWeight="0.59240687" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24362245" sideWeight="0.4914712" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20954357" sideWeight="0.40759313" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17910448" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24403471" sideWeight="0.35673353" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23567335" sideWeight="0.5059022" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3855165" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32823366" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14757709" sideWeight="0.4932763" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32780612" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.59240687" side_tool="true" weight="0.21556123" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4914712" weight="0.24362245" />
+      <window_info anchor="bottom" id="Python Console" order="11" sideWeight="0.40759313" weight="0.20954357" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.35673353" visible="true" weight="0.33156216" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4940978" visible="true" weight="0.14322917" />
+      <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.17910448" />
+      <window_info id="Favorites" order="2" sideWeight="0.5059022" side_tool="true" weight="0.23567335" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Changes" order="7" weight="0.3855165" />
+      <window_info anchor="right" id="R Packages" order="3" />
+      <window_info anchor="bottom" id="Application Servers" order="10" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32823366" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4932763" weight="0.14722955" />
+      <window_info anchor="right" id="Data View" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -878,134 +888,64 @@
       </breakpoints>
       <option name="time" value="31" />
     </breakpoint-manager>
-    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/APIS/apis_search_dialog.py">
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="315" column="23" lean-forward="false" selection-start-line="315" selection-start-column="23" selection-end-line="315" selection-end-column="23" />
+        <state relative-caret-position="5700">
+          <caret line="307" column="22" selection-start-line="307" selection-start-column="8" selection-end-line="307" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_image_selection_list_dialog.py">
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_film_form.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8755">
-          <caret line="532" column="24" lean-forward="false" selection-start-line="532" selection-start-column="8" selection-end-line="532" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="13460">
+          <caret line="673" column="13" selection-start-line="673" selection-start-column="13" selection-end-line="673" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.1/system/python_stubs/1492868609/PyQt4/QtGui/QDockWidget.py" />
-    <entry file="file://$PROJECT_DIR$/APIS/apis_db_manager.py">
+    <entry file="file://$PROJECT_DIR$/APIS/apis_sharding_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/layer_tree/apis_default_layer_definition.qlr">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_map_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="92" column="8" lean-forward="false" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_view_flight_path_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="135" column="41" lean-forward="false" selection-start-line="135" selection-start-column="27" selection-end-line="135" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_geolocator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_number_selection_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" column="35" lean-forward="false" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spl/config/_sqlupdates_mit_fo_land_check.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="89" lean-forward="false" selection-start-line="17" selection-start-column="89" selection-end-line="17" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_search_tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        <state relative-caret-position="7180">
+          <caret line="387" column="47" selection-start-line="387" selection-start-column="30" selection-end-line="387" selection-end-column="47" />
+          <folding>
+            <marker date="1468918703483" expanded="true" signature="2786:2984" ph="select CASE fundort" />
+            <marker date="1468918703483" expanded="true" signature="8946:9068" ph="SELECT CASE begehung" />
+            <marker date="1468918703483" expanded="true" signature="15731:16008" ph="SELECT land fundort" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_representative_image_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
-          <caret line="149" column="33" lean-forward="false" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="149" column="33" selection-start-line="149" selection-start-column="33" selection-end-line="149" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ok50tools/convert2rgb.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_image_registry.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="335" column="33" lean-forward="false" selection-start-line="335" selection-start-column="33" selection-end-line="335" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gdb2spl/config/_begehung_begehtyp.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/config/_begehung_zustand.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/config/begehung.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1462">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+        <state relative-caret-position="-1462" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/apis_gdb2spl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
-          <caret line="775" column="0" lean-forward="false" selection-start-line="775" selection-start-column="0" selection-end-line="775" selection-end-column="0" />
+          <caret line="775" selection-start-line="775" selection-end-line="775" />
         </state>
       </provider>
     </entry>
@@ -1013,193 +953,223 @@
     <entry file="file://$PROJECT_DIR$/APIS/apis_image_mapping_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="490">
-          <caret line="509" column="8" lean-forward="false" selection-start-line="509" selection-start-column="8" selection-end-line="512" selection-end-column="33" />
+          <caret line="509" column="8" selection-start-line="509" selection-start-column="8" selection-end-line="512" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_1.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="22" column="51" lean-forward="false" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gdb2spl/config/sqlupdates_2.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="88" lean-forward="false" selection-start-line="12" selection-start-column="87" selection-end-line="12" selection-end-column="88" />
+          <caret line="12" column="88" selection-start-line="12" selection-start-column="87" selection-end-line="12" selection-end-column="88" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_monoplot_import_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6783">
-          <caret line="399" column="52" lean-forward="false" selection-start-line="399" selection-start-column="52" selection-end-line="399" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_sharding_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="403" column="55" lean-forward="false" selection-start-line="403" selection-start-column="55" selection-end-line="403" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_film_form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="671" column="38" lean-forward="false" selection-start-line="671" selection-start-column="38" selection-end-line="671" selection-end-column="38" />
+          <caret line="399" column="52" selection-start-line="399" selection-start-column="52" selection-end-line="399" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/forms/apis_site_mapping_form.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-477">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_site_edit_findspot_handling_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="104" column="53" lean-forward="false" selection-start-line="104" selection-start-column="45" selection-end-line="104" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7599">
-          <caret line="480" column="24" lean-forward="false" selection-start-line="480" selection-start-column="8" selection-end-line="480" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="669" column="84" lean-forward="false" selection-start-line="669" selection-start-column="84" selection-end-line="669" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="69" column="19" lean-forward="false" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="19" />
-        </state>
+        <state relative-caret-position="-477" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ok50tools/worldfiles.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
-          <caret line="135" column="16" lean-forward="false" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
+          <caret line="135" column="16" selection-start-line="135" selection-start-column="16" selection-end-line="135" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ok50tools/convert2rgb_oek116.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="44" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ok50tools/run_buildvrt.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="44" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ok50tools/buildvrt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="7" column="42" lean-forward="false" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apis_config_server.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config_apis.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="38" column="18" lean-forward="false" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="78" />
+          <caret line="7" column="42" selection-start-line="7" selection-start-column="42" selection-end-line="7" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/layer_tree/styles/fundort_druck_ok50.qml" />
-    <entry file="file://$PROJECT_DIR$/APIS/apis_layer_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="310" column="20" lean-forward="false" selection-start-line="310" selection-start-column="8" selection-end-line="310" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_text_editor_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
-          <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="25" />
+          <caret line="42" column="25" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_film_selection_list_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9075">
-          <caret line="294" column="54" lean-forward="false" selection-start-line="294" selection-start-column="54" selection-end-line="294" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="75" column="49" lean-forward="false" selection-start-line="75" selection-start-column="49" selection-end-line="75" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4092">
-          <caret line="128" column="19" lean-forward="false" selection-start-line="128" selection-start-column="4" selection-end-line="128" selection-end-column="19" />
-          <folding>
-            <marker date="1475436756054" expanded="true" signature="4959:5018" ph="SELECT COUNT... fundstelle" />
-            <marker date="1475436756054" expanded="true" signature="5272:5332" ph="SELECT COUNT... fundstelle" />
-            <marker date="1475436756054" expanded="true" signature="5581:5670" ph="SELECT fundo... fundstelle" />
-            <marker date="1475436756054" expanded="true" signature="5581:5673" ph="SELECT fundo... fundstelle" />
-            <marker date="1475436756054" expanded="true" signature="5581:5674" ph="SELECT fundo... fundstelle" />
-            <marker date="1475436756054" expanded="true" signature="6067:6117" ph="SELECT COUNT... film" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+          <caret line="294" column="54" selection-start-line="294" selection-start-column="54" selection-end-line="294" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_printer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
-          <caret line="436" column="30" lean-forward="false" selection-start-line="436" selection-start-column="30" selection-end-line="436" selection-end-column="30" />
+          <caret line="436" column="30" selection-start-line="436" selection-start-column="30" selection-end-line="436" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1277">
+          <caret line="214" column="111" selection-start-line="214" selection-start-column="111" selection-end-line="214" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apis_config_server.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="4" column="29" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="326" selection-start-line="326" selection-end-line="326" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_site_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="994">
+          <caret line="470" selection-start-line="470" selection-end-line="470" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_image_mapping_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9274" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_monoplot_import_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1222" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_layer_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_search_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="37" column="30" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_image_registry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="24" selection-end-line="101" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="112" column="14" selection-start-line="112" selection-start-column="14" selection-end-line="112" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_settings_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="201" column="29" selection-start-line="201" selection-start-column="28" selection-end-line="201" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/layer_tree/apis_layer_tree_config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/metadata.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="759">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_film_number_selection_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1956" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3159" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_search_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="442" lean-forward="true" selection-start-line="442" selection-end-line="442" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2730">
+          <caret line="70" column="9" selection-start-line="70" selection-start-column="9" selection-end-line="70" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5700">
+          <caret line="307" column="22" selection-start-line="307" selection-start-column="8" selection-end-line="307" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/forms/apis_film_form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13460">
+          <caret line="673" column="13" selection-start-line="673" selection-start-column="13" selection-end-line="673" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/combo_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_lale.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3417">
+          <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1277">
-          <caret line="805" column="39" lean-forward="false" selection-start-line="805" selection-start-column="39" selection-end-line="805" selection-end-column="39" />
+        <state relative-caret-position="541">
+          <caret line="1013" column="142" selection-start-line="1013" selection-start-column="142" selection-end-line="1013" selection-end-column="142" />
           <folding>
-            <element signature="e#24#33#0" expanded="true" />
             <marker date="1475491271205" expanded="true" signature="3763:3788" ph="SELECT DISTI... missing_value" />
             <marker date="1475491271205" expanded="true" signature="4956:4981" ph="SELECT DISTI... missing_value" />
             <marker date="1475491271205" expanded="true" signature="7722:7822" ph="SELECT katas... fundort" />
@@ -1218,33 +1188,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/APIS/apis_site_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="962" column="17" lean-forward="false" selection-start-line="962" selection-start-column="17" selection-end-line="962" selection-end-column="17" />
+        <state relative-caret-position="20">
+          <caret line="719" column="19" selection-start-line="719" selection-start-column="14" selection-end-line="719" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_findspot_selection_list_dialog.py">
+    <entry file="file://$PROJECT_DIR$/APIS/apis_sharding_dialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1277">
-          <caret line="214" column="111" lean-forward="false" selection-start-line="214" selection-start-column="111" selection-end-line="214" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/pb_tool.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1277">
-          <caret line="44" column="972" lean-forward="false" selection-start-line="44" selection-start-column="972" selection-end-line="44" selection-end-column="972" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/APIS/apis_site_selection_list_dialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="326" column="0" lean-forward="false" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
+        <state relative-caret-position="1861">
+          <caret line="387" column="47" selection-start-line="387" selection-start-column="30" selection-end-line="387" selection-end-column="47" />
           <folding>
-            <marker date="1475498918354" expanded="true" signature="14114:14548" ph="SELECT fs.fu... fundstelle" />
-            <marker date="1475498918354" expanded="true" signature="17218:17506" ph="SELECT fundo... fundort" />
+            <marker date="1468918703483" expanded="true" signature="2786:2984" ph="select CASE fundort" />
+            <marker date="1468918703483" expanded="true" signature="8946:9068" ph="SELECT CASE begehung" />
+            <marker date="1468918703483" expanded="true" signature="15731:16008" ph="SELECT land fundort" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_site_mapping_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="1384" column="16" selection-start-line="1384" selection-start-column="16" selection-end-line="1384" selection-end-column="16" />
+          <folding>
+            <marker date="1469025117966" expanded="true" signature="54834:54874" ph="INSERT INTO missing_value... " />
+            <marker date="1469025117966" expanded="true" signature="54850:54874" ph="SELECT * FRO... missing_value" />
+            <marker date="1469025117966" expanded="true" signature="55175:55290" ph="UPDATE missing_value... " />
+            <marker date="1469025117966" expanded="true" signature="55263:55286" ph="SELECT max(r... missing_value" />
+            <marker date="1469025117966" expanded="true" signature="58984:59249" ph="SELECT code osm_boundaries" />
+            <marker date="1469025117966" expanded="true" signature="59118:59248" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1469025117966" expanded="true" signature="59418:59809" ph="SELECT CASE osm_boundaries" />
+            <marker date="1469025117966" expanded="true" signature="59678:59808" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1469025117966" expanded="true" signature="60122:60252" ph="select CASE fundort" />
+            <marker date="1469025117966" expanded="true" signature="60451:60620" ph="SELECT CASE fundort" />
+            <marker date="1469025117966" expanded="true" signature="60906:61294" ph="SELECT katas... katastralgemeinden" />
+            <marker date="1469025117966" expanded="true" signature="61158:61293" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1469025117966" expanded="true" signature="61633:61842" ph="SELECT fundo... fundort" />
+            <marker date="1469025117966" expanded="true" signature="61735:61841" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1469025117966" expanded="true" signature="62185:62433" ph="SELECT code osm_boundaries" />
+            <marker date="1469025117966" expanded="true" signature="62302:62432" ph="SELECT ROWID... SpatialIndex" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_site_edit_findspot_handling_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-319">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_overpass_request_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/apis_film_dialog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="303" selection-start-line="303" selection-end-line="303" />
+          <folding>
+            <marker date="1516819370827" expanded="true" signature="14712:15227" ph="SELECT (SELE... film" />
+            <marker date="1516819370827" expanded="true" signature="14743:14856" ph="SELECT COUNT... film" />
+            <marker date="1516819370827" expanded="true" signature="14920:15060" ph="SELECT COUNT... film" />
+            <marker date="1516819370827" expanded="true" signature="19391:19437" ph="SELECT * FRO... film" />
+            <marker date="1516819370827" expanded="true" signature="40364:40442" ph="select descr... wetter" />
+            <marker date="1516819370827" expanded="true" signature="41628:42093" ph="SELECT fundo... fundort" />
+            <marker date="1516819370827" expanded="true" signature="41742:42035" ph="SELECT DISTI... fundort" />
+            <marker date="1516819370827" expanded="true" signature="41941:42034" ph="SELECT ROWID... SpatialIndex" />
+            <marker date="1516819370827" expanded="true" signature="44809:44894" ph="select max(f... film" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_apis.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/APIS/i18n/af.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="59" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
         </state>
       </provider>
     </entry>

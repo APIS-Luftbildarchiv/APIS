@@ -268,16 +268,20 @@ class APIS:
         self.openDialogButtons.append(self.mappingActionBtn)
 
         #Fundortkartierung
+
+        #if self.settings.value("APIS/disable_site_and_findspot", "0") != "1":
         iconPath = ':/plugins/APIS/icons/site.png'
         self.siteMappingActionBtn = self.addApisAction(
             iconPath,
             text=self.tr(u'Fundorte kartieren'),
             callback=self.toggleSiteMappingDialog,
-            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded(),
+            enabledFlag=self.configStatus and self.imageRegistry.registryIsLoaded() and self.settings.value("APIS/disable_site_and_findspot", "0") != "1",
             parent=self.iface.mainWindow(),
             checkable=True)
 
         self.openDialogButtons.append(self.siteMappingActionBtn)
+        #else:
+        #    self.siteMappingActionBtn = None
 
         iconPath = ':/plugins/APIS/icons/search.png'
         self.searchActionBtn = self.addApisAction(
@@ -403,7 +407,14 @@ class APIS:
 
     def activateDialogs(self, value):
         for action in self.openDialogButtons:
-            action.setEnabled(value)
+            if action is self.siteMappingActionBtn:
+                if self.configStatus:
+                    if self.settings.value("APIS/disable_site_and_findspot", "0") != "1":
+                        action.setEnabled(value)
+                    else:
+                        action.setEnabled(False)
+            else:
+                action.setEnabled(value)
         self.areDialogsActive = value
 
         if self.configStatus and self.imageRegistry.registryIsLoaded():
@@ -416,7 +427,7 @@ class APIS:
         if self.mappingActionBtn.isChecked():
             self.mappingActionBtn.trigger()
 
-        if self.siteMappingActionBtn.isChecked():
+        if self.siteMappingActionBtn and self.siteMappingActionBtn.isChecked():
             self.siteMappingActionBtn.trigger()
 
         if self.searchActionBtn.isChecked():

@@ -3,7 +3,7 @@
 <context>
     <name>@default</name>
     <message>
-        <location filename="test_translations.py" line="48"/>
+        <location filename="test_translations.py" line="48 "/>
         <source>Good morning</source>
         <translation>Goeie more</translation>
     </message>

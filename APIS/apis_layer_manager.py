@@ -13,6 +13,13 @@ class ApisLayerManager:
         self.stylesDir = pluginDir + "\\layer_tree\\styles\\"
         self.iface = iface
         self.dbm = dbm
+
+        self.settings = QSettings(QSettings().value("APIS/config_ini"), QSettings.IniFormat)
+        if self.settings.value("APIS/disable_site_and_findspot", "0") != "1":
+            self.version = 2
+        else:
+            self.version = 1
+
         self.isLoaded = False
 
         self.tocRoot = QgsProject.instance().layerTreeRoot()
@@ -125,7 +132,7 @@ class ApisLayerManager:
 
     def _loadDefaultApisLayers(self):
         for layer in self.__layers:
-            if "default" in self.__layers[layer] and self.__layers[layer]["default"]:
+            if "default" in self.__layers[layer] and self.__layers[layer]["default"] <= self.version:
                 # QMessageBox.information(None, "LayerTree", "LoadLayerTree {0}".format(len(self.__layers)))
                 groupName = self.__groups[self.__layers[layer]["group"]]["display_name"]
                 group = self._addGroupIfMissing(groupName)

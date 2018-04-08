@@ -61,14 +61,14 @@
             "style": "bilder_pol.qml"
         },
         "sites": {
-            "default": 1,
+            "default": 2,
             "display_name": "Fundorte",
             "name": "fundort",
             "group": "sites",
             "style": "fundort.qml"
         },
         "find_spots": {
-            "default": 1,
+            "default": 2,
             "display_name": "Fundstellen",
             "name": "fundstelle",
             "group": "sites",

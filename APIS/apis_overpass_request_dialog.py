@@ -64,7 +64,8 @@ class ApisOverpassRequestDialog(QDialog, Ui_apisOverpassRequestDialog):
 
     def executeRequest(self):
         if self.lon and self.lat:
-            r = requests.get("""http://api.openstreetmap.fr/oapi/interpreter?data=[out:json];is_in({0},{1});area._[admin_level];out;""".format(self.lat, self.lon))
+            #TODO Store OVERPASS URL in config file (https://overpass-api.de/api/interpreter, http://api.openstreetmap.fr/api/interpreter)
+            r = requests.get("""https://overpass-api.de/api/interpreter?data=[out:json];is_in({0},{1});area._[admin_level];out;""".format(self.lat, self.lon))
             if r.status_code == 200:
                 opJson = r.json()
                 result = [(el['tags']['admin_level'], el['tags']['name']) for el in opJson['elements']]

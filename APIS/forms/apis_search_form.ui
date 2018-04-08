@@ -20,7 +20,7 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabWidget_6">
+     <widget class="QTabWidget" name="uiSearchTab">
       <property name="enabled">
        <bool>true</bool>
       </property>

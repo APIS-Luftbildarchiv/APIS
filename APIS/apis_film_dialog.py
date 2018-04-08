@@ -76,7 +76,14 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         #self.uiShowFlightPathBtn.clicked.connect(partial(self.openViewFlightPathDialog, [self.uiCurrentFilmNumberEdit.text()]))
         self.uiShowFlightPathBtn.clicked.connect(lambda: self.openViewFlightPathDialog([self.uiCurrentFilmNumberEdit.text()]))
-        self.uiListSitesOfFilmBtn.clicked.connect(self.openSiteSelectionListDialog)
+
+        #For LaLe Mode
+        if self.settings.value("APIS/disable_site_and_findspot", "0") != "1":
+            self.uiListSitesOfFilmBtn.setEnabled(True)
+            self.uiListSitesOfFilmBtn.clicked.connect(self.openSiteSelectionListDialog)
+        else:
+            self.uiListSitesOfFilmBtn.setEnabled(False)
+
         self.uiListImagesOfFilmBtn.clicked.connect(self.openImageSelectionListDialog)
         self.uiExtractGpsFromImagesBtn.clicked.connect(self.extractGpsFromImages)
 
@@ -263,7 +270,6 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
 
         self.mapper.addMapping(self.uiProjectList, self.model.fieldIndex("projekt"))
 
-
     def setupComboBox(self, editor, table, modelColumn, depend):
         model = QSqlRelationalTableModel(self, self.dbm.db)
         model.setTable(table)
@@ -286,8 +292,9 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
         tv.resizeRowsToContents()
         tv.verticalHeader().setVisible(False)
         tv.horizontalHeader().setVisible(True)
-        #tv.setMinimumWidth(tv.horizontalHeader().length())
-        tv.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        tv.setMinimumWidth(tv.horizontalHeader().length())
+        tv.horizontalHeader().setResizeMode(QHeaderView.Fixed)
+        #editor.resize(tv.horizontalHeader().sizeHint())
 
         editor.setAutoCompletion(True)
         editor.lineEdit().setValidator(InListValidator([editor.itemText(i) for i in range(editor.count())], editor.lineEdit(), depend, self))
@@ -296,12 +303,11 @@ class ApisFilmDialog(QDialog, Ui_apisFilmDialog):
             editor.currentIndexChanged.connect(partial(self.updateDepends, editor, depend))
 
     def updateDepends(self, editor, depend):
-         for dep in depend:
+        for dep in depend:
             for key, value in dep.iteritems():
                 idx = editor.model().createIndex(editor.currentIndex(), editor.model().fieldIndex(key))
                 value.setText(unicode(editor.model().data(idx)))
                 #QMessageBox.warning(None, "Test", str(idx))
-
 
     def setupNavigation(self):
         self.uiFirstFilmBtn.clicked.connect(partial(self.loadRecordByNavigation, ApisFilmDialog.FIRST))

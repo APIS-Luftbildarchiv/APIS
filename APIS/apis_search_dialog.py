@@ -34,6 +34,18 @@ class ApisSearchDialog(QDockWidget, Ui_apisSearchDialog):
 
         self.visibilityChanged.connect(self.onVisibilityChanged)
 
+        #For Lale Mode
+        if self.settings.value("APIS/disable_site_and_findspot", "0") != "1":
+            self.uiSearchTab.setTabEnabled(1, True)
+            self.uiSearchSiteRBtn.setEnabled(True)
+            self.uiSearchFindspotRBtn.setEnabled(True)
+        else:
+            self.uiSearchTab.setCurrentIndex(0)
+            self.uiSearchTab.setTabEnabled(1, False)
+            self.uiSearchImageRBtn.setChecked(True)
+            self.uiSearchSiteRBtn.setEnabled(False)
+            self.uiSearchFindspotRBtn.setEnabled(False)
+
         # Spatial Search
         self.spatialSearchTool = RectangleMapTool(self.iface, self.dbm, self.imageRegistry, self.apisLayer)
         self.spatialSearchTool.setButton(self.uiSpatialSearchBtn)
